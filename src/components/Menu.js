@@ -1,13 +1,20 @@
 import React, { useState, useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import "./../App.css";
+import Lottie from "lottie-react";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 const Menu = () => {
 	const [menuOpen, setMenuOpen] = useState(false);
 	const overlayRef = useRef(null);
+	const lottieRef = useRef();
 
 	const toggleMenu = () => {
-		setMenuOpen(!menuOpen);
+		setMenuOpen((prev) => !prev);
+		console.log("Toggle menu called");
+		if (lottieRef.current) {
+			lottieRef.current.play();
+		}
 	};
 
 	useEffect(() => {
@@ -80,7 +87,7 @@ const Menu = () => {
 	return (
 		<>
 			<button className="menu-button" onClick={toggleMenu}>
-				<span className="hamburger">Menu</span>
+				<DotLottieReact src="./hamMenu.json" loop autoplay />
 			</button>
 			<div ref={overlayRef} className="menu-overlay">
 				<nav>

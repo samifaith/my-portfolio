@@ -5,9 +5,11 @@ const Paint = () => {
 	const brushRef = useRef(null);
 	const dropsRef = useRef([]);
 	const contextRef = useRef(null);
-	let lastX = 0,
-		lastY = 0,
-		lastTime = 0;
+
+	// Use refs for mutable values
+	const lastXRef = useRef(0);
+	const lastYRef = useRef(0);
+	const lastTimeRef = useRef(0);
 
 	useEffect(() => {
 		const canvas = canvasRef.current;
@@ -24,7 +26,7 @@ const Paint = () => {
 		window.addEventListener("resize", resizeCanvas);
 
 		class Brush {
-			constructor(color = "rgba(255, 255, 255, 0.2)", size = 35) {
+			constructor(color = "rgba(255, 0, 0)", size = 35) {
 				this.color = color;
 				this.size = size;
 				this.isDrawing = false;
@@ -32,29 +34,31 @@ const Paint = () => {
 
 			startStroke(x, y) {
 				this.isDrawing = true;
-				lastX = x;
-				lastY = y;
-				lastTime = Date.now();
+				lastXRef.current = x;
+				lastYRef.current = y;
+				lastTimeRef.current = Date.now();
 			}
 
 			endStroke() {
 				this.isDrawing = false;
-				addDrip(lastX, lastY); // Add a drip when the brush stops
+				addDrip(lastXRef.current, lastYRef.current); // Add a drip when the brush stops
 			}
 
 			draw(x, y) {
 				if (!this.isDrawing || !contextRef.current) return;
 				const ctx = contextRef.current;
 				const currentTime = Date.now();
-				const timeDiff = currentTime - lastTime;
-				const speed = Math.sqrt((x - lastX) ** 2 + (y - lastY) ** 2) / timeDiff;
+				const timeDiff = currentTime - lastTimeRef.current;
+				const speed =
+					Math.sqrt((x - lastXRef.current) ** 2 + (y - lastYRef.current) ** 2) /
+					timeDiff;
 
 				// Normal stroke
 				ctx.strokeStyle = this.color;
 				ctx.lineWidth = this.size;
 				ctx.lineCap = "round";
 				ctx.beginPath();
-				ctx.moveTo(lastX, lastY);
+				ctx.moveTo(lastXRef.current, lastYRef.current);
 				ctx.lineTo(x, y);
 				ctx.stroke();
 
@@ -62,9 +66,9 @@ const Paint = () => {
 				if (speed > 0.5) addSplash(x, y);
 
 				// Update last position
-				lastX = x;
-				lastY = y;
-				lastTime = currentTime;
+				lastXRef.current = x;
+				lastYRef.current = y;
+				lastTimeRef.current = currentTime;
 			}
 		}
 
@@ -98,7 +102,7 @@ const Paint = () => {
 				x,
 				y,
 				Math.random() * 5 + 2,
-				"rgba(255,255,255,0.7)"
+				"rgba(255, 0, 0, 0.7)"
 			);
 			dropsRef.current.push(drop);
 		};
@@ -106,7 +110,7 @@ const Paint = () => {
 		const addSplash = (x, y) => {
 			const ctx = contextRef.current;
 			ctx.save();
-			ctx.fillStyle = "rgba(255, 255, 255, 0.6)";
+			ctx.fillStyle = "rgba(255, 0, 0, 0.6)";
 			ctx.beginPath();
 			for (let i = 0; i < 5; i++) {
 				const angle = Math.PI * 2 * Math.random();
@@ -162,9 +166,6 @@ const Paint = () => {
 				position: "fixed",
 				top: 0,
 				left: 0,
-				width: "100vw",
-				height: "100vh",
-				background: "rgba(0,0,0,0.5)",
 				zIndex: -1,
 				pointerEvents: "none",
 			}}
