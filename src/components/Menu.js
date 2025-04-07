@@ -86,7 +86,11 @@ const Menu = () => {
 	return (
 		<>
 			<button className="menu-button" onClick={toggleMenu}>
-				<DotLottieReact src="./hamMenu.json" loop autoplay />
+				<DotLottieReact
+					src="https://lottie.host/88910987-1a75-4ed9-8c26-4a9684dd1dd9/vjJU12B38o.lottie"
+					loop
+					autoplay
+				/>
 			</button>
 			<div ref={overlayRef} className="menu-overlay">
 				<nav>
