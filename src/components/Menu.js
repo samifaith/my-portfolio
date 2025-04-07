@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import "./../App.css";
-import Lottie from "lottie-react";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 const Menu = () => {
