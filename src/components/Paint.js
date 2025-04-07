@@ -26,7 +26,7 @@ const Paint = () => {
 		window.addEventListener("resize", resizeCanvas);
 
 		class Brush {
-			constructor(color = "rgba(255, 0, 0)", size = 35) {
+			constructor(color = "rgba(162, 0, 59, 1)", size = 35) {
 				this.color = color;
 				this.size = size;
 				this.isDrawing = false;
