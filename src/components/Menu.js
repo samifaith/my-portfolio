@@ -1,21 +1,22 @@
 import React, { useState, useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import "./../App.css";
-import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 const Menu = () => {
 	const [menuOpen, setMenuOpen] = useState(false);
 	const overlayRef = useRef(null);
-	const lottieRef = useRef();
 
+	// Refs for the SVG lines (hamburger icon)
+	const topLine = useRef(null);
+	const middleLine = useRef(null);
+	const bottomLine = useRef(null);
+
+	// Toggle menu open/closed
 	const toggleMenu = () => {
 		setMenuOpen((prev) => !prev);
-		console.log("Toggle menu called");
-		if (lottieRef.current) {
-			lottieRef.current.play();
-		}
 	};
 
+	// Animate overlay using GSAP when menuOpen changes
 	useEffect(() => {
 		if (menuOpen) {
 			gsap.to(overlayRef.current, {
@@ -32,7 +33,46 @@ const Menu = () => {
 		}
 	}, [menuOpen]);
 
-	const handleMouseEnter = (e) => {
+	// Animate the SVG stroke color based on menu state
+	useEffect(() => {
+		if (menuOpen) {
+			gsap.to([topLine.current, middleLine.current, bottomLine.current], {
+				stroke: "oldlace",
+				duration: 0.3,
+			});
+		} else {
+			gsap.to([topLine.current, middleLine.current, bottomLine.current], {
+				stroke: "black",
+				duration: 0.3,
+			});
+		}
+	}, [menuOpen]);
+
+	// GSAP hover animations for the SVG button
+	const handleSvgMouseEnter = () => {
+		gsap.to(topLine.current, {
+			duration: 0.3,
+			y: 8,
+			rotation: 45,
+			transformOrigin: "center",
+		});
+		gsap.to(bottomLine.current, {
+			duration: 0.3,
+			y: -8,
+			rotation: -45,
+			transformOrigin: "center",
+		});
+		gsap.to(middleLine.current, { duration: 0.3, opacity: 0 });
+	};
+
+	const handleSvgMouseLeave = () => {
+		gsap.to(topLine.current, { duration: 0.3, y: 0, rotation: 0 });
+		gsap.to(bottomLine.current, { duration: 0.3, y: 0, rotation: 0 });
+		gsap.to(middleLine.current, { duration: 0.3, opacity: 1 });
+	};
+
+	// Functions to animate menu item letters (for additional style)
+	const handleMouseEnterLetters = (e) => {
 		const letters = e.currentTarget.querySelectorAll(".letter");
 		gsap.to(letters, {
 			y: -5,
@@ -44,7 +84,7 @@ const Menu = () => {
 		});
 	};
 
-	const handleMouseLeave = (e) => {
+	const handleMouseLeaveLetters = (e) => {
 		const letters = e.currentTarget.querySelectorAll(".letter");
 		gsap.to(letters, {
 			y: 0,
@@ -71,8 +111,8 @@ const Menu = () => {
 					scrollToSection(sectionId);
 					toggleMenu();
 				}}
-				onMouseEnter={handleMouseEnter}
-				onMouseLeave={handleMouseLeave}
+				onMouseEnter={handleMouseEnterLetters}
+				onMouseLeave={handleMouseLeaveLetters}
 			>
 				{text.split("").map((char, index) => (
 					<h4 key={index} className="letter">
@@ -85,12 +125,50 @@ const Menu = () => {
 
 	return (
 		<>
-			<button className="menu-button" onClick={toggleMenu}>
-				<DotLottieReact
-					src="https://lottie.host/88910987-1a75-4ed9-8c26-4a9684dd1dd9/vjJU12B38o.lottie"
-					loop
-					autoplay
-				/>
+			<button
+				className="menu-button"
+				onClick={toggleMenu}
+				onMouseEnter={handleSvgMouseEnter}
+				onMouseLeave={handleSvgMouseLeave}
+				style={{
+					background: "none",
+					border: "none",
+					cursor: "pointer",
+					padding: 0,
+				}}
+			>
+				<svg width="40" height="40" viewBox="0 0 40 40">
+					<line
+						ref={topLine}
+						x1="8"
+						y1="12"
+						x2="32"
+						y2="12"
+						stroke="black"
+						strokeWidth="4"
+						strokeLinecap="round"
+					/>
+					<line
+						ref={middleLine}
+						x1="8"
+						y1="20"
+						x2="32"
+						y2="20"
+						stroke="black"
+						strokeWidth="4"
+						strokeLinecap="round"
+					/>
+					<line
+						ref={bottomLine}
+						x1="8"
+						y1="28"
+						x2="32"
+						y2="28"
+						stroke="black"
+						strokeWidth="4"
+						strokeLinecap="round"
+					/>
+				</svg>
 			</button>
 			<div ref={overlayRef} className="menu-overlay">
 				<nav>
