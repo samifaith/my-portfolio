@@ -102,7 +102,7 @@ const Paint = () => {
 				x,
 				y,
 				Math.random() * 5 + 2,
-				"rgba(255, 0, 0, 0.7)"
+				"rgba(162, 0, 59, 0.7)"
 			);
 			dropsRef.current.push(drop);
 		};
@@ -110,7 +110,7 @@ const Paint = () => {
 		const addSplash = (x, y) => {
 			const ctx = contextRef.current;
 			ctx.save();
-			ctx.fillStyle = "rgba(255, 0, 0, 0.6)";
+			ctx.fillStyle = "rgba(162, 0, 59,  0.6)";
 			ctx.beginPath();
 			for (let i = 0; i < 5; i++) {
 				const angle = Math.PI * 2 * Math.random();
