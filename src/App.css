@@ -39,6 +39,11 @@ h4 {
 	margin: 0;
 }
 
+h5 {
+	font-family: "Impact", sans-serif;
+	font-size: 2rem;
+	margin: 0;
+}
 p {
 	font-size: 1.1rem;
 }
@@ -108,9 +113,6 @@ p {
 	color: #ccc;
 }
 
-.sections-container {
-	margin-bottom: 200px;
-}
 .letter {
 	display: inline-block;
 }
