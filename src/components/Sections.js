@@ -185,7 +185,7 @@ const SectionTemplate = [
 		boxKeys: ["./diving.MP4"],
 	},
 	{
-		title: "About",
+		title: "ABOUT",
 		content:
 			"I’m a multidisciplinary creative and developer exploring the intersection of design, technology, and culture. Currently finishing my degree at Johnson & Wales University, I’ve built a foundation in everything from food systems and storytelling to software development and user experience design. With hands-on experience in front-end coding, digital media, and branding, I bring a mix of technical fluency and creative vision to every project. Whether I’m crafting sleek user interfaces or designing visuals with soul, I’m driven by curiosity, purpose, and a belief in the power of thoughtful work. Rooted in intention, fueled by innovation, and always shaping what’s next. Let's connect! I am always looking for new opportunities and collaborations. Whether you want to work together or just chat, feel free to reach out.",
 		justifyContent: "flex-start",

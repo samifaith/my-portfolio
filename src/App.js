@@ -11,18 +11,33 @@ import ContactBar from "./components/Contact";
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
 
 const HomePage = () => {
+	useEffect(() => {
+		gsap.to(".brush-mask", {
+			x: "100%",
+			duration: 1,
+			ease: "power2.out",
+			stagger: 0.2,
+			delay: 0.5,
+		});
+	}, []);
+
 	return (
-		<div className="root-container">
-			<div>
-				<h1 className="title">I</h1>
-				<h1 className="title">AM</h1>
-				<h1 className="title">SAM</h1>
-				<h2>CREATIVE DEVELOPER</h2>
+		<>
+			<div className="root-container paint-wipe-container">
+				{["I", "AM", "SAM"].map((word, i) => (
+					<h1 className="title brush-reveal-text" key={i}>
+						{word}
+					</h1>
+				))}
 			</div>
-			<h3>scroll to see what's currently on my mind</h3>
-			<div className="head" />
-			<Sections />
-		</div>
+
+			<div className="root-container ">
+				<h2>CREATIVE DEVELOPER</h2>
+				<h3>scroll to see what's currently on my mind</h3>
+				<div className="head" />
+				<Sections />
+			</div>
+		</>
 	);
 };
 

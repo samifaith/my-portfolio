@@ -11,6 +11,37 @@ const Paint = () => {
 	const lastYRef = useRef(0);
 	const lastTimeRef = useRef(0);
 
+	// Auto brush reveal stroke
+	const autoBrushStroke = () => {
+		const ctx = contextRef.current;
+		const textEl = document.querySelector(".brush-reveal-text");
+		const rect = textEl?.getBoundingClientRect();
+		const y = rect ? rect.top + rect.height / 2 : window.innerHeight * 0.3;
+
+		const color = "rgba(162, 0, 59, 1)";
+		const size = 80;
+		let x = 0;
+
+		const drawStroke = () => {
+			if (x > window.innerWidth) return;
+
+			ctx.strokeStyle = color;
+			ctx.lineWidth = size;
+			ctx.lineCap = "round";
+			ctx.beginPath();
+			ctx.moveTo(x, y);
+			ctx.lineTo(x + 20, y);
+			ctx.stroke();
+
+			x += 20;
+			requestAnimationFrame(drawStroke);
+		};
+
+		drawStroke();
+	};
+
+	setTimeout(autoBrushStroke, 500); // start 0.5s after load
+
 	useEffect(() => {
 		const canvas = canvasRef.current;
 		const ctx = canvas.getContext("2d");
