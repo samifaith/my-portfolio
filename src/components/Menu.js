@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import "./../App.css";
 
-const Menu = () => {
+const Menu = ({ openModal }) => {
 	const [menuOpen, setMenuOpen] = useState(false);
 	const overlayRef = useRef(null);
 
@@ -96,21 +96,22 @@ const Menu = () => {
 		});
 	};
 
-	const scrollToSection = (sectionId) => {
-		const target = document.getElementById(sectionId);
-		if (target) {
-			target.scrollIntoView({ behavior: "smooth" });
+	const handleMenuItemClick = (text, sectionTitle) => {
+		if (sectionTitle === "home") {
+			// Scroll to top for home
+			window.scrollTo({ top: 0, behavior: "smooth" });
+		} else {
+			// Open modal for other sections
+			openModal(sectionTitle);
 		}
+		toggleMenu();
 	};
 
-	const renderMenuItem = (text, sectionId) => (
+	const renderMenuItem = (text, sectionTitle) => (
 		<li>
 			<span
 				className="menu-item"
-				onClick={() => {
-					scrollToSection(sectionId);
-					toggleMenu();
-				}}
+				onClick={() => handleMenuItemClick(text, sectionTitle)}
 				onMouseEnter={handleMouseEnterLetters}
 				onMouseLeave={handleMouseLeaveLetters}
 			>
@@ -174,10 +175,10 @@ const Menu = () => {
 				<nav>
 					<ul>
 						{renderMenuItem("HOME", "home")}
-						{renderMenuItem("DESIGN", "design")}
-						{renderMenuItem("DEVELOPMENT", "development")}
-						{renderMenuItem("WRITING", "writing")}
-						{renderMenuItem("PHOTOGRAPHY", "photography")}
+						{renderMenuItem("DESIGN", "DESIGN")}
+						{renderMenuItem("DEVELOPMENT", "DEVELOPMENT")}
+						{renderMenuItem("WRITING", "WRITING")}
+						{renderMenuItem("PHOTOGRAPHY", "PHOTOGRAPHY")}
 					</ul>
 				</nav>
 			</div>

@@ -1,47 +1,59 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import Grid from "@mui/material/Grid";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 import "./App.css";
 import Menu from "./components/Menu";
-import Paint from "./components/Paint";
 import Sections from "./components/Sections";
 import ContactBar from "./components/Contact";
+import Letter from "./components/DrawLetters";
+import { SectionTemplate } from "./constants/sections";
 
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
 
 const HomePage = () => {
-	useEffect(() => {
-		gsap.to(".brush-mask", {
-			x: "100%",
-			duration: 1,
-			ease: "power2.out",
-			stagger: 0.2,
-			delay: 0.5,
-		});
-	}, []);
-
 	return (
 		<>
-			<div className="root-container paint-wipe-container">
-				{["I", "AM", "SAM"].map((word, i) => (
+			<Grid
+				container
+				direction="column"
+				className="root-container paint-wipe-container"
+			>
+				{["I", "AM"].map((word, i) => (
 					<h1 className="title brush-reveal-text" key={i}>
 						{word}
 					</h1>
 				))}
-			</div>
-
-			<div className="root-container ">
+				<Letter />
+			</Grid>
+			<Grid
+				container
+				direction="column"
+				justifyContent="center"
+				alignItems="center"
+			>
 				<h2>CREATIVE DEVELOPER</h2>
 				<h3>scroll to see what's currently on my mind</h3>
 				<div className="head" />
-				<Sections />
-			</div>
+			</Grid>
 		</>
 	);
 };
 
 const App = () => {
+	const [selectedSection, setSelectedSection] = useState(null);
+	const [isModalOpen, setIsModalOpen] = useState(false);
+
+	// Function to open modal for specific section
+	const openModal = (sectionTitle) => {
+		const section = SectionTemplate.find((s) => s.title === sectionTitle);
+		if (section) {
+			setSelectedSection(section);
+			setIsModalOpen(true);
+		}
+	};
+
 	useEffect(() => {
 		gsap.to(".head", {
 			top: "100%",
@@ -59,10 +71,15 @@ const App = () => {
 
 	return (
 		<>
-			<Menu />
+			<Menu openModal={openModal} />
 			<ContactBar />
-			<Paint />
 			<HomePage />
+			<Sections
+				selectedSection={selectedSection}
+				isModalOpen={isModalOpen}
+				setIsModalOpen={setIsModalOpen}
+				setSelectedSection={setSelectedSection}
+			/>
 		</>
 	);
 };

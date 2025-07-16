@@ -1,0 +1,315 @@
+.bubble {
+	position: absolute;
+	background: white;
+	border: 3px solid #000;
+	width: 120px;
+	height: 100px;
+	cursor: pointer;
+	pointer-events: auto;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+	transition: all 0.3s ease;
+	z-index: 10;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	animation: bubbleFloat 3s ease-in-out infinite;
+}
+
+.bubble::before {
+	content: "";
+	position: absolute;
+	background: white;
+	border: 3px solid #000;
+	z-index: -1;
+}
+
+.bubble::after {
+	content: "";
+	position: absolute;
+	background: white;
+	border: 3px solid #000;
+	z-index: -1;
+}
+
+.bubble:nth-child(1) {
+	border-radius: 60% 40% 55% 45% / 45% 55% 40% 60%;
+	top: 20%;
+	left: 15%;
+	animation-delay: 0s;
+}
+
+.bubble:nth-child(1)::before {
+	width: 18px;
+	height: 15px;
+	bottom: -22px;
+	left: 45%;
+	border-radius: 65% 35% 60% 40% / 40% 60% 35% 65%;
+}
+
+.bubble:nth-child(1)::after {
+	width: 10px;
+	height: 8px;
+	bottom: -35px;
+	left: 40%;
+	border-radius: 70% 30% 65% 35% / 35% 65% 30% 70%;
+}
+
+.bubble:nth-child(2) {
+	border-radius: 45% 55% 40% 60% / 60% 40% 55% 45%;
+	top: 30%;
+	right: 15%;
+	animation-delay: 0.5s;
+}
+
+.bubble:nth-child(2)::before {
+	width: 16px;
+	height: 13px;
+	bottom: -20px;
+	right: 50%;
+	border-radius: 50% 50% 45% 55% / 55% 45% 50% 50%;
+}
+
+.bubble:nth-child(2)::after {
+	width: 9px;
+	height: 7px;
+	bottom: -32px;
+	right: 48%;
+	border-radius: 60% 40% 50% 50% / 50% 50% 40% 60%;
+}
+
+.bubble:nth-child(3) {
+	border-radius: 50% 50% 45% 55% / 40% 60% 50% 50%;
+	bottom: 40%;
+	left: 20%;
+	animation-delay: 1s;
+}
+
+.bubble:nth-child(3)::before {
+	width: 17px;
+	height: 14px;
+	bottom: -21px;
+	left: 52%;
+	border-radius: 55% 45% 50% 50% / 50% 50% 45% 55%;
+}
+
+.bubble:nth-child(3)::after {
+	width: 11px;
+	height: 9px;
+	bottom: -34px;
+	left: 50%;
+	border-radius: 65% 35% 55% 45% / 45% 55% 35% 65%;
+}
+
+.bubble:nth-child(4) {
+	border-radius: 55% 45% 50% 50% / 50% 50% 40% 60%;
+	bottom: 35%;
+	right: 20%;
+	animation-delay: 1.5s;
+}
+
+.bubble:nth-child(4)::before {
+	width: 15px;
+	height: 12px;
+	bottom: -19px;
+	right: 45%;
+	border-radius: 40% 60% 45% 55% / 55% 45% 60% 40%;
+}
+
+.bubble:nth-child(4)::after {
+	width: 8px;
+	height: 6px;
+	bottom: -31px;
+	right: 43%;
+	border-radius: 70% 30% 60% 40% / 40% 60% 30% 70%;
+}
+
+.bubble:hover {
+	transform: scale(1.1) !important;
+	box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.bubble h4 {
+	margin: 0;
+	color: #000;
+	font-size: 14px;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	line-height: 1.2;
+}
+
+.thought-bubbles {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+	z-index: 100;
+}
+
+@keyframes bubbleFloat {
+	0%,
+	100% {
+		transform: translate(0, 0) scale(1);
+	}
+	50% {
+		transform: translate(0, -10px) scale(1.02);
+	}
+}
+
+/* Modal */
+.modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.8);
+	display: none;
+	align-items: center;
+	justify-content: center;
+	z-index: 1000;
+	backdrop-filter: blur(5px);
+}
+
+.modal.active {
+	display: flex;
+}
+
+.modal-content {
+	background: white;
+	border-radius: 20px;
+	height: 80vh;
+	max-width: 1200px;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+}
+
+@keyframes modalSlideIn {
+	from {
+		transform: scale(0.8) translateY(50px);
+		opacity: 0;
+	}
+	to {
+		transform: scale(1) translateY(0);
+		opacity: 1;
+	}
+}
+
+.modal-header {
+	padding: 20px;
+	border-bottom: 1px solid #eee;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background: #8b1538;
+	color: white;
+	font-family: "Impact", sans-serif;
+}
+
+.modal-controls {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.nav-btn {
+	background: none;
+	border: none;
+	font-size: 24px;
+	cursor: pointer;
+	color: white;
+	padding: 8px 12px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: background-color 0.3s ease;
+	min-width: 40px;
+	height: 40px;
+}
+
+.nav-btn:hover {
+	background: rgba(255, 255, 255, 0.2);
+}
+
+.nav-btn:active {
+	transform: scale(0.95);
+}
+
+.modal-title {
+	font-size: 24px;
+	font-weight: 400;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	font-family: "Impact", sans-serif;
+	font-style: normal; /* Remove italics */
+	flex: 1;
+	text-align: center;
+}
+
+.close-btn {
+	background: none;
+	border: none;
+	font-size: 30px;
+	cursor: pointer;
+	color: white;
+	padding: 0;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: background-color 0.3s ease;
+}
+
+.close-btn:hover {
+	background: rgba(255, 255, 255, 0.2);
+}
+
+.modal-body {
+	flex: 1;
+	overflow-y: auto;
+	display: flex;
+	flex-direction: column;
+}
+
+/* Portfolio grid layout */
+.portfolio-grid {
+	display: grid;
+	gap: 20px;
+	width: 100%;
+	height: 60vh;
+	flex: 1;
+	padding: 0;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+/* Portfolio item base styles */
+.portfolio-item {
+	background: #f8f9fa;
+	border-radius: 10px;
+	border: 1px solid #e9ecef;
+	display: flex;
+	flex-direction: column;
+	min-height: 200px;
+	height: 80%;
+	width: 100%;
+	padding: 5px;
+	overflow: scroll;
+}
+
+/* Portfolio item media containment */
+.portfolio-item img,
+.portfolio-item video {
+	max-width: 100%;
+	max-height: 100%;
+	width: auto;
+	height: auto;
+	object-fit: contain;
+	border-radius: 5px;
+}
