@@ -171,7 +171,6 @@ const Sections = ({
 				))}
 			</Grid>
 
-			{/* Modal using Material-UI */}
 			<Modal
 				open={isModalOpen}
 				onClose={closeModal}

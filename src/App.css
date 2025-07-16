@@ -28,7 +28,8 @@ body {
 }
 
 h2 {
-	font-style: italic;
+	font-family: "Poppins", sans-serif;
+	font-weight: 500;
 	font-size: 1.4rem;
 	text-align: center;
 }
@@ -74,10 +75,9 @@ p {
 }
 
 .menu-button {
-	position: fixed;
-	top: 20px;
-	right: 20px;
-	z-index: 200;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	background: none;
 	border: none;
 	cursor: pointer;

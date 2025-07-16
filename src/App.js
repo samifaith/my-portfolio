@@ -18,13 +18,28 @@ const HomePage = () => {
 			<Grid
 				container
 				direction="column"
+				justifyContent="center"
+				alignItems="center"
+			>
+				<h2>THE CREATIVE DEVELOPER</h2>
+			</Grid>
+			<Grid
+				container
 				className="root-container paint-wipe-container"
+				spacing={5}
 			>
 				{["I", "AM"].map((word, i) => (
 					<h1 className="title brush-reveal-text" key={i}>
 						{word}
 					</h1>
 				))}
+			</Grid>
+			<Grid
+				container
+				className="root-container"
+				justifyContent="center"
+				alignItems="center"
+			>
 				<Letter />
 			</Grid>
 			<Grid
@@ -33,8 +48,6 @@ const HomePage = () => {
 				justifyContent="center"
 				alignItems="center"
 			>
-				<h2>CREATIVE DEVELOPER</h2>
-				<h3>scroll to see what's currently on my mind</h3>
 				<div className="head" />
 			</Grid>
 		</>
@@ -45,7 +58,6 @@ const App = () => {
 	const [selectedSection, setSelectedSection] = useState(null);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
-	// Function to open modal for specific section
 	const openModal = (sectionTitle) => {
 		const section = SectionTemplate.find((s) => s.title === sectionTitle);
 		if (section) {
@@ -71,8 +83,9 @@ const App = () => {
 
 	return (
 		<>
-			<Menu openModal={openModal} />
-			<ContactBar />
+			<Grid container justifyContent={"center"} m={2}>
+				<Menu openModal={openModal} />
+			</Grid>
 			<HomePage />
 			<Sections
 				selectedSection={selectedSection}

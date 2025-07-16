@@ -131,12 +131,6 @@ const Menu = ({ openModal }) => {
 				onClick={toggleMenu}
 				onMouseEnter={handleSvgMouseEnter}
 				onMouseLeave={handleSvgMouseLeave}
-				style={{
-					background: "none",
-					border: "none",
-					cursor: "pointer",
-					padding: 0,
-				}}
 			>
 				<svg width="40" height="40" viewBox="0 0 40 40">
 					<line
@@ -178,7 +172,7 @@ const Menu = ({ openModal }) => {
 						{renderMenuItem("DESIGN", "DESIGN")}
 						{renderMenuItem("DEVELOPMENT", "DEVELOPMENT")}
 						{renderMenuItem("WRITING", "WRITING")}
-						{renderMenuItem("PHOTOGRAPHY", "PHOTOGRAPHY")}
+						{renderMenuItem("MEDIA", "MEDIA")}
 					</ul>
 				</nav>
 			</div>
