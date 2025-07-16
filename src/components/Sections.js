@@ -1,12 +1,10 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 import "../App.css";
 import Grid from "@mui/material/Grid";
-import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
 import "../styles/Bubble.css";
 import { SectionTemplate } from "../constants/sections";
 
@@ -33,27 +31,15 @@ const BoxContent = ({ src, alt, download }) => {
 	);
 };
 
-const modalStyle = {
-	position: "absolute",
-	top: "50%",
-	left: "50%",
-	transform: "translate(-50%, -50%)",
-	width: "90%",
-	maxWidth: "1000px",
-	maxHeight: "90vh",
-	bgcolor: "background.paper",
-	borderRadius: "20px",
-	boxShadow: 24,
-	p: 0,
-	overflow: "hidden",
-};
-
 const Sections = ({
 	selectedSection,
 	isModalOpen,
 	setIsModalOpen,
 	setSelectedSection,
 }) => {
+	const modalOverlayRef = useRef(null);
+	const contentAreaRef = useRef(null);
+
 	useEffect(() => {
 		const bubbles = gsap.utils.toArray(".bubble");
 
@@ -84,6 +70,42 @@ const Sections = ({
 		setIsModalOpen(true);
 	};
 
+	// Add animation effect for modal opening and closing
+	useEffect(() => {
+		if (isModalOpen && modalOverlayRef.current) {
+			// Small delay to ensure modal is rendered
+			setTimeout(() => {
+				if (modalOverlayRef.current) {
+					// Set initial state
+					gsap.set(modalOverlayRef.current, {
+						clipPath: "circle(0% at 50% 50%)",
+					});
+
+					// Animate to open
+					gsap.to(modalOverlayRef.current, {
+						duration: 0.8,
+						clipPath: "circle(150% at 50% 50%)",
+						ease: "power2.out",
+					});
+
+					// Set content area to fully visible initially
+					if (contentAreaRef.current) {
+						gsap.set(contentAreaRef.current, {
+							clipPath: "circle(150% at 50% 50%)",
+						});
+					}
+				}
+			}, 10);
+		} else if (!isModalOpen && modalOverlayRef.current) {
+			// Animate to close
+			gsap.to(modalOverlayRef.current, {
+				duration: 0.6,
+				clipPath: "circle(0% at 50% 50%)",
+				ease: "power2.in",
+			});
+		}
+	}, [isModalOpen]);
+
 	const closeModal = useCallback(() => {
 		setIsModalOpen(false);
 		setTimeout(() => setSelectedSection(null), 300);
@@ -92,7 +114,7 @@ const Sections = ({
 	// Navigate to next/previous section
 	const navigateSection = useCallback(
 		(direction) => {
-			if (!selectedSection) return;
+			if (!selectedSection || !contentAreaRef.current) return;
 
 			const currentIndex = SectionTemplate.findIndex(
 				(s) => s.title === selectedSection.title
@@ -106,7 +128,29 @@ const Sections = ({
 					(currentIndex - 1 + SectionTemplate.length) % SectionTemplate.length;
 			}
 
-			setSelectedSection(SectionTemplate[newIndex]);
+			// Animate out current content
+			gsap.to(contentAreaRef.current, {
+				duration: 0.4,
+				clipPath: "circle(0% at 50% 50%)",
+				ease: "power2.in",
+				onComplete: () => {
+					// Change the content
+					setSelectedSection(SectionTemplate[newIndex]);
+
+					// Animate in new content
+					gsap.fromTo(
+						contentAreaRef.current,
+						{
+							clipPath: "circle(0% at 50% 50%)",
+						},
+						{
+							duration: 0.6,
+							clipPath: "circle(150% at 50% 50%)",
+							ease: "power2.out",
+						}
+					);
+				},
+			});
 		},
 		[selectedSection, setSelectedSection]
 	);
@@ -171,48 +215,146 @@ const Sections = ({
 				))}
 			</Grid>
 
-			<Modal
-				open={isModalOpen}
-				onClose={closeModal}
-				aria-labelledby="modal-title"
-				aria-describedby="modal-description"
-			>
-				<Box sx={modalStyle}>
-					<div className="modal-content">
-						<div className="modal-header">
+			{isModalOpen && (
+				<div
+					style={{
+						position: "fixed",
+						top: 0,
+						left: 0,
+						width: "100%",
+						height: "100%",
+						zIndex: 1000,
+					}}
+				>
+					<div
+						ref={modalOverlayRef}
+						style={{
+							position: "fixed",
+							top: 0,
+							left: 0,
+							width: "100%",
+							height: "100%",
+							background: "black",
+							clipPath: "circle(0% at 50% 50%)",
+							display: "flex",
+							alignItems: "center",
+							justifyContent: "center",
+						}}
+						onClick={closeModal}
+					>
+						<div
+							style={{
+								width: "100%",
+								height: "100%",
+								background: "black",
+								color: "white",
+								position: "relative",
+								overflow: "hidden",
+								fontFamily: "Poppins, sans-serif",
+							}}
+							onClick={(e) => e.stopPropagation()}
+						>
+							{/* Close button */}
+							<button
+								onClick={closeModal}
+								style={{
+									position: "absolute",
+									top: "20px",
+									right: "20px",
+									background: "none",
+									border: "none",
+									color: "white",
+									fontSize: "30px",
+									cursor: "pointer",
+									zIndex: 1002,
+								}}
+							>
+								×
+							</button>
+
+							{/* Navigation buttons */}
 							<button
 								onClick={() => navigateSection("prev")}
-								className="nav-btn nav-btn-left"
+								style={{
+									position: "absolute",
+									top: "50%",
+									left: "20px",
+									transform: "translateY(-50%)",
+									background: "none",
+									border: "none",
+									color: "white",
+									fontSize: "40px",
+									cursor: "pointer",
+									zIndex: 1002,
+								}}
 								title="Previous section (Left Arrow)"
 							>
 								‹
 							</button>
-							<h2 id="modal-title" className="modal-title">
-								{selectedSection?.title}
-							</h2>
-							<div className="modal-controls">
-								<button
-									onClick={() => navigateSection("next")}
-									className="nav-btn nav-btn-right"
-									title="Next section (Right Arrow)"
+
+							<button
+								onClick={() => navigateSection("next")}
+								style={{
+									position: "absolute",
+									top: "50%",
+									right: "20px",
+									transform: "translateY(-50%)",
+									background: "none",
+									border: "none",
+									color: "white",
+									fontSize: "40px",
+									cursor: "pointer",
+									zIndex: 1002,
+								}}
+								title="Next section (Right Arrow)"
+							>
+								›
+							</button>
+
+							{/* Content area */}
+							<div
+								ref={contentAreaRef}
+								style={{
+									padding: "60px 80px",
+									height: "100%",
+									overflow: "auto",
+									position: "relative",
+								}}
+							>
+								{/* Body text */}
+								<div
+									style={{
+										fontSize: "16px",
+										lineHeight: "1.6",
+										marginBottom: "40px",
+										fontFamily: "Poppins, sans-serif",
+									}}
 								>
-									›
-								</button>
-								<button onClick={closeModal} className="close-btn">
-									×
-								</button>
-							</div>
-						</div>
-						<div className="modal-body">
-							<Grid container spacing={3} sx={{ p: 3 }}>
-								<Grid item xs={12}>
-									<p id="modal-description">{selectedSection?.content}</p>
-								</Grid>
+									<p>{selectedSection?.content}</p>
+								</div>
+
+								{/* Portfolio items */}
 								{selectedSection?.boxKeys &&
 									selectedSection.boxKeys.length > 0 && (
-										<Grid item xs={12} className="portfolio-grid">
+										<div
+											style={{
+												display: "grid",
+												gap: "20px",
+												gridTemplateColumns:
+													"repeat(auto-fit, minmax(200px, 1fr))",
+												marginTop: "40px",
+											}}
+										>
 											{selectedSection.boxKeys.map((key, index) => (
-												<div key={index} className="portfolio-item">
+												<div
+													key={index}
+													style={{
+														background: "#111",
+														borderRadius: "10px",
+														padding: "10px",
+														overflow: "hidden",
+													}}
+												>
 													<BoxContent
 														src={key}
 														alt={`${selectedSection.title} work ${index + 1}`}
@@ -220,13 +362,33 @@ const Sections = ({
 													/>
 												</div>
 											))}
-										</Grid>
+										</div>
 									)}
-							</Grid>
+							</div>
+
+							{/* Large title in bottom left */}
+							<div
+								style={{
+									position: "absolute",
+									bottom: "40px",
+									left: "80px",
+									fontSize: "clamp(80px, 12vw, 200px)",
+									fontWeight: "900",
+									color: "#8b1538",
+									textTransform: "uppercase",
+									letterSpacing: "-0.02em",
+									lineHeight: "0.8",
+									fontFamily: "Impact, Arial Black, sans-serif",
+									zIndex: 1,
+									pointerEvents: "none",
+								}}
+							>
+								{selectedSection?.title}
+							</div>
 						</div>
 					</div>
-				</Box>
-			</Modal>
+				</div>
+			)}
 		</>
 	);
 };

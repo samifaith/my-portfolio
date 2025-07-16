@@ -6,7 +6,6 @@ import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 import "./App.css";
 import Menu from "./components/Menu";
 import Sections from "./components/Sections";
-import ContactBar from "./components/Contact";
 import Letter from "./components/DrawLetters";
 import { SectionTemplate } from "./constants/sections";
 

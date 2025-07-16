@@ -9,7 +9,6 @@ const ContactBar = () => {
 
 	useEffect(() => {
 		if (location.pathname === "/contact") {
-			// When on the contact page, flip horizontally and center the bar
 			gsap.to(barRef.current, {
 				duration: 0.5,
 				rotation: 0,
@@ -20,7 +19,6 @@ const ContactBar = () => {
 				ease: "power2.out",
 			});
 		} else {
-			// On other pages, keep the bar vertical on the left
 			gsap.to(barRef.current, {
 				duration: 0.5,
 				rotation: -90,

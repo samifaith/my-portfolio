@@ -48,7 +48,7 @@ export default function Letter() {
 						height: "auto",
 						display: "block",
 						marginTop: "-65px",
-						zIndex: 1000,
+						zIndex: 50,
 					}}
 				>
 					<g transform="translate(0, 0)">

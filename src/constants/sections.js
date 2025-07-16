@@ -174,7 +174,7 @@ export const SectionTemplate = [
 		],
 	},
 	{
-		title: "PHOTOGRAPHY",
+		title: "MEDIA",
 		content:
 			"I've always loved intimate weddings. I get to spend time with each subject understanding who they are and what's important to them. The impact of a shared emotion or laughter caught in motion. I want the picture to capture the story being told.",
 		boxKeys: ["./diving.MP4"],
