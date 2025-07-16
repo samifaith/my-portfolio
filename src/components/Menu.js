@@ -6,17 +6,14 @@ const Menu = ({ openModal }) => {
 	const [menuOpen, setMenuOpen] = useState(false);
 	const overlayRef = useRef(null);
 
-	// Refs for the SVG lines (hamburger icon)
 	const topLine = useRef(null);
 	const middleLine = useRef(null);
 	const bottomLine = useRef(null);
 
-	// Toggle menu open/closed
 	const toggleMenu = () => {
 		setMenuOpen((prev) => !prev);
 	};
 
-	// Animate overlay using GSAP when menuOpen changes
 	useEffect(() => {
 		if (menuOpen) {
 			gsap.to(overlayRef.current, {
@@ -33,7 +30,6 @@ const Menu = ({ openModal }) => {
 		}
 	}, [menuOpen]);
 
-	// Animate the SVG stroke color based on menu state
 	useEffect(() => {
 		if (menuOpen) {
 			gsap.to([topLine.current, middleLine.current, bottomLine.current], {
@@ -48,7 +44,6 @@ const Menu = ({ openModal }) => {
 		}
 	}, [menuOpen]);
 
-	// GSAP hover animations for the SVG button
 	const handleSvgMouseEnter = () => {
 		gsap.to(topLine.current, {
 			duration: 0.3,
@@ -71,7 +66,6 @@ const Menu = ({ openModal }) => {
 		gsap.to(middleLine.current, { duration: 0.3, opacity: 1 });
 	};
 
-	// Functions to animate menu item letters (for additional style)
 	const handleMouseEnterLetters = (e) => {
 		const letters = e.currentTarget.querySelectorAll(".letter");
 		gsap.to(letters, {
@@ -98,10 +92,8 @@ const Menu = ({ openModal }) => {
 
 	const handleMenuItemClick = (text, sectionTitle) => {
 		if (sectionTitle === "home") {
-			// Scroll to top for home
 			window.scrollTo({ top: 0, behavior: "smooth" });
 		} else {
-			// Open modal for other sections
 			openModal(sectionTitle);
 		}
 		toggleMenu();

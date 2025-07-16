@@ -13,13 +13,12 @@ export default function Letter() {
 		const path = svg.querySelector("path");
 		const length = path.getTotalLength();
 
-		// Set initial state - hide the path completely
 		gsap.set(path, {
 			stroke: "#a2003b",
 			strokeWidth: 7,
 			fill: "none",
 			strokeDasharray: length,
-			strokeDashoffset: length, // Start from positive to draw from beginning
+			strokeDashoffset: length,
 		});
 
 		const tl = gsap.timeline({
@@ -27,7 +26,6 @@ export default function Letter() {
 			repeatDelay: 1,
 		});
 
-		// Animate from positive to zero (draws from start to end)
 		tl.to(path, {
 			duration: 4,
 			strokeDashoffset: 0,
@@ -53,7 +51,7 @@ export default function Letter() {
 						zIndex: 1000,
 					}}
 				>
-					<g transform=" translate(0, 0)">
+					<g transform="translate(0, 0)">
 						<path
 							style={{
 								strokeLinecap: "round",
