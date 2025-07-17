@@ -36,34 +36,78 @@ const Menu = ({ openModal }) => {
 				stroke: "oldlace",
 				duration: 0.3,
 			});
+			// Transform to X shape when menu is open
+			gsap.to(topLine.current, {
+				duration: 0.3,
+				y: 8,
+				rotation: 45,
+				transformOrigin: "center",
+			});
+			gsap.to(bottomLine.current, {
+				duration: 0.3,
+				y: -8,
+				rotation: -45,
+				transformOrigin: "center",
+			});
+			gsap.to(middleLine.current, { duration: 0.3, opacity: 0 });
 		} else {
 			gsap.to([topLine.current, middleLine.current, bottomLine.current], {
 				stroke: "black",
 				duration: 0.3,
 			});
+			// Reset to hamburger shape when menu is closed
+			gsap.to(topLine.current, { duration: 0.3, y: 0, rotation: 0 });
+			gsap.to(bottomLine.current, { duration: 0.3, y: 0, rotation: 0 });
+			gsap.to(middleLine.current, { duration: 0.3, opacity: 1 });
 		}
 	}, [menuOpen]);
 
+	// Add escape key functionality
+	useEffect(() => {
+		const handleEscapeKey = (event) => {
+			if (event.key === "Escape" && menuOpen) {
+				setMenuOpen(false);
+			}
+		};
+
+		if (menuOpen) {
+			document.addEventListener("keydown", handleEscapeKey);
+			// Prevent body scroll when menu is open
+			document.body.style.overflow = "hidden";
+		} else {
+			document.body.style.overflow = "unset";
+		}
+
+		return () => {
+			document.removeEventListener("keydown", handleEscapeKey);
+			document.body.style.overflow = "unset";
+		};
+	}, [menuOpen]);
+
 	const handleSvgMouseEnter = () => {
-		gsap.to(topLine.current, {
-			duration: 0.3,
-			y: 8,
-			rotation: 45,
-			transformOrigin: "center",
-		});
-		gsap.to(bottomLine.current, {
-			duration: 0.3,
-			y: -8,
-			rotation: -45,
-			transformOrigin: "center",
-		});
-		gsap.to(middleLine.current, { duration: 0.3, opacity: 0 });
+		if (!menuOpen) {
+			gsap.to(topLine.current, {
+				duration: 0.3,
+				y: 8,
+				rotation: 45,
+				transformOrigin: "center",
+			});
+			gsap.to(bottomLine.current, {
+				duration: 0.3,
+				y: -8,
+				rotation: -45,
+				transformOrigin: "center",
+			});
+			gsap.to(middleLine.current, { duration: 0.3, opacity: 0 });
+		}
 	};
 
 	const handleSvgMouseLeave = () => {
-		gsap.to(topLine.current, { duration: 0.3, y: 0, rotation: 0 });
-		gsap.to(bottomLine.current, { duration: 0.3, y: 0, rotation: 0 });
-		gsap.to(middleLine.current, { duration: 0.3, opacity: 1 });
+		if (!menuOpen) {
+			gsap.to(topLine.current, { duration: 0.3, y: 0, rotation: 0 });
+			gsap.to(bottomLine.current, { duration: 0.3, y: 0, rotation: 0 });
+			gsap.to(middleLine.current, { duration: 0.3, opacity: 1 });
+		}
 	};
 
 	const handleMouseEnterLetters = (e) => {
@@ -99,6 +143,14 @@ const Menu = ({ openModal }) => {
 		toggleMenu();
 	};
 
+	// Handle clicking on overlay background to close menu
+	const handleOverlayClick = (e) => {
+		// Close menu only if clicking on the overlay itself, not on the nav content
+		if (e.target === overlayRef.current) {
+			setMenuOpen(false);
+		}
+	};
+
 	const renderMenuItem = (text, sectionTitle) => (
 		<li>
 			<span
@@ -119,7 +171,7 @@ const Menu = ({ openModal }) => {
 	return (
 		<>
 			<button
-				className="menu-button"
+				className={`menu-button ${menuOpen ? "menu-open" : ""}`}
 				onClick={toggleMenu}
 				onMouseEnter={handleSvgMouseEnter}
 				onMouseLeave={handleSvgMouseLeave}
@@ -157,7 +209,11 @@ const Menu = ({ openModal }) => {
 					/>
 				</svg>
 			</button>
-			<div ref={overlayRef} className="menu-overlay">
+			<div
+				ref={overlayRef}
+				className="menu-overlay"
+				onClick={handleOverlayClick}
+			>
 				<nav>
 					<ul>
 						{renderMenuItem("HOME", "home")}

@@ -81,6 +81,14 @@ p {
 	background: none;
 	border: none;
 	cursor: pointer;
+	position: relative;
+	z-index: 200; /* Higher than menu-overlay z-index */
+}
+
+.menu-button.menu-open {
+	position: fixed;
+	top: 20px;
+	right: 20px;
 }
 
 .menu-overlay {
