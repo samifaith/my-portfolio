@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import Grid from "@mui/material/Grid";
-import WanderlustCaseStudy from "./Wander";
 import { Compass, ExternalLink, BookOpen, Headphones, Coffee } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 

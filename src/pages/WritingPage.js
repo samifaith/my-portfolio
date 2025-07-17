@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, BookOpen, ExternalLink, Calendar } from "lucide-react";
+import { ArrowLeft, BookOpen, Calendar } from "lucide-react";
 
 const WritingPage = () => {
 	const [selectedPiece, setSelectedPiece] = useState(null);

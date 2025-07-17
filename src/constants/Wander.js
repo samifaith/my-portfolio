@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Box, Grid } from "@mui/material";
 import {
 	ChevronLeft,
 	ChevronRight,
@@ -10,23 +11,20 @@ import {
 	BarChart3,
 	CheckCircle,
 	ArrowLeft,
-	ArrowRight,
 	Star,
 	Heart,
 	MapPin,
 	DollarSign,
 	User,
-	Calendar,
 	Search,
 	Filter,
-	Plus,
 	Bell,
 	Compass,
 	X,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-const WanderlustCaseStudy = () => {
+const WanderlustCaseStudyPage = () => {
 	const navigate = useNavigate();
 	const [currentSection, setCurrentSection] = useState(0);
 
@@ -57,7 +55,6 @@ const WanderlustCaseStudy = () => {
 		age,
 		role,
 		income,
-		image,
 		goals,
 		frustrations,
 		quote,
@@ -732,40 +729,88 @@ const WanderlustCaseStudy = () => {
 					<h3 className="text-xl font-bold text-gray-800 mb-4">
 						Color Palette
 					</h3>
-					<div className="grid grid-cols-2 gap-4">
-						<div className="text-center">
-							<div
-								className="w-20 h-20 rounded-lg mx-auto mb-2"
-								style={{ backgroundColor: "#A0522D" }}
-							></div>
-							<div className="text-sm font-medium text-gray-800">Primary</div>
-							<div className="text-xs text-gray-600">#A0522D</div>
-						</div>
-						<div className="text-center">
-							<div
-								className="w-20 h-20 rounded-lg mx-auto mb-2"
-								style={{ backgroundColor: "#FF8C42" }}
-							></div>
-							<div className="text-sm font-medium text-gray-800">Secondary</div>
-							<div className="text-xs text-gray-600">#FF8C42</div>
-						</div>
-						<div className="text-center">
-							<div
-								className="w-20 h-20 rounded-lg mx-auto mb-2"
-								style={{ backgroundColor: "#F0EEE6" }}
-							></div>
-							<div className="text-sm font-medium text-gray-800">Neutral</div>
-							<div className="text-xs text-gray-600">#F0EEE6</div>
-						</div>
-						<div className="text-center">
-							<div
-								className="w-20 h-20 rounded-lg mx-auto mb-2"
-								style={{ backgroundColor: "#87A96B" }}
-							></div>
-							<div className="text-sm font-medium text-gray-800">Accent</div>
-							<div className="text-xs text-gray-600">#87A96B</div>
-						</div>
-					</div>
+					<Grid
+						container
+						spacing={2}
+						sx={{
+							gridTemplateColumns: {
+								xs: "repeat(2, 1fr)",
+								md: "repeat(4, 1fr)",
+								lg: "repeat(2, 1fr)",
+							},
+						}}
+					>
+						<Grid item>
+							<div className="text-center">
+								<Box
+									sx={{
+										width: "100%",
+										aspectRatio: "1/1",
+										borderRadius: 1,
+										mx: "auto",
+										mb: 1,
+										backgroundColor: "#A0522D",
+										flexShrink: 0,
+									}}
+								/>
+								<div className="text-sm font-medium text-gray-800">Primary</div>
+								<div className="text-xs text-gray-600">#A0522D</div>
+							</div>
+						</Grid>
+						<Grid item>
+							<div className="text-center">
+								<Box
+									sx={{
+										width: "100%",
+										aspectRatio: "1/1",
+										borderRadius: 1,
+										mx: "auto",
+										mb: 1,
+										backgroundColor: "#FF8C42",
+										flexShrink: 0,
+									}}
+								/>
+								<div className="text-sm font-medium text-gray-800">
+									Secondary
+								</div>
+								<div className="text-xs text-gray-600">#FF8C42</div>
+							</div>
+						</Grid>
+						<Grid item>
+							<div className="text-center">
+								<Box
+									sx={{
+										width: "100%",
+										aspectRatio: "1/1",
+										borderRadius: 1,
+										mx: "auto",
+										mb: 1,
+										backgroundColor: "#F0EEE6",
+										flexShrink: 0,
+									}}
+								/>
+								<div className="text-sm font-medium text-gray-800">Neutral</div>
+								<div className="text-xs text-gray-600">#F0EEE6</div>
+							</div>
+						</Grid>
+						<Grid item>
+							<div className="text-center">
+								<Box
+									sx={{
+										width: "100%",
+										aspectRatio: "1/1",
+										borderRadius: 1,
+										mx: "auto",
+										mb: 1,
+										backgroundColor: "#87A96B",
+										flexShrink: 0,
+									}}
+								/>
+								<div className="text-sm font-medium text-gray-800">Accent</div>
+								<div className="text-xs text-gray-600">#87A96B</div>
+							</div>
+						</Grid>
+					</Grid>
 				</div>
 
 				<div className="bg-white rounded-2xl p-6 shadow-lg">
@@ -1549,4 +1594,4 @@ const WanderlustCaseStudy = () => {
 	);
 };
 
-export default WanderlustCaseStudy;
+export default WanderlustCaseStudyPage;
