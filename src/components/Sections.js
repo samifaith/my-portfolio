@@ -112,25 +112,20 @@ const Sections = ({
 		setIsModalOpen(true);
 	};
 
-	// Add animation effect for modal opening and closing
 	useEffect(() => {
 		if (isModalOpen && modalOverlayRef.current) {
-			// Small delay to ensure modal is rendered
 			setTimeout(() => {
 				if (modalOverlayRef.current) {
-					// Set initial state
 					gsap.set(modalOverlayRef.current, {
 						clipPath: "circle(0% at 50% 50%)",
 					});
 
-					// Animate to open
 					gsap.to(modalOverlayRef.current, {
 						duration: 0.8,
 						clipPath: "circle(150% at 50% 50%)",
 						ease: "power2.out",
 					});
 
-					// Set content area to fully visible initially
 					if (contentAreaRef.current) {
 						gsap.set(contentAreaRef.current, {
 							clipPath: "circle(150% at 50% 50%)",
@@ -139,7 +134,6 @@ const Sections = ({
 				}
 			}, 10);
 		} else if (!isModalOpen && modalOverlayRef.current) {
-			// Animate to close
 			gsap.to(modalOverlayRef.current, {
 				duration: 0.6,
 				clipPath: "circle(0% at 50% 50%)",
@@ -153,7 +147,6 @@ const Sections = ({
 		setTimeout(() => setSelectedSection(null), 300);
 	}, [setIsModalOpen, setSelectedSection]);
 
-	// Navigate to next/previous section
 	const navigateSection = useCallback(
 		(direction) => {
 			if (!selectedSection || !contentAreaRef.current) return;
@@ -170,23 +163,20 @@ const Sections = ({
 					(currentIndex - 1 + SectionTemplate.length) % SectionTemplate.length;
 			}
 
-			// Animate out current content
 			gsap.to(contentAreaRef.current, {
-				duration: 0.4,
+				duration: 0.8,
 				clipPath: "circle(0% at 50% 50%)",
 				ease: "power2.in",
 				onComplete: () => {
-					// Change the content
 					setSelectedSection(SectionTemplate[newIndex]);
 
-					// Animate in new content
 					gsap.fromTo(
 						contentAreaRef.current,
 						{
 							clipPath: "circle(0% at 50% 50%)",
 						},
 						{
-							duration: 0.6,
+							duration: 0.8,
 							clipPath: "circle(150% at 50% 50%)",
 							ease: "power2.out",
 						}
@@ -197,7 +187,6 @@ const Sections = ({
 		[selectedSection, setSelectedSection]
 	);
 
-	// Handle keyboard navigation
 	useEffect(() => {
 		const handleKeyDown = (e) => {
 			if (!isModalOpen) return;
@@ -216,7 +205,6 @@ const Sections = ({
 					closeModal();
 					break;
 				default:
-					// No action for other keys
 					break;
 			}
 		};
@@ -298,7 +286,6 @@ const Sections = ({
 							}}
 							onClick={(e) => e.stopPropagation()}
 						>
-							{/* Close button */}
 							<button
 								onClick={closeModal}
 								style={{
@@ -316,7 +303,6 @@ const Sections = ({
 								×
 							</button>
 
-							{/* Navigation buttons */}
 							<button
 								onClick={() => navigateSection("prev")}
 								style={{
@@ -355,7 +341,6 @@ const Sections = ({
 								›
 							</button>
 
-							{/* Content area */}
 							<div
 								ref={contentAreaRef}
 								className="modal-content-area"
@@ -365,7 +350,6 @@ const Sections = ({
 									padding: "60px 80px 120px 80px",
 								}}
 							>
-								{/* Body text */}
 								<div
 									style={{
 										fontSize: "16px",
@@ -377,7 +361,6 @@ const Sections = ({
 									<p>{selectedSection?.content}</p>
 								</div>
 
-								{/* Portfolio items */}
 								{selectedSection?.boxKeys &&
 									selectedSection.boxKeys.length > 0 && (
 										<ImageList
@@ -402,7 +385,6 @@ const Sections = ({
 									)}
 							</div>
 
-							{/* Large title in bottom left */}
 							<div
 								style={{
 									position: "fixed",
@@ -415,7 +397,6 @@ const Sections = ({
 									letterSpacing: "0.06em",
 									lineHeight: "0.8",
 									fontFamily: "Impact, Arial Black, sans-serif",
-
 									pointerEvents: "none",
 									maxWidth: "calc(100vw - 160px)",
 									wordWrap: "break-word",

@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { gsap } from "gsap";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./../App.css";
 
 const Menu = ({ openModal }) => {
@@ -9,6 +10,10 @@ const Menu = ({ openModal }) => {
 	const topLine = useRef(null);
 	const middleLine = useRef(null);
 	const bottomLine = useRef(null);
+
+	const navigate = useNavigate();
+	const location = useLocation();
+	const isHomePage = location.pathname === "/";
 
 	const toggleMenu = () => {
 		setMenuOpen((prev) => !prev);
@@ -36,7 +41,6 @@ const Menu = ({ openModal }) => {
 				stroke: "oldlace",
 				duration: 0.3,
 			});
-			// Transform to X shape when menu is open
 			gsap.to(topLine.current, {
 				duration: 0.3,
 				y: 8,
@@ -55,14 +59,12 @@ const Menu = ({ openModal }) => {
 				stroke: "black",
 				duration: 0.3,
 			});
-			// Reset to hamburger shape when menu is closed
 			gsap.to(topLine.current, { duration: 0.3, y: 0, rotation: 0 });
 			gsap.to(bottomLine.current, { duration: 0.3, y: 0, rotation: 0 });
 			gsap.to(middleLine.current, { duration: 0.3, opacity: 1 });
 		}
 	}, [menuOpen]);
 
-	// Add escape key functionality
 	useEffect(() => {
 		const handleEscapeKey = (event) => {
 			if (event.key === "Escape" && menuOpen) {
@@ -72,7 +74,6 @@ const Menu = ({ openModal }) => {
 
 		if (menuOpen) {
 			document.addEventListener("keydown", handleEscapeKey);
-			// Prevent body scroll when menu is open
 			document.body.style.overflow = "hidden";
 		} else {
 			document.body.style.overflow = "unset";
@@ -134,28 +135,46 @@ const Menu = ({ openModal }) => {
 		});
 	};
 
-	const handleMenuItemClick = (text, sectionTitle) => {
+	const handleMenuItemClick = (sectionTitle) => {
 		if (sectionTitle === "home") {
-			window.scrollTo({ top: 0, behavior: "smooth" });
-		} else {
+			if (isHomePage) {
+				// Scroll to top on homepage
+				window.scrollTo({ top: 0, behavior: "smooth" });
+			} else {
+				// Navigate back to homepage from other pages
+				navigate("/");
+			}
+		} else if (isHomePage && openModal) {
+			// Use modal system on homepage
 			openModal(sectionTitle);
+		} else {
+			// Navigate to dedicated pages from other pages
+			const routes = {
+				DESIGN: "/design",
+				DEVELOPMENT: "/development",
+				WRITING: "/writing",
+				MEDIA: "/media",
+			};
+
+			if (routes[sectionTitle]) {
+				navigate(routes[sectionTitle]);
+			}
 		}
-		toggleMenu();
+
+		setMenuOpen(false);
 	};
 
-	// Handle clicking on overlay background to close menu
 	const handleOverlayClick = (e) => {
-		// Close menu only if clicking on the overlay itself, not on the nav content
 		if (e.target === overlayRef.current) {
 			setMenuOpen(false);
 		}
 	};
 
 	const renderMenuItem = (text, sectionTitle) => (
-		<li>
+		<li key={sectionTitle}>
 			<span
 				className="menu-item"
-				onClick={() => handleMenuItemClick(text, sectionTitle)}
+				onClick={() => handleMenuItemClick(sectionTitle)}
 				onMouseEnter={handleMouseEnterLetters}
 				onMouseLeave={handleMouseLeaveLetters}
 			>
