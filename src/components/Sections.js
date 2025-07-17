@@ -3,6 +3,8 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
+import ImageList from "@mui/material/ImageList";
+import ImageListItem from "@mui/material/ImageListItem";
 import "../App.css";
 import Grid from "@mui/material/Grid";
 import "../styles/Bubble.css";
@@ -12,22 +14,62 @@ gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, MotionPathPlugin);
 
 const BoxContent = ({ src, alt, download }) => {
 	if (React.isValidElement(src)) {
-		return src;
+		return (
+			<div
+				style={{
+					padding: "20px",
+					color: "white",
+					fontSize: "14px",
+					lineHeight: "1.6",
+				}}
+			>
+				{src}
+			</div>
+		);
 	}
 	if (typeof src !== "string") return null;
 
 	if (
 		[".mp4", ".webm", ".ogg"].some((ext) => src.toLowerCase().endsWith(ext))
 	) {
-		return <video src={src} controls autoPlay loop muted type="video/mp4" />;
+		return (
+			<video
+				src={src}
+				controls
+				autoPlay
+				loop
+				muted
+				style={{
+					width: "100%",
+					height: "auto",
+					borderRadius: "8px",
+				}}
+			/>
+		);
 	}
 
 	return download ? (
-		<a href={src} download>
-			<img src={src} alt={alt || "Box content"} />
+		<a href={src} download style={{ display: "block", width: "100%" }}>
+			<img
+				src={src}
+				alt={alt || "Box content"}
+				style={{
+					width: "100%",
+					height: "auto",
+					borderRadius: "8px",
+				}}
+			/>
 		</a>
 	) : (
-		<img src={src} alt={alt || "Box content"} />
+		<img
+			src={src}
+			alt={alt || "Box content"}
+			style={{
+				width: "100%",
+				height: "auto",
+				borderRadius: "8px",
+			}}
+		/>
 	);
 };
 
@@ -251,6 +293,8 @@ const Sections = ({
 								position: "relative",
 								overflow: "hidden",
 								fontFamily: "Poppins, sans-serif",
+								display: "flex",
+								flexDirection: "column",
 							}}
 							onClick={(e) => e.stopPropagation()}
 						>
@@ -314,11 +358,11 @@ const Sections = ({
 							{/* Content area */}
 							<div
 								ref={contentAreaRef}
+								className="modal-content-area"
 								style={{
-									padding: "60px 80px",
-									height: "100%",
+									flex: 1,
 									overflow: "auto",
-									position: "relative",
+									padding: "60px 80px 120px 80px",
 								}}
 							>
 								{/* Body text */}
@@ -326,8 +370,8 @@ const Sections = ({
 									style={{
 										fontSize: "16px",
 										lineHeight: "1.6",
-										marginBottom: "40px",
 										fontFamily: "Poppins, sans-serif",
+										marginBottom: "20px",
 									}}
 								>
 									<p>{selectedSection?.content}</p>
@@ -336,51 +380,45 @@ const Sections = ({
 								{/* Portfolio items */}
 								{selectedSection?.boxKeys &&
 									selectedSection.boxKeys.length > 0 && (
-										<div
-											style={{
-												display: "grid",
-												gap: "20px",
-												gridTemplateColumns:
-													"repeat(auto-fit, minmax(200px, 1fr))",
-												marginTop: "40px",
-											}}
+										<ImageList
+											variant="masonry"
+											cols={selectedSection.boxKeys.length === 1 ? 1 : 3}
+											gap={8}
 										>
 											{selectedSection.boxKeys.map((key, index) => (
-												<div
+												<ImageListItem
 													key={index}
-													style={{
-														background: "#111",
-														borderRadius: "10px",
-														padding: "10px",
-														overflow: "hidden",
-													}}
+													cols={selectedSection.boxKeys.length === 1 ? 1 : 1}
+													rows={1}
 												>
 													<BoxContent
 														src={key}
 														alt={`${selectedSection.title} work ${index + 1}`}
 														download={selectedSection.download}
 													/>
-												</div>
+												</ImageListItem>
 											))}
-										</div>
+										</ImageList>
 									)}
 							</div>
 
 							{/* Large title in bottom left */}
 							<div
 								style={{
-									position: "absolute",
-									bottom: "40px",
+									position: "fixed",
+									bottom: "20px",
 									left: "80px",
-									fontSize: "clamp(80px, 12vw, 200px)",
+									fontSize: "clamp(40px, 8vw, 100px)",
 									fontWeight: "900",
-									color: "#8b1538",
+									color: "rgba(139, 21, 56, 0.6)",
 									textTransform: "uppercase",
-									letterSpacing: "-0.02em",
+									letterSpacing: "0.06em",
 									lineHeight: "0.8",
 									fontFamily: "Impact, Arial Black, sans-serif",
-									zIndex: 1,
+
 									pointerEvents: "none",
+									maxWidth: "calc(100vw - 160px)",
+									wordWrap: "break-word",
 								}}
 							>
 								{selectedSection?.title}
