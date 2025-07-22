@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 import Menu from "../components/Menu";
-import Sections from "../components/Sections";
+import BubbleSections from "../components/Sections";
 import Letter from "../components/DrawLetters";
 import MadeByMeHand from "../components/MadeByMeHand";
 import { SectionTemplate } from "../constants/sections";
+import { useNavigate } from "react-router-dom";
 
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
 
@@ -56,12 +57,24 @@ const HomePageComponent = () => {
 const AnimatedHomePage = () => {
 	const [selectedSection, setSelectedSection] = useState(null);
 	const [isModalOpen, setIsModalOpen] = useState(false);
+	const navigate = useNavigate();
 
 	const openModal = (sectionTitle) => {
-		const section = SectionTemplate.find((s) => s.title === sectionTitle);
-		if (section) {
-			setSelectedSection(section);
-			setIsModalOpen(true);
+		const routes = {
+			DESIGN: "/design",
+			DEVELOPMENT: "/development",
+			WRITING: "/writing",
+			MEDIA: "/media",
+		};
+
+		if (routes[sectionTitle]) {
+			navigate(routes[sectionTitle]);
+		} else {
+			const section = SectionTemplate.find((s) => s.title === sectionTitle);
+			if (section) {
+				setSelectedSection(section);
+				setIsModalOpen(true);
+			}
 		}
 	};
 
@@ -86,7 +99,7 @@ const AnimatedHomePage = () => {
 				<Menu openModal={openModal} />
 			</Grid>
 			<HomePageComponent />
-			<Sections
+			<BubbleSections
 				selectedSection={selectedSection}
 				isModalOpen={isModalOpen}
 				setIsModalOpen={setIsModalOpen}

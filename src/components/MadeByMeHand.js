@@ -29,7 +29,7 @@ const MadeByMeHand = () => {
 			ref={handRef}
 			style={{
 				position: "fixed",
-				bottom: "-20px",
+				bottom: "0px",
 				right: "30px",
 				textDecoration: "none",
 				color: "inherit",
@@ -57,43 +57,32 @@ const MadeByMeHand = () => {
 						marginBottom: "5px",
 						fontSize: "10px",
 						fontWeight: "bold",
-						boxShadow: "0 2px 4px rgba(0,0,0,0.3)",
 						transform: "rotate(-5deg)",
 					}}
 				>
-					Made by Me
+					Made by Me ❤️
 				</div>
 
 				{/* Stick holding sign */}
 				<div
 					style={{
 						width: "2px",
-						height: "25px",
+						height: "60px",
 						background: "#8B4513",
-						marginBottom: "2px",
+						marginTop: "-5px",
 					}}
-				></div>
+				/>
 
 				{/* Hand and wrist */}
 				<div
 					style={{
 						fontSize: "24px",
-						transform: "rotate(15deg)",
+						marginTop: "-20px",
+						transform: "rotate(-90deg)",
 					}}
 				>
-					✋
+					👊🏾
 				</div>
-
-				{/* Arm/wrist extending down */}
-				<div
-					style={{
-						width: "8px",
-						height: "40px",
-						background: "linear-gradient(to bottom, #FDBCB4, #F4A688)",
-						borderRadius: "4px 4px 0 0",
-						marginTop: "-5px",
-					}}
-				></div>
 			</div>
 		</a>
 	);

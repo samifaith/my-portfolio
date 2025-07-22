@@ -1,17 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
-import App from "./App";
 import "./index.css";
-import { gsap } from "gsap";
-import DrawSVGPlugin from "gsap/DrawSVGPlugin";
-gsap.registerPlugin(DrawSVGPlugin);
+import App from "./App";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
-	<React.StrictMode>
-		<BrowserRouter>
-			<App />
-		</BrowserRouter>
-	</React.StrictMode>
-);
+root.render(<App />);

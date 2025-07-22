@@ -9,6 +9,7 @@ import "../App.css";
 import Grid from "@mui/material/Grid";
 import "../styles/Bubble.css";
 import { SectionTemplate } from "../constants/sections";
+import { useNavigate } from "react-router-dom";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, MotionPathPlugin);
 
@@ -81,6 +82,7 @@ const Sections = ({
 }) => {
 	const modalOverlayRef = useRef(null);
 	const contentAreaRef = useRef(null);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		const bubbles = gsap.utils.toArray(".bubble");
@@ -110,6 +112,28 @@ const Sections = ({
 	const handleBubbleClick = (section) => {
 		setSelectedSection(section);
 		setIsModalOpen(true);
+	};
+
+	const handleSectionClick = (sectionTitle) => {
+		// Define which sections should navigate vs open modal
+		const routeMap = {
+			DESIGN: "/design",
+			DEVELOPMENT: "/development",
+			WRITING: "/writing",
+			MEDIA: "/media",
+		};
+
+		if (routeMap[sectionTitle]) {
+			// Navigate to dedicated page
+			navigate(routeMap[sectionTitle]);
+		} else {
+			// Open modal for other sections
+			const section = SectionTemplate.find((s) => s.title === sectionTitle);
+			if (section) {
+				setSelectedSection(section);
+				setIsModalOpen(true);
+			}
+		}
 	};
 
 	useEffect(() => {
@@ -230,7 +254,7 @@ const Sections = ({
 					<div
 						key={index}
 						className="bubble"
-						onClick={() => handleBubbleClick(section)}
+						onClick={() => handleSectionClick(section.title)}
 						style={{
 							cursor: "pointer",
 							position: "absolute",

@@ -136,27 +136,27 @@ const Menu = ({ openModal }) => {
 	};
 
 	const handleMenuItemClick = (sectionTitle) => {
+		console.log("Menu clicked:", sectionTitle, "isHomePage:", isHomePage);
+
 		if (sectionTitle === "home") {
 			if (isHomePage) {
-				// Scroll to top on homepage
 				window.scrollTo({ top: 0, behavior: "smooth" });
 			} else {
-				// Navigate back to homepage from other pages
 				navigate("/");
 			}
 		} else if (isHomePage && openModal) {
-			// Use modal system on homepage
+			console.log("Using modal on homepage");
 			openModal(sectionTitle);
 		} else {
-			// Navigate to dedicated pages from other pages
+			console.log("Navigating to route");
 			const routes = {
 				DESIGN: "/design",
 				DEVELOPMENT: "/development",
 				WRITING: "/writing",
 				MEDIA: "/media",
 			};
-
 			if (routes[sectionTitle]) {
+				console.log("Navigating to:", routes[sectionTitle]);
 				navigate(routes[sectionTitle]);
 			}
 		}
