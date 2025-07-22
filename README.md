@@ -1,70 +1,186 @@
-# Getting Started with Create React App
+# Portfolio Website
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern, responsive portfolio website showcasing my work in writing, development, design, and media. Built with React and styled with Tailwind CSS.
 
-## Available Scripts
+## 🚀 Features
 
-In the project directory, you can run:
+- **Multi-section Portfolio**: Writing, Development, Design, and Media sections
+- **Interactive Cards**: Dynamic gradient cards with hover effects
+- **Audio Integration**: Embedded podcast episodes with custom audio players
+- **Responsive Design**: Mobile-first approach with Tailwind CSS
+- **Modal System**: Full-screen project viewing experience
+- **Story Pages**: Individual pages for writing pieces with rich typography
 
-### `npm start`
+## 🛠️ Tech Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Frontend**: React 18, React Router
+- **Styling**: Tailwind CSS
+- **Icons**: Lucide React
+- **Build Tool**: Create React App
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 📁 Project Structure
 
-### `npm test`
+```
+src/
+├── components/
+│   ├── PageLayout.js          # Consistent layout wrapper
+│   └── ProjectCard.js         # Reusable card component
+├── pages/
+│   ├── WritingPage.js         # Writing portfolio section
+│   ├── DevelopmentPage.js     # Development projects
+│   ├── DesignPage.js          # Design portfolio
+│   └── MediaPage.js           # Media projects
+├── constants/
+│   └── WritingPieces.js       # Writing content data
+└── App.js                     # Main app component
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🚀 Getting Started
 
-### `npm run build`
+### Prerequisites
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Node.js (v14 or higher)
+- npm or yarn
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Installation
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Clone the repository:
 
-### `npm run eject`
+```bash
+git clone [your-repo-url]
+cd my-portfolio
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+2. Install dependencies:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+npm install
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+3. Start the development server:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```bash
+npm start
+```
 
-## Learn More
+4. Open [http://localhost:3000](http://localhost:3000) to view the site.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 📝 Content Management
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Adding Writing Pieces
 
-### Code Splitting
+Update `src/constants/WritingPieces.js`:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```javascript
+"new-story": {
+  title: "Your Story Title",
+  subtitle: "Story Type",
+  content: `Your story content here...`,
+  audioFile: "./audio-file.mp3"
+}
+```
 
-### Analyzing the Bundle Size
+### Adding Projects
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Add projects to the respective page files with this structure:
 
-### Making a Progressive Web App
+```javascript
+{
+  id: "project-id",
+  title: "Project Title",
+  description: "Project description",
+  image: "./project-image.jpg",
+  type: "Project Type",
+  theme: "Project Theme"
+}
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## 🎨 Customization
 
-### Advanced Configuration
+### Colors
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+The primary brand color is defined as `#a2003b`. Update in:
 
-### Deployment
+- `src/components/PageLayout.js` for headers
+- Tailwind config for additional brand colors
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Fonts
 
-### `npm run build` fails to minify
+Primary fonts: Impact, Poppins, sans-serif
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 📦 Building for Production
+
+```bash
+npm run build
+```
+
+Creates optimized production build in the `build` folder.
+
+## 🚀 Deployment
+
+### Vercel (Recommended)
+
+```bash
+npm install -g vercel
+vercel
+```
+
+### Netlify
+
+1. Connect your GitHub repository
+2. Set build command: `npm run build`
+3. Set publish directory: `build`
+
+### GitHub Pages
+
+```bash
+npm install --save-dev gh-pages
+```
+
+Add to `package.json`:
+
+```json
+"homepage": "https://yourusername.github.io/repository-name",
+"scripts": {
+  "predeploy": "npm run build",
+  "deploy": "gh-pages -d build"
+}
+```
+
+Then run:
+
+```bash
+npm run deploy
+```
+
+## 📱 Responsive Breakpoints
+
+- Mobile: `< 768px`
+- Tablet: `768px - 1024px`
+- Desktop: `> 1024px`
+
+## 🔧 Available Scripts
+
+- `npm start` - Development server
+- `npm test` - Run tests
+- `npm run build` - Production build
+- `npm run eject` - Eject from Create React App
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+## 🤝 Contributing
+
+This is a personal portfolio, but feedback and suggestions are welcome! Feel free to open an issue or submit a pull request.
+
+## 📞 Contact
+
+<!-- - Website: [Your Website]
+- Email: [Your Email]
+- LinkedIn: [Your LinkedIn]
+- Twitter: [Your Twitter] -->
+
+---
+
+Built with ❤️ using React and Tailwind CSS
