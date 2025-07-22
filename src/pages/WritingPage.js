@@ -61,8 +61,20 @@ const WritingPage = () => {
 
 					{/* Audio player for podcast episodes */}
 					{story.audioFile && (
-						<div className="mb-8">
-							<audio controls className="w-full">
+						<div className="mb-8 bg-gray-100 p-4 rounded-lg">
+							<h3 className="text-lg font-semibold mb-3 flex items-center">
+								🎧 Listen to Episode
+							</h3>
+							<audio
+								controls
+								className="w-full"
+								onError={(e) => {
+									console.error("Audio failed to load:", story.audioFile);
+									console.error("Error details:", e);
+								}}
+								onLoadStart={() => console.log("Audio loading started")}
+								onCanPlay={() => console.log("Audio ready to play")}
+							>
 								<source src={story.audioFile} type="audio/mpeg" />
 								<source src={story.audioFile} type="audio/mp3" />
 								Your browser does not support the audio element.

@@ -38,7 +38,7 @@ Ultimately, cooking is about sharing joy and creating memorable moments. As a ho
 	"tea-with-sami": {
 		title: "Tea with Sami: Revenge Served HOT!",
 		subtitle: "Podcast Episode",
-		audioFile: "./ServedHot.mp3",
+		audioFile: "/ServedHot.mp3",
 		content: `An intimate conversation exploring relationships, personal growth, and the stories we tell ourselves about justice and healing.
 `,
 	},
