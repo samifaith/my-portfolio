@@ -187,8 +187,63 @@ const Menu = ({ openModal }) => {
 		</li>
 	);
 
+	const renderDesktopMenuItem = (text, sectionTitle) => (
+		<li key={sectionTitle} className="desktop-menu-item">
+			<span
+				className="desktop-menu-link"
+				onClick={() => handleMenuItemClick(sectionTitle)}
+			>
+				{text}
+			</span>
+		</li>
+	);
+
 	return (
 		<>
+			{/* Desktop Navigation */}
+			<nav className="desktop-nav">
+				<ul>
+					{renderDesktopMenuItem("HOME", "home")}
+					{renderDesktopMenuItem("DESIGN", "DESIGN")}
+					{renderDesktopMenuItem("DEVELOPMENT", "DEVELOPMENT")}
+					{renderDesktopMenuItem("WRITING", "WRITING")}
+					{renderDesktopMenuItem("MEDIA", "MEDIA")}
+				</ul>
+			</nav>
+
+			{/* LinkedIn Link */}
+			<a
+				href="https://www.linkedin.com/in/samdecoteau"
+				target="_blank"
+				rel="noopener noreferrer"
+				className="linkedin-link"
+				aria-label="LinkedIn Profile"
+			>
+				<svg
+					width="32"
+					height="32"
+					viewBox="0 0 24 24"
+					fill="none"
+					xmlns="http://www.w3.org/2000/svg"
+				>
+					<circle
+						cx="12"
+						cy="12"
+						r="10"
+						stroke="currentColor"
+						strokeWidth="1.5"
+					/>
+					<path
+						d="M8 10V16M8 8V8.5M12 16V13M12 13V10M12 13C12 10.5 16 10.5 16 13V16"
+						stroke="currentColor"
+						strokeWidth="1.5"
+						strokeLinecap="round"
+						strokeLinejoin="round"
+					/>
+				</svg>
+			</a>
+
+			{/* Mobile Hamburger Menu */}
 			<button
 				className={`menu-button ${menuOpen ? "menu-open" : ""}`}
 				onClick={toggleMenu}

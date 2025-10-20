@@ -109,10 +109,7 @@ const Sections = ({
 		};
 	}, []);
 
-	const handleBubbleClick = (section) => {
-		setSelectedSection(section);
-		setIsModalOpen(true);
-	};
+	// removed unused handleBubbleClick (navigation handled by handleSectionClick)
 
 	const handleSectionClick = (sectionTitle) => {
 		// Define which sections should navigate vs open modal
@@ -238,13 +235,14 @@ const Sections = ({
 	}, [isModalOpen, selectedSection, navigateSection, closeModal]);
 
 	const bubbleContainerStyle = {
-		position: "fixed",
+		position: "absolute", // contained within hero-wrap
 		top: "50%",
 		left: "50%",
 		transform: "translate(-50%, -50%)",
 		width: "100%",
-		height: "100vh",
+		height: "100%",
 		maxWidth: "1200px",
+		pointerEvents: "auto",
 	};
 
 	return (
