@@ -120,7 +120,7 @@ const ExpertisePage = () => {
 	return (
 		<PageLayout
 			title="EXPERTISE"
-			description="A curated collection of design, development, writing, and media projects that showcase my multidisciplinary approach to creating meaningful experiences."
+			// description="A curated collection of design, development, writing, and media projects that showcase my multidisciplinary approach to creating meaningful experiences."
 			showModal={!!selectedProject}
 			selectedProject={selectedProject}
 			onCloseModal={() => setSelectedProject(null)}
