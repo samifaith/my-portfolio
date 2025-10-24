@@ -1,5 +1,4 @@
-import { useState, useEffect, useRef } from "react";
-import Grid from "@mui/material/Grid";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
@@ -7,67 +6,105 @@ import Menu from "../components/Menu";
 import Letter from "../components/DrawLetters";
 import MadeByMeHand from "../components/MadeByMeHand";
 import VerticalTimeline from "../components/VerticalTimeline";
+// import TechSkills from "../components/TechSkills";
 import ScrollIndicator from "../components/ScrollIndicator";
-import { SectionTemplate } from "../constants/sections";
 import { useNavigate } from "react-router-dom";
 import headshotImage from "../headshot.png";
 
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
 
-const HomePageComponent = ({ bubbleSlot }) => {
-	const paragraphRef = useRef(null);
+const HomePageComponent = ({ openModal }) => {
 	const signatureRef = useRef(null);
+	const headRef = useRef(null);
 	const [typedText, setTypedText] = useState("");
 	const [isTypingComplete, setIsTypingComplete] = useState(false);
 
 	const fullText =
 		"I run an independent studio dedicated to shaping culture through human-centered design. My process involves engaging with communities, developing early prototypes, and iterating to bring stories to life in impactful ways. With a strong focus on detail and purpose, I aim to develop meaningful brands and experiences that resonate and foster genuine connections. Together, we can create something extraordinary.";
 
+	// Optimized typing effect using requestAnimationFrame
 	useEffect(() => {
-		// Typing animation
 		let currentIndex = 0;
-		const typingSpeed = 25; // milliseconds per character
+		let rafId = null;
+		let lastTime = 0;
+		const typingSpeed = 25;
 
-		const typeInterval = setInterval(() => {
-			if (currentIndex <= fullText.length) {
-				setTypedText(fullText.slice(0, currentIndex));
-				currentIndex++;
-			} else {
-				clearInterval(typeInterval);
-				setIsTypingComplete(true);
+		const typeNextChar = (timestamp) => {
+			if (!lastTime) lastTime = timestamp;
+			const elapsed = timestamp - lastTime;
 
-				// After typing completes, animate in the signature
-				gsap.fromTo(
-					signatureRef.current,
-					{
-						opacity: 0,
-						y: 20,
-					},
-					{
-						opacity: 1,
-						y: 0,
-						duration: 1,
-						ease: "power2.out",
-						delay: 0.3,
-					}
-				);
+			if (elapsed > typingSpeed) {
+				if (currentIndex <= fullText.length) {
+					setTypedText(fullText.slice(0, currentIndex));
+					currentIndex++;
+					lastTime = timestamp;
+				} else {
+					setIsTypingComplete(true);
+
+					// Defer GSAP animations to reduce main thread blocking
+					requestIdleCallback(
+						() => {
+							gsap.fromTo(
+								signatureRef.current,
+								{ opacity: 0, y: 20, willChange: "opacity, transform" },
+								{
+									opacity: 1,
+									y: 0,
+									duration: 1,
+									ease: "power2.out",
+									delay: 0.3,
+									onComplete: () => {
+										gsap.fromTo(
+											headRef.current,
+											{
+												opacity: 0,
+												scale: 0.8,
+												willChange: "opacity, transform",
+											},
+											{
+												opacity: 1,
+												scale: 1,
+												duration: 1.2,
+												ease: "power2.out",
+												delay: 0.2,
+												clearProps: "willChange",
+											}
+										);
+									},
+								}
+							);
+						},
+						{ timeout: 500 }
+					);
+					return;
+				}
 			}
-		}, typingSpeed);
 
-		return () => clearInterval(typeInterval);
+			rafId = requestAnimationFrame(typeNextChar);
+		};
+
+		rafId = requestAnimationFrame(typeNextChar);
+
+		return () => {
+			if (rafId) cancelAnimationFrame(rafId);
+		};
 	}, []);
 
 	return (
-		<>
-			<div className="hero-wrap hero-split">
-				{/* Left side - Text content */}
+		<div className="hero-wrap">
+			{/* Menu at the top */}
+			<Menu openModal={openModal} />
+
+			<div className="hero-split">
 				<div className="hero-text-section">
 					<p
-						ref={paragraphRef}
 						style={{
 							minHeight: "200px",
-							lineHeight: "1.6",
-							marginBottom: "3rem",
+							lineHeight: "1.8",
+							marginBottom: "0",
+							maxWidth: "600px",
+							fontSize: "1.4rem",
+							contain: "layout style",
 						}}
 					>
 						{typedText}
@@ -81,6 +118,8 @@ const HomePageComponent = ({ bubbleSlot }) => {
 							flexDirection: "column",
 							alignItems: "center",
 							gap: "1rem",
+							minHeight: "200px",
+							contain: "layout style",
 						}}
 					>
 						<h2 style={{ textAlign: "center" }}>THE CREATIVE DEVELOPER</h2>
@@ -97,52 +136,50 @@ const HomePageComponent = ({ bubbleSlot }) => {
 					</div>
 				</div>
 
-				{/* Right side - Head */}
 				<div className="hero-image-section">
 					<div
+						ref={headRef}
 						className="head"
-						style={{ backgroundImage: `url(${headshotImage})` }}
+						style={{
+							backgroundImage: `url(${headshotImage})`,
+							opacity: 0,
+							willChange: "opacity, transform",
+						}}
+						role="img"
+						aria-label="Headshot of Sam DeCoteau"
 					/>
 				</div>
-
-				{/* Scroll Indicator */}
-				<ScrollIndicator />
 			</div>
-		</>
+
+			<ScrollIndicator />
+		</div>
 	);
 };
 
 const AnimatedHomePage = () => {
-	const [selectedSection, setSelectedSection] = useState(null);
-	const [isModalOpen, setIsModalOpen] = useState(false);
 	const navigate = useNavigate();
 
-	const openModal = (sectionTitle) => {
-		const routes = {
-			DESIGN: "/design",
-			DEVELOPMENT: "/development",
-			WRITING: "/writing",
-			MEDIA: "/media",
-		};
+	const openModal = useCallback(
+		(sectionTitle) => {
+			const routes = {
+				DESIGN: "/design",
+				DEVELOPMENT: "/development",
+				WRITING: "/writing",
+				MEDIA: "/media",
+			};
 
-		if (routes[sectionTitle]) {
-			navigate(routes[sectionTitle]);
-		} else {
-			const section = SectionTemplate.find((s) => s.title === sectionTitle);
-			if (section) {
-				setSelectedSection(section);
-				setIsModalOpen(true);
+			if (routes[sectionTitle]) {
+				navigate(routes[sectionTitle]);
 			}
-		}
-	};
+		},
+		[navigate]
+	);
 
 	return (
 		<div>
-			<Grid container justifyContent={"center"} m={2}>
-				<Menu openModal={openModal} />
-			</Grid>
-			<HomePageComponent />
+			<HomePageComponent openModal={openModal} />
 			<VerticalTimeline />
+			{/* <TechSkills /> */}
 			<MadeByMeHand />
 		</div>
 	);

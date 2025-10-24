@@ -10,57 +10,143 @@ const defaultItems = [
 		id: 1,
 		year: "2009",
 		title: "Graduated from Boston Latin Academy",
-		text: "I participated in various extracurricular activities including the track and field team and the school newspaper, which helped me develop strong collaborative skills. Ultimately though, by my senior year, I still wasn't entirely sure about my future career path, but I was eager to explore different opportunities and find my passion.",
+		text: "The school paper and track shaped how I work. I learned to hit deadlines, edit under pressure, and collaborate with care.",
 		side: "left",
+		skills: [
+			"Team Leadership",
+			"Writing & Communication",
+			"Project Ownership",
+			"Time Management",
+			"Public Speaking",
+		],
+		techTools: ["Microsoft Office"],
 	},
 	{
 		id: 2,
 		year: "2009",
-		title: "Center for Digital Imaging Arts at Boston University (2009-2010)",
-		text: "An affiliate school of Boston University in Waltham, MA offered specialized training in digital arts and imaging. Here, I honed my skills in photography, graphic design, and digital media production, which laid the foundation for my future endeavors in creative technology.",
+		title: "Center for Digital Imaging Arts at Boston University",
+		text: "Studio training taught me to shape light, compose with intention, and run a consistent shoot-to-delivery workflow. I produced ~12–18 studio sets per term, maintained calibrated color across shoots, and cut edit time by ~25% using presets and checklists.",
 		side: "right",
+		skills: [
+			"Photography & Composition",
+			"Color Management",
+			"Studio & Natural Lighting",
+			"Content Workflow",
+		],
+		techTools: ["Adobe Photoshop", "Adobe Lightroom"],
 	},
 	{
 		id: 3,
 		year: "2012",
 		title: "DeCoteau Photography",
-		text: "I started my own photography business, specializing in portrait and wedding photography. This venture allowed me to apply my technical skills while also developing my entrepreneurial abilities, client relations, and business management experience.",
+		text: "Launched a portrait and wedding studio. Averaged ~20–30 shoots per season with on-time delivery at ~98%. Referral and repeat clients drove ~60% of bookings. Pre-shoot moodboards and shot lists cut revision cycles by ~40–50%.",
 		side: "left",
+		skills: [
+			"Client Discovery",
+			"Creative Direction",
+			"Branding & Marketing",
+			"Operations Management",
+			"Customer Retention",
+		],
+		techTools: [
+			"Adobe Illustrator",
+			"Adobe InDesign",
+			"MailChimp",
+			"Squarespace",
+		],
 	},
 	{
 		id: 4,
 		year: "2012",
-		title: "Sandpiper Rentals (2012-2013)",
-		text: "A vacation rental company on Martha's Vineyard appreciated my skillset and offered me a role where I managed property listings, coordinated bookings, and ensured excellent customer service for guests. This role enhanced my organizational skills and attention to detail in a fast-paced environment.",
+		title: "Sandpiper Rentals · Martha's Vineyard",
+		text: "Standardized listing templates and guest messaging. Brought average first-response time from ~24h to ~1h during peak season, reduced avoidable listing errors to near-zero, and kept owner and guest satisfaction high via simple SOPs.",
 		side: "right",
+		skills: [
+			"Customer Experience",
+			"Property CMS",
+			"Scheduling & Coordination",
+			"Process Improvement",
+			"Stakeholder Communication",
+		],
+		techTools: ["Adobe Illustrator", "Adobe InDesign", "MailChimp"],
 	},
 	{
 		id: 5,
-		year: "2012",
-		title: "Wayfair",
-		text: "Wayfair was expanding its campus recruitment team and found my diverse background appealing. I contributed to talent acquisition efforts, helping to identify and recruit top candidates for various roles within the company. This experience sharpened my interpersonal skills and deepened my understanding of meeting the needs of the business.",
+		year: "2013",
+		title: "Wayfair · Campus Recruitment",
+		text: "Sourced and shepherded early-career candidates, ran campus events, and supported structured interview loops. Increased representation of diversely qualified candidates in pipelines from ~7% to ~30%, trimmed time-to-fill by ~2 weeks on recurring roles, and held offer acceptance near ~70% by clarifying rubrics and smoothing loops.",
 		side: "left",
+		skills: [
+			"Talent Sourcing",
+			"Interview Facilitation",
+			"Pipeline Management",
+			"Hiring Metrics",
+			"Diversity Initiatives",
+		],
+		techTools: ["Greenhouse", "HubSpot", "Hootsuite"],
 	},
 	{
 		id: 6,
-		year: "2012",
+		year: "2016",
 		title: "Resilient Coders",
-		text: "During my time at Wayfair, I connected with engineers who had graduated from Resilient Coders, a coding bootcamp focused on underrepresented communities. Intrigued by their journeys, I decided to enroll in the program myself. This decision marked a significant turning point in my career, as I transitioned from recruitment into the world of software development.",
+		text: "Shifted into software with full-stack projects. Delivered capstone apps with Lighthouse performance at ~95–98% on key flows, practiced agile sprints, and shipped responsive UI with code review and issue tracking.",
 		side: "right",
+		skills: ["Responsive Design", "Agile Practices"],
+		techTools: [
+			"JavaScript",
+			"React",
+			"Node.js",
+			"Express",
+			"HTML5",
+			"CSS3",
+			"Git",
+			"GitHub",
+			"MongoDB",
+		],
 	},
 	{
 		id: 7,
-		year: "2012",
+		year: "2020",
 		title: "AESARA Inc.",
-		text: "AESARA Inc. was a boutique firm focused on innovative solutions in the pharma industry. I joined their team to contribute to product development and engineering efforts, gaining valuable experience in agile methodologies and collaborative software development.",
+		text: "Worked on the Health Economics and Outcomes Research (HEOR) evidence tool, ATLAS, in a regulated environment, bridging product, design, and front-end. Built ~20–30 reusable UI components and introduced design-systems. Helped move releases from ~1–2 to ~3–4 per quarter by tightening handoffs and acceptance criteria.",
 		side: "left",
+		skills: [
+			"Product Development",
+			"Design Systems",
+			"Data-informed UX",
+			"Cross-functional Collaboration",
+			"Regulated Environments",
+		],
+		techTools: [
+			"React",
+			"TypeScript",
+			"JavaScript",
+			"Figma",
+			"Articulate 360",
+			"Adobe XD",
+		],
 	},
 	{
 		id: 8,
 		year: "2024",
-		title: "Johnson & Wales University (2024-2026)",
-		text: "With a solid foundation in software development, I decided to further enhance my skills by pursuing an interdisciplinary degree in Food Studies, Media, and Design at Johnson & Wales University. This academic pursuit is equipping me with advanced knowledge and preparing me for the next phase of my career in creative technology.",
+		title: "Johnson & Wales University · Food, Media & Design",
+		text: "Designing a degree that blends culture, food systems, and media into shippable work. Produced case studies, ran user tests on prototypes, and directed design and brand direction for the JWU innovation lab, The Launch Pad.",
 		side: "right",
+		skills: [
+			"Design Thinking",
+			"User Research",
+			"Media Storytelling",
+			"Food Systems & Culture",
+			"Project Delivery",
+		],
+		techTools: [
+			"Figma",
+			"Adobe Creative Cloud",
+			"GSAP",
+			"React",
+			"Next.js",
+			"Tailwind CSS",
+		],
 	},
 ];
 
@@ -71,17 +157,19 @@ export default function VerticalTimeline({
 	const containerRef = useRef(null);
 	const cardsRef = useRef([]);
 	const badgesRef = useRef([]);
+	const oppositeRef = useRef([]);
 
 	useLayoutEffect(() => {
 		const ctx = gsap.context(() => {
 			items.forEach((item, i) => {
 				const card = cardsRef.current[i];
 				const badge = badgesRef.current[i];
+				const opposite = oppositeRef.current[i];
 
 				if (card) {
 					gsap.fromTo(
 						card,
-						{ opacity: 0, y: 30 },
+						{ opacity: 0, y: 30, willChange: "opacity, transform" },
 						{
 							opacity: 1,
 							y: 0,
@@ -90,7 +178,9 @@ export default function VerticalTimeline({
 								trigger: card,
 								start: "top 85%",
 								toggleActions: "play none none reverse",
+								fastScrollEnd: true,
 							},
+							clearProps: "willChange",
 						}
 					);
 				}
@@ -98,7 +188,7 @@ export default function VerticalTimeline({
 				if (badge) {
 					gsap.fromTo(
 						badge,
-						{ scale: 0, opacity: 0 },
+						{ scale: 0, opacity: 0, willChange: "transform, opacity" },
 						{
 							scale: 1,
 							opacity: 1,
@@ -108,7 +198,34 @@ export default function VerticalTimeline({
 								trigger: badge,
 								start: "top 90%",
 								toggleActions: "play none none reverse",
+								fastScrollEnd: true,
 							},
+							clearProps: "willChange",
+						}
+					);
+				}
+
+				if (opposite) {
+					// If card is on right, skills are on left (slide from left = negative x)
+					// If card is on left, skills are on right (slide from right = positive x)
+					gsap.fromTo(
+						opposite,
+						{
+							opacity: 0,
+							x: item.side === "right" ? -30 : 30,
+							willChange: "opacity, transform",
+						},
+						{
+							opacity: 1,
+							x: 0,
+							duration: 0.6,
+							scrollTrigger: {
+								trigger: opposite,
+								start: "top 85%",
+								toggleActions: "play none none reverse",
+								fastScrollEnd: true,
+							},
+							clearProps: "willChange",
 						}
 					);
 				}
@@ -127,6 +244,7 @@ export default function VerticalTimeline({
 
 				{items.map((item, i) => {
 					const side = item.side === "right" ? "right" : "left";
+					const oppositeSide = side === "right" ? "left" : "right";
 
 					return (
 						<div key={item.id || i} className={`timeline-item ${side}`}>
@@ -137,6 +255,8 @@ export default function VerticalTimeline({
 							>
 								<span>{item.year}</span>
 							</div>
+
+							{/* Main description box */}
 							<article
 								className="timeline-card"
 								ref={(el) => (cardsRef.current[i] = el)}
@@ -145,6 +265,43 @@ export default function VerticalTimeline({
 								<h3 className="timeline-title">{item.title}</h3>
 								<p className="timeline-text">{item.text}</p>
 							</article>
+
+							{/* Skills or images on opposite side */}
+							{(item.skills || item.techTools || item.images) && (
+								<div
+									className={`timeline-opposite ${oppositeSide}`}
+									ref={(el) => (oppositeRef.current[i] = el)}
+								>
+									{item.skills && (
+										<ul className="skills-list">
+											{item.skills.map((skill, idx) => (
+												<li key={idx}>{skill}</li>
+											))}
+										</ul>
+									)}
+									{item.techTools && (
+										<div className="tech-tools">
+											{item.techTools.map((tool, idx) => (
+												<span key={idx} className="tech-tool-pill">
+													{tool}
+												</span>
+											))}
+										</div>
+									)}
+									{item.images && (
+										<div className="project-mosaic">
+											{item.images.map((img, idx) => (
+												<img
+													key={idx}
+													src={img.src}
+													alt={img.alt || `Project image ${idx + 1}`}
+													className="project-image"
+												/>
+											))}
+										</div>
+									)}
+								</div>
+							)}
 						</div>
 					);
 				})}

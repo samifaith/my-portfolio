@@ -20,18 +20,37 @@ const Menu = ({ openModal }) => {
 	};
 
 	useEffect(() => {
+		const nav = overlayRef.current?.querySelector("nav");
+
 		if (menuOpen) {
 			gsap.to(overlayRef.current, {
 				duration: 0.8,
 				clipPath: "circle(150% at 50% 50%)",
 				ease: "power2.out",
 			});
+			// Animate nav content to be visible
+			if (nav) {
+				gsap.to(nav, {
+					opacity: 1,
+					duration: 0.5,
+					delay: 0.3,
+					ease: "power2.out",
+				});
+			}
 		} else {
 			gsap.to(overlayRef.current, {
 				duration: 0.8,
 				clipPath: "circle(0% at 100% 0%)",
 				ease: "power2.in",
 			});
+			// Hide nav content
+			if (nav) {
+				gsap.to(nav, {
+					opacity: 0,
+					duration: 0.3,
+					ease: "power2.in",
+				});
+			}
 		}
 	}, [menuOpen]);
 
@@ -136,29 +155,16 @@ const Menu = ({ openModal }) => {
 	};
 
 	const handleMenuItemClick = (sectionTitle) => {
-		console.log("Menu clicked:", sectionTitle, "isHomePage:", isHomePage);
-
 		if (sectionTitle === "home") {
 			if (isHomePage) {
 				window.scrollTo({ top: 0, behavior: "smooth" });
 			} else {
 				navigate("/");
 			}
+		} else if (sectionTitle === "EXPERTISE") {
+			navigate("/expertise");
 		} else if (isHomePage && openModal) {
-			console.log("Using modal on homepage");
 			openModal(sectionTitle);
-		} else {
-			console.log("Navigating to route");
-			const routes = {
-				DESIGN: "/design",
-				DEVELOPMENT: "/development",
-				WRITING: "/writing",
-				MEDIA: "/media",
-			};
-			if (routes[sectionTitle]) {
-				console.log("Navigating to:", routes[sectionTitle]);
-				navigate(routes[sectionTitle]);
-			}
 		}
 
 		setMenuOpen(false);
@@ -204,44 +210,42 @@ const Menu = ({ openModal }) => {
 			<nav className="desktop-nav">
 				<ul>
 					{renderDesktopMenuItem("HOME", "home")}
-					{renderDesktopMenuItem("DESIGN", "DESIGN")}
-					{renderDesktopMenuItem("DEVELOPMENT", "DEVELOPMENT")}
-					{renderDesktopMenuItem("WRITING", "WRITING")}
-					{renderDesktopMenuItem("MEDIA", "MEDIA")}
+					{renderDesktopMenuItem("EXPERTISE", "EXPERTISE")}
+					{/* LinkedIn Link */}
+					<li className="desktop-menu-item">
+						<a
+							href="https://www.linkedin.com/in/samdecoteau"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="linkedin-link"
+							aria-label="LinkedIn Profile"
+						>
+							<svg
+								width="32"
+								height="32"
+								viewBox="0 0 24 24"
+								fill="none"
+								xmlns="http://www.w3.org/2000/svg"
+							>
+								<circle
+									cx="12"
+									cy="12"
+									r="10"
+									stroke="currentColor"
+									strokeWidth="1.5"
+								/>
+								<path
+									d="M8 10V16M8 8V8.5M12 16V13M12 13V10M12 13C12 10.5 16 10.5 16 13V16"
+									stroke="currentColor"
+									strokeWidth="1.5"
+									strokeLinecap="round"
+									strokeLinejoin="round"
+								/>
+							</svg>
+						</a>
+					</li>
 				</ul>
 			</nav>
-
-			{/* LinkedIn Link */}
-			<a
-				href="https://www.linkedin.com/in/samdecoteau"
-				target="_blank"
-				rel="noopener noreferrer"
-				className="linkedin-link"
-				aria-label="LinkedIn Profile"
-			>
-				<svg
-					width="32"
-					height="32"
-					viewBox="0 0 24 24"
-					fill="none"
-					xmlns="http://www.w3.org/2000/svg"
-				>
-					<circle
-						cx="12"
-						cy="12"
-						r="10"
-						stroke="currentColor"
-						strokeWidth="1.5"
-					/>
-					<path
-						d="M8 10V16M8 8V8.5M12 16V13M12 13V10M12 13C12 10.5 16 10.5 16 13V16"
-						stroke="currentColor"
-						strokeWidth="1.5"
-						strokeLinecap="round"
-						strokeLinejoin="round"
-					/>
-				</svg>
-			</a>
 
 			{/* Mobile Hamburger Menu */}
 			<button
@@ -291,10 +295,39 @@ const Menu = ({ openModal }) => {
 				<nav>
 					<ul>
 						{renderMenuItem("HOME", "home")}
-						{renderMenuItem("DESIGN", "DESIGN")}
-						{renderMenuItem("DEVELOPMENT", "DEVELOPMENT")}
-						{renderMenuItem("WRITING", "WRITING")}
-						{renderMenuItem("MEDIA", "MEDIA")}
+						{renderMenuItem("EXPERTISE", "EXPERTISE")}
+						<li>
+							<a
+								href="https://www.linkedin.com/in/samdecoteau"
+								target="_blank"
+								rel="noopener noreferrer"
+								className="menu-item linkedin-mobile"
+								aria-label="LinkedIn Profile"
+							>
+								<svg
+									width="32"
+									height="32"
+									viewBox="0 0 24 24"
+									fill="none"
+									xmlns="http://www.w3.org/2000/svg"
+								>
+									<circle
+										cx="12"
+										cy="12"
+										r="10"
+										stroke="currentColor"
+										strokeWidth="1.5"
+									/>
+									<path
+										d="M8 10V16M8 8V8.5M12 16V13M12 13V10M12 13C12 10.5 16 10.5 16 13V16"
+										stroke="currentColor"
+										strokeWidth="1.5"
+										strokeLinecap="round"
+										strokeLinejoin="round"
+									/>
+								</svg>
+							</a>
+						</li>
 					</ul>
 				</nav>
 			</div>

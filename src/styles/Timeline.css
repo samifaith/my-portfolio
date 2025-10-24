@@ -1,7 +1,7 @@
 .timeline-section {
 	position: relative;
 	padding: 4rem 1rem 6rem;
-	margin-top: 4rem;
+
 	background: #2f2a2c;
 	color: black;
 }
@@ -75,6 +75,27 @@
 	align-self: start;
 }
 
+/* Opposite side content (skills/images) */
+.timeline-opposite.left {
+	grid-column: 1;
+	grid-row: 1;
+	justify-self: end;
+	align-self: start;
+	max-width: 500px;
+	width: 100%;
+	padding: 1rem 0;
+}
+
+.timeline-opposite.right {
+	grid-column: 3;
+	grid-row: 1;
+	justify-self: start;
+	align-self: start;
+	max-width: 500px;
+	width: 100%;
+	padding: 1rem 0;
+}
+
 .timeline-card {
 	max-width: 500px;
 	width: 100%;
@@ -85,6 +106,143 @@
 	padding: 1.5rem 2rem;
 	position: relative;
 	z-index: 2;
+}
+
+/* Skills list styling */
+.skills-list {
+	list-style: none;
+	padding: 0;
+	margin: 0 0 1rem 0;
+}
+
+.skills-list li {
+	padding: 0.75rem 0;
+	padding-left: 1.5rem;
+	position: relative;
+	font-size: 1.1rem;
+	color: #ffe1e5;
+	line-height: 1.6;
+}
+
+.skills-list li::before {
+	content: "▸";
+	position: absolute;
+	left: 0;
+	color: #ffd0d7;
+	font-weight: bold;
+}
+
+/* Tech tools styling - small glasslike ovals */
+.tech-tools {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	margin-top: 1rem;
+}
+
+.tech-tool-pill {
+	display: inline-flex;
+	align-items: center;
+	padding: 0.4rem 1rem;
+	font-size: 0.85rem;
+	font-weight: 500;
+	font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text",
+		"Helvetica Neue", Arial, sans-serif;
+	color: #ffd0d7;
+	background: rgba(71, 64, 64, 0.6);
+	backdrop-filter: blur(20px) saturate(180%);
+	-webkit-backdrop-filter: blur(20px) saturate(180%);
+	border: 1px solid rgba(255, 208, 215, 0.4);
+	border-radius: 50px;
+	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2), 0 1px 4px rgba(0, 0, 0, 0.1),
+		inset 0 0 0 0.5px rgba(255, 208, 215, 0.2),
+		inset 0 1px 0 rgba(255, 208, 215, 0.3);
+	transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+	letter-spacing: -0.01em;
+}
+
+.tech-tool-pill:hover {
+	background: rgba(71, 64, 64, 0.8);
+	border-color: rgba(255, 208, 215, 0.6);
+	transform: translateY(-2px);
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), 0 2px 6px rgba(0, 0, 0, 0.15),
+		inset 0 0 0 0.5px rgba(255, 208, 215, 0.4),
+		inset 0 1px 0 rgba(255, 208, 215, 0.5);
+}
+
+/* Project mosaic styling */
+.project-mosaic {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+	gap: 0.75rem;
+}
+
+.project-image {
+	width: 100%;
+	height: 120px;
+	object-fit: cover;
+	border-radius: 8px;
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-image:hover {
+	transform: scale(1.05);
+	box-shadow: 0 4px 12px rgba(255, 208, 215, 0.3);
+}
+
+/* Timeline content without box */
+.timeline-content {
+	max-width: 500px;
+	width: 100%;
+	color: #ffd0d7;
+	padding: 1rem 0;
+	position: relative;
+	z-index: 2;
+}
+
+/* Skills list styling */
+.timeline-skills .skills-list {
+	list-style: none;
+	padding: 0;
+	margin: 1rem 0 0 0;
+}
+
+.timeline-skills .skills-list li {
+	padding: 0.75rem 0;
+	padding-left: 1.5rem;
+	position: relative;
+	font-size: 1.1rem;
+	color: #ffe1e5;
+	line-height: 1.6;
+}
+
+.timeline-skills .skills-list li::before {
+	content: "▸";
+	position: absolute;
+	left: 0;
+	color: #ffd0d7;
+	font-weight: bold;
+}
+
+/* Project mosaic styling */
+.timeline-project .project-mosaic {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+	gap: 0.75rem;
+	margin: 1rem 0;
+}
+
+.timeline-project .project-image {
+	width: 100%;
+	height: 150px;
+	object-fit: cover;
+	border-radius: 8px;
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.timeline-project .project-image:hover {
+	transform: scale(1.05);
+	box-shadow: 0 4px 12px rgba(255, 208, 215, 0.3);
 }
 
 .timeline-title {
@@ -118,6 +276,10 @@
 	.timeline-item.right .timeline-card {
 		grid-column: 2;
 		justify-self: start;
+	}
+
+	.timeline-opposite {
+		display: none;
 	}
 
 	.timeline-card {

@@ -1,0 +1,210 @@
+/* Mosaic Grid Styles */
+
+.filter-tabs {
+	display: flex;
+	gap: 0.75rem;
+	margin-bottom: 3rem;
+	padding: 0.5rem;
+	background: rgba(255, 255, 255, 0.5);
+	backdrop-filter: blur(10px);
+	border-radius: 16px;
+	overflow-x: auto;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.filter-tab {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.75rem 1.5rem;
+	border: none;
+	background: transparent;
+	color: #666;
+	font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text",
+		"Helvetica Neue", Arial, sans-serif;
+	font-size: 0.95rem;
+	font-weight: 500;
+	border-radius: 12px;
+	cursor: pointer;
+	transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+	white-space: nowrap;
+}
+
+.filter-tab:hover {
+	background: rgba(255, 255, 255, 0.8);
+	color: #333;
+	transform: translateY(-2px);
+}
+
+.filter-tab.active {
+	background: #2f2a2c;
+	color: #ffd0d7;
+	box-shadow: 0 4px 12px rgba(47, 42, 44, 0.2);
+}
+
+.filter-icon {
+	width: 18px;
+	height: 18px;
+}
+
+/* Mosaic Grid Layout */
+.mosaic-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+	gap: 1.5rem;
+	width: 100%;
+	margin: 0 auto;
+}
+
+/* Mosaic Item Sizes */
+.mosaic-item {
+	position: relative;
+	overflow: hidden;
+	border-radius: 16px;
+	opacity: 0;
+	transform: translateY(30px) scale(0.95);
+}
+
+/* Reveal Animation */
+@keyframes mosaicReveal {
+	from {
+		opacity: 0;
+		transform: translateY(30px) scale(0.95);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+}
+
+.reveal-item {
+	animation: mosaicReveal 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+/* Size Variants for Visual Interest */
+.mosaic-large {
+	grid-column: span 2;
+	min-height: 400px;
+}
+
+.mosaic-medium {
+	grid-column: span 1;
+	min-height: 350px;
+}
+
+.mosaic-small {
+	grid-column: span 1;
+	min-height: 300px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+	.mosaic-grid {
+		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+		gap: 1.25rem;
+	}
+
+	.mosaic-large {
+		grid-column: span 1;
+		min-height: 350px;
+	}
+}
+
+@media (max-width: 768px) {
+	.filter-tabs {
+		gap: 0.5rem;
+		padding: 0.5rem;
+		margin-bottom: 2rem;
+	}
+
+	.filter-tab {
+		padding: 0.6rem 1rem;
+		font-size: 0.85rem;
+	}
+
+	.filter-icon {
+		width: 16px;
+		height: 16px;
+	}
+
+	.mosaic-grid {
+		grid-template-columns: 1fr;
+		gap: 1rem;
+	}
+
+	.mosaic-large,
+	.mosaic-medium,
+	.mosaic-small {
+		grid-column: span 1;
+		min-height: 300px;
+	}
+}
+
+/* Empty State */
+.empty-state {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 400px;
+	padding: 3rem;
+}
+
+.empty-state-content {
+	text-align: center;
+	background: rgba(255, 255, 255, 0.6);
+	backdrop-filter: blur(20px);
+	padding: 3rem;
+	border-radius: 20px;
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+.empty-state-content h3 {
+	font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display",
+		"Helvetica Neue", Arial, sans-serif;
+	font-size: 1.5rem;
+	font-weight: 600;
+	color: #333;
+	margin-bottom: 0.5rem;
+}
+
+.empty-state-content p {
+	font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text",
+		"Helvetica Neue", Arial, sans-serif;
+	font-size: 1rem;
+	color: #666;
+}
+
+/* Hover Effects on Grid Items */
+.mosaic-item:hover {
+	transform: translateY(-4px);
+	transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Stagger animation delays for cascade effect */
+.mosaic-item:nth-child(1) {
+	animation-delay: 0s;
+}
+.mosaic-item:nth-child(2) {
+	animation-delay: 0.1s;
+}
+.mosaic-item:nth-child(3) {
+	animation-delay: 0.2s;
+}
+.mosaic-item:nth-child(4) {
+	animation-delay: 0.3s;
+}
+.mosaic-item:nth-child(5) {
+	animation-delay: 0.4s;
+}
+.mosaic-item:nth-child(6) {
+	animation-delay: 0.5s;
+}
+.mosaic-item:nth-child(n + 7) {
+	animation-delay: 0.6s;
+}
+
+/* Ensure ProjectCard fills mosaic item */
+.mosaic-item > * {
+	height: 100%;
+}
