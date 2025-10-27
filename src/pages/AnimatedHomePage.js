@@ -22,6 +22,25 @@ const HomePageComponent = ({ openModal }) => {
 	const fullText =
 		"I run an independent studio dedicated to shaping culture through human-centered design. My process involves engaging with communities, developing early prototypes, and iterating to bring stories to life in impactful ways. With a strong focus on detail and purpose, I aim to develop meaningful brands and experiences that resonate and foster genuine connections. Together, we can create something extraordinary.";
 
+	// Animate headshot immediately on mount
+	useEffect(() => {
+		gsap.fromTo(
+			headRef.current,
+			{
+				opacity: 0,
+				scale: 0.8,
+				willChange: "opacity, transform",
+			},
+			{
+				opacity: 1,
+				scale: 1,
+				duration: 1.2,
+				ease: "power2.out",
+				clearProps: "willChange",
+			}
+		);
+	}, []);
+
 	// Optimized typing effect using requestAnimationFrame
 	useEffect(() => {
 		let currentIndex = 0;
@@ -41,7 +60,7 @@ const HomePageComponent = ({ openModal }) => {
 				} else {
 					setIsTypingComplete(true);
 
-					// Defer GSAP animations to reduce main thread blocking
+					// Defer signature animation to reduce main thread blocking
 					requestIdleCallback(
 						() => {
 							gsap.fromTo(
@@ -53,24 +72,7 @@ const HomePageComponent = ({ openModal }) => {
 									duration: 1,
 									ease: "power2.out",
 									delay: 0.3,
-									onComplete: () => {
-										gsap.fromTo(
-											headRef.current,
-											{
-												opacity: 0,
-												scale: 0.8,
-												willChange: "opacity, transform",
-											},
-											{
-												opacity: 1,
-												scale: 1,
-												duration: 1.2,
-												ease: "power2.out",
-												delay: 0.2,
-												clearProps: "willChange",
-											}
-										);
-									},
+									clearProps: "willChange",
 								}
 							);
 						},
@@ -142,8 +144,6 @@ const HomePageComponent = ({ openModal }) => {
 						className="head"
 						style={{
 							backgroundImage: `url(${headshotImage})`,
-							opacity: 0,
-							willChange: "opacity, transform",
 						}}
 						role="img"
 						aria-label="Headshot of Sam DeCoteau"

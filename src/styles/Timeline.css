@@ -6,12 +6,59 @@
 	color: black;
 }
 
+.timeline-header {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 1rem;
+	margin-bottom: 3rem;
+}
+
 .timeline-heading {
 	font-size: 2rem;
 	font-weight: 700;
-	margin: 0 0 3rem;
+	margin: 0;
 	color: #ffd0d7;
 	text-align: center;
+}
+
+.resume-download-btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.6rem;
+	padding: 0.6rem 1.2rem;
+	background: rgba(71, 64, 64, 0.6);
+	backdrop-filter: blur(20px) saturate(180%);
+	border: 1px solid rgba(255, 208, 215, 0.3);
+	border-radius: 8px;
+	color: #ffd0d7;
+	font-size: 0.9rem;
+	font-weight: 500;
+	text-decoration: none;
+	transition: all 0.2s ease;
+	cursor: pointer;
+}
+
+.resume-download-btn:hover {
+	background: rgba(71, 64, 64, 0.8);
+	border-color: rgba(255, 208, 215, 0.5);
+	transform: translateY(-1px);
+}
+
+.resume-download-btn:active {
+	transform: translateY(0);
+}
+
+.resume-download-btn svg {
+	flex-shrink: 0;
+	width: 18px;
+	height: 18px;
+}
+
+.resume-download-btn span {
+	white-space: nowrap;
+	line-height: 1;
 }
 
 .timeline-container {

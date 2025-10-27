@@ -237,7 +237,39 @@ export default function VerticalTimeline({
 
 	return (
 		<section className="timeline-section" ref={containerRef}>
-			<h2 className="timeline-heading">My Journey</h2>
+			<div className="timeline-header">
+				<h2 className="timeline-heading">My Journey</h2>
+				<a
+					href="/Resume_DeCoteauSam2025.pdf"
+					download="Resume_DeCoteauSam2025.pdf"
+					className="resume-download-btn"
+					aria-label="Download Resume"
+				>
+					<svg
+						width="20"
+						height="20"
+						viewBox="0 0 24 24"
+						fill="none"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<path
+							d="M12 3V16M12 16L16 12M12 16L8 12"
+							stroke="currentColor"
+							strokeWidth="2"
+							strokeLinecap="round"
+							strokeLinejoin="round"
+						/>
+						<path
+							d="M3 17V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V17"
+							stroke="currentColor"
+							strokeWidth="2"
+							strokeLinecap="round"
+							strokeLinejoin="round"
+						/>
+					</svg>
+					<span>Resume</span>
+				</a>
+			</div>
 			<div className="timeline-container">
 				{/* The center vertical line */}
 				<div className="timeline-line" style={{ backgroundColor: accent }} />
