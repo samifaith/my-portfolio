@@ -99,35 +99,9 @@ const HomePageComponent = ({ openModal }) => {
 
 			<div className="hero-split">
 				<div className="hero-text-section">
-					<p
-						style={{
-							minHeight: "200px",
-							lineHeight: "1.8",
-							marginBottom: "0",
-							maxWidth: "600px",
-							fontSize: "1.4rem",
-							contain: "layout style",
-						}}
-					>
-						{typedText}
-						{!isTypingComplete && <span className="typing-cursor">|</span>}
-					</p>
-					<div
-						ref={signatureRef}
-						style={{
-							opacity: 0,
-							display: "flex",
-							flexDirection: "column",
-							alignItems: "center",
-							gap: "1rem",
-							minHeight: "200px",
-							contain: "layout style",
-						}}
-					>
-						<h2 style={{ textAlign: "center" }}>THE CREATIVE DEVELOPER</h2>
-						<div
-							style={{ display: "flex", gap: "1rem", justifyContent: "center" }}
-						>
+					<div ref={signatureRef} className="signature-section">
+						<h2 className="signature-title">THE CREATIVE DEVELOPER</h2>
+						<div className="signature-words">
 							{["I", "AM"].map((word, i) => (
 								<h1 className="title brush-reveal-text" key={i}>
 									{word}
@@ -136,6 +110,10 @@ const HomePageComponent = ({ openModal }) => {
 						</div>
 						<Letter />
 					</div>
+					<p className="intro-paragraph">
+						{typedText}
+						{!isTypingComplete && <span className="typing-cursor">|</span>}
+					</p>
 				</div>
 
 				<div className="hero-image-section">
