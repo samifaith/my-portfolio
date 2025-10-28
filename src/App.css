@@ -136,8 +136,8 @@ p {
 	justify-content: center;
 	align-items: flex-end;
 	min-height: 100vh;
-	height: 100vh;
-	overflow: hidden;
+	height: auto; /* Changed from 100vh to auto */
+	overflow: visible; /* Changed from hidden to visible */
 	contain: layout style;
 }
 
@@ -147,10 +147,11 @@ p {
 	flex-direction: column;
 	align-items: flex-start;
 	justify-content: flex-start;
-	padding: 6rem 2rem 6rem 2rem;
+	padding: 8rem 2rem 6rem 2rem; /* Increased top padding for menu clearance */
 	z-index: 20;
 	min-height: 100vh;
 	gap: 3rem;
+	overflow: visible; /* Ensure content isn't clipped */
 	contain: layout style;
 }
 
@@ -177,6 +178,7 @@ p {
 	gap: 1rem;
 	justify-content: flex-start;
 	align-items: baseline;
+	flex-wrap: nowrap; /* Keep side-by-side by default */
 }
 
 .intro-paragraph {
@@ -196,6 +198,25 @@ p {
 	z-index: 5;
 	overflow: hidden;
 	contain: layout style paint;
+}
+
+/* Responsive signature for medium screens (tablets and smaller laptops) */
+@media (max-width: 1200px) {
+	.title {
+		font-size: 6rem; /* Scale down from 8rem */
+	}
+
+	.signature-section .signature-title {
+		font-size: 1.2rem;
+	}
+}
+
+@media (max-width: 900px) {
+	.title {
+		font-size: 5rem; /* Further scale down */
+	}
+
+	/* Removed flex-direction: column - keep side-by-side */
 }
 
 /* Mobile responsive - stack vertically */
@@ -222,6 +243,14 @@ p {
 		min-height: auto;
 		padding: 6rem 1.5rem 2rem 1.5rem;
 		gap: 2rem;
+	}
+
+	.title {
+		font-size: 4rem; /* Scale down for mobile */
+	}
+
+	.signature-section .signature-title {
+		font-size: 1rem;
 	}
 
 	.intro-paragraph {

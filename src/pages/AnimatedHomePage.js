@@ -6,12 +6,17 @@ import Menu from "../components/Menu";
 import Letter from "../components/DrawLetters";
 import MadeByMeHand from "../components/MadeByMeHand";
 import VerticalTimeline from "../components/VerticalTimeline";
-// import TechSkills from "../components/TechSkills";
 import ScrollIndicator from "../components/ScrollIndicator";
 import { useNavigate } from "react-router-dom";
 import headshotImage from "../headshot.png";
 
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
+
+// Configure ScrollTrigger for smooth scrolling
+ScrollTrigger.config({
+	autoRefreshEvents: "visibilitychange,DOMContentLoaded,load",
+	ignoreMobileResize: true,
+});
 
 const HomePageComponent = ({ openModal }) => {
 	const signatureRef = useRef(null);
@@ -136,6 +141,16 @@ const HomePageComponent = ({ openModal }) => {
 
 const AnimatedHomePage = () => {
 	const navigate = useNavigate();
+
+	// Refresh ScrollTrigger on mount to ensure smooth scrolling
+	useEffect(() => {
+		ScrollTrigger.refresh();
+
+		return () => {
+			// Clean up all ScrollTriggers when unmounting
+			ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+		};
+	}, []);
 
 	const openModal = useCallback(
 		(sectionTitle) => {
