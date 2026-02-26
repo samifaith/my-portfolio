@@ -8,7 +8,7 @@ import MadeByMeHand from "../components/MadeByMeHand";
 import VerticalTimeline from "../components/VerticalTimeline";
 import ScrollIndicator from "../components/ScrollIndicator";
 import { useNavigate } from "react-router-dom";
-import headshotImage from "../headshot.png";
+import headshotImage from "../illustratedheadshot.png";
 
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
 
@@ -21,37 +21,54 @@ ScrollTrigger.config({
 const HomePageComponent = ({ openModal }) => {
 	const signatureRef = useRef(null);
 	const headRef = useRef(null);
-	const [typedText, setTypedText] = useState("");
-	const [isTypingComplete, setIsTypingComplete] = useState(false);
 
 	const fullText =
-		"I run an independent studio dedicated to shaping culture through human-centered design. My process involves engaging with communities, developing early prototypes, and iterating to bring stories to life in impactful ways. With a strong focus on detail and purpose, I aim to develop meaningful brands and experiences that resonate and foster genuine connections. Together, we can create something extraordinary.";
+		"Welcome to my ever changing portfolio, shaping culture through human-centered design. I look to listen and engage with communities, developing prototypes, and iterating to bring stories to life in meaningful ways. With a strong focus on detail and purpose, I look to imagine and bring to life meaningful brands and experiences that resonate and foster genuine connections. Together, we can create something truly extraordinary.";
 
-	// Animate headshot immediately on mount
-	useEffect(() => {
-		gsap.fromTo(
-			headRef.current,
-			{
-				opacity: 0,
-				scale: 0.8,
-				willChange: "opacity, transform",
-			},
-			{
-				opacity: 1,
-				scale: 1,
-				duration: 1.2,
-				ease: "power2.out",
-				clearProps: "willChange",
-			}
-		);
-	}, []);
+	// Check if animation has been shown this session
+	const hasAnimationPlayed =
+		sessionStorage.getItem("homePageAnimationPlayed") === "true";
 
-	// Optimized typing effect using requestAnimationFrame
+	const [typedText, setTypedText] = useState(
+		hasAnimationPlayed ? fullText : "",
+	);
+	const [isTypingComplete, setIsTypingComplete] = useState(hasAnimationPlayed);
+
+	// Animate headshot immediately on mount (or show instantly if animation already played)
 	useEffect(() => {
+		if (hasAnimationPlayed) {
+			// Show instantly if animation has already played
+			gsap.set(headRef.current, { opacity: 1, scale: 1 });
+		} else {
+			gsap.fromTo(
+				headRef.current,
+				{
+					opacity: 0,
+					scale: 0.8,
+					willChange: "opacity, transform",
+				},
+				{
+					opacity: 1,
+					scale: 1,
+					duration: 1.2,
+					ease: "power2.out",
+					clearProps: "willChange",
+				},
+			);
+		}
+	}, [hasAnimationPlayed]);
+
+	// Optimized typing effect using requestAnimationFrame (skip if already played)
+	useEffect(() => {
+		// Skip animation if it has already played before
+		if (hasAnimationPlayed) {
+			return;
+		}
+
 		let currentIndex = 0;
 		let rafId = null;
 		let lastTime = 0;
-		const typingSpeed = 25;
+		const typingSpeed = 3; // ~1.2 seconds total for full paragraph
 
 		const typeNextChar = (timestamp) => {
 			if (!lastTime) lastTime = timestamp;
@@ -64,6 +81,9 @@ const HomePageComponent = ({ openModal }) => {
 					lastTime = timestamp;
 				} else {
 					setIsTypingComplete(true);
+
+					// Mark animation as played for this session
+					sessionStorage.setItem("homePageAnimationPlayed", "true");
 
 					// Defer signature animation to reduce main thread blocking
 					requestIdleCallback(
@@ -78,10 +98,10 @@ const HomePageComponent = ({ openModal }) => {
 									ease: "power2.out",
 									delay: 0.3,
 									clearProps: "willChange",
-								}
+								},
 							);
 						},
-						{ timeout: 500 }
+						{ timeout: 500 },
 					);
 					return;
 				}
@@ -95,7 +115,14 @@ const HomePageComponent = ({ openModal }) => {
 		return () => {
 			if (rafId) cancelAnimationFrame(rafId);
 		};
-	}, []);
+	}, [hasAnimationPlayed, fullText]);
+
+	// Show signature section instantly if animation has already played
+	useEffect(() => {
+		if (hasAnimationPlayed) {
+			gsap.set(signatureRef.current, { opacity: 1, y: 0 });
+		}
+	}, [hasAnimationPlayed]);
 
 	return (
 		<div className="hero-wrap">
@@ -115,10 +142,20 @@ const HomePageComponent = ({ openModal }) => {
 						</div>
 						<Letter />
 					</div>
-					<p className="intro-paragraph">
-						{typedText}
-						{!isTypingComplete && <span className="typing-cursor">|</span>}
-					</p>
+					<div className="intro-paragraph-wrapper">
+						{/* Invisible full text reserves the correct height at all times */}
+						<p
+							className="intro-paragraph intro-paragraph--spacer"
+							aria-hidden="true"
+						>
+							{fullText}
+						</p>
+						{/* Visible typed text overlays the spacer */}
+						<p className="intro-paragraph intro-paragraph--visible">
+							{typedText}
+							{!isTypingComplete && <span className="typing-cursor">|</span>}
+						</p>
+					</div>
 				</div>
 
 				<div className="hero-image-section">
@@ -165,7 +202,7 @@ const AnimatedHomePage = () => {
 				navigate(routes[sectionTitle]);
 			}
 		},
-		[navigate]
+		[navigate],
 	);
 
 	return (

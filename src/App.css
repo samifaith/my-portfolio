@@ -107,10 +107,10 @@ p {
 
 .hero-wrap {
 	min-height: 100vh;
-	height: 100vh;
-	overflow: hidden;
+	height: auto;
+	overflow: visible;
 	position: relative;
-	contain: layout style paint;
+	contain: style;
 }
 
 /* Desktop Head - Full height, oversized for effect */
@@ -147,7 +147,7 @@ p {
 	flex-direction: column;
 	align-items: flex-start;
 	justify-content: flex-start;
-	padding: 8rem 2rem 6rem 2rem; /* Increased top padding for menu clearance */
+	padding: 4rem 2rem 6rem 2rem;
 	z-index: 20;
 	min-height: 100vh;
 	gap: 3rem;
@@ -161,7 +161,7 @@ p {
 	flex-direction: column;
 	align-items: flex-start;
 	gap: 1rem;
-	min-height: 200px;
+	min-height: 240px; /* Increased to prevent layout shift */
 	contain: layout style;
 }
 
@@ -181,13 +181,28 @@ p {
 	flex-wrap: nowrap; /* Keep side-by-side by default */
 }
 
+.intro-paragraph-wrapper {
+	position: relative;
+	max-width: 600px;
+	width: 100%;
+}
+
 .intro-paragraph {
-	min-height: 200px;
 	line-height: 1.8;
 	margin-bottom: 0;
 	max-width: 600px;
 	font-size: 1.4rem;
-	contain: layout style;
+}
+
+.intro-paragraph--spacer {
+	visibility: hidden;
+}
+
+.intro-paragraph--visible {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
 }
 
 .hero-image-section {
