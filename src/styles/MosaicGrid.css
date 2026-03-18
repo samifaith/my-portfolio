@@ -21,8 +21,9 @@
 	border: none;
 	background: transparent;
 	color: #666;
-	font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text",
-		"Helvetica Neue", Arial, sans-serif;
+	font-family:
+		-apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial,
+		sans-serif;
 	font-size: 0.95rem;
 	font-weight: 500;
 	border-radius: 12px;
@@ -50,17 +51,22 @@
 
 /* Mosaic Grid Layout */
 .mosaic-grid {
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-	gap: 1.5rem;
+	column-count: 3;
+	column-gap: 1.5rem;
 	width: 100%;
 	margin: 0 auto;
 }
 
 /* Mosaic Item Sizes */
 .mosaic-item {
+	display: inline-block;
+	width: 100%;
+	margin: 0 0 1.5rem;
+	break-inside: avoid;
+	-webkit-column-break-inside: avoid;
+	page-break-inside: avoid;
 	position: relative;
-	overflow: hidden;
+	overflow: visible;
 	border-radius: 16px;
 	opacity: 0;
 	transform: translateY(30px) scale(0.95);
@@ -84,30 +90,22 @@
 
 /* Size Variants for Visual Interest */
 .mosaic-large {
-	grid-column: span 2;
-	min-height: 400px;
+	margin-bottom: 1.75rem;
 }
 
 .mosaic-medium {
-	grid-column: span 1;
-	min-height: 350px;
+	margin-bottom: 1.5rem;
 }
 
 .mosaic-small {
-	grid-column: span 1;
-	min-height: 300px;
+	margin-bottom: 1.25rem;
 }
 
 /* Responsive Adjustments */
 @media (max-width: 1024px) {
 	.mosaic-grid {
-		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-		gap: 1.25rem;
-	}
-
-	.mosaic-large {
-		grid-column: span 1;
-		min-height: 350px;
+		column-count: 2;
+		column-gap: 1.25rem;
 	}
 }
 
@@ -129,15 +127,8 @@
 	}
 
 	.mosaic-grid {
-		grid-template-columns: 1fr;
-		gap: 1rem;
-	}
-
-	.mosaic-large,
-	.mosaic-medium,
-	.mosaic-small {
-		grid-column: span 1;
-		min-height: 300px;
+		column-count: 1;
+		column-gap: 1rem;
 	}
 }
 
@@ -160,8 +151,9 @@
 }
 
 .empty-state-content h3 {
-	font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display",
-		"Helvetica Neue", Arial, sans-serif;
+	font-family:
+		-apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue",
+		Arial, sans-serif;
 	font-size: 1.5rem;
 	font-weight: 600;
 	color: #333;
@@ -169,8 +161,9 @@
 }
 
 .empty-state-content p {
-	font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text",
-		"Helvetica Neue", Arial, sans-serif;
+	font-family:
+		-apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial,
+		sans-serif;
 	font-size: 1rem;
 	color: #666;
 }
@@ -204,7 +197,4 @@
 	animation-delay: 0.6s;
 }
 
-/* Ensure ProjectCard fills mosaic item */
-.mosaic-item > * {
-	height: 100%;
-}
+/* Let cards size naturally based on content/media ratio */

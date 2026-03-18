@@ -16,13 +16,13 @@ const ProjectCard = ({ projectData, onProjectClick }) => {
 	if (projectData.video) {
 		return (
 			<div
-				className="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer h-full flex flex-col"
+				className="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer flex flex-col"
 				onClick={handleClick}
 			>
-				<div className="h-[25rem] w-full overflow-hidden bg-black">
+				<div className="w-full overflow-hidden bg-black">
 					<video
 						src={projectData.video}
-						className="w-full h-full object-cover"
+						className="block w-full h-auto"
 						muted
 						loop
 						playsInline
@@ -43,14 +43,14 @@ const ProjectCard = ({ projectData, onProjectClick }) => {
 	if (projectData.image) {
 		return (
 			<div
-				className="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer h-full flex flex-col"
+				className="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer flex flex-col"
 				onClick={handleClick}
 			>
-				<div className="h-[25rem] w-full overflow-hidden">
+				<div className="w-full overflow-hidden">
 					<img
 						src={projectData.image}
 						alt={projectData.title}
-						className="w-full h-full object-cover"
+						className="block w-full h-auto"
 					/>
 				</div>
 				<div className="p-4 flex-1">
@@ -69,7 +69,7 @@ const ProjectCard = ({ projectData, onProjectClick }) => {
 
 	return (
 		<div
-			className="bg-white bg-opacity-20 backdrop-blur-md border border-white border-opacity-30 p-6 text-gray-800 relative overflow-hidden rounded-lg cursor-pointer h-full flex flex-col shadow-lg"
+			className="bg-white bg-opacity-20 backdrop-blur-md border border-white border-opacity-30 p-6 text-gray-800 relative overflow-hidden rounded-lg cursor-pointer flex flex-col shadow-lg"
 			onClick={handleClick}
 		>
 			{/* Background pattern */}

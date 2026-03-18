@@ -17,7 +17,7 @@ const ExpertisePage = () => {
 			image: "/design/SD_TypePoster_ROWDY.png",
 			description: "Typography exploration with bold, energetic design",
 			category: "design",
-			size: "large", // for mosaic sizing
+			size: "medium", // for mosaic sizing
 		},
 		{
 			id: "lombardia-poster",
