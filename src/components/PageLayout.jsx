@@ -88,6 +88,14 @@ const PageLayout = ({
 									className="w-full max-h-96 object-contain mb-4"
 								/>
 							)}
+							{selectedProject.video && (
+								<video
+									src={selectedProject.video}
+									className="w-full max-h-96 object-contain mb-4"
+									controls
+									playsInline
+								/>
+							)}
 							<p className="text-gray-700">{selectedProject.description}</p>
 						</div>
 					</div>

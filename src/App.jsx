@@ -4,7 +4,7 @@ import "./App.css";
 import AnimatedHomePage from "./pages/AnimatedHomePage";
 import ExpertisePage from "./pages/ExpertisePage";
 import WritingPage from "./pages/WritingPage";
-import WanderlustCaseStudy from "./constants/Wander";
+import WanderlustCaseStudy from "./development/Wander";
 
 const App = () => {
 	return (

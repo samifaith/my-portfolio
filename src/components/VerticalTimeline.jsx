@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef } from "react";
+import React, { useLayoutEffect, useMemo, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "../styles/Timeline.css";
@@ -53,13 +53,15 @@ const defaultItems = [
 			"Adobe InDesign",
 			"MailChimp",
 			"Squarespace",
+			"Google Analytics",
+			"WordPress",
 		],
 	},
 	{
 		id: 4,
 		year: "2012",
 		title: "Sandpiper Rentals · Martha's Vineyard",
-		text: "Standardized listing templates and guest messaging. Brought average first-response time from ~24h to ~1h during peak season, reduced avoidable listing errors to near-zero, and kept owner and guest satisfaction high via simple SOPs.",
+		text: "Standardized listing templates and development the company's brand identity. Brought the average first-response time from ~24h to ~1h during peak season by implementing communication rotations, reduced avoidable listing errors to near-zero, and kept owner and guest satisfaction high via simple SOPs.",
 		side: "right",
 		skills: [
 			"Customer Experience",
@@ -83,13 +85,13 @@ const defaultItems = [
 			"Hiring Metrics",
 			"Diversity Initiatives",
 		],
-		techTools: ["Greenhouse", "HubSpot", "Hootsuite"],
+		techTools: ["Greenhouse", "HubSpot", "Hootsuite", "Google Suite"],
 	},
 	{
 		id: 6,
 		year: "2016",
 		title: "Resilient Coders",
-		text: "Shifted into software with full-stack projects. Delivered capstone apps with Lighthouse performance at ~95–98% on key flows, practiced agile sprints, and shipped responsive UI with code review and issue tracking.",
+		text: "Shifted into software with full-stack projects. Delivered capstone apps with Lighthouse performance at ~95–98% on key flows, practiced agile development sprints, and shipped responsive UI with structured code reviews and issue tracking.",
 		side: "right",
 		skills: ["Responsive Design", "Agile Practices"],
 		techTools: [
@@ -109,7 +111,7 @@ const defaultItems = [
 		id: 7,
 		year: "2020",
 		title: "AESARA Inc.",
-		text: "Worked on the Health Economics and Outcomes Research (HEOR) evidence tool, ATLAS, in a regulated environment, bridging product, design, and front-end. Built ~20–30 reusable UI components and introduced design-systems. Helped move releases from ~1–2 to ~3–4 per quarter by tightening handoffs and acceptance criteria.",
+		text: "Worked on the Health Economics and Outcomes Research (HEOR) evidence tool, ATLAS, utilizing product, design, and front-end development skills. Built ~20–30 reusable UI components and introduced design-systems. Helped move releases from ~1–2 to ~3–4 per quarter by tightening handoffs and acceptance criteria.",
 		side: "left",
 		skills: [
 			"Product Development",
@@ -124,19 +126,20 @@ const defaultItems = [
 			"JavaScript",
 			"Figma",
 			"Articulate 360",
-			"Adobe XD",
+			"Adobe Suite",
 			"GSAP",
+			"Microsoft Sharepoint",
 		],
 	},
 	{
 		id: 8,
 		year: "2024",
-		title: "Johnson & Wales University · Food, Media & Design",
-		text: "Designing a degree that blends culture, food systems, and media into shippable work. Produced case studies, ran user tests on prototypes, and directed design and brand direction for the JWU innovation lab, The Launch Pad.",
+		title: "Johnson & Wales University · Food Studies, Media & Design",
+		text: "I wanted to design a degree that blended culture, food systems, and storytelling into shippable work. I produced case studies, ran user tests on prototypes, and directed design and brand direction for the JWU innovation lab, The Launch Pad.",
 		side: "right",
 		skills: [
-			"Design Thinking",
-			"User Research",
+			"User-Centered Design",
+			"Research & Case Studies",
 			"Media Storytelling",
 			"Food Systems & Culture",
 			"Project Delivery",
@@ -157,7 +160,13 @@ const defaultItems = [
 export default function VerticalTimeline({
 	items = defaultItems,
 	accent = "#ffd0d7",
+	order = "desc",
 }) {
+	const normalizedOrder = order === "asc" ? "asc" : "desc";
+	const displayItems = useMemo(
+		() => (normalizedOrder === "asc" ? items : [...items].reverse()),
+		[items, normalizedOrder],
+	);
 	const containerRef = useRef(null);
 	const cardsRef = useRef([]);
 	const badgesRef = useRef([]);
@@ -165,7 +174,7 @@ export default function VerticalTimeline({
 
 	useLayoutEffect(() => {
 		const ctx = gsap.context(() => {
-			items.forEach((item, i) => {
+			displayItems.forEach((item, i) => {
 				const card = cardsRef.current[i];
 				const badge = badgesRef.current[i];
 				const opposite = oppositeRef.current[i];
@@ -185,7 +194,7 @@ export default function VerticalTimeline({
 								fastScrollEnd: true,
 							},
 							clearProps: "willChange",
-						}
+						},
 					);
 				}
 
@@ -205,7 +214,7 @@ export default function VerticalTimeline({
 								fastScrollEnd: true,
 							},
 							clearProps: "willChange",
-						}
+						},
 					);
 				}
 
@@ -230,14 +239,14 @@ export default function VerticalTimeline({
 								fastScrollEnd: true,
 							},
 							clearProps: "willChange",
-						}
+						},
 					);
 				}
 			});
 		}, containerRef);
 
 		return () => ctx.revert();
-	}, [items]);
+	}, [displayItems]);
 
 	return (
 		<section className="timeline-section" ref={containerRef}>
@@ -278,7 +287,7 @@ export default function VerticalTimeline({
 				{/* The center vertical line */}
 				<div className="timeline-line" style={{ backgroundColor: accent }} />
 
-				{items.map((item, i) => {
+				{displayItems.map((item, i) => {
 					const side = item.side === "right" ? "right" : "left";
 					const oppositeSide = side === "right" ? "left" : "right";
 

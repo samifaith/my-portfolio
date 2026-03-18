@@ -14,7 +14,7 @@ const ExpertisePage = () => {
 		{
 			id: "rowdy-poster",
 			title: "ROWDY Type Poster",
-			image: "./SD_TypePoster_ROWDY.png",
+			image: "/design/SD_TypePoster_ROWDY.png",
 			description: "Typography exploration with bold, energetic design",
 			category: "design",
 			size: "large", // for mosaic sizing
@@ -22,16 +22,32 @@ const ExpertisePage = () => {
 		{
 			id: "lombardia-poster",
 			title: "LOMBARDIA Type Poster",
-			image: "./SD_TypePoster_LOMBARDIA.png",
+			image: "/design/SD_TypePoster_LOMBARDIA.png",
 			description: "Elegant typography inspired by Italian design",
 			category: "design",
 			size: "medium",
 		},
 		{
 			id: "vote-poster",
-			title: "Vote Poster",
-			image: "./Vote_Poster.png",
-			description: "Political awareness campaign design",
+			title: "Lady Liberty Says to Vote",
+			image: "/design/Vote_Poster.png",
+			description: "Political awareness poster design",
+			category: "design",
+			size: "medium",
+		},
+		{
+			id: "black-unicorn",
+			title: "Black Unicorn",
+			image: "/design/BlackUnicorn.png",
+			description: "Illustration and brand expression study",
+			category: "design",
+			size: "medium",
+		},
+		{
+			id: "sam-vector",
+			title: "Life 2 Life Travel Agency | Web Interface",
+			image: "/design/SamDeCoteau_Vector.png",
+			description: "Vector portrait exploration",
 			category: "design",
 			size: "medium",
 		},
@@ -91,17 +107,17 @@ const ExpertisePage = () => {
 			size: "medium",
 		},
 
-		// MEDIA PROJECTS (placeholder - update when ready)
-		// Uncomment and add when you have media projects ready
-		// {
-		// 	id: "photography-series",
-		// 	title: "Your Photography Project",
-		// 	type: "Photography",
-		// 	description: "Your description",
-		// 	backgroundIcon: Camera,
-		// 	category: "media",
-		// 	size: "large",
-		// },
+		// MEDIA PROJECTS
+		{
+			id: "diving-film",
+			title: "Diving",
+			type: "Photography / Video",
+			description: "Short motion capture from the photography collection.",
+			video: "/photography/diving.MP4",
+			backgroundIcon: Camera,
+			category: "media",
+			size: "large",
+		},
 	];
 
 	const filters = [

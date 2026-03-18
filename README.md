@@ -16,7 +16,7 @@ A modern, responsive portfolio website showcasing my work in writing, developmen
 - **Frontend**: React 18, React Router
 - **Styling**: Tailwind CSS
 - **Icons**: Lucide React
-- **Build Tool**: Create React App
+- **Build Tool**: Vite
 
 ## 📁 Project Structure
 
@@ -60,7 +60,7 @@ npm install
 3. Start the development server:
 
 ```bash
-npm start
+npm run dev
 ```
 
 4. Open [http://localhost:3000](http://localhost:3000) to view the site.
@@ -114,7 +114,7 @@ Primary fonts: Impact, Poppins, sans-serif
 npm run build
 ```
 
-Creates optimized production build in the `build` folder.
+Creates optimized production build in the `dist` folder.
 
 ## 🚀 Deployment
 
@@ -129,7 +129,7 @@ vercel
 
 1. Connect your GitHub repository
 2. Set build command: `npm run build`
-3. Set publish directory: `build`
+3. Set publish directory: `dist`
 
 ### GitHub Pages
 
@@ -162,9 +162,10 @@ npm run deploy
 ## 🔧 Available Scripts
 
 - `npm start` - Development server
+- `npm run dev` - Development server
 - `npm test` - Run tests
 - `npm run build` - Production build
-- `npm run eject` - Eject from Create React App
+- `npm run preview` - Preview production build locally
 
 ## 📄 License
 

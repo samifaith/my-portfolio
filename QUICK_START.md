@@ -98,10 +98,10 @@ I can help you update `AnimatedHomePage.js` to use the WebP image once you've cr
    npm run build
    ```
 
-2. **Serve locally:**
+2. **Preview locally:**
 
    ```bash
-   npx serve -s build
+   npm run preview
    ```
 
 3. **Run Lighthouse:**
@@ -142,10 +142,10 @@ I can help you update `AnimatedHomePage.js` to use the WebP image once you've cr
 
 # Build and test
 npm run build
-npx serve -s build
+npm run preview
 
 # Open in browser and run Lighthouse
-open http://localhost:3000
+open http://localhost:4173
 ```
 
 ---

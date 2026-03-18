@@ -13,6 +13,32 @@ const ProjectCard = ({ projectData, onProjectClick }) => {
 		}
 	};
 
+	if (projectData.video) {
+		return (
+			<div
+				className="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer h-full flex flex-col"
+				onClick={handleClick}
+			>
+				<div className="h-[25rem] w-full overflow-hidden bg-black">
+					<video
+						src={projectData.video}
+						className="w-full h-full object-cover"
+						muted
+						loop
+						playsInline
+						autoPlay
+					/>
+				</div>
+				<div className="p-4 flex-1">
+					<h3 className="font-semibold text-gray-800 mb-2">
+						{projectData.title}
+					</h3>
+					<p className="text-sm text-gray-600">{projectData.description}</p>
+				</div>
+			</div>
+		);
+	}
+
 	// If project has an image, use the simple image card
 	if (projectData.image) {
 		return (

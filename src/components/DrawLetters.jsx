@@ -5,7 +5,6 @@ import Grid from "@mui/material/Grid";
 
 export default function Letter() {
 	const svgRef = useRef(null);
-	const drawTweenRef = useRef(null);
 
 	useLayoutEffect(() => {
 		// local handle to the timeline so cleanup sees a stable reference
@@ -89,7 +88,7 @@ export default function Letter() {
 							attr: { stdDeviation: 18 },
 							ease: "none",
 						},
-						`-=${overlap}`
+						`-=${overlap}`,
 					);
 					tl.to(
 						glowPath,
@@ -98,7 +97,7 @@ export default function Letter() {
 							attr: { opacity: 0.95 },
 							ease: "none",
 						},
-						"<"
+						"<",
 					);
 				} else {
 					tl.to(
@@ -108,14 +107,14 @@ export default function Letter() {
 							filter: "drop-shadow(0 20px 70px rgba(162,0,59,0.34))",
 							ease: "none",
 						},
-						`-=${overlap}`
+						`-=${overlap}`,
 					);
 				}
 
 				tl.to(
 					mainPath,
 					{ duration: rampDuration, stroke: "#ff4d79", ease: "none" },
-					"<"
+					"<",
 				);
 				tl.to({}, { duration: holdAtFull });
 
@@ -128,7 +127,6 @@ export default function Letter() {
 				}
 				tl.set(mainPath, { attr: { stroke: "#a2003b" } });
 
-				drawTweenRef.current = tl;
 				localDrawTween = tl;
 			}
 		}, svgRef);
