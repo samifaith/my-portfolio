@@ -148,7 +148,6 @@ const defaultItems = [
 			"Figma",
 			"Adobe Creative Cloud",
 			"Plasmic",
-			"ChatGPT",
 			"Elementor",
 			"Webflow",
 			"Microsoft CoPilot",
