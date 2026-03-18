@@ -23,7 +23,7 @@ const defaultItems = [
 	},
 	{
 		id: 2,
-		year: "2009",
+		year: "2010",
 		title: "Center for Digital Imaging Arts at Boston University",
 		text: "Studio training taught me to shape light, compose with intention, and run a consistent shoot-to-delivery workflow. I produced ~12–18 studio sets per term, maintained calibrated color across shoots, and cut edit time by ~25% using presets and checklists.",
 		side: "right",
@@ -37,7 +37,7 @@ const defaultItems = [
 	},
 	{
 		id: 3,
-		year: "2012",
+		year: "2018",
 		title: "DeCoteau Photography",
 		text: "Launched a portrait and wedding studio. Averaged ~20–30 shoots per season with on-time delivery at ~98%. Referral and repeat clients drove ~60% of bookings. Pre-shoot moodboards and shot lists cut revision cycles by ~40–50%.",
 		side: "left",
@@ -59,7 +59,7 @@ const defaultItems = [
 	},
 	{
 		id: 4,
-		year: "2012",
+		year: "2017",
 		title: "Sandpiper Rentals · Martha's Vineyard",
 		text: "Standardized listing templates and development the company's brand identity. Brought the average first-response time from ~24h to ~1h during peak season by implementing communication rotations, reduced avoidable listing errors to near-zero, and kept owner and guest satisfaction high via simple SOPs.",
 		side: "right",
@@ -74,7 +74,7 @@ const defaultItems = [
 	},
 	{
 		id: 5,
-		year: "2013",
+		year: "2018",
 		title: "Wayfair · Campus Recruitment",
 		text: "Sourced and shepherded early-career candidates, ran campus events, and supported structured interview loops. Increased representation of diversely qualified candidates in pipelines from ~7% to ~30%, trimmed time-to-fill by ~2 weeks on recurring roles, and held offer acceptance near ~70% by clarifying rubrics and smoothing loops.",
 		side: "left",
@@ -89,7 +89,7 @@ const defaultItems = [
 	},
 	{
 		id: 6,
-		year: "2016",
+		year: "2020",
 		title: "Resilient Coders",
 		text: "Shifted into software with full-stack projects. Delivered capstone apps with Lighthouse performance at ~95–98% on key flows, practiced agile development sprints, and shipped responsive UI with structured code reviews and issue tracking.",
 		side: "right",
@@ -109,7 +109,7 @@ const defaultItems = [
 	},
 	{
 		id: 7,
-		year: "2020",
+		year: "2024",
 		title: "AESARA Inc.",
 		text: "Worked on the Health Economics and Outcomes Research (HEOR) evidence tool, ATLAS, utilizing product, design, and front-end development skills. Built ~20–30 reusable UI components and introduced design-systems. Helped move releases from ~1–2 to ~3–4 per quarter by tightening handoffs and acceptance criteria.",
 		side: "left",
@@ -133,7 +133,7 @@ const defaultItems = [
 	},
 	{
 		id: 8,
-		year: "2024",
+		year: "2026",
 		title: "Johnson & Wales University · Food Studies, Media & Design",
 		text: "I wanted to design a degree that blended culture, food systems, and storytelling into shippable work. I produced case studies, ran user tests on prototypes, and directed design and brand direction for the JWU innovation lab, The Launch Pad.",
 		side: "right",
