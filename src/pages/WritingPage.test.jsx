@@ -29,7 +29,9 @@ describe("WritingPage story detail", () => {
 		const pdfViewer = screen.getByTitle(/pdf viewer/i);
 		expect(pdfViewer).toHaveAttribute(
 			"src",
-			expect.stringContaining("/writing/Oui Chef - Faria.pdf#view=FitH"),
+			expect.stringContaining(
+				"/writing/Oui Chef - Faria.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH",
+			),
 		);
 
 		expect(

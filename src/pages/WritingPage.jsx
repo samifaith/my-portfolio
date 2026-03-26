@@ -85,23 +85,11 @@ const WritingPage = () => {
 					{story.pdfFile && (
 						<section className="mb-8" aria-label="Article PDF viewer">
 							<iframe
-								src={`${story.pdfFile}#view=FitH`}
+								src={`${story.pdfFile}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`}
 								title={`${story.title} PDF viewer`}
 								className="w-full h-[70vh] md:h-[85vh] rounded-lg border border-gray-200"
 								loading="lazy"
 							/>
-							<p className="text-sm text-gray-600 mt-4">
-								If the document does not render, open the PDF directly{" "}
-								<a
-									href={story.pdfFile}
-									target="_blank"
-									rel="noopener noreferrer"
-									className="text-[#a2003b] underline"
-								>
-									here
-								</a>
-								.
-							</p>
 						</section>
 					)}
 
