@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { Compass, Code, Camera, Pen } from "lucide-react";
 import PageLayout from "../components/PageLayout";
 import ProjectCard from "../components/ProjectCard";
@@ -6,7 +7,7 @@ import "../styles/MosaicGrid.css";
 
 const ExpertisePage = () => {
 	const [selectedProject, setSelectedProject] = useState(null);
-	const [activeFilter, setActiveFilter] = useState("all");
+	const [searchParams, setSearchParams] = useSearchParams();
 
 	// Unified projects from all expertise areas
 	const allProjects = [
@@ -79,7 +80,7 @@ const ExpertisePage = () => {
 				"A nostalgic reflection on Caribbean culture, family traditions, and the complex relationship between immigrant identity and food.",
 			type: "Memoir",
 			theme: "Culture",
-			route: "/writing/eat-like-child",
+			route: "/expertise/eat-like-child",
 			size: "medium",
 		},
 		{
@@ -94,7 +95,7 @@ const ExpertisePage = () => {
 				"An intimate look at a home chef who transforms family recipes into culinary magic through intuition and ancestral wisdom.",
 			type: "Profile",
 			theme: "Food",
-			route: "/writing/home-cook",
+			route: "/expertise/home-cook",
 			size: "medium",
 		},
 		{
@@ -106,7 +107,7 @@ const ExpertisePage = () => {
 				"An intimate conversation exploring relationships, personal growth, and the stories we tell ourselves about justice and healing.",
 			type: "Audio",
 			theme: "Podcast",
-			route: "/writing/tea-with-sami",
+			route: "/expertise/tea-with-sami",
 			size: "medium",
 		},
 
@@ -131,6 +132,22 @@ const ExpertisePage = () => {
 		{ id: "media", label: "Media", icon: Camera },
 	];
 
+	const validFilterIds = useMemo(
+		() => new Set(filters.map((filter) => filter.id)),
+		[],
+	);
+	const queryFilter = searchParams.get("filter");
+	const activeFilter = validFilterIds.has(queryFilter) ? queryFilter : "all";
+
+	const handleFilterChange = (filterId) => {
+		if (filterId === "all") {
+			setSearchParams({});
+			return;
+		}
+
+		setSearchParams({ filter: filterId });
+	};
+
 	const filteredProjects =
 		activeFilter === "all"
 			? allProjects
@@ -149,7 +166,7 @@ const ExpertisePage = () => {
 				{filters.map((filter) => (
 					<button
 						key={filter.id}
-						onClick={() => setActiveFilter(filter.id)}
+						onClick={() => handleFilterChange(filter.id)}
 						className={`filter-tab ${
 							activeFilter === filter.id ? "active" : ""
 						}`}

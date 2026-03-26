@@ -11,14 +11,14 @@ const renderStoryRoute = (initialPath) =>
 	render(
 		<MemoryRouter initialEntries={[initialPath]}>
 			<Routes>
-				<Route path="/writing/:storyId" element={<WritingPage />} />
+				<Route path="/expertise/:storyId" element={<WritingPage />} />
 			</Routes>
 		</MemoryRouter>,
 	);
 
 describe("WritingPage story detail", () => {
 	it("renders one PDF viewer and story text for the home cook article", () => {
-		renderStoryRoute("/writing/home-cook");
+		renderStoryRoute("/expertise/home-cook");
 
 		expect(
 			screen.queryByRole("img", {
@@ -40,7 +40,7 @@ describe("WritingPage story detail", () => {
 	});
 
 	it("does not render a PDF viewer for stories without a pdf file", () => {
-		renderStoryRoute("/writing/eat-like-child");
+		renderStoryRoute("/expertise/eat-like-child");
 		expect(screen.queryByTitle(/pdf viewer/i)).not.toBeInTheDocument();
 	});
 });

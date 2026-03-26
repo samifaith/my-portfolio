@@ -192,10 +192,10 @@ const AnimatedHomePage = () => {
 	const openModal = useCallback(
 		(sectionTitle) => {
 			const routes = {
-				DESIGN: "/design",
-				DEVELOPMENT: "/development",
-				WRITING: "/writing",
-				MEDIA: "/media",
+				DESIGN: "/expertise?filter=design",
+				DEVELOPMENT: "/expertise?filter=development",
+				WRITING: "/expertise?filter=writing",
+				MEDIA: "/expertise?filter=media",
 			};
 
 			if (routes[sectionTitle]) {

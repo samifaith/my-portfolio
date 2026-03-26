@@ -14,7 +14,7 @@ const storiesData = {
 			"A nostalgic reflection on Caribbean culture, family traditions, and the complex relationship between immigrant identity and food.",
 		type: "Memoir",
 		theme: "Culture",
-		route: "/writing/eat-like-child",
+		route: "/expertise/eat-like-child",
 	},
 	"home-cook": {
 		id: "home-cook",
@@ -25,7 +25,7 @@ const storiesData = {
 			"An intimate look at a home chef who transforms family recipes into culinary magic through intuition and ancestral wisdom.",
 		type: "Profile",
 		theme: "Food",
-		route: "/writing/home-cook",
+		route: "/expertise/home-cook",
 	},
 	"tea-with-sami": {
 		id: "tea-with-sami",
@@ -36,7 +36,7 @@ const storiesData = {
 			"An intimate conversation exploring relationships, personal growth, and the stories we tell ourselves about justice and healing.",
 		type: "Audio",
 		theme: "Podcast",
-		route: "/writing/tea-with-sami",
+		route: "/expertise/tea-with-sami",
 	},
 };
 
@@ -49,8 +49,8 @@ const WritingPage = () => {
 		return (
 			<PageLayout
 				title={story.title}
-				backLink="/writing"
-				backText="Back to Writing"
+				backLink="/expertise"
+				backText="Back to Expertise"
 				isStoryPage={true}
 			>
 				<article className="bg-white rounded-lg shadow-lg p-8">
