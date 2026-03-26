@@ -15,6 +15,9 @@ Today, I seek out that food and the stories that pair well with what's being ser
 	"home-cook": {
 		title: "The Rise of the Home Cook: Arielle Faria",
 		subtitle: "Profile Feature",
+		coverImage: "/writing/OuiChef.png",
+		pdfFile: "/writing/Oui Chef - Faria.pdf",
+		pdfPages: [1, 2, 3],
 		content: `"Who made the mac & cheese?" This is a common question in black households whenever this staple side dish is presented. A rite of passage, the holy grail of golden creamy noodles is only deemed worthy by a truly exceptional cook. Amongst chefs like Kevin Belton or Jamie Oliver is the resurgence of the home chef. Since the pandemic, shows like MasterChef or Great British Bake Off highlight the shift in food culture toward the popularity and skill of the at-home cook. Amongst these home chefs is Arielle Faria, whose mac & cheese passes that ultimate test.
 
 A well-crafted roux, at least three cheeses, an abundance of seasoning, and cavatappi pasta make for the most incredible mac & cheese. She credits her skills to intuition, witchy spells, and her ancestors' recipes handed down throughout the generations. If Faria had been around in the 1600s, she would've been burned at the stake for the food she conjures in the kitchen. Casting spells over her cauldron—ok, pots and pans—she blends together a list of tried and true recipes to create nostalgic and innovative dishes. "They call me the kitchen witch," she smirks. How else do you explain how good her food is?

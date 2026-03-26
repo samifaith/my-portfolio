@@ -76,7 +76,10 @@ Update `src/constants/WritingPieces.js`:
   title: "Your Story Title",
   subtitle: "Story Type",
   content: `Your story content here...`,
-  audioFile: "./audio-file.mp3"
+  audioFile: "/writing/audio-file.mp3", // optional
+  coverImage: "/writing/cover-image.png", // optional
+  pdfFile: "/writing/article.pdf", // optional
+  pdfPages: [1, 2, 3] // optional page numbers to embed inline
 }
 ```
 

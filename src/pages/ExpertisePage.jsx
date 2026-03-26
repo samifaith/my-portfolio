@@ -86,7 +86,10 @@ const ExpertisePage = () => {
 			id: "home-cook",
 			title: "The Rise of the Home Cook",
 			category: "writing",
+			image: "/writing/OuiChef.png",
 			tags: ["Food", "Profile", "Cooking"],
+			description:
+				"An intimate look at a home chef who transforms family recipes into culinary magic through intuition and ancestral wisdom.",
 			previewContent:
 				"An intimate look at a home chef who transforms family recipes into culinary magic through intuition and ancestral wisdom.",
 			type: "Profile",
