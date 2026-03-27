@@ -39,8 +39,38 @@ describe("WritingPage story detail", () => {
 		).toBeInTheDocument();
 	});
 
-	it("does not render a PDF viewer for stories without a pdf file", () => {
+	it("renders one PDF viewer and story text for eat-like-child after merging manger assets", () => {
 		renderStoryRoute("/expertise/eat-like-child");
-		expect(screen.queryByTitle(/pdf viewer/i)).not.toBeInTheDocument();
+
+		const pdfViewer = screen.getByTitle(/eat like a child pdf viewer/i);
+		expect(pdfViewer).toHaveAttribute(
+			"src",
+			expect.stringContaining(
+				"/writing/manger.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH",
+			),
+		);
+
+		expect(
+			screen.queryByRole("img", {
+				name: /eat like a child cover image/i,
+			}),
+		).not.toBeInTheDocument();
+
+		expect(screen.getByText(/"Again\?!"/i)).toBeInTheDocument();
+	});
+
+	it("renders Tea with Sami GIF cover and custom player controls on the article page", () => {
+		renderStoryRoute("/expertise/tea-with-sami");
+
+		expect(
+			screen.getByRole("img", {
+				name: /tea with sami: revenge served hot! cover image/i,
+			}),
+		).toBeInTheDocument();
+
+		expect(
+			screen.getByRole("button", { name: /play episode/i }),
+		).toBeInTheDocument();
+		expect(screen.getByLabelText(/episode progress/i)).toBeInTheDocument();
 	});
 });

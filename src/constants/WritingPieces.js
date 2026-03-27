@@ -2,6 +2,8 @@ const stories = {
 	"eat-like-child": {
 		title: "Eat Like a Child",
 		subtitle: "Personal Essay",
+		coverImage: "/writing/manger.png",
+		pdfFile: "/writing/manger.pdf",
 		content: `"Again?!" I mumbled, replacing the lid on the food my grandmother was cooking. She'd made her "signature" meal: stewed fish, lentils, rice, and a bit of watercress. While healthy and nourishing, it was also a meal on rotation almost every week. We weren't rich, but to my young mind Dominoes was always an option if there was nothing else to eat. To my immigrant grandmother, you ate what was provided or you went hungry. Sighing in second-generational entitlement, I backed away from the stove, opting for cereal. Yes, I preferred the highly processed sugary grain I considered food to the home cooking my grandmother provided. Today, I'd give anything for that meal again.
 
 As a child, I had a (somewhat) irrational fear of a fish bone getting stuck in my throat or rubbing my eyes and getting scotch bonnet pepper in my eye. My grandmother made bujol—salted cod with freshly baked coconut bread that was both amazing and dicey to my young mind. I'd had the experience of getting a small bone stuck in my throat and vowed never again. No matter how tasty, I'll stick to the fish sticks. Again, my grandmother said eat it or go hungry.
@@ -41,6 +43,8 @@ Ultimately, cooking is about sharing joy and creating memorable moments. As a ho
 	"tea-with-sami": {
 		title: "Tea with Sami: Revenge Served HOT!",
 		subtitle: "Podcast Episode",
+		coverImage: "/writing/revengehot.gif",
+		showCoverOnArticle: true,
 		audioFile: "/writing/ServedHot.mp3",
 		content: `An intimate conversation exploring relationships, personal growth, and the stories we tell ourselves about justice and healing.
 `,

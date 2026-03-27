@@ -75,8 +75,11 @@ const ExpertisePage = () => {
 			id: "eat-like-child",
 			title: "Eat Like a Child",
 			category: "writing",
+			image: "/writing/manger.png",
 			tags: ["Culture", "Memoir", "Caribbean"],
 			previewContent:
+				"A nostalgic reflection on Caribbean culture, family traditions, and the complex relationship between immigrant identity and food.",
+			description:
 				"A nostalgic reflection on Caribbean culture, family traditions, and the complex relationship between immigrant identity and food.",
 			type: "Memoir",
 			theme: "Culture",
@@ -102,15 +105,17 @@ const ExpertisePage = () => {
 			id: "tea-with-sami",
 			title: "Tea with Sami",
 			category: "writing",
+			image: "/writing/revengehot.gif",
 			tags: ["Audio", "Relationships", "Growth"],
 			previewContent:
+				"An intimate conversation exploring relationships, personal growth, and the stories we tell ourselves about justice and healing.",
+			description:
 				"An intimate conversation exploring relationships, personal growth, and the stories we tell ourselves about justice and healing.",
 			type: "Audio",
 			theme: "Podcast",
 			route: "/expertise/tea-with-sami",
 			size: "medium",
 		},
-
 		// MEDIA PROJECTS
 		{
 			id: "diving-film",
