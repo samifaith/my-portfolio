@@ -10,6 +10,9 @@ import "./App.css";
 
 const AnimatedHomePage = lazy(() => import("./pages/AnimatedHomePage"));
 const ExpertisePage = lazy(() => import("./pages/ExpertisePage"));
+const ExpertisePrototypePage = lazy(
+	() => import("./pages/ExpertisePrototypePage"),
+);
 const WritingPage = lazy(() => import("./pages/WritingPage"));
 const WanderlustCaseStudy = lazy(() => import("./development/Wander"));
 
@@ -26,6 +29,10 @@ const App = () => {
 					<Routes>
 						<Route path="/" element={<AnimatedHomePage />} />
 						<Route path="/expertise" element={<ExpertisePage />} />
+						<Route
+							path="/expertise-prototype"
+							element={<ExpertisePrototypePage />}
+						/>
 						<Route path="/expertise/:storyId" element={<WritingPage />} />
 						<Route
 							path="/writing"

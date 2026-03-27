@@ -1,20 +1,11 @@
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "../styles/ExpertisePrototype.css";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const ExpertisePrototypePage = () => {
 	const navigate = useNavigate();
 	const [activeIndex, setActiveIndex] = useState(0);
-	const shellRef = useRef(null);
-	const railRef = useRef(null);
-	const pinnedFrameRef = useRef(null);
-	const mediaRefs = useRef([]);
 	const sectionRefs = useRef([]);
-	const activeIndexRef = useRef(0);
 
 	const sections = useMemo(
 		() => [
@@ -67,134 +58,44 @@ const ExpertisePrototypePage = () => {
 	}, []);
 
 	useEffect(() => {
-		activeIndexRef.current = activeIndex;
-	}, [activeIndex]);
+		const contentSections = sectionRefs.current
+			.slice(0, sections.length)
+			.filter(Boolean);
 
-	useLayoutEffect(() => {
-		if (!shellRef.current || sections.length < 2) {
+		if (!contentSections.length) {
 			return undefined;
 		}
 
-		const mm = gsap.matchMedia();
-		const ctx = gsap.context(() => {
-			const mediaLayers = mediaRefs.current
-				.slice(0, sections.length)
-				.filter(Boolean);
-			const contentSections = sectionRefs.current
-				.slice(0, sections.length)
-				.filter(Boolean);
+		const observer = new IntersectionObserver(
+			(entries) => {
+				const visibleEntries = entries
+					.filter((entry) => entry.isIntersecting)
+					.sort((a, b) => b.intersectionRatio - a.intersectionRatio);
 
-			if (!contentSections.length || !mediaLayers.length) {
-				return;
-			}
-
-			const lastIndex = mediaLayers.length - 1;
-			const turnEase = gsap.parseEase("power2.inOut");
-			const setLayerProgress = (segmentIndex, segmentProgress) => {
-				mediaLayers.forEach((layer) => {
-					gsap.set(layer, {
-						opacity: 0,
-						clipPath: "inset(0 0 0 100%)",
-						rotationY: 0,
-						scaleX: 1,
-						xPercent: 0,
-						filter: "brightness(1)",
-						transformOrigin: "right center",
-						zIndex: 1,
-					});
-				});
-
-				gsap.set(mediaLayers[segmentIndex], {
-					opacity: 1,
-					clipPath: "inset(0 0 0 0)",
-					zIndex: 3,
-				});
-
-				if (segmentIndex < lastIndex) {
-					const incomingReveal = turnEase(segmentProgress);
-					const foldDepth = Math.sin(incomingReveal * Math.PI * 0.9);
-					const incomingFold = 1 - incomingReveal;
-
-					gsap.set(mediaLayers[segmentIndex], {
-						rotationY: 22 * incomingReveal,
-						scaleX: 1 - 0.14 * incomingReveal,
-						xPercent: -6 * incomingReveal,
-						clipPath: `inset(0 ${incomingReveal * 100}% 0 0)`,
-						filter: `brightness(${1 - 0.24 * foldDepth})`,
-					});
-
-					gsap.set(mediaLayers[segmentIndex + 1], {
-						opacity: 1,
-						clipPath: `inset(0 0 0 ${(1 - incomingReveal) * 100}%)`,
-						transformOrigin: "right center",
-						rotationY: 14 * incomingFold,
-						scaleX: 0.9 + 0.1 * incomingReveal,
-						xPercent: 3 * incomingFold,
-						filter: `brightness(${0.86 + 0.14 * incomingReveal})`,
-						zIndex: 2,
-					});
-
-					if (pinnedFrameRef.current) {
-						pinnedFrameRef.current.style.setProperty(
-							"--proto-turn-shadow",
-							`${0.15 + 0.45 * foldDepth}`,
-						);
-					}
-				} else if (pinnedFrameRef.current) {
-					pinnedFrameRef.current.style.setProperty("--proto-turn-shadow", "0");
+				if (!visibleEntries.length) {
+					return;
 				}
-			};
 
-			setLayerProgress(0, 0);
+				const topEntry = visibleEntries[0];
+				const nextIndex = contentSections.findIndex(
+					(section) => section === topEntry.target,
+				);
 
-			contentSections.forEach((section, index) => {
-				ScrollTrigger.create({
-					trigger: section,
-					start: "top center",
-					end: "bottom center",
-					onEnter: () => setActiveIndex(index),
-					onEnterBack: () => setActiveIndex(index),
-				});
-			});
+				if (nextIndex >= 0) {
+					setActiveIndex(nextIndex);
+				}
+			},
+			{
+				root: null,
+				rootMargin: "-24% 0px -24% 0px",
+				threshold: [0.25, 0.5, 0.75],
+			},
+		);
 
-			mm.add("(min-width: 1024px)", () => {
-				const scrollDistance = () =>
-					Math.max(railRef.current.scrollHeight - window.innerHeight, 1);
-
-				ScrollTrigger.create({
-					trigger: shellRef.current,
-					start: "top top",
-					end: () => `+=${scrollDistance()}`,
-					pin: pinnedFrameRef.current,
-					pinSpacing: false,
-					anticipatePin: 1,
-					invalidateOnRefresh: true,
-				});
-
-				ScrollTrigger.create({
-					trigger: railRef.current,
-					start: "top top",
-					end: () => `+=${scrollDistance()}`,
-					scrub: true,
-					onUpdate: (self) => {
-						if (lastIndex < 1) {
-							return;
-						}
-
-						const raw = self.progress * lastIndex;
-						const segmentIndex = Math.min(Math.floor(raw), lastIndex - 1);
-						const segmentProgress = gsap.utils.clamp(0, 1, raw - segmentIndex);
-						setLayerProgress(segmentIndex, segmentProgress);
-					},
-				});
-			});
-
-			ScrollTrigger.refresh();
-		}, shellRef);
+		contentSections.forEach((section) => observer.observe(section));
 
 		return () => {
-			mm.revert();
-			ctx.revert();
+			observer.disconnect();
 		};
 	}, [sections]);
 
@@ -208,8 +109,8 @@ const ExpertisePrototypePage = () => {
 				</Link>
 			</header>
 
-			<main className="proto-shell" ref={shellRef}>
-				<section className="proto-left" ref={railRef}>
+			<main className="proto-shell">
+				<section className="proto-left">
 					{sections.map((item, index) => (
 						<article
 							className="proto-section"
@@ -242,18 +143,12 @@ const ExpertisePrototypePage = () => {
 				</section>
 
 				<section className="proto-right">
-					<div className="proto-frame" ref={pinnedFrameRef}>
-						{sections.map((item, index) => (
-							<img
-								key={item.id}
-								src={item.image}
-								alt={item.title}
-								className="proto-layer"
-								ref={(el) => {
-									mediaRefs.current[index] = el;
-								}}
-							/>
-						))}
+					<div className="proto-frame">
+						<img
+							src={activeSection.image}
+							alt={activeSection.title}
+							className="proto-layer"
+						/>
 					</div>
 				</section>
 			</main>
