@@ -1,24 +1,13 @@
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useMemo, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { Compass, Code, Camera, Pen } from "lucide-react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import PageLayout from "../components/PageLayout";
+import ProjectCard from "../components/ProjectCard";
 import "../styles/MosaicGrid.css";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const ExpertisePage = () => {
 	const [selectedProject, setSelectedProject] = useState(null);
-	const [activeIndex, setActiveIndex] = useState(0);
 	const [searchParams, setSearchParams] = useSearchParams();
-	const navigate = useNavigate();
-	const shellRef = useRef(null);
-	const stageRef = useRef(null);
-	const stageFrameRef = useRef(null);
-	const railRef = useRef(null);
-	const panelRefs = useRef([]);
-	const sectionRefs = useRef([]);
 
 	// Unified projects from all expertise areas
 	const allProjects = [
@@ -168,130 +157,6 @@ const ExpertisePage = () => {
 		activeFilter === "all"
 			? allProjects
 			: allProjects.filter((project) => project.category === activeFilter);
-	const activeProject =
-		filteredProjects[activeIndex] || filteredProjects[0] || null;
-
-	const openProject = (project) => {
-		if (!project) {
-			return;
-		}
-
-		if (project.route) {
-			navigate(project.route);
-			return;
-		}
-
-		setSelectedProject(project);
-	};
-
-	useEffect(() => {
-		document.body.classList.add("expertise-theme");
-		return () => {
-			document.body.classList.remove("expertise-theme");
-		};
-	}, []);
-
-	useEffect(() => {
-		setActiveIndex(0);
-	}, [activeFilter]);
-
-	useLayoutEffect(() => {
-		if (!shellRef.current || !filteredProjects.length) {
-			return undefined;
-		}
-
-		let mediaMatcher;
-		const ctx = gsap.context(() => {
-			const panels = panelRefs.current
-				.slice(0, filteredProjects.length)
-				.filter(Boolean);
-			const sections = sectionRefs.current
-				.slice(0, filteredProjects.length)
-				.filter(Boolean);
-
-			if (!panels.length || !sections.length) {
-				return;
-			}
-
-			const prefersReducedMotion = window.matchMedia(
-				"(prefers-reduced-motion: reduce)",
-			).matches;
-
-			const activeRef = { value: 0 };
-			const setActiveSafe = (index) => {
-				if (activeRef.value === index) {
-					return;
-				}
-				activeRef.value = index;
-				setActiveIndex(index);
-			};
-
-			gsap.set(panels, {
-				autoAlpha: 1,
-				clipPath: "inset(0 0% 0% 0)",
-				objectPosition: "50% 50%",
-			});
-
-			panels.forEach((panel, index) => {
-				gsap.set(panel, {
-					zIndex: panels.length - index,
-				});
-			});
-
-			if (!prefersReducedMotion) {
-				for (let i = 0; i < panels.length - 1; i += 1) {
-					const transitionSection = sections[i + 1];
-					if (!transitionSection) {
-						continue;
-					}
-
-					const transitionTween = gsap.to(panels[i], {
-						clipPath: "inset(0 0% 100% 0)",
-						objectPosition: "50% 60%",
-						ease: "none",
-						paused: true,
-					});
-
-					ScrollTrigger.create({
-						trigger: transitionSection,
-						start: "top bottom",
-						end: "top top",
-						scrub: true,
-						animation: transitionTween,
-						onUpdate: (self) => {
-							setActiveSafe(self.progress < 0.5 ? i : i + 1);
-						},
-					});
-				}
-			}
-
-			mediaMatcher = gsap.matchMedia();
-			mediaMatcher.add("(min-width: 1024px)", () =>
-				ScrollTrigger.create({
-					trigger: shellRef.current,
-					start: "top top+=8",
-					end: () =>
-						`+=${Math.max(
-							railRef.current.scrollHeight - window.innerHeight,
-							0,
-						)}`,
-					pin: stageFrameRef.current,
-					pinSpacing: false,
-					anticipatePin: 1,
-					invalidateOnRefresh: true,
-				}),
-			);
-
-			ScrollTrigger.refresh();
-		}, shellRef);
-
-		return () => {
-			if (mediaMatcher) {
-				mediaMatcher.revert();
-			}
-			ctx.revert();
-		};
-	}, [activeFilter, filteredProjects.length]);
 
 	return (
 		<PageLayout
@@ -301,137 +166,49 @@ const ExpertisePage = () => {
 			selectedProject={selectedProject}
 			onCloseModal={() => setSelectedProject(null)}
 		>
-			<div className="expertise-page">
-				{/* Filter Tabs */}
-				<div className="filter-tabs">
-					{filters.map((filter) => (
-						<button
-							key={filter.id}
-							onClick={() => handleFilterChange(filter.id)}
-							className={`filter-tab ${
-								activeFilter === filter.id ? "active" : ""
-							}`}
-						>
-							{filter.icon && <filter.icon className="filter-icon" />}
-							<span>{filter.label}</span>
-						</button>
-					))}
-				</div>
-
-				{activeProject && (
-					<section
-						className="split-reveal-shell"
-						aria-label="Expertise stories"
-						ref={shellRef}
+			{/* Filter Tabs */}
+			<div className="filter-tabs">
+				{filters.map((filter) => (
+					<button
+						key={filter.id}
+						onClick={() => handleFilterChange(filter.id)}
+						className={`filter-tab ${
+							activeFilter === filter.id ? "active" : ""
+						}`}
 					>
-						<div className="split-stage" role="presentation" ref={stageRef}>
-							<div className="split-stage-frame" ref={stageFrameRef}>
-								{filteredProjects.map((project, index) => (
-									<article
-										key={project.id}
-										className="split-stage-panel"
-										ref={(element) => {
-											panelRefs.current[index] = element;
-										}}
-									>
-										{project.image && (
-											<img
-												src={project.image}
-												alt={project.title}
-												className="split-stage-media split-stage-media-image"
-											/>
-										)}
-										{project.video && (
-											<video
-												src={project.video}
-												className="split-stage-media split-stage-media-video"
-												autoPlay
-												muted
-												loop
-												playsInline
-											/>
-										)}
-										{!project.image && !project.video && (
-											<div className="split-stage-media split-stage-fallback" />
-										)}
-									</article>
-								))}
-								<div className="split-stage-overlay">
-									<p className="split-stage-kicker">
-										{activeProject.category} / {activeIndex + 1}
-									</p>
-									<h2>{activeProject.title}</h2>
-									<p>
-										{activeProject.description || activeProject.previewContent}
-									</p>
-									<button
-										type="button"
-										className="split-stage-cta"
-										onClick={() => openProject(activeProject)}
-									>
-										View project
-									</button>
-								</div>
-							</div>
-						</div>
-
-						<div className="split-rail" aria-label="Story list" ref={railRef}>
-							{filteredProjects.map((project, index) => {
-								const isActive = index === activeIndex;
-
-								return (
-									<article
-										key={project.id}
-										className={`split-section ${isActive ? "active" : ""}`}
-										ref={(element) => {
-											sectionRefs.current[index] = element;
-										}}
-										aria-current={isActive ? "true" : "false"}
-									>
-										<p className="split-item-index">
-											{String(index + 1).padStart(2, "0")}
-										</p>
-										<h3>{project.title}</h3>
-										<p>{project.description || project.previewContent}</p>
-										<div className="split-item-meta">
-											<span>{project.type || project.category}</span>
-											<button
-												type="button"
-												className="split-item-link"
-												onClick={() =>
-													sectionRefs.current[index]?.scrollIntoView({
-														behavior: "smooth",
-														block: "center",
-													})
-												}
-											>
-												Reveal
-											</button>
-											<button
-												type="button"
-												className="split-item-link"
-												onClick={() => openProject(project)}
-											>
-												Open
-											</button>
-										</div>
-									</article>
-								);
-							})}
-						</div>
-					</section>
-				)}
-
-				{/* Empty State */}
-				{filteredProjects.length === 0 && (
-					<div className="empty-state">
-						<div className="empty-state-content">
-							<h3>No projects in this category yet</h3>
-							<p>Check back soon for new work!</p>
-						</div>
-					</div>
-				)}
+						{filter.icon && <filter.icon className="filter-icon" />}
+						<span>{filter.label}</span>
+					</button>
+				))}
 			</div>
+
+			{/* Mosaic Grid */}
+			<div className="mosaic-grid">
+				{filteredProjects.map((project, index) => (
+					<div
+						key={project.id}
+						className={`mosaic-item mosaic-${
+							project.size || "medium"
+						} reveal-item`}
+						style={{ animationDelay: `${index * 0.1}s` }}
+					>
+						<ProjectCard
+							projectData={project}
+							onProjectClick={setSelectedProject}
+						/>
+					</div>
+				))}
+			</div>
+
+			{/* Empty State */}
+			{filteredProjects.length === 0 && (
+				<div className="empty-state">
+					<div className="empty-state-content">
+						<h3>No projects in this category yet</h3>
+						<p>Check back soon for new work!</p>
+					</div>
+				</div>
+			)}
 		</PageLayout>
 	);
 };
