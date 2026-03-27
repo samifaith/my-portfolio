@@ -89,7 +89,16 @@ async function main() {
 
 	const previewProcess = spawn(
 		"npm",
-		["run", "preview", "--", "--host", HOST, "--port", String(PORT), "--strictPort"],
+		[
+			"run",
+			"preview",
+			"--",
+			"--host",
+			HOST,
+			"--port",
+			String(PORT),
+			"--strictPort",
+		],
 		{
 			stdio: "inherit",
 			env: process.env,
@@ -101,19 +110,15 @@ async function main() {
 		throw new Error(`Preview server failed to start: ${error.message}`);
 	});
 
-	const cleanup = async () => {
-		await stopProcess(previewProcess);
+	const handleSignal = (signal, exitCode) => {
+		process.once(signal, async () => {
+			await stopProcess(previewProcess);
+			process.exit(exitCode);
+		});
 	};
 
-	process.once("SIGINT", async () => {
-		await cleanup();
-		process.exit(130);
-	});
-
-	process.once("SIGTERM", async () => {
-		await cleanup();
-		process.exit(143);
-	});
+	handleSignal("SIGINT", 130);
+	handleSignal("SIGTERM", 143);
 
 	try {
 		await waitForServer();
@@ -133,7 +138,7 @@ async function main() {
 		);
 		console.log(`\nLighthouse report generated at ${REPORT_PATH}`);
 	} finally {
-		await cleanup();
+		await stopProcess(previewProcess);
 	}
 }
 

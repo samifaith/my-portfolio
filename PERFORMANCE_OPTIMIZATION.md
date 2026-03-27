@@ -246,13 +246,13 @@ Optional: source maps can be disabled in Vite if you specifically want smaller a
    - Select "Desktop" or "Mobile"
    - Generate report
 
-	Or run the automated flow:
+   Or run the automated flow:
 
-	```bash
-	npm run audit:lighthouse
-	```
+   ```bash
+   npm run audit:lighthouse
+   ```
 
-	This command builds the app, serves it on `http://127.0.0.1:4173`, runs Lighthouse (performance category), and writes `lighthouse-report.html` to the project root.
+   This command builds the app, serves it on `http://127.0.0.1:4173`, runs Lighthouse (performance category), and writes `lighthouse-report.html` to the project root.
 
 4. **Key Metrics to Check**
    - ✅ LCP < 2.5s (Good)
