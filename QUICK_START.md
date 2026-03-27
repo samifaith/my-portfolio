@@ -105,7 +105,7 @@ I can help you update `AnimatedHomePage.js` to use the WebP image once you've cr
    ```
 
 3. **Run Lighthouse:**
-   - Open `http://localhost:3000` in Chrome
+   - Open `http://localhost:4173` in Chrome
    - Open DevTools (F12)
    - Go to Lighthouse tab
    - Run audit on Desktop or Mobile
@@ -143,6 +143,9 @@ I can help you update `AnimatedHomePage.js` to use the WebP image once you've cr
 # Build and test
 npm run build
 npm run preview
+
+# One-command Lighthouse performance audit
+npm run audit:lighthouse
 
 # Open in browser and run Lighthouse
 open http://localhost:4173

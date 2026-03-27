@@ -103,10 +103,10 @@ requestIdleCallback(
 		gsap.fromTo(
 			signatureRef.current,
 			{ opacity: 0, y: 20, willChange: "opacity, transform" },
-			{ opacity: 1, y: 0, clearProps: "willChange" }
+			{ opacity: 1, y: 0, clearProps: "willChange" },
 		);
 	},
-	{ timeout: 500 }
+	{ timeout: 500 },
 );
 ```
 
@@ -130,7 +130,7 @@ gsap.fromTo(
 		y: 0,
 		scrollTrigger: { fastScrollEnd: true },
 		clearProps: "willChange",
-	}
+	},
 );
 ```
 
@@ -207,20 +207,9 @@ import headshotWebP from "../headshot.webp"; // Add this
 
 ### 6. **Additional Production Optimizations**
 
-#### Add to `package.json` build script:
+For this Vite app, keep `npm run build` as `vite build` and profile the real output from `dist`.
 
-```json
-{
-	"scripts": {
-		"build": "CI=false GENERATE_SOURCEMAP=false react-scripts build"
-	}
-}
-```
-
-This:
-
-- ✅ Disables source maps (smaller bundle)
-- ✅ Treats warnings as warnings (not errors)
+Optional: source maps can be disabled in Vite if you specifically want smaller artifact size for production checks.
 
 ---
 
@@ -248,15 +237,22 @@ This:
 2. **Serve Locally**
 
    ```bash
-   npx serve -s build
+   npm run preview
    ```
 
 3. **Run Lighthouse**
-
    - Open Chrome DevTools
    - Go to Lighthouse tab
    - Select "Desktop" or "Mobile"
    - Generate report
+
+	Or run the automated flow:
+
+	```bash
+	npm run audit:lighthouse
+	```
+
+	This command builds the app, serves it on `http://127.0.0.1:4173`, runs Lighthouse (performance category), and writes `lighthouse-report.html` to the project root.
 
 4. **Key Metrics to Check**
    - ✅ LCP < 2.5s (Good)
@@ -283,7 +279,7 @@ All optimizations maintain your design:
 ## 🚀 Next Steps
 
 1. **Convert headshot to WebP** (use Option A, B, or C above)
-2. **Test locally:** `npm run build && npx serve -s build`
+2. **Test locally:** `npm run build && npm run preview`
 3. **Run Lighthouse** on production build
 4. **Deploy** and verify on live site
 
@@ -301,12 +297,10 @@ All optimizations maintain your design:
    ```
 
 2. **Service Worker** (for repeat visits)
-
    - Uncomment in `src/index.js`
    - Cache static assets
 
 3. **Compress Build Assets**
-
    - Enable gzip/brotli on server
    - Use `compression-webpack-plugin`
 

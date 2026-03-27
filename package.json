@@ -20,7 +20,11 @@
 		"dev": "vite",
 		"build": "vite build",
 		"preview": "vite preview",
-		"test": "vitest run"
+		"test": "vitest run",
+		"audit": "npm audit",
+		"audit:fix": "npm audit fix",
+		"audit:lighthouse": "node ./scripts/run-lighthouse-audit.mjs",
+		"audit:all": "npm run audit && npm run audit:lighthouse"
 	},
 	"browserslist": {
 		"production": [

@@ -175,6 +175,10 @@ npm run deploy
 - `npm test` - Run tests
 - `npm run build` - Production build
 - `npm run preview` - Preview production build locally
+- `npm run audit` - Run npm security audit
+- `npm run audit:fix` - Attempt automatic npm security fixes
+- `npm run audit:lighthouse` - Run one-command Lighthouse performance audit
+- `npm run audit:all` - Run npm audit and Lighthouse audit in sequence
 
 ## 📄 License
 
