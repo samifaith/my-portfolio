@@ -51,13 +51,6 @@ const ExpertisePrototypePage = () => {
 	);
 
 	useEffect(() => {
-		document.body.classList.add("expertise-proto-theme");
-		return () => {
-			document.body.classList.remove("expertise-proto-theme");
-		};
-	}, []);
-
-	useEffect(() => {
 		const contentSections = sectionRefs.current
 			.slice(0, sections.length)
 			.filter(Boolean);
@@ -123,17 +116,17 @@ const ExpertisePrototypePage = () => {
 								<p className="proto-label">{item.label}</p>
 								<h2>{item.title}</h2>
 								<p>{item.description}</p>
-								<button
-									type="button"
-									className="proto-cta"
-									onClick={() => {
-										if (item.route) {
+								{item.route && (
+									<button
+										type="button"
+										className="proto-cta"
+										onClick={() => {
 											navigate(item.route);
-										}
-									}}
-								>
-									Learn More
-								</button>
+										}}
+									>
+										Learn More
+									</button>
+								)}
 							</div>
 							<div className="proto-mobile-media">
 								<img src={item.image} alt={item.title} />

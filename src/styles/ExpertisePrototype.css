@@ -151,7 +151,8 @@
 
 @media (prefers-reduced-motion: reduce) {
 	.proto-page,
-	.proto-layer {
+	.proto-layer,
+	.proto-frame::after {
 		transition: none !important;
 		animation: none !important;
 	}
