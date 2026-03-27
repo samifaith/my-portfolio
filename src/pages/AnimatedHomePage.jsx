@@ -18,6 +18,38 @@ ScrollTrigger.config({
 	ignoreMobileResize: true,
 });
 
+const ANIMATION_SESSION_KEY = "homePageAnimationPlayed";
+
+const getAnimationPlayedInSession = () => {
+	try {
+		return sessionStorage.getItem(ANIMATION_SESSION_KEY) === "true";
+	} catch {
+		return false;
+	}
+};
+
+const setAnimationPlayedInSession = () => {
+	try {
+		sessionStorage.setItem(ANIMATION_SESSION_KEY, "true");
+	} catch {
+		// Ignore storage failures in restricted contexts.
+	}
+};
+
+const requestIdle =
+	typeof window !== "undefined" && "requestIdleCallback" in window
+		? window.requestIdleCallback.bind(window)
+		: (callback) =>
+				setTimeout(
+					() => callback({ didTimeout: false, timeRemaining: () => 0 }),
+					1,
+				);
+
+const cancelIdle =
+	typeof window !== "undefined" && "cancelIdleCallback" in window
+		? window.cancelIdleCallback.bind(window)
+		: (id) => clearTimeout(id);
+
 const HomePageComponent = ({ openModal }) => {
 	const signatureRef = useRef(null);
 	const headRef = useRef(null);
@@ -26,8 +58,7 @@ const HomePageComponent = ({ openModal }) => {
 		"Welcome to my ever changing portfolio, shaping culture through human-centered design. I look to listen and engage with communities, developing prototypes, and iterating to bring stories to life in meaningful ways. With a strong focus on detail and purpose, I look to imagine and bring to life meaningful brands and experiences that resonate and foster genuine connections. Together, we can create something truly extraordinary.";
 
 	// Check if animation has been shown this session
-	const hasAnimationPlayed =
-		sessionStorage.getItem("homePageAnimationPlayed") === "true";
+	const hasAnimationPlayed = getAnimationPlayedInSession();
 
 	const [typedText, setTypedText] = useState(
 		hasAnimationPlayed ? fullText : "",
@@ -67,6 +98,7 @@ const HomePageComponent = ({ openModal }) => {
 
 		let currentIndex = 0;
 		let rafId = null;
+		let idleId = null;
 		let lastTime = 0;
 		const typingSpeed = 3; // ~1.2 seconds total for full paragraph
 
@@ -83,10 +115,10 @@ const HomePageComponent = ({ openModal }) => {
 					setIsTypingComplete(true);
 
 					// Mark animation as played for this session
-					sessionStorage.setItem("homePageAnimationPlayed", "true");
+					setAnimationPlayedInSession();
 
 					// Defer signature animation to reduce main thread blocking
-					requestIdleCallback(
+					idleId = requestIdle(
 						() => {
 							gsap.fromTo(
 								signatureRef.current,
@@ -114,6 +146,7 @@ const HomePageComponent = ({ openModal }) => {
 
 		return () => {
 			if (rafId) cancelAnimationFrame(rafId);
+			if (idleId) cancelIdle(idleId);
 		};
 	}, [hasAnimationPlayed, fullText]);
 

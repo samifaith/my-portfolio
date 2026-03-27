@@ -253,6 +253,9 @@ const Menu = ({ openModal }) => {
 				onClick={toggleMenu}
 				onMouseEnter={handleSvgMouseEnter}
 				onMouseLeave={handleSvgMouseLeave}
+				aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+				aria-expanded={menuOpen}
+				aria-controls="mobile-menu-overlay"
 			>
 				<svg width="40" height="40" viewBox="0 0 40 40">
 					<line
@@ -289,6 +292,7 @@ const Menu = ({ openModal }) => {
 			</button>
 			<div
 				ref={overlayRef}
+				id="mobile-menu-overlay"
 				className="menu-overlay"
 				onClick={handleOverlayClick}
 			>

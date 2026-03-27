@@ -28,13 +28,13 @@ describe("App", () => {
 		expect(container.querySelector(".App")).toBeInTheDocument();
 	});
 
-	it("redirects legacy writing article routes to expertise article routes", () => {
+	it("redirects legacy writing article routes to expertise article routes", async () => {
 		window.history.pushState({}, "", "/writing/home-cook");
 		render(<App />);
 
 		expect(window.location.pathname).toBe("/expertise/home-cook");
 		expect(
-			screen.getByText("Writing route: /expertise/home-cook"),
+			await screen.findByText("Writing route: /expertise/home-cook"),
 		).toBeInTheDocument();
 	});
 });

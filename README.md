@@ -1,20 +1,22 @@
 # Portfolio Website
 
-A modern, responsive portfolio website showcasing my work in writing, development, design, and media. Built with React and styled with Tailwind CSS.
+A modern, responsive portfolio website showcasing my work in writing, development, design, and media. Built with React + Vite, with a blend of MUI components, Tailwind utilities, and custom CSS.
 
 ## 🚀 Features
 
 - **Multi-section Portfolio**: Writing, Development, Design, and Media sections
 - **Interactive Cards**: Dynamic gradient cards with hover effects
 - **Audio Integration**: Embedded podcast episodes with custom audio players
-- **Responsive Design**: Mobile-first approach with Tailwind CSS
+- **Responsive Design**: Mobile-first approach with mixed utility and component styling
 - **Modal System**: Full-screen project viewing experience
 - **Story Pages**: Individual pages for writing pieces with rich typography
+- **Animated Home Experience**: GSAP-powered intro and timeline interactions
 
 ## 🛠️ Tech Stack
 
-- **Frontend**: React 18, React Router
-- **Styling**: Tailwind CSS
+- **Frontend**: React 19, React Router 7
+- **Styling**: MUI (Emotion), Tailwind CSS, custom CSS
+- **Animation**: GSAP + ScrollTrigger
 - **Icons**: Lucide React
 - **Build Tool**: Vite
 
@@ -23,16 +25,18 @@ A modern, responsive portfolio website showcasing my work in writing, developmen
 ```
 src/
 ├── components/
-│   ├── PageLayout.js          # Consistent layout wrapper
-│   └── ProjectCard.js         # Reusable card component
+│   ├── PageLayout.jsx         # Consistent layout wrapper
+│   ├── Menu.jsx               # Desktop/mobile navigation
+│   └── ProjectCard.jsx        # Reusable card component
 ├── pages/
-│   ├── WritingPage.js         # Writing portfolio section
-│   ├── DevelopmentPage.js     # Development projects
-│   ├── DesignPage.js          # Design portfolio
-│   └── MediaPage.js           # Media projects
+│   ├── AnimatedHomePage.jsx   # GSAP-driven landing experience
+│   ├── ExpertisePage.jsx      # Filtered work grid (design/dev/writing/media)
+│   └── WritingPage.jsx        # Story detail pages
+├── development/
+│   └── Wander.jsx             # Case study page
 ├── constants/
 │   └── WritingPieces.js       # Writing content data
-└── App.js                     # Main app component
+└── App.jsx                    # Main app routes
 ```
 
 ## 🚀 Getting Started
@@ -63,7 +67,7 @@ npm install
 npm run dev
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) to view the site.
+4. Open [http://localhost:5173](http://localhost:5173) to view the site.
 
 ## 📝 Content Management
 
@@ -104,7 +108,7 @@ Add projects to the respective page files with this structure:
 
 The primary brand color is defined as `#a2003b`. Update in:
 
-- `src/components/PageLayout.js` for headers
+- `src/components/PageLayout.jsx` for headers
 - Tailwind config for additional brand colors
 
 ### Fonts
@@ -118,6 +122,8 @@ npm run build
 ```
 
 Creates optimized production build in the `dist` folder.
+
+Generated output folders (`dist`, `build`) are treated as build artifacts and should not be committed.
 
 ## 🚀 Deployment
 
