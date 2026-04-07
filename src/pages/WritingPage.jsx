@@ -239,8 +239,12 @@ const AudioStoryPlayer = ({ title, audioFile, coverImage }) => {
 					}}
 				>
 					<picture style={{ width: "100%" }}>
-						<source srcSet={coverImageSources.avif} type="image/avif" />
-						<source srcSet={coverImageSources.webp} type="image/webp" />
+						{coverImageSources.avif && (
+							<source srcSet={coverImageSources.avif} type="image/avif" />
+						)}
+						{coverImageSources.webp && (
+							<source srcSet={coverImageSources.webp} type="image/webp" />
+						)}
 						<img
 							src={coverImageSources.fallback}
 							alt={`${title} cover image`}

@@ -71,10 +71,14 @@ const ProjectCard = ({ projectData, onProjectClick, forceModal = false }) => {
 			>
 				<div className="w-full overflow-hidden">
 					<picture>
-						<source srcSet={sources.avif} type="image/avif" />
-						<source srcSet={sources.webp} type="image/webp" />
+						{sources?.avif && (
+							<source srcSet={sources.avif} type="image/avif" />
+						)}
+						{sources?.webp && (
+							<source srcSet={sources.webp} type="image/webp" />
+						)}
 						<img
-							src={sources.fallback}
+							src={sources?.fallback || projectData.image}
 							alt={projectData.title}
 							className="block w-full h-auto"
 							loading="lazy"

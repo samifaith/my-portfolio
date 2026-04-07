@@ -160,14 +160,18 @@ const PageLayout = ({
 								<p className="text-gray-600">Loading content...</p>
 							) : selectedImageSources ? (
 								<picture>
-									<source
-										srcSet={selectedImageSources.avif}
-										type="image/avif"
-									/>
-									<source
-										srcSet={selectedImageSources.webp}
-										type="image/webp"
-									/>
+									{selectedImageSources.avif && (
+										<source
+											srcSet={selectedImageSources.avif}
+											type="image/avif"
+										/>
+									)}
+									{selectedImageSources.webp && (
+										<source
+											srcSet={selectedImageSources.webp}
+											type="image/webp"
+										/>
+									)}
 									<img
 										src={selectedImageSources.fallback}
 										alt={selectedProject.title}

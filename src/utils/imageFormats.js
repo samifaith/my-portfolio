@@ -6,6 +6,14 @@ export const getModernImageSources = (imagePath) => {
 		return null;
 	}
 
+	if (!MODERN_IMAGE_EXTENSION_PATTERN.test(imagePath)) {
+		return {
+			avif: null,
+			webp: null,
+			fallback: imagePath,
+		};
+	}
+
 	const basePath = imagePath.replace(MODERN_IMAGE_EXTENSION_PATTERN, "");
 	const fallback = AVIF_EXTENSION_PATTERN.test(imagePath)
 		? `${basePath}.webp`
