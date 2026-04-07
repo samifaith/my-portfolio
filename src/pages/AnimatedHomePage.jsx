@@ -215,11 +215,6 @@ const AnimatedHomePage = () => {
 	// Refresh ScrollTrigger on mount to ensure smooth scrolling
 	useEffect(() => {
 		ScrollTrigger.refresh();
-
-		return () => {
-			// Clean up all ScrollTriggers when unmounting
-			ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-		};
 	}, []);
 
 	const openModal = useCallback(
