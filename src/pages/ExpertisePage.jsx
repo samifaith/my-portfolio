@@ -13,6 +13,7 @@ const ExpertisePage = () => {
 	const [CaseStudyContentComponent, setCaseStudyContentComponent] =
 		useState(null);
 	const [isModalContentLoading, setIsModalContentLoading] = useState(false);
+	const [modalContentError, setModalContentError] = useState(null);
 
 	// Unified projects from all expertise areas
 	const allProjects = [
@@ -193,6 +194,7 @@ const ExpertisePage = () => {
 	useEffect(() => {
 		if (!selectedProject) {
 			setIsModalContentLoading(false);
+			setModalContentError(null);
 			return;
 		}
 
@@ -206,6 +208,7 @@ const ExpertisePage = () => {
 
 		if (!needsStoryContent && !needsCaseStudyData && !needsCaseStudyComponent) {
 			setIsModalContentLoading(false);
+			setModalContentError(null);
 			return;
 		}
 
@@ -213,6 +216,7 @@ const ExpertisePage = () => {
 
 		const loadModalContent = async () => {
 			setIsModalContentLoading(true);
+			setModalContentError(null);
 
 			try {
 				const loaders = [];
@@ -252,6 +256,13 @@ const ExpertisePage = () => {
 						setCaseStudyContentComponent(() => module.default);
 					}
 				}
+			} catch (error) {
+				console.error("Failed to load modal content", error);
+				if (isMounted) {
+					setModalContentError(
+						"We couldn't load this content right now. Please close and try again.",
+					);
+				}
 			} finally {
 				if (isMounted) {
 					setIsModalContentLoading(false);
@@ -274,6 +285,10 @@ const ExpertisePage = () => {
 	const renderModalContent = (project) => {
 		if (!project) {
 			return null;
+		}
+
+		if ((project.storyId || project.caseStudyId) && modalContentError) {
+			return <p className="text-red-600">{modalContentError}</p>;
 		}
 
 		if (project.storyId) {
