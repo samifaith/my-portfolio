@@ -239,7 +239,9 @@ const AudioStoryPlayer = ({ title, audioFile, coverImage }) => {
 						borderColor: "divider",
 					}}
 				>
-					<picture style={{ display: "block", width: "100%", maxWidth: "100%" }}>
+					<picture
+						style={{ display: "block", width: "100%", maxWidth: "100%" }}
+					>
 						{coverImageSources.avif && (
 							<source srcSet={coverImageSources.avif} type="image/avif" />
 						)}
