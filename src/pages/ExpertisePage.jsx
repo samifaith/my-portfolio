@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Compass, Code, Camera, Pen } from "lucide-react";
 import PageLayout from "../components/PageLayout";
@@ -8,6 +8,11 @@ import "../styles/MosaicGrid.css";
 const ExpertisePage = () => {
 	const [selectedProject, setSelectedProject] = useState(null);
 	const [searchParams, setSearchParams] = useSearchParams();
+	const [storiesById, setStoriesById] = useState(null);
+	const [caseStudiesById, setCaseStudiesById] = useState(null);
+	const [CaseStudyContentComponent, setCaseStudyContentComponent] =
+		useState(null);
+	const [isModalContentLoading, setIsModalContentLoading] = useState(false);
 
 	// Unified projects from all expertise areas
 	const allProjects = [
@@ -185,6 +190,143 @@ const ExpertisePage = () => {
 		? filteredProjects.findIndex((project) => project.id === selectedProject.id)
 		: -1;
 
+	useEffect(() => {
+		if (!selectedProject) {
+			setIsModalContentLoading(false);
+			return;
+		}
+
+		const needsStoryContent = Boolean(selectedProject.storyId && !storiesById);
+		const needsCaseStudyData = Boolean(
+			selectedProject.caseStudyId && !caseStudiesById,
+		);
+		const needsCaseStudyComponent = Boolean(
+			selectedProject.caseStudyId && !CaseStudyContentComponent,
+		);
+
+		if (!needsStoryContent && !needsCaseStudyData && !needsCaseStudyComponent) {
+			setIsModalContentLoading(false);
+			return;
+		}
+
+		let isMounted = true;
+
+		const loadModalContent = async () => {
+			setIsModalContentLoading(true);
+
+			try {
+				const loaders = [];
+
+				if (needsStoryContent) {
+					loaders.push(import("../constants/WritingPieces"));
+				}
+
+				if (needsCaseStudyData) {
+					loaders.push(import("../constants/CaseStudies"));
+				}
+
+				if (needsCaseStudyComponent) {
+					loaders.push(import("../components/WanderlustCaseStudyContent"));
+				}
+
+				const results = await Promise.all(loaders);
+				let resultIndex = 0;
+
+				if (needsStoryContent) {
+					const module = results[resultIndex++];
+					if (isMounted) {
+						setStoriesById(module.default);
+					}
+				}
+
+				if (needsCaseStudyData) {
+					const module = results[resultIndex++];
+					if (isMounted) {
+						setCaseStudiesById(module.default);
+					}
+				}
+
+				if (needsCaseStudyComponent) {
+					const module = results[resultIndex++];
+					if (isMounted) {
+						setCaseStudyContentComponent(() => module.default);
+					}
+				}
+			} finally {
+				if (isMounted) {
+					setIsModalContentLoading(false);
+				}
+			}
+		};
+
+		loadModalContent();
+
+		return () => {
+			isMounted = false;
+		};
+	}, [
+		CaseStudyContentComponent,
+		caseStudiesById,
+		selectedProject,
+		storiesById,
+	]);
+
+	const renderModalContent = (project) => {
+		if (!project) {
+			return null;
+		}
+
+		if (project.storyId) {
+			const story = storiesById?.[project.storyId];
+			if (!story) {
+				return null;
+			}
+
+			return (
+				<article>
+					<p className="text-gray-600 mb-6">{story.subtitle}</p>
+
+					{story.audioFile && (
+						<div className="mb-6">
+							<audio controls preload="metadata" className="w-full">
+								<source src={story.audioFile} type="audio/mpeg" />
+								<source src={story.audioFile} type="audio/mp3" />
+								Your browser does not support the audio element.
+							</audio>
+						</div>
+					)}
+
+					{story.pdfFile && (
+						<section className="mb-6" aria-label="Article PDF viewer">
+							<iframe
+								src={`${story.pdfFile}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`}
+								title={`${story.title} PDF viewer`}
+								className="w-full h-[70vh] rounded-lg border border-gray-200"
+								loading="lazy"
+							/>
+						</section>
+					)}
+
+					<div className="prose prose-lg max-w-none whitespace-pre-line text-gray-700">
+						{story.content}
+					</div>
+				</article>
+			);
+		}
+
+		if (project.caseStudyId) {
+			const caseStudy = caseStudiesById?.[project.caseStudyId];
+			if (!caseStudy || !CaseStudyContentComponent) {
+				return null;
+			}
+
+			const CaseStudyContent = CaseStudyContentComponent;
+			return <CaseStudyContent caseStudy={caseStudy} />;
+		}
+
+		return null;
+	};
+
 	const handlePreviousProject = () => {
 		if (selectedProjectIndex > 0) {
 			setSelectedProject(filteredProjects[selectedProjectIndex - 1]);
@@ -206,6 +348,8 @@ const ExpertisePage = () => {
 			// description="A curated collection of design, development, writing, and media projects that showcase my multidisciplinary approach to creating meaningful experiences."
 			showModal={!!selectedProject}
 			selectedProject={selectedProject}
+			renderModalContent={renderModalContent}
+			isModalContentLoading={isModalContentLoading}
 			onCloseModal={() => setSelectedProject(null)}
 			onPreviousProject={handlePreviousProject}
 			onNextProject={handleNextProject}

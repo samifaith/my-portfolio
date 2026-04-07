@@ -2,9 +2,6 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
 import { getModernImageSources } from "../utils/imageFormats";
-import stories from "../constants/WritingPieces";
-import caseStudies from "../constants/CaseStudies";
-import WanderlustCaseStudyContent from "./WanderlustCaseStudyContent";
 
 const PageLayout = ({
 	title,
@@ -20,19 +17,17 @@ const PageLayout = ({
 	onNextProject = null,
 	hasPreviousProject = false,
 	hasNextProject = false,
+	renderModalContent = null,
+	isModalContentLoading = false,
 }) => {
 	const selectedImageSources = selectedProject?.image
 		? getModernImageSources(selectedProject.image)
 		: null;
-	const modalStoryId = selectedProject?.storyId || null;
-	const modalStory =
-		modalStoryId && stories[modalStoryId] ? stories[modalStoryId] : null;
-	const modalCaseStudyId = selectedProject?.caseStudyId || null;
-	const modalCaseStudy =
-		modalCaseStudyId && caseStudies[modalCaseStudyId]
-			? caseStudies[modalCaseStudyId]
-			: null;
 	const isClosableModal = showModal && selectedProject;
+	const customModalContent =
+		selectedProject && typeof renderModalContent === "function"
+			? renderModalContent(selectedProject)
+			: null;
 
 	useEffect(() => {
 		if (!isClosableModal) {
@@ -159,37 +154,10 @@ const PageLayout = ({
 								</button>
 							</div>
 
-							{modalStory ? (
-								<article>
-									<p className="text-gray-600 mb-6">{modalStory.subtitle}</p>
-
-									{modalStory.audioFile && (
-										<div className="mb-6">
-											<audio controls preload="metadata" className="w-full">
-												<source src={modalStory.audioFile} type="audio/mpeg" />
-												<source src={modalStory.audioFile} type="audio/mp3" />
-												Your browser does not support the audio element.
-											</audio>
-										</div>
-									)}
-
-									{modalStory.pdfFile && (
-										<section className="mb-6" aria-label="Article PDF viewer">
-											<iframe
-												src={`${modalStory.pdfFile}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`}
-												title={`${modalStory.title} PDF viewer`}
-												className="w-full h-[70vh] rounded-lg border border-gray-200"
-												loading="lazy"
-											/>
-										</section>
-									)}
-
-									<div className="prose prose-lg max-w-none whitespace-pre-line text-gray-700">
-										{modalStory.content}
-									</div>
-								</article>
-							) : modalCaseStudy ? (
-								<WanderlustCaseStudyContent caseStudy={modalCaseStudy} />
+							{customModalContent ? (
+								customModalContent
+							) : isModalContentLoading ? (
+								<p className="text-gray-600">Loading content...</p>
 							) : selectedImageSources ? (
 								<picture>
 									<source
@@ -210,7 +178,7 @@ const PageLayout = ({
 								</picture>
 							) : null}
 
-							{!modalStory && !modalCaseStudy && selectedProject.video && (
+							{!customModalContent && selectedProject.video && (
 								<video
 									src={selectedProject.video}
 									className="w-full max-h-96 object-contain mb-4"
@@ -219,12 +187,11 @@ const PageLayout = ({
 								/>
 							)}
 
-							{!modalStory && !modalCaseStudy && (
+							{!customModalContent && (
 								<p className="text-gray-700">{selectedProject.description}</p>
 							)}
 
-							{!modalStory &&
-								!modalCaseStudy &&
+							{!customModalContent &&
 								Array.isArray(selectedProject.modalHighlights) &&
 								selectedProject.modalHighlights.length > 0 && (
 									<ul className="mt-4 list-disc pl-5 space-y-2 text-gray-700">
@@ -234,8 +201,7 @@ const PageLayout = ({
 									</ul>
 								)}
 
-							{!modalStory &&
-								!modalCaseStudy &&
+							{!customModalContent &&
 								Array.isArray(selectedProject.modalTech) &&
 								selectedProject.modalTech.length > 0 && (
 									<p className="mt-4 text-sm text-gray-600">
