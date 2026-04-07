@@ -229,6 +229,7 @@ const AudioStoryPlayer = ({ title, audioFile, coverImage }) => {
 					sx={{
 						flexShrink: 0,
 						width: { xs: "100%", sm: 280 },
+						maxWidth: "100%",
 						display: "flex",
 						alignItems: "center",
 						justifyContent: "center",
@@ -238,7 +239,7 @@ const AudioStoryPlayer = ({ title, audioFile, coverImage }) => {
 						borderColor: "divider",
 					}}
 				>
-					<picture style={{ width: "100%" }}>
+					<picture style={{ display: "block", width: "100%", maxWidth: "100%" }}>
 						{coverImageSources.avif && (
 							<source srcSet={coverImageSources.avif} type="image/avif" />
 						)}
@@ -249,9 +250,10 @@ const AudioStoryPlayer = ({ title, audioFile, coverImage }) => {
 							src={coverImageSources.fallback}
 							alt={`${title} cover image`}
 							style={{
+								display: "block",
 								width: "100%",
 								height: "auto",
-								maxHeight: "320px",
+								maxHeight: "min(40vh, 320px)",
 								objectFit: "contain",
 								borderRadius: "4px",
 							}}
