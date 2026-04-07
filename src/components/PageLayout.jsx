@@ -1,7 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useId, useRef } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
 import { getModernImageSources } from "../utils/imageFormats";
+
+const FOCUSABLE_SELECTOR =
+	'a[href], area[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"]), [contenteditable="true"]';
 
 const PageLayout = ({
 	title,
@@ -24,6 +27,10 @@ const PageLayout = ({
 		? getModernImageSources(selectedProject.image)
 		: null;
 	const isClosableModal = showModal && selectedProject;
+	const dialogTitleId = useId();
+	const modalContainerRef = useRef(null);
+	const closeButtonRef = useRef(null);
+	const lastFocusedElementRef = useRef(null);
 	const customModalContent =
 		selectedProject && typeof renderModalContent === "function"
 			? renderModalContent(selectedProject)
@@ -34,10 +41,68 @@ const PageLayout = ({
 			return;
 		}
 
+		const previousOverflow = document.body.style.overflow;
+		document.body.style.overflow = "hidden";
+		lastFocusedElementRef.current =
+			document.activeElement instanceof HTMLElement
+				? document.activeElement
+				: null;
+
+		requestAnimationFrame(() => {
+			if (closeButtonRef.current) {
+				closeButtonRef.current.focus();
+				return;
+			}
+
+			if (modalContainerRef.current) {
+				modalContainerRef.current.focus();
+			}
+		});
+
 		const handleKeyDown = (event) => {
 			if (event.key === "Escape") {
 				onCloseModal();
 				return;
+			}
+
+			if (event.key === "Tab") {
+				const modalElement = modalContainerRef.current;
+				if (!modalElement) {
+					return;
+				}
+
+				const focusableElements = Array.from(
+					modalElement.querySelectorAll(FOCUSABLE_SELECTOR),
+				).filter((element) => element.getClientRects().length > 0);
+
+				if (focusableElements.length === 0) {
+					event.preventDefault();
+					modalElement.focus();
+					return;
+				}
+
+				const firstElement = focusableElements[0];
+				const lastElement = focusableElements[focusableElements.length - 1];
+				const activeElement = document.activeElement;
+
+				if (event.shiftKey) {
+					if (
+						activeElement === firstElement ||
+						!modalElement.contains(activeElement)
+					) {
+						event.preventDefault();
+						lastElement.focus();
+					}
+					return;
+				}
+
+				if (
+					activeElement === lastElement ||
+					!modalElement.contains(activeElement)
+				) {
+					event.preventDefault();
+					firstElement.focus();
+				}
 			}
 
 			if (
@@ -57,7 +122,11 @@ const PageLayout = ({
 		window.addEventListener("keydown", handleKeyDown);
 
 		return () => {
+			document.body.style.overflow = previousOverflow;
 			window.removeEventListener("keydown", handleKeyDown);
+			if (lastFocusedElementRef.current) {
+				lastFocusedElementRef.current.focus();
+			}
 		};
 	}, [
 		hasNextProject,
@@ -117,7 +186,14 @@ const PageLayout = ({
 
 			{isClosableModal && (
 				<div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-					<div className="bg-white rounded-lg w-full max-w-6xl max-h-full overflow-auto">
+					<div
+						ref={modalContainerRef}
+						role="dialog"
+						aria-modal="true"
+						aria-labelledby={dialogTitleId}
+						tabIndex={-1}
+						className="bg-white rounded-lg w-full max-w-6xl max-h-full overflow-auto"
+					>
 						<div className="p-8">
 							<div className="flex items-center justify-between mb-4">
 								<button
@@ -140,12 +216,16 @@ const PageLayout = ({
 
 							<div className="flex justify-between items-start mb-6">
 								<div className="flex-1">
-									<h2 className="text-3xl font-bold text-gray-800 mb-2">
+									<h2
+										id={dialogTitleId}
+										className="text-3xl font-bold text-gray-800 mb-2"
+									>
 										{selectedProject.title}
 									</h2>
 									<p className="text-gray-600">{selectedProject.type}</p>
 								</div>
 								<button
+									ref={closeButtonRef}
 									onClick={onCloseModal}
 									className="text-gray-400 ml-4"
 									aria-label="Close modal"
