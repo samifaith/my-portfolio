@@ -22,7 +22,7 @@ I've completed a comprehensive performance audit and implemented **29 optimizati
 - Added content-visibility for better rendering
 - Hero sections optimized for GPU acceleration
 
-### 3. **JavaScript (`src/pages/AnimatedHomePage.js`)**
+### 3. **JavaScript (`src/pages/AnimatedHomePage.jsx`)**
 
 - Replaced `setInterval` with `requestAnimationFrame` (smoother typing)
 - Deferred GSAP animations with `requestIdleCallback` (less main-thread blocking)
@@ -38,44 +38,21 @@ I've completed a comprehensive performance audit and implemented **29 optimizati
 
 ---
 
-## 🔴 CRITICAL: Image Optimization Required
+## ✅ Image Optimization Status
 
-Your **headshot.png is 16MB** - this is the #1 performance killer.
+The heavy portfolio images have already been converted to modern formats and wired into the app.
 
-### Convert to WebP (Choose ONE method):
+### Current expected setup
 
-#### **Option 1: Automated Script** (if you have ImageMagick)
+1. Content images use AVIF/WebP sources with fallback handling in app components.
+2. The hero preload points to `illustratedheadshot.webp`.
+3. PNG files are retained for icons and web manifests only.
 
-```bash
-# Install ImageMagick first (if needed)
-brew install imagemagick
+### For new images you add later
 
-# Run the optimization script
-./optimize-images.sh
-```
-
-#### **Option 2: Online Tool** (Easiest - No Install)
-
-1. Open [https://squoosh.app](https://squoosh.app)
-2. Upload `src/headshot.png`
-3. Select WebP format, set quality to 85%
-4. Download and save as `public/headshot.webp`
-
-#### **Option 3: Sharp CLI** (Node.js)
-
-```bash
-npm install sharp --save-dev
-
-npx sharp-cli \
-  --input src/headshot.png \
-  --output public/headshot.webp \
-  --format webp \
-  --quality 85
-```
-
-### After Converting, Update the Code:
-
-I can help you update `AnimatedHomePage.js` to use the WebP image once you've created it.
+1. Add the source image under `public/` or `src/`.
+2. Generate `.webp` and `.avif` versions next to it.
+3. Use the normal project image path and let component-level picture sources handle modern format delivery.
 
 ---
 
@@ -129,7 +106,7 @@ I can help you update `AnimatedHomePage.js` to use the WebP image once you've cr
 ## 📁 New Files Created
 
 1. `PERFORMANCE_OPTIMIZATION.md` - Detailed technical documentation
-2. `optimize-images.sh` - Automated image conversion script
+2. `src/utils/imageFormats.js` - Shared modern-image source helper
 3. This quick start guide
 
 ---
@@ -137,9 +114,6 @@ I can help you update `AnimatedHomePage.js` to use the WebP image once you've cr
 ## ⚡ Quick Commands
 
 ```bash
-# Convert image (if you have ImageMagick)
-./optimize-images.sh
-
 # Build and test
 npm run build
 npm run preview
@@ -166,8 +140,8 @@ Check `PERFORMANCE_OPTIMIZATION.md` for:
 
 ## Next Steps
 
-1. **Convert headshot.png to WebP** (critical!)
-2. **Test with Lighthouse** (should see major improvement)
+1. **Run Lighthouse on the production build**
+2. **Confirm LCP and total image payload stay in target range**
 3. **Deploy** and enjoy the speed boost! 🚀
 
 Your site will load **3-5x faster** with these changes!

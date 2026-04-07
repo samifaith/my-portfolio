@@ -1,12 +1,32 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { ExternalLink } from "lucide-react";
+import { getModernImageSources } from "../utils/imageFormats";
 
-const ProjectCard = ({ projectData, onProjectClick }) => {
+const ProjectCard = ({ projectData, onProjectClick, forceModal = false }) => {
 	const navigate = useNavigate();
 
+	const renderExternalAction = () => {
+		if (!projectData.externalUrl) {
+			return null;
+		}
+
+		return (
+			<a
+				href={projectData.externalUrl}
+				target="_blank"
+				rel="noopener noreferrer"
+				onClick={(event) => event.stopPropagation()}
+				className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-gray-700 hover:text-gray-900"
+			>
+				Visit live
+				<ExternalLink className="w-4 h-4" />
+			</a>
+		);
+	};
+
 	const handleClick = () => {
-		if (projectData.route) {
+		if (!forceModal && projectData.route) {
 			navigate(projectData.route);
 		} else if (onProjectClick) {
 			onProjectClick(projectData);
@@ -34,6 +54,7 @@ const ProjectCard = ({ projectData, onProjectClick }) => {
 						{projectData.title}
 					</h3>
 					<p className="text-sm text-gray-600">{projectData.description}</p>
+					{renderExternalAction()}
 				</div>
 			</div>
 		);
@@ -41,23 +62,36 @@ const ProjectCard = ({ projectData, onProjectClick }) => {
 
 	// If project has an image, use the simple image card
 	if (projectData.image) {
+		const sources = getModernImageSources(projectData.image);
+
 		return (
 			<div
 				className="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer flex flex-col"
 				onClick={handleClick}
 			>
 				<div className="w-full overflow-hidden">
-					<img
-						src={projectData.image}
-						alt={projectData.title}
-						className="block w-full h-auto"
-					/>
+					<picture>
+						{sources?.avif && (
+							<source srcSet={sources.avif} type="image/avif" />
+						)}
+						{sources?.webp && (
+							<source srcSet={sources.webp} type="image/webp" />
+						)}
+						<img
+							src={sources?.fallback || projectData.image}
+							alt={projectData.title}
+							className="block w-full h-auto"
+							loading="lazy"
+							decoding="async"
+						/>
+					</picture>
 				</div>
 				<div className="p-4 flex-1">
 					<h3 className="font-semibold text-gray-800 mb-2">
 						{projectData.title}
 					</h3>
 					<p className="text-sm text-gray-600">{projectData.description}</p>
+					{renderExternalAction()}
 				</div>
 			</div>
 		);
@@ -136,6 +170,8 @@ const ProjectCard = ({ projectData, onProjectClick }) => {
 							</div>
 						</div>
 					)}
+
+					{renderExternalAction()}
 				</div>
 
 				{/* Hover indicator */}

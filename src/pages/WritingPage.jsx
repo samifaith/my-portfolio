@@ -4,7 +4,6 @@ import {
 	Box,
 	Card,
 	CardContent,
-	CardMedia,
 	IconButton,
 	Slider,
 	Typography,
@@ -13,6 +12,7 @@ import { Pause, Play, SkipBack, SkipForward, Volume2 } from "lucide-react";
 import stories from "../constants/WritingPieces";
 import ProjectCard from "../components/ProjectCard";
 import PageLayout from "../components/PageLayout";
+import { getModernImageSources } from "../utils/imageFormats";
 
 const storiesData = {
 	"eat-like-child": {
@@ -64,6 +64,9 @@ const formatTime = (seconds) => {
 };
 
 const AudioStoryPlayer = ({ title, audioFile, coverImage }) => {
+	const coverImageSources = coverImage
+		? getModernImageSources(coverImage)
+		: null;
 	const audioRef = useRef(null);
 	const [isPlaying, setIsPlaying] = useState(false);
 	const [duration, setDuration] = useState(0);
@@ -221,11 +224,12 @@ const AudioStoryPlayer = ({ title, audioFile, coverImage }) => {
 				</Box>
 			</Box>
 
-			{coverImage && (
+			{coverImageSources && (
 				<Box
 					sx={{
 						flexShrink: 0,
 						width: { xs: "100%", sm: 280 },
+						maxWidth: "100%",
 						display: "flex",
 						alignItems: "center",
 						justifyContent: "center",
@@ -235,18 +239,28 @@ const AudioStoryPlayer = ({ title, audioFile, coverImage }) => {
 						borderColor: "divider",
 					}}
 				>
-					<CardMedia
-						component="img"
-						image={coverImage}
-						alt={`${title} cover image`}
-						sx={{
-							width: "100%",
-							height: "auto",
-							maxHeight: { xs: 360, sm: 320 },
-							objectFit: "contain",
-							borderRadius: 1,
-						}}
-					/>
+					<picture style={{ display: "block", width: "100%", maxWidth: "100%" }}>
+						{coverImageSources.avif && (
+							<source srcSet={coverImageSources.avif} type="image/avif" />
+						)}
+						{coverImageSources.webp && (
+							<source srcSet={coverImageSources.webp} type="image/webp" />
+						)}
+						<img
+							src={coverImageSources.fallback}
+							alt={`${title} cover image`}
+							style={{
+								display: "block",
+								width: "100%",
+								height: "auto",
+								maxHeight: "min(40vh, 320px)",
+								objectFit: "contain",
+								borderRadius: "4px",
+							}}
+							loading="lazy"
+							decoding="async"
+						/>
+					</picture>
 				</Box>
 			)}
 

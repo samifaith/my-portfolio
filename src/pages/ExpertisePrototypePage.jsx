@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { getModernImageSources } from "../utils/imageFormats";
 import "../styles/ExpertisePrototype.css";
 
 const ExpertisePrototypePage = () => {
@@ -14,7 +15,7 @@ const ExpertisePrototypePage = () => {
 				title: "ROWDY Type Poster",
 				description:
 					"Typography exploration with bold, energetic design and expressive layout textures.",
-				image: "/design/SD_TypePoster_ROWDY.png",
+				image: "/design/SD_TypePoster_ROWDY.avif",
 				label: "Design",
 				bg: "#e2e6d5",
 			},
@@ -23,7 +24,7 @@ const ExpertisePrototypePage = () => {
 				title: "LOMBARDIA Type Poster",
 				description:
 					"Elegant letterform system inspired by editorial grids and classic Italian style language.",
-				image: "/design/SD_TypePoster_LOMBARDIA.png",
+				image: "/design/SD_TypePoster_LOMBARDIA.avif",
 				label: "Design",
 				bg: "#d5e2ea",
 			},
@@ -32,7 +33,7 @@ const ExpertisePrototypePage = () => {
 				title: "Lady Liberty Says to Vote",
 				description:
 					"Campaign poster built for clarity, urgency, and high-impact public messaging.",
-				image: "/design/Vote_Poster.png",
+				image: "/design/Vote_Poster.avif",
 				label: "Design",
 				bg: "#e9ddd3",
 			},
@@ -41,7 +42,7 @@ const ExpertisePrototypePage = () => {
 				title: "Wanderlust Case Study",
 				description:
 					"UX/UI system for trip planning focused on legibility, confidence, and quick itinerary decisions.",
-				image: "/design/SamDeCoteau_Vector.png",
+				image: "/design/SamDeCoteau_Vector.avif",
 				label: "Development",
 				route: "/wanderlust-case-study",
 				bg: "#ddd9ea",
@@ -94,6 +95,26 @@ const ExpertisePrototypePage = () => {
 
 	const activeSection = sections[activeIndex] || sections[0];
 
+	const renderProjectImage = (imagePath, altText, className) => {
+		const imageSources = getModernImageSources(imagePath);
+
+		if (!imageSources) {
+			return null;
+		}
+
+		return (
+			<picture>
+				{imageSources.avif && (
+					<source srcSet={imageSources.avif} type="image/avif" />
+				)}
+				{imageSources.webp && (
+					<source srcSet={imageSources.webp} type="image/webp" />
+				)}
+				<img src={imageSources.fallback} alt={altText} className={className} />
+			</picture>
+		);
+	};
+
 	return (
 		<div className="proto-page" style={{ backgroundColor: activeSection.bg }}>
 			<header className="proto-header">
@@ -129,7 +150,7 @@ const ExpertisePrototypePage = () => {
 								)}
 							</div>
 							<div className="proto-mobile-media">
-								<img src={item.image} alt={item.title} />
+								{renderProjectImage(item.image, item.title)}
 							</div>
 						</article>
 					))}
@@ -137,11 +158,11 @@ const ExpertisePrototypePage = () => {
 
 				<section className="proto-right">
 					<div className="proto-frame">
-						<img
-							src={activeSection.image}
-							alt={activeSection.title}
-							className="proto-layer"
-						/>
+						{renderProjectImage(
+							activeSection.image,
+							activeSection.title,
+							"proto-layer",
+						)}
 					</div>
 				</section>
 			</main>

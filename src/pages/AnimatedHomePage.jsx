@@ -8,7 +8,7 @@ import MadeByMeHand from "../components/MadeByMeHand";
 import VerticalTimeline from "../components/VerticalTimeline";
 import ScrollIndicator from "../components/ScrollIndicator";
 import { useNavigate } from "react-router-dom";
-import headshotImage from "../illustratedheadshot.png";
+import headshotImage from "../illustratedheadshot.webp";
 
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
 
@@ -215,11 +215,6 @@ const AnimatedHomePage = () => {
 	// Refresh ScrollTrigger on mount to ensure smooth scrolling
 	useEffect(() => {
 		ScrollTrigger.refresh();
-
-		return () => {
-			// Clean up all ScrollTriggers when unmounting
-			ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-		};
 	}, []);
 
 	const openModal = useCallback(

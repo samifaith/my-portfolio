@@ -2,7 +2,7 @@ const stories = {
 	"eat-like-child": {
 		title: "Eat Like a Child",
 		subtitle: "Personal Essay",
-		coverImage: "/writing/manger.png",
+		coverImage: "/writing/manger.webp",
 		pdfFile: "/writing/manger.pdf",
 		content: `"Again?!" I mumbled, replacing the lid on the food my grandmother was cooking. She'd made her "signature" meal: stewed fish, lentils, rice, and a bit of watercress. While healthy and nourishing, it was also a meal on rotation almost every week. We weren't rich, but to my young mind Dominoes was always an option if there was nothing else to eat. To my immigrant grandmother, you ate what was provided or you went hungry. Sighing in second-generational entitlement, I backed away from the stove, opting for cereal. Yes, I preferred the highly processed sugary grain I considered food to the home cooking my grandmother provided. Today, I'd give anything for that meal again.
 
@@ -17,7 +17,7 @@ Today, I seek out that food and the stories that pair well with what's being ser
 	"home-cook": {
 		title: "The Rise of the Home Cook: Arielle Faria",
 		subtitle: "Profile Feature",
-		coverImage: "/writing/OuiChef.png",
+		coverImage: "/writing/OuiChef.webp",
 		pdfFile: "/writing/Oui Chef - Faria.pdf",
 		pdfPages: [1, 2, 3],
 		content: `"Who made the mac & cheese?" This is a common question in black households whenever this staple side dish is presented. A rite of passage, the holy grail of golden creamy noodles is only deemed worthy by a truly exceptional cook. Amongst chefs like Kevin Belton or Jamie Oliver is the resurgence of the home chef. Since the pandemic, shows like MasterChef or Great British Bake Off highlight the shift in food culture toward the popularity and skill of the at-home cook. Amongst these home chefs is Arielle Faria, whose mac & cheese passes that ultimate test.
