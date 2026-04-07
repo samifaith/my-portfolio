@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { getModernImageSources } from "../utils/imageFormats";
 import "../styles/ExpertisePrototype.css";
 
 const ExpertisePrototypePage = () => {
@@ -94,6 +95,26 @@ const ExpertisePrototypePage = () => {
 
 	const activeSection = sections[activeIndex] || sections[0];
 
+	const renderProjectImage = (imagePath, altText, className) => {
+		const imageSources = getModernImageSources(imagePath);
+
+		if (!imageSources) {
+			return null;
+		}
+
+		return (
+			<picture>
+				{imageSources.avif && (
+					<source srcSet={imageSources.avif} type="image/avif" />
+				)}
+				{imageSources.webp && (
+					<source srcSet={imageSources.webp} type="image/webp" />
+				)}
+				<img src={imageSources.fallback} alt={altText} className={className} />
+			</picture>
+		);
+	};
+
 	return (
 		<div className="proto-page" style={{ backgroundColor: activeSection.bg }}>
 			<header className="proto-header">
@@ -129,7 +150,7 @@ const ExpertisePrototypePage = () => {
 								)}
 							</div>
 							<div className="proto-mobile-media">
-								<img src={item.image} alt={item.title} />
+								{renderProjectImage(item.image, item.title)}
 							</div>
 						</article>
 					))}
@@ -137,11 +158,11 @@ const ExpertisePrototypePage = () => {
 
 				<section className="proto-right">
 					<div className="proto-frame">
-						<img
-							src={activeSection.image}
-							alt={activeSection.title}
-							className="proto-layer"
-						/>
+						{renderProjectImage(
+							activeSection.image,
+							activeSection.title,
+							"proto-layer",
+						)}
 					</div>
 				</section>
 			</main>
