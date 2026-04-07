@@ -27,7 +27,7 @@
 <link
 	rel="preload"
 	as="image"
-	href="%PUBLIC_URL%/headshot.png"
+	href="%PUBLIC_URL%/illustratedheadshot.webp"
 	fetchpriority="high"
 />
 
@@ -77,7 +77,7 @@
 
 ### 3. **Reduce Layout Shifts (CLS)**
 
-#### JavaScript Optimization (`src/pages/AnimatedHomePage.js`)
+#### JavaScript Optimization (`src/pages/AnimatedHomePage.jsx`)
 
 - ✅ Replaced `setInterval` with `requestAnimationFrame` for typing animation
 - ✅ Added `requestIdleCallback` to defer GSAP animations until browser is idle
@@ -138,70 +138,38 @@ gsap.fromTo(
 
 ## 🔧 Required Manual Optimizations
 
-### 5. **Image Optimization (CRITICAL - 16MB → ~500KB)**
+### 5. **Image Optimization (Current State + Ongoing Workflow)**
 
-Your `headshot.png` is **16MB** which is severely impacting LCP. You **must** convert this to WebP.
+Image optimization has already been applied across key portfolio visuals.
 
-#### Option A: Use the Provided Script
+#### Current state
 
-```bash
-# Make script executable
-chmod +x optimize-images.sh
+1. Content images are delivered through AVIF/WebP-capable rendering paths.
+2. The hero preload uses `illustratedheadshot.webp`.
+3. Legacy heavy PNG originals for content were removed where safe.
+4. PNG assets remain for favicons and web manifest icons (required compatibility path).
 
-# Run optimization (requires ImageMagick)
-./optimize-images.sh
+#### Ongoing workflow for any newly added images
 
-# If you don't have ImageMagick:
-brew install imagemagick
-```
-
-#### Option B: Online Tool (Recommended if no ImageMagick)
-
-1. Go to [Squoosh.app](https://squoosh.app/)
-2. Upload `src/headshot.png`
-3. Select WebP format, quality 85%
-4. Download and save as `public/headshot.webp`
-
-#### Option C: Use Sharp (Node.js)
+Generate modern variants next to the source image, then keep normal project paths in content data.
 
 ```bash
-npm install sharp --save-dev
-
-# Create convert-headshot.js:
-const sharp = require('sharp');
-sharp('src/headshot.png')
-  .webp({ quality: 85 })
-  .toFile('public/headshot.webp');
-
-node convert-headshot.js
+find public src -type f \( -iname '*.png' -o -iname '*.jpg' -o -iname '*.jpeg' \) -print0 | while IFS= read -r -d '' f; do
+  cwebp -quiet -q 82 "$f" -o "${f%.*}.webp"
+  avifenc --min 24 --max 34 "$f" "${f%.*}.avif" >/dev/null 2>&1
+done
 ```
 
-#### Then Update Component
+#### Image quality policy (team default)
 
-After creating `headshot.webp`, update `AnimatedHomePage.js`:
+Use these defaults unless a specific visual requirement justifies a change:
 
-```javascript
-import headshotImage from "../headshot.png";
-import headshotWebP from "../headshot.webp"; // Add this
-
-// In the component:
-<div
-	ref={headRef}
-	className="head"
-	style={{
-		backgroundImage: `image-set(
-			url(${headshotWebP}) type("image/webp"),
-			url(${headshotImage}) type("image/png")
-		)`,
-		opacity: 0,
-		willChange: "opacity, transform",
-	}}
-	role="img"
-	aria-label="Headshot of Sam DeCoteau"
-/>;
-```
-
-**Expected result:** 16MB → ~500KB (97% reduction!)
+1. Hero/featured images: target width 1600-2200px, AVIF `--min 24 --max 34`, WebP `-q 82`.
+2. Card/list thumbnails: target width 700-1200px, AVIF `--min 28 --max 38`, WebP `-q 78`.
+3. Preserve aspect ratio during resize and avoid upscaling small originals.
+4. Keep one high-quality source original in version control only when future recropping or redesign is expected.
+5. Do not remove PNG favicon/manifest icons; keep those compatibility assets intact.
+6. For content images, originals can be removed only after AVIF/WebP exist, references are audited, and `npm run build` passes.
 
 ---
 
@@ -215,14 +183,14 @@ Optional: source maps can be disabled in Vite if you specifically want smaller a
 
 ## 📊 Expected Performance Gains
 
-| Metric                | Before   | After Optimizations | Gain              |
-| --------------------- | -------- | ------------------- | ----------------- |
-| **Performance Score** | 29%      | ~85-95%             | +56-66 points     |
-| **LCP**               | ~8-12s   | ~1.5-2.5s           | 70-80% faster     |
-| **TBT**               | ~2-3s    | ~200-400ms          | 85% reduction     |
-| **CLS**               | 0.25+    | <0.1                | Passing threshold |
-| **Image Size**        | 16MB     | ~500KB              | 97% reduction     |
-| **Font Load**         | Blocking | Non-blocking        | Instant render    |
+| Metric                | Before    | After Optimizations | Gain              |
+| --------------------- | --------- | ------------------- | ----------------- |
+| **Performance Score** | 29%       | ~85-95%             | +56-66 points     |
+| **LCP**               | ~8-12s    | ~1.5-2.5s           | 70-80% faster     |
+| **TBT**               | ~2-3s     | ~200-400ms          | 85% reduction     |
+| **CLS**               | 0.25+     | <0.1                | Passing threshold |
+| **Image Size**        | Very high | Significantly lower | Major reduction   |
+| **Font Load**         | Blocking  | Non-blocking        | Instant render    |
 
 ---
 
@@ -272,13 +240,13 @@ All optimizations maintain your design:
 - ✅ Timeline animations working
 - ✅ Hero layout identical
 - ✅ Font rendering (with faster load)
-- ✅ Headshot appearance (after WebP conversion)
+- ✅ Headshot appearance (with modern formats)
 
 ---
 
 ## 🚀 Next Steps
 
-1. **Convert headshot to WebP** (use Option A, B, or C above)
+1. **For new uploads, generate AVIF/WebP variants**
 2. **Test locally:** `npm run build && npm run preview`
 3. **Run Lighthouse** on production build
 4. **Deploy** and verify on live site
@@ -315,7 +283,7 @@ All optimizations maintain your design:
 1. ❌ Don't lazy-load hero image (it's LCP)
 2. ❌ Don't add more external fonts
 3. ❌ Don't use `setTimeout`/`setInterval` for animations
-4. ❌ Don't skip the WebP conversion (most critical!)
+4. ❌ Don't skip generating AVIF/WebP for new large images
 5. ❌ Don't add unnecessary third-party scripts
 
 ---
@@ -346,6 +314,6 @@ A: Run `npm install` and ensure React 19 compatibility
 
 ---
 
-**Last Updated:** October 23, 2025  
+**Last Updated:** April 4, 2026  
 **Optimizations By:** GitHub Copilot  
 **Target Lighthouse Score:** 90%+

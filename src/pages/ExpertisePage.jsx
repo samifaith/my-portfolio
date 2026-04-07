@@ -15,7 +15,7 @@ const ExpertisePage = () => {
 		{
 			id: "rowdy-poster",
 			title: "ROWDY Type Poster",
-			image: "/design/SD_TypePoster_ROWDY.png",
+			image: "/design/SD_TypePoster_ROWDY.webp",
 			description: "Typography exploration with bold, energetic design",
 			category: "design",
 			size: "medium", // for mosaic sizing
@@ -23,7 +23,7 @@ const ExpertisePage = () => {
 		{
 			id: "lombardia-poster",
 			title: "LOMBARDIA Type Poster",
-			image: "/design/SD_TypePoster_LOMBARDIA.png",
+			image: "/design/SD_TypePoster_LOMBARDIA.webp",
 			description: "Elegant typography inspired by Italian design",
 			category: "design",
 			size: "medium",
@@ -31,7 +31,7 @@ const ExpertisePage = () => {
 		{
 			id: "vote-poster",
 			title: "Lady Liberty Says to Vote",
-			image: "/design/Vote_Poster.png",
+			image: "/design/Vote_Poster.webp",
 			description: "Political awareness poster design",
 			category: "design",
 			size: "medium",
@@ -39,7 +39,7 @@ const ExpertisePage = () => {
 		{
 			id: "black-unicorn",
 			title: "Black Unicorn",
-			image: "/design/BlackUnicorn.png",
+			image: "/design/BlackUnicorn.webp",
 			description: "Illustration and brand expression study",
 			category: "design",
 			size: "medium",
@@ -47,7 +47,7 @@ const ExpertisePage = () => {
 		{
 			id: "sam-vector",
 			title: "Life 2 Life Travel Agency | Web Interface",
-			image: "/design/SamDeCoteau_Vector.png",
+			image: "/design/SamDeCoteau_Vector.webp",
 			description: "Vector portrait exploration",
 			category: "design",
 			size: "medium",
@@ -55,7 +55,31 @@ const ExpertisePage = () => {
 
 		// DEVELOPMENT PROJECTS
 		{
+			id: "tekada-cost-calculator",
+			title: "Tekada Cost Calculator",
+			type: "Design + Front-End Development",
+			description:
+				"Designed and built the front-end experience for Tekada's ADHD cost calculator while working at AESARA.",
+			modalHighlights: [
+				"Defined the UX flow to guide caregivers through cost inputs and scenario comparisons.",
+				"Designed an approachable interface that turns complex healthcare cost variables into understandable outputs.",
+				"Implemented responsive front-end behaviors to keep interactions fast and clear across device sizes.",
+			],
+			modalTech: [
+				"UX/UI Design",
+				"Interaction Design",
+				"Front-End Development",
+			],
+			role: "Product Designer / Front-End Developer",
+			backgroundIcon: Compass,
+			accentIcon: Code,
+			externalUrl: "https://attentiononadhd.com/cost-calculator/",
+			category: "development",
+			size: "large",
+		},
+		{
 			id: "wanderlust",
+			caseStudyId: "wanderlust",
 			title: "Wanderlust",
 			type: "UX/UI Case Study",
 			description:
@@ -64,7 +88,6 @@ const ExpertisePage = () => {
 			backgroundIcon: Compass,
 			accentIcon: Code,
 			backgroundGradient: "from-orange-400 to-red-500",
-			route: "/wanderlust-case-study",
 			category: "development",
 			size: "large",
 			customLayout: true,
@@ -73,9 +96,10 @@ const ExpertisePage = () => {
 		// WRITING PROJECTS
 		{
 			id: "eat-like-child",
+			storyId: "eat-like-child",
 			title: "Eat Like a Child",
 			category: "writing",
-			image: "/writing/manger.png",
+			image: "/writing/manger.webp",
 			tags: ["Culture", "Memoir", "Caribbean"],
 			previewContent:
 				"A nostalgic reflection on Caribbean culture, family traditions, and the complex relationship between immigrant identity and food.",
@@ -83,14 +107,14 @@ const ExpertisePage = () => {
 				"A nostalgic reflection on Caribbean culture, family traditions, and the complex relationship between immigrant identity and food.",
 			type: "Memoir",
 			theme: "Culture",
-			route: "/expertise/eat-like-child",
 			size: "medium",
 		},
 		{
 			id: "home-cook",
+			storyId: "home-cook",
 			title: "The Rise of the Home Cook",
 			category: "writing",
-			image: "/writing/OuiChef.png",
+			image: "/writing/OuiChef.webp",
 			tags: ["Food", "Profile", "Cooking"],
 			description:
 				"An intimate look at a home chef who transforms family recipes into culinary magic through intuition and ancestral wisdom.",
@@ -98,11 +122,11 @@ const ExpertisePage = () => {
 				"An intimate look at a home chef who transforms family recipes into culinary magic through intuition and ancestral wisdom.",
 			type: "Profile",
 			theme: "Food",
-			route: "/expertise/home-cook",
 			size: "medium",
 		},
 		{
 			id: "tea-with-sami",
+			storyId: "tea-with-sami",
 			title: "Tea with Sami",
 			category: "writing",
 			image: "/writing/revengehot.gif",
@@ -113,7 +137,6 @@ const ExpertisePage = () => {
 				"An intimate conversation exploring relationships, personal growth, and the stories we tell ourselves about justice and healing.",
 			type: "Audio",
 			theme: "Podcast",
-			route: "/expertise/tea-with-sami",
 			size: "medium",
 		},
 		// MEDIA PROJECTS
@@ -158,6 +181,25 @@ const ExpertisePage = () => {
 			? allProjects
 			: allProjects.filter((project) => project.category === activeFilter);
 
+	const selectedProjectIndex = selectedProject
+		? filteredProjects.findIndex((project) => project.id === selectedProject.id)
+		: -1;
+
+	const handlePreviousProject = () => {
+		if (selectedProjectIndex > 0) {
+			setSelectedProject(filteredProjects[selectedProjectIndex - 1]);
+		}
+	};
+
+	const handleNextProject = () => {
+		if (
+			selectedProjectIndex >= 0 &&
+			selectedProjectIndex < filteredProjects.length - 1
+		) {
+			setSelectedProject(filteredProjects[selectedProjectIndex + 1]);
+		}
+	};
+
 	return (
 		<PageLayout
 			title="EXPERTISE"
@@ -165,6 +207,13 @@ const ExpertisePage = () => {
 			showModal={!!selectedProject}
 			selectedProject={selectedProject}
 			onCloseModal={() => setSelectedProject(null)}
+			onPreviousProject={handlePreviousProject}
+			onNextProject={handleNextProject}
+			hasPreviousProject={selectedProjectIndex > 0}
+			hasNextProject={
+				selectedProjectIndex >= 0 &&
+				selectedProjectIndex < filteredProjects.length - 1
+			}
 		>
 			{/* Filter Tabs */}
 			<div className="filter-tabs">
@@ -195,6 +244,7 @@ const ExpertisePage = () => {
 						<ProjectCard
 							projectData={project}
 							onProjectClick={setSelectedProject}
+							forceModal
 						/>
 					</div>
 				))}
