@@ -183,7 +183,7 @@ const MadeByMeHand = () => {
 		}
 	}, [isHovered]);
 
-	const techStack = ["React 19", "GSAP", "MUI", "Tailwind", "Router"];
+	const techStack = ["React19", "GSAP", "MUI", "Tailwind", "Router"];
 
 	return (
 		<div
@@ -324,14 +324,19 @@ const MadeByMeHand = () => {
 							padding: 0,
 							listStyle: "none",
 							fontSize: "clamp(0.5rem, 0.38rem + 0.25vw, 0.72rem)",
-							lineHeight: 1.2,
+							lineHeight: 1.1,
 							display: "grid",
 							gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
-							gap: "2px 8px",
+							gap: "1px 8px",
 						}}
 					>
 						{techStack.map((tech) => (
-							<li key={tech}>{tech}</li>
+							<li
+								key={tech}
+								style={{ whiteSpace: "nowrap", overflow: "hidden" }}
+							>
+								{tech}
+							</li>
 						))}
 					</ul>
 				</div>
