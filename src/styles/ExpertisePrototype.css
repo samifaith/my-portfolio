@@ -96,12 +96,13 @@
 
 .proto-right {
 	position: relative;
-	height: auto;
+	min-height: 100vh;
 	display: flex;
+	align-items: center;
 	justify-content: center;
 }
 
-.proto-frame {
+.proto-image-stack {
 	position: relative;
 	width: min(100%, 780px);
 	height: clamp(340px, calc(100svh - var(--proto-top-offset)), 860px);
@@ -111,13 +112,30 @@
 	background: transparent;
 }
 
-.proto-layer {
-	position: relative;
+.proto-layer-wrap {
+	position: absolute;
+	inset: 0;
+	overflow: hidden;
+	border-radius: inherit;
+	clip-path: inset(0px 0px 0px 0px);
+	will-change: clip-path;
+	background: transparent;
+}
+
+.proto-layer-picture {
+	display: block;
 	width: 100%;
 	height: 100%;
-	object-fit: contain;
+}
+
+.proto-layer {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center 50%;
 	display: block;
 	pointer-events: none;
+	will-change: object-position;
 }
 
 @media (max-width: 1024px) {
@@ -145,6 +163,7 @@
 		width: 100%;
 		height: auto;
 		display: block;
+		object-fit: cover;
 		border-radius: 20px;
 	}
 }
@@ -152,7 +171,9 @@
 @media (prefers-reduced-motion: reduce) {
 	.proto-page,
 	.proto-layer,
-	.proto-frame::after {
+	.proto-layer-wrap,
+	.proto-layer-picture,
+	.proto-image-stack::after {
 		transition: none !important;
 		animation: none !important;
 	}

@@ -1,12 +1,19 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { getModernImageSources } from "../utils/imageFormats";
 import "../styles/ExpertisePrototype.css";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const ExpertisePrototypePage = () => {
 	const navigate = useNavigate();
 	const [activeIndex, setActiveIndex] = useState(0);
 	const sectionRefs = useRef([]);
+	const pageRef = useRef(null);
+	const rightColumnRef = useRef(null);
+	const layerWrapRefs = useRef([]);
 
 	const sections = useMemo(
 		() => [
@@ -93,9 +100,116 @@ const ExpertisePrototypePage = () => {
 		};
 	}, [sections]);
 
+	useLayoutEffect(() => {
+		if (typeof window === "undefined") {
+			return undefined;
+		}
+
+		const reducedMotionQuery = window.matchMedia(
+			"(prefers-reduced-motion: reduce)",
+		);
+
+		if (reducedMotionQuery.matches) {
+			return undefined;
+		}
+
+		const mm = gsap.matchMedia();
+
+		mm.add("(min-width: 1025px)", () => {
+			const pageElement = pageRef.current;
+			const rightColumnElement = rightColumnRef.current;
+			const layerWrappers = layerWrapRefs.current.filter(Boolean);
+
+			if (!pageElement || !rightColumnElement || layerWrappers.length < 2) {
+				return undefined;
+			}
+
+			const layerImages = layerWrappers
+				.map((layerWrapper) => layerWrapper.querySelector("img"))
+				.filter(Boolean);
+
+			const ctx = gsap.context(() => {
+				gsap.set(layerWrappers, {
+					clipPath: "inset(0px 0px 0px 0px)",
+					willChange: "clip-path",
+				});
+				gsap.set(layerImages, {
+					objectPosition: "0px 50%",
+					willChange: "object-position",
+				});
+
+				layerWrappers.forEach((layerWrapper, index) => {
+					gsap.set(layerWrapper, {
+						zIndex: sections.length - index,
+					});
+				});
+
+				const masterTimeline = gsap.timeline({
+					scrollTrigger: {
+						trigger: pageElement,
+						start: "top top",
+						end: "bottom bottom",
+						pin: rightColumnElement,
+						scrub: true,
+						anticipatePin: 1,
+						invalidateOnRefresh: true,
+						fastScrollEnd: true,
+					},
+				});
+
+				sections.forEach((_, index) => {
+					const currentLayer = layerWrappers[index];
+					const nextLayer = layerWrappers[index + 1];
+					const currentImage = layerImages[index];
+					const nextImage = layerImages[index + 1];
+
+					if (!currentLayer || !currentImage) {
+						return;
+					}
+
+					const segmentTimeline = gsap.timeline();
+
+					if (nextLayer && nextImage) {
+						segmentTimeline
+							.to(
+								currentLayer,
+								{
+									clipPath: "inset(0px 0px 100% 0px)",
+									duration: 1.5,
+									ease: "none",
+								},
+								0,
+							)
+							.to(
+								nextImage,
+								{
+									objectPosition: "0px 40%",
+									duration: 1.5,
+									ease: "none",
+								},
+								0,
+							);
+					}
+
+					masterTimeline.add(segmentTimeline);
+				});
+			}, pageElement);
+
+			return () => ctx.revert();
+		});
+
+		return () => {
+			mm.revert();
+		};
+	}, [sections]);
+
 	const activeSection = sections[activeIndex] || sections[0];
 
-	const renderProjectImage = (imagePath, altText, className) => {
+	const renderProjectImage = (
+		imagePath,
+		altText,
+		{ pictureClassName, imgClassName } = {},
+	) => {
 		const imageSources = getModernImageSources(imagePath);
 
 		if (!imageSources) {
@@ -103,20 +217,28 @@ const ExpertisePrototypePage = () => {
 		}
 
 		return (
-			<picture>
+			<picture className={pictureClassName}>
 				{imageSources.avif && (
 					<source srcSet={imageSources.avif} type="image/avif" />
 				)}
 				{imageSources.webp && (
 					<source srcSet={imageSources.webp} type="image/webp" />
 				)}
-				<img src={imageSources.fallback} alt={altText} className={className} />
+				<img
+					src={imageSources.fallback}
+					alt={altText}
+					className={imgClassName}
+				/>
 			</picture>
 		);
 	};
 
 	return (
-		<div className="proto-page" style={{ backgroundColor: activeSection.bg }}>
+		<div
+			ref={pageRef}
+			className="proto-page"
+			style={{ backgroundColor: activeSection.bg }}
+		>
 			<header className="proto-header">
 				<Link to="/expertise" className="proto-back-link">
 					Back to Expertise
@@ -156,13 +278,22 @@ const ExpertisePrototypePage = () => {
 					))}
 				</section>
 
-				<section className="proto-right">
-					<div className="proto-frame">
-						{renderProjectImage(
-							activeSection.image,
-							activeSection.title,
-							"proto-layer",
-						)}
+				<section ref={rightColumnRef} className="proto-right">
+					<div className="proto-image-stack">
+						{sections.map((item, index) => (
+							<div
+								className="proto-layer-wrap"
+								key={item.id}
+								ref={(el) => {
+									layerWrapRefs.current[index] = el;
+								}}
+							>
+								{renderProjectImage(item.image, item.title, {
+									pictureClassName: "proto-layer-picture",
+									imgClassName: "proto-layer",
+								})}
+							</div>
+						))}
 					</div>
 				</section>
 			</main>
