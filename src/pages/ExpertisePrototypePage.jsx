@@ -8,6 +8,14 @@ import "../styles/ExpertisePrototype.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const TRANSITION_TIMINGS = {
+	layerDuration: 1.2,
+	nextLayerOffset: 0.08,
+	layerHideDelay: 1.21,
+	tintDuration: 0.9,
+	scrub: 0.55,
+};
+
 const ExpertisePrototypePage = () => {
 	const [activeIndex, setActiveIndex] = useState(0);
 	const [selectedProject, setSelectedProject] = useState(null);
@@ -268,7 +276,7 @@ const ExpertisePrototypePage = () => {
 												currentLayer,
 												{
 													clipPath: "inset(0px 0px 100% 0px)",
-													duration: 1.2,
+													duration: TRANSITION_TIMINGS.layerDuration,
 													ease: "power2.inOut",
 												},
 												0,
@@ -277,7 +285,7 @@ const ExpertisePrototypePage = () => {
 												nextLayer,
 												{
 													clipPath: "inset(0px 0px 0px 0px)",
-													duration: 1.2,
+													duration: TRANSITION_TIMINGS.layerDuration,
 													ease: "power2.inOut",
 												},
 												0.08,
@@ -359,7 +367,7 @@ const ExpertisePrototypePage = () => {
 
 			gsap.to(rootElement, {
 				"--site-nav-tint": activeSection.bg,
-				duration: 0.9,
+				duration: TRANSITION_TIMINGS.tintDuration,
 				ease: "power2.out",
 				overwrite: "auto",
 			});
@@ -367,7 +375,7 @@ const ExpertisePrototypePage = () => {
 			gsap.to(pageElement, {
 				"--proto-page-tint": activeSection.bg,
 				backgroundColor: activeSection.bg,
-				duration: 0.9,
+				duration: TRANSITION_TIMINGS.tintDuration,
 				ease: "power2.out",
 				overwrite: "auto",
 			});
@@ -375,7 +383,7 @@ const ExpertisePrototypePage = () => {
 			if (pinTargetElement) {
 				gsap.to(pinTargetElement, {
 					"--proto-stack-tint": activeSection.bg,
-					duration: 0.9,
+					duration: TRANSITION_TIMINGS.tintDuration,
 					ease: "power2.out",
 					overwrite: "auto",
 				});
@@ -428,7 +436,7 @@ const ExpertisePrototypePage = () => {
 			window.removeEventListener("resize", updateJumpHeight);
 			pageElement.style.removeProperty("--proto-jump-height");
 		};
-	}, []);
+	}, [isModalOpen]);
 
 	const jumpFilters = useMemo(
 		() => [...new Set(sections.map((section) => section.label))],
@@ -453,7 +461,7 @@ const ExpertisePrototypePage = () => {
 		const updateVisibility = () => {
 			const jumpElement = jumpRef.current;
 
-			if (!jumpElement) {
+			if (!jumpElement || isModalOpen) {
 				setIsReturnToTopVisible(false);
 				return;
 			}
@@ -629,17 +637,17 @@ const ExpertisePrototypePage = () => {
 				</section>
 			</main>
 
-			<button
-				type="button"
-				className={`proto-return-to-top ${
-					isReturnToTopVisible ? "is-visible" : ""
-				}`}
-				onClick={handleReturnToTop}
-				aria-label="Return to top"
-			>
-				<ChevronUp className="proto-return-to-top-icon" />
-				<span>Top</span>
-			</button>
+			{isReturnToTopVisible && (
+				<button
+					type="button"
+					className="proto-return-to-top is-visible"
+					onClick={handleReturnToTop}
+					aria-label="Return to top"
+				>
+					<ChevronUp className="proto-return-to-top-icon" />
+					<span>Top</span>
+				</button>
+			)}
 
 			{selectedProject && (
 				<ProjectCaseStudyModal

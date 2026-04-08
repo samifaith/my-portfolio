@@ -6,8 +6,6 @@ import caseStudies from "../constants/CaseStudies";
 import WanderlustCaseStudyContent from "./WanderlustCaseStudyContent";
 import "../styles/ProjectCaseStudyModal.css";
 
-const EXIT_ANIMATION_MS = 350;
-
 const splitParagraphs = (content) =>
 	content
 		? content
