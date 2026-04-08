@@ -19,7 +19,7 @@ const WanderlustCaseStudy = lazy(() => import("./development/Wander"));
 
 const LegacyWritingStoryRedirect = () => {
 	const { storyId } = useParams();
-	return <Navigate to={`/expertise/${storyId}`} replace />;
+	return <Navigate to={`/expertise-archived/${storyId}`} replace />;
 };
 
 const App = () => {
@@ -30,15 +30,19 @@ const App = () => {
 				<Suspense fallback={null}>
 					<Routes>
 						<Route path="/" element={<AnimatedHomePage />} />
-						<Route path="/expertise" element={<ExpertisePage />} />
+						<Route path="/expertise" element={<ExpertisePrototypePage />} />
+						<Route path="/expertise-archived" element={<ExpertisePage />} />
 						<Route
 							path="/expertise-prototype"
-							element={<ExpertisePrototypePage />}
+							element={<Navigate to="/expertise" replace />}
 						/>
-						<Route path="/expertise/:storyId" element={<WritingPage />} />
+						<Route
+							path="/expertise-archived/:storyId"
+							element={<WritingPage />}
+						/>
 						<Route
 							path="/writing"
-							element={<Navigate to="/expertise" replace />}
+							element={<Navigate to="/expertise-archived" replace />}
 						/>
 						<Route
 							path="/writing/:storyId"

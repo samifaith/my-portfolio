@@ -8,6 +8,7 @@
 	justify-content: center;
 	pointer-events: none;
 	z-index: 300;
+	perspective: 1200px;
 }
 
 .case-study-modal.is-open {
@@ -31,17 +32,24 @@
 	max-width: 900px;
 	height: min(90dvh, calc(100dvh - 2rem));
 	max-height: min(90dvh, calc(100dvh - 2rem));
-	background: rgba(255, 255, 255, 0.8);
+	background: rgba(153, 51, 51, 0.92);
 	-webkit-backdrop-filter: blur(20px);
 	backdrop-filter: blur(20px);
-	border: 1px solid rgba(255, 255, 255, 0.95);
+	border: 1px solid rgba(246, 230, 222, 0.26);
 	border-radius: 32px;
 	box-shadow:
-		0 8px 32px rgba(12, 13, 11, 0.1),
-		inset 0 1px 0 rgba(255, 255, 255, 0.5);
+		0 12px 36px rgba(37, 13, 13, 0.45),
+		inset 0 1px 0 rgba(246, 230, 222, 0.2);
 	overflow-y: auto;
 	overflow-x: hidden;
 	pointer-events: auto;
+	transform-origin: 50% 8%;
+	will-change: transform, opacity;
+	scrollbar-color: auto transparent;
+}
+
+.case-study-backdrop::-webkit-scrollbar-track {
+	background: transparent;
 }
 
 .case-study-backdrop--wide {
@@ -49,22 +57,10 @@
 	max-width: 1240px;
 }
 
-/* Smooth scrollbar for modal */
-.case-study-backdrop::-webkit-scrollbar {
-	width: 8px;
-}
-
-.case-study-backdrop::-webkit-scrollbar-track {
-	background: transparent;
-}
-
-.case-study-backdrop::-webkit-scrollbar-thumb {
-	background: rgba(12, 13, 11, 0.2);
-	border-radius: 4px;
-}
-
-.case-study-backdrop::-webkit-scrollbar-thumb:hover {
-	background: rgba(12, 13, 11, 0.3);
+.case-study-backdrop--project-contained {
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
 }
 
 /* Close Button */
@@ -82,7 +78,7 @@
 	border-radius: var(--ui-pill-radius);
 	border: 1px solid var(--ui-glass-border);
 	cursor: pointer;
-	color: #161817;
+	color: #f6e6de;
 	margin: 1.25rem 1.25rem 0 auto;
 	z-index: 10;
 	transition: all 0.3s ease;
@@ -90,7 +86,7 @@
 }
 
 .case-study-close:hover {
-	background: var(--ui-glass-bg-strong);
+	background: rgba(197, 236, 86, 0.2);
 	transform: rotate(90deg);
 }
 
@@ -103,6 +99,13 @@
 	padding: 0 1.75rem 1.75rem;
 	display: grid;
 	gap: 2.5rem;
+}
+
+.case-study-backdrop--project-contained .case-study-container {
+	grid-template-rows: auto minmax(0, 1fr);
+	flex: 1;
+	min-height: 0;
+	overflow: hidden;
 }
 
 /* Header Section */
@@ -127,16 +130,16 @@
 		sans-serif;
 	letter-spacing: 0.08em;
 	text-transform: uppercase;
-	color: rgba(12, 13, 11, 0.6);
+	color: #c5ec56;
 	padding: 0.35rem 0.75rem;
-	background: rgba(12, 13, 11, 0.04);
+	background: rgba(197, 236, 86, 0.12);
 	border-radius: 999px;
 	width: fit-content;
 }
 
 .case-study-label--soft {
-	background: rgba(12, 13, 11, 0.02);
-	color: rgba(12, 13, 11, 0.5);
+	background: rgba(246, 230, 222, 0.1);
+	color: #f6e6de;
 }
 
 .case-study-title {
@@ -145,7 +148,7 @@
 		"Helvetica Neue",
 		Arial,
 		sans-serif;
-	color: #09090a;
+	color: #c5ec56;
 	margin: 0;
 }
 
@@ -155,7 +158,7 @@
 		"Helvetica Neue",
 		Arial,
 		sans-serif;
-	color: rgba(22, 23, 18, 0.75);
+	color: #f6e6de;
 	margin: 0;
 }
 
@@ -164,16 +167,18 @@
 	width: 100%;
 	border-radius: 20px;
 	overflow: hidden;
-	background: rgba(12, 13, 11, 0.04);
+	background: rgba(41, 14, 14, 0.4);
+	display: flex;
+	justify-content: center;
 }
 
 .case-study-media picture,
 .case-study-media img,
 .case-study-media video {
 	display: block;
-	width: 100%;
+	max-width: 100%;
 	height: auto;
-	object-fit: cover;
+	object-fit: contain;
 }
 
 .case-study-image,
@@ -189,8 +194,25 @@
 	gap: 2rem;
 }
 
+.case-study-content--split {
+	grid-template-columns: 1fr;
+	align-items: start;
+}
+
 .case-study-content--story {
 	gap: 1.5rem;
+}
+
+.case-study-media--story {
+	max-height: min(40dvh, 400px);
+}
+
+.case-study-image--story-cover {
+	width: auto;
+	max-width: 100%;
+	max-height: inherit;
+	object-fit: contain;
+	margin: 0 auto;
 }
 
 .case-study-story-block {
@@ -200,43 +222,73 @@
 
 .case-study-story-block h2 {
 	font:
-		700 1.4rem / 1 "Avenir Next",
+		700 1.2rem / 1.1 "Avenir Next",
 		"Helvetica Neue",
 		Arial,
 		sans-serif;
-	color: #09090a;
+	color: #c5ec56;
 	margin: 0;
 }
 
 .case-study-story-audio {
 	width: 100%;
 	border-radius: 999px;
-	background: rgba(12, 13, 11, 0.04);
-	box-shadow: 0 4px 16px rgba(12, 13, 11, 0.08);
+	background: rgba(246, 230, 222, 0.12);
+	box-shadow: 0 4px 16px rgba(33, 11, 11, 0.2);
 }
 
 .case-study-story-pdf {
 	width: 100%;
-	height: min(60dvh, calc(100dvh - 18rem));
-	min-height: 360px;
+	height: min(50dvh, calc(100dvh - 22rem));
+	min-height: 260px;
 	border: 1px solid rgba(12, 13, 11, 0.08);
 	border-radius: 18px;
-	background: rgba(255, 255, 255, 0.65);
+	background: rgba(246, 230, 222, 0.9);
 }
 
 .case-study-story-prose {
 	display: grid;
-	gap: 1rem;
+	gap: 0.8rem;
+	max-width: 74ch;
+	margin: 0 auto;
 	font:
-		500 1rem / 1.75 "Avenir Next",
+		500 clamp(0.9rem, 0.9vw, 1rem) / 1.55 "Avenir Next",
 		"Helvetica Neue",
 		Arial,
 		sans-serif;
-	color: rgba(22, 23, 18, 0.82);
+	color: #f6e6de;
 }
 
 .case-study-story-prose p {
 	margin: 0;
+}
+
+@media (min-width: 1024px) {
+	.case-study-content--split {
+		grid-template-columns: minmax(320px, 0.95fr) minmax(360px, 1.05fr);
+		gap: 2rem;
+	}
+
+	.case-study-media--split {
+		position: sticky;
+		top: 1rem;
+		align-self: start;
+		max-height: calc(90dvh - 12rem);
+	}
+
+	.case-study-media--split .case-study-image,
+	.case-study-media--split .case-study-video {
+		max-height: calc(90dvh - 12rem);
+		object-fit: contain;
+	}
+
+	.case-study-content--split .case-study-details {
+		max-width: 58ch;
+	}
+
+	.case-study-backdrop--project-contained .case-study-content--split {
+		height: 100%;
+	}
 }
 
 .case-study-embedded-case-study {
@@ -253,13 +305,24 @@
 	gap: 1.5rem;
 }
 
+.case-study-backdrop--project-contained .case-study-content--split {
+	min-height: 0;
+	overflow: hidden;
+}
+
+.case-study-backdrop--project-contained .case-study-details {
+	min-height: 0;
+	overflow-y: auto;
+	padding-right: 0.35rem;
+}
+
 .case-study-details h2 {
 	font:
 		700 1.75rem / 1 "Avenir Next",
 		"Helvetica Neue",
 		Arial,
 		sans-serif;
-	color: #09090a;
+	color: #f6e6de;
 	margin: 0;
 }
 
@@ -269,7 +332,7 @@
 		"Helvetica Neue",
 		Arial,
 		sans-serif;
-	color: rgba(22, 23, 18, 0.8);
+	color: #f6e6de;
 	margin: 0;
 }
 
@@ -287,7 +350,7 @@
 		sans-serif;
 	letter-spacing: 0.04em;
 	text-transform: uppercase;
-	color: rgba(12, 13, 11, 0.65);
+	color: #c5ec56;
 	margin: 0;
 }
 
@@ -297,7 +360,7 @@
 		"Helvetica Neue",
 		Arial,
 		sans-serif;
-	color: rgba(22, 23, 18, 0.8);
+	color: #f6e6de;
 	margin: 0;
 }
 
@@ -320,6 +383,19 @@
 		gap: 1.75rem;
 	}
 
+	.case-study-backdrop--project-contained .case-study-container {
+		overflow-y: auto;
+	}
+
+	.case-study-backdrop--project-contained .case-study-content--split {
+		overflow: visible;
+	}
+
+	.case-study-backdrop--project-contained .case-study-details {
+		overflow: visible;
+		padding-right: 0;
+	}
+
 	.case-study-close {
 		margin: 0.85rem 0.85rem 0 auto;
 	}
@@ -333,8 +409,12 @@
 	}
 
 	.case-study-story-pdf {
-		height: min(52dvh, calc(100dvh - 16rem));
-		min-height: 280px;
+		height: min(42dvh, calc(100dvh - 18rem));
+		min-height: 220px;
+	}
+
+	.case-study-media--story {
+		max-height: min(34dvh, 280px);
 	}
 }
 

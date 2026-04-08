@@ -1,6 +1,6 @@
 import { useEffect, useRef, useCallback } from "react";
 import { gsap } from "gsap";
-import { getModernImageSources } from "../utils/imageFormats";
+import { CardMedia } from "@mui/material";
 import stories from "../constants/WritingPieces";
 import caseStudies from "../constants/CaseStudies";
 import WanderlustCaseStudyContent from "./WanderlustCaseStudyContent";
@@ -41,13 +41,12 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose }) => {
 	const modalContent = resolveModalContent(project);
 	const isStory = modalContent.kind === "story";
 	const isCaseStudy = modalContent.kind === "case-study";
+	const isProjectModal = !isStory && !isCaseStudy;
 	const isWideModal = isStory || isCaseStudy;
 	const story = isStory ? modalContent.story : null;
 	const caseStudy = isCaseStudy ? modalContent.caseStudy : null;
 	const heroImagePath = story?.coverImage || project?.image || null;
-	const heroImageSources = heroImagePath
-		? getModernImageSources(heroImagePath)
-		: null;
+	const shouldShowStoryCover = isStory && project?.id === "tea-with-sami";
 	const storyParagraphs = splitParagraphs(story?.content);
 	const prefersReducedMotion =
 		typeof window !== "undefined" &&
@@ -70,9 +69,19 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose }) => {
 				return undefined;
 			}
 
+			const animatedBlocks = contentRef.current.querySelectorAll(
+				".case-study-header, .case-study-content, .case-study-embedded-case-study, .case-study-details, .case-study-media, .case-study-story-block, .case-study-story-prose",
+			);
+
+			gsap.set([modalRef.current, contentRef.current], {
+				pointerEvents: isOpen ? "auto" : "none",
+			});
+			gsap.killTweensOf(modalRef.current);
+			gsap.killTweensOf(contentRef.current);
+			gsap.killTweensOf(animatedBlocks);
+
 			if (isOpen) {
 				try {
-					// Preserve existing overflow state so we do not clobber other overlays.
 					if (previousOverflowRef.current === null) {
 						previousOverflowRef.current = document.body.style.overflow;
 					}
@@ -89,44 +98,61 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose }) => {
 				}
 
 				try {
-					gsap.set([modalRef.current, contentRef.current], {
-						pointerEvents: isOpen ? "auto" : "none",
-					});
-
 					if (prefersReducedMotion) {
 						gsap.set(modalRef.current, { opacity: 1 });
-						gsap.set(contentRef.current, { scale: 1, opacity: 1, y: 0 });
+						gsap.set(contentRef.current, {
+							scale: 1,
+							opacity: 1,
+							y: 0,
+							rotateX: 0,
+						});
+						gsap.set(animatedBlocks, { opacity: 1, y: 0 });
 						return undefined;
 					}
 
+					gsap.set(modalRef.current, { opacity: 0 });
+					gsap.set(contentRef.current, {
+						scale: 0.96,
+						opacity: 0,
+						y: 26,
+						rotateX: -6,
+						transformOrigin: "50% 8%",
+					});
+					gsap.set(animatedBlocks, { opacity: 0, y: 16 });
+
 					gsap
 						.timeline()
-						.fromTo(
+						.to(
 							modalRef.current,
 							{
-								opacity: 0,
-							},
-							{
 								opacity: 1,
-								duration: 0.4,
-								ease: "power2.out",
+								duration: 0.38,
+								ease: "power3.out",
 							},
+							0,
 						)
-						.fromTo(
+						.to(
 							contentRef.current,
-							{
-								scale: 0.92,
-								opacity: 0,
-								y: 20,
-							},
 							{
 								scale: 1,
 								opacity: 1,
 								y: 0,
-								duration: 0.5,
-								ease: "cubic-bezier(0.34, 1.56, 0.64, 1)",
+								rotateX: 0,
+								duration: 0.62,
+								ease: "power4.out",
 							},
 							0,
+						)
+						.to(
+							animatedBlocks,
+							{
+								opacity: 1,
+								y: 0,
+								stagger: 0.045,
+								duration: 0.42,
+								ease: "power2.out",
+							},
+							0.2,
 						);
 				} catch (err) {
 					console.error("Failed to animate modal entrance:", err);
@@ -134,7 +160,12 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose }) => {
 			} else {
 				try {
 					if (prefersReducedMotion) {
-						gsap.set(contentRef.current, { scale: 1, opacity: 0, y: 0 });
+						gsap.set(contentRef.current, {
+							scale: 1,
+							opacity: 0,
+							y: 0,
+							rotateX: 0,
+						});
 						gsap.set(modalRef.current, { opacity: 0, pointerEvents: "none" });
 						restoreBodyOverflow();
 						onAfterClose?.();
@@ -144,28 +175,40 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose }) => {
 					gsap
 						.timeline()
 						.to(
-							contentRef.current,
+							animatedBlocks,
 							{
-								scale: 0.92,
 								opacity: 0,
-								y: 20,
-								duration: 0.35,
+								y: 10,
+								stagger: { each: 0.02, from: "end" },
+								duration: 0.16,
 								ease: "power2.in",
 							},
 							0,
 						)
 						.to(
+							contentRef.current,
+							{
+								scale: 0.97,
+								opacity: 0,
+								y: 18,
+								rotateX: 3,
+								duration: 0.3,
+								ease: "power3.in",
+							},
+							0.05,
+						)
+						.to(
 							modalRef.current,
 							{
 								opacity: 0,
-								duration: 0.3,
-								ease: "power2.in",
+								duration: 0.24,
+								ease: "power3.in",
 								onComplete: () => {
 									restoreBodyOverflow();
 									onAfterClose?.();
 								},
 							},
-							0.05,
+							0.1,
 						);
 				} catch (err) {
 					console.error("Failed to animate modal exit:", err);
@@ -253,10 +296,6 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose }) => {
 
 	if (!project) return null;
 
-	const imageSources = project.image
-		? getModernImageSources(project.image)
-		: null;
-
 	return (
 		<div
 			ref={modalRef}
@@ -270,7 +309,7 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose }) => {
 				ref={contentRef}
 				className={`case-study-backdrop ${
 					isWideModal ? "case-study-backdrop--wide" : ""
-				}`}
+				} ${isProjectModal ? "case-study-backdrop--project-contained" : ""}`}
 			>
 				<button
 					type="button"
@@ -322,44 +361,34 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose }) => {
 
 					{isStory && (
 						<div className="case-study-content case-study-content--story">
-							{heroImagePath && heroImageSources && (
+							{shouldShowStoryCover && heroImagePath && (
 								<div className="case-study-media case-study-media--story">
-									<picture>
-										{heroImageSources.avif && (
-											<source
-												srcSet={heroImageSources.avif}
-												type="image/avif"
-											/>
-										)}
-										{heroImageSources.webp && (
-											<source
-												srcSet={heroImageSources.webp}
-												type="image/webp"
-											/>
-										)}
-										<img
-											src={heroImageSources.fallback}
-											alt={project.title}
-											className="case-study-image"
-											loading="lazy"
-											decoding="async"
-										/>
-									</picture>
+									<img
+										src={heroImagePath}
+										alt={project.title}
+										className="case-study-image case-study-image--story-cover"
+										loading="lazy"
+										decoding="async"
+									/>
 								</div>
 							)}
 
 							{story.audioFile && (
 								<div className="case-study-story-block">
 									<h2>Listen</h2>
-									<audio
+									<CardMedia
+										component="audio"
 										controls
 										preload="metadata"
+										src={story.audioFile}
+										aria-label={`${story.title} audio player`}
 										className="case-study-story-audio"
+										sx={{ width: "100%", display: "block" }}
 									>
 										<source src={story.audioFile} type="audio/mpeg" />
 										<source src={story.audioFile} type="audio/mp3" />
 										Your browser does not support the audio element.
-									</audio>
+									</CardMedia>
 								</div>
 							)}
 
@@ -385,55 +414,22 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose }) => {
 
 					{isCaseStudy && caseStudy && (
 						<div className="case-study-embedded-case-study">
-							{heroImagePath && heroImageSources && (
-								<div className="case-study-media case-study-media--story">
-									<picture>
-										{heroImageSources.avif && (
-											<source
-												srcSet={heroImageSources.avif}
-												type="image/avif"
-											/>
-										)}
-										{heroImageSources.webp && (
-											<source
-												srcSet={heroImageSources.webp}
-												type="image/webp"
-											/>
-										)}
-										<img
-											src={heroImageSources.fallback}
-											alt={project.title}
-											className="case-study-image"
-											loading="lazy"
-											decoding="async"
-										/>
-									</picture>
-								</div>
-							)}
 							<WanderlustCaseStudyContent caseStudy={caseStudy} />
 						</div>
 					)}
 
 					{!isStory && !isCaseStudy && (
-						<div className="case-study-content">
+						<div className="case-study-content case-study-content--split">
 							{(project.image || project.video) && (
-								<div className="case-study-media">
-									{project.image && imageSources && (
-										<picture>
-											{imageSources.avif && (
-												<source srcSet={imageSources.avif} type="image/avif" />
-											)}
-											{imageSources.webp && (
-												<source srcSet={imageSources.webp} type="image/webp" />
-											)}
-											<img
-												src={imageSources.fallback}
-												alt={project.title}
-												className="case-study-image"
-												loading="lazy"
-												decoding="async"
-											/>
-										</picture>
+								<div className="case-study-media case-study-media--split">
+									{project.image && (
+										<img
+											src={project.image}
+											alt={project.title}
+											className="case-study-image"
+											loading="lazy"
+											decoding="async"
+										/>
 									)}
 									{project.video && (
 										<video

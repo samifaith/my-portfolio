@@ -11,14 +11,14 @@ const renderStoryRoute = (initialPath) =>
 	render(
 		<MemoryRouter initialEntries={[initialPath]}>
 			<Routes>
-				<Route path="/expertise/:storyId" element={<WritingPage />} />
+				<Route path="/expertise-archived/:storyId" element={<WritingPage />} />
 			</Routes>
 		</MemoryRouter>,
 	);
 
 describe("WritingPage story detail", () => {
 	it("renders one PDF viewer and story text for the home cook article", () => {
-		renderStoryRoute("/expertise/home-cook");
+		renderStoryRoute("/expertise-archived/home-cook");
 
 		expect(
 			screen.queryByRole("img", {
@@ -40,7 +40,7 @@ describe("WritingPage story detail", () => {
 	});
 
 	it("renders one PDF viewer and story text for eat-like-child after merging manger assets", () => {
-		renderStoryRoute("/expertise/eat-like-child");
+		renderStoryRoute("/expertise-archived/eat-like-child");
 
 		const pdfViewer = screen.getByTitle(/eat like a child pdf viewer/i);
 		expect(pdfViewer).toHaveAttribute(
@@ -59,8 +59,12 @@ describe("WritingPage story detail", () => {
 		expect(screen.getByText(/"Again\?!"/i)).toBeInTheDocument();
 	});
 
-	it("renders Tea with Sami GIF cover and custom player controls on the article page", () => {
-		renderStoryRoute("/expertise/tea-with-sami");
+	it("renders Tea with Sami GIF cover and MUI audio player on the article page", () => {
+		renderStoryRoute("/expertise-archived/tea-with-sami");
+
+		expect(
+			screen.getByRole("link", { name: /back to expertise/i }),
+		).toHaveAttribute("href", "/expertise-archived");
 
 		expect(
 			screen.getByRole("img", {
@@ -69,8 +73,7 @@ describe("WritingPage story detail", () => {
 		).toBeInTheDocument();
 
 		expect(
-			screen.getByRole("button", { name: /play episode/i }),
+			screen.getByLabelText(/tea with sami: revenge served hot! audio player/i),
 		).toBeInTheDocument();
-		expect(screen.getByLabelText(/episode progress/i)).toBeInTheDocument();
 	});
 });

@@ -1,4 +1,11 @@
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import {
+	useCallback,
+	useEffect,
+	useLayoutEffect,
+	useMemo,
+	useRef,
+	useState,
+} from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ChevronUp } from "lucide-react";
@@ -14,6 +21,9 @@ const TRANSITION_TIMINGS = {
 	layerHideDelay: 1.21,
 	tintDuration: 0.9,
 	scrub: 0.55,
+	snapDelay: 0.08,
+	snapMinDuration: 0.2,
+	snapMaxDuration: 0.5,
 };
 
 const ExpertisePrototypePage = () => {
@@ -21,12 +31,29 @@ const ExpertisePrototypePage = () => {
 	const [selectedProject, setSelectedProject] = useState(null);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [isReturnToTopVisible, setIsReturnToTopVisible] = useState(false);
+	const [topOffset, setTopOffset] = useState("0px");
 	const sectionRefs = useRef([]);
 	const pageRef = useRef(null);
 	const jumpRef = useRef(null);
 	const rightColumnRef = useRef(null);
 	const imageStackRef = useRef(null);
 	const layerWrapRefs = useRef([]);
+	const refreshRafRef = useRef(null);
+
+	const requestScrollTriggerRefresh = useCallback(() => {
+		if (typeof window === "undefined") {
+			return;
+		}
+
+		if (refreshRafRef.current) {
+			cancelAnimationFrame(refreshRafRef.current);
+		}
+
+		refreshRafRef.current = requestAnimationFrame(() => {
+			ScrollTrigger.refresh();
+			refreshRafRef.current = null;
+		});
+	}, []);
 
 	const sections = useMemo(
 		() => [
@@ -36,7 +63,7 @@ const ExpertisePrototypePage = () => {
 				description: "Reflection on family, food, and immigrant identity.",
 				image: "/writing/manger.webp",
 				label: "Writing",
-				route: "/expertise/eat-like-child",
+				route: "/expertise-archived/eat-like-child",
 				bg: "#e7ddd2",
 			},
 			{
@@ -45,7 +72,7 @@ const ExpertisePrototypePage = () => {
 				description: "Profile on home-chef creativity and storytelling.",
 				image: "/writing/OuiChef.webp",
 				label: "Writing",
-				route: "/expertise/home-cook",
+				route: "/expertise-archived/home-cook",
 				bg: "#e5e6d7",
 			},
 			{
@@ -55,7 +82,7 @@ const ExpertisePrototypePage = () => {
 					"Audio conversation on relationships, growth, and healing.",
 				image: "/writing/revengehot.gif",
 				label: "Writing",
-				route: "/expertise/tea-with-sami",
+				route: "/expertise-archived/tea-with-sami",
 				bg: "#d8dde7",
 			},
 			{
@@ -131,6 +158,13 @@ const ExpertisePrototypePage = () => {
 
 	useEffect(() => {
 		try {
+			if (
+				typeof window !== "undefined" &&
+				window.matchMedia("(min-width: 1025px)").matches
+			) {
+				return undefined;
+			}
+
 			const contentSections = sectionRefs.current
 				.slice(0, sections.length)
 				.filter(Boolean);
@@ -214,6 +248,62 @@ const ExpertisePrototypePage = () => {
 
 					const ctx = gsap.context(() => {
 						try {
+							const getNumericCssVar = (value) => {
+								const parsed = Number.parseFloat(value || "0");
+								return Number.isFinite(parsed) ? parsed : 0;
+							};
+
+							const getSectionSnapPoints = () => {
+								const sectionElements = sectionRefs.current
+									.slice(0, sections.length)
+									.filter(Boolean);
+
+								if (!sectionElements.length || !pageElement) {
+									return [0, 1];
+								}
+
+								const computedStyles = window.getComputedStyle(pageElement);
+								const pageTopOffset = getNumericCssVar(
+									computedStyles.getPropertyValue("--proto-top-offset"),
+								);
+
+								const maxScroll = Math.max(
+									1,
+									pageElement.scrollHeight - window.innerHeight,
+								);
+
+								const points = sectionElements.map((sectionElement) => {
+									const sectionTopScroll =
+										sectionElement.offsetTop - pageTopOffset;
+									return gsap.utils.clamp(0, 1, sectionTopScroll / maxScroll);
+								});
+
+								if (!points.length) {
+									return [0, 1];
+								}
+
+								points[0] = 0;
+								points[points.length - 1] = 1;
+
+								return points;
+							};
+
+							const getNearestSectionIndex = (progress) => {
+								const snapPoints = getSectionSnapPoints();
+								let nearestIndex = 0;
+								let minDistance = Number.POSITIVE_INFINITY;
+
+								snapPoints.forEach((snapPoint, index) => {
+									const distance = Math.abs(progress - snapPoint);
+									if (distance < minDistance) {
+										minDistance = distance;
+										nearestIndex = index;
+									}
+								});
+
+								return nearestIndex;
+							};
+
 							gsap.set(layerWrappers, {
 								willChange: "clip-path, opacity, transform",
 							});
@@ -245,10 +335,40 @@ const ExpertisePrototypePage = () => {
 									start: "top top",
 									end: "bottom bottom",
 									pin: pinTargetElement,
-									scrub: 0.55,
+									scrub: TRANSITION_TIMINGS.scrub,
+									snap: {
+										snapTo: (progress) => {
+											const snapPoints = getSectionSnapPoints();
+											let nearestPoint = snapPoints[0] ?? 0;
+											let minDistance = Number.POSITIVE_INFINITY;
+
+											snapPoints.forEach((snapPoint) => {
+												const distance = Math.abs(progress - snapPoint);
+												if (distance < minDistance) {
+													minDistance = distance;
+													nearestPoint = snapPoint;
+												}
+											});
+
+											return nearestPoint;
+										},
+										delay: TRANSITION_TIMINGS.snapDelay,
+										duration: {
+											min: TRANSITION_TIMINGS.snapMinDuration,
+											max: TRANSITION_TIMINGS.snapMaxDuration,
+										},
+										ease: "power2.inOut",
+										inertia: false,
+									},
 									anticipatePin: 1,
 									invalidateOnRefresh: true,
 									fastScrollEnd: false,
+									onUpdate: (self) => {
+										const nextIndex = getNearestSectionIndex(self.progress);
+										setActiveIndex((prev) =>
+											prev === nextIndex ? prev : nextIndex,
+										);
+									},
 								},
 							});
 
@@ -422,6 +542,7 @@ const ExpertisePrototypePage = () => {
 		const updateJumpHeight = () => {
 			const jumpHeight = Math.ceil(jumpElement.getBoundingClientRect().height);
 			pageElement.style.setProperty("--proto-jump-height", `${jumpHeight}px`);
+			requestScrollTriggerRefresh();
 		};
 
 		updateJumpHeight();
@@ -436,12 +557,42 @@ const ExpertisePrototypePage = () => {
 			window.removeEventListener("resize", updateJumpHeight);
 			pageElement.style.removeProperty("--proto-jump-height");
 		};
-	}, [isModalOpen]);
+	}, [isModalOpen, requestScrollTriggerRefresh]);
 
 	const jumpFilters = useMemo(
 		() => [...new Set(sections.map((section) => section.label))],
 		[sections],
 	);
+
+	useEffect(() => {
+		const updateTopOffset = () => {
+			const nav = document.querySelector(".desktop-nav");
+			const navStyles = nav ? window.getComputedStyle(nav) : null;
+			const isDesktopNavVisible =
+				nav &&
+				navStyles &&
+				navStyles.display !== "none" &&
+				nav.offsetHeight > 0;
+
+			setTopOffset(isDesktopNavVisible ? `${nav.offsetHeight}px` : "0px");
+			requestScrollTriggerRefresh();
+		};
+
+		updateTopOffset();
+		window.addEventListener("resize", updateTopOffset);
+
+		return () => {
+			window.removeEventListener("resize", updateTopOffset);
+		};
+	}, [requestScrollTriggerRefresh]);
+
+	useEffect(() => {
+		return () => {
+			if (refreshRafRef.current) {
+				cancelAnimationFrame(refreshRafRef.current);
+			}
+		};
+	}, []);
 
 	const handleJumpTo = (label) => {
 		const targetIndex = sections.findIndex(
@@ -497,6 +648,10 @@ const ExpertisePrototypePage = () => {
 		setSelectedProject(null);
 	};
 
+	const handleProjectPrimaryAction = (item) => {
+		handleOpenProjectModal(item);
+	};
+
 	const renderProjectMedia = (
 		item,
 		altText,
@@ -540,6 +695,8 @@ const ExpertisePrototypePage = () => {
 					src={imageSources.fallback}
 					alt={altText}
 					className={imgClassName}
+					loading="lazy"
+					decoding="async"
 				/>
 			</picture>
 		);
@@ -550,6 +707,7 @@ const ExpertisePrototypePage = () => {
 			ref={pageRef}
 			className="proto-page"
 			style={{
+				"--proto-top-offset": topOffset,
 				"--proto-page-tint": sections[0].bg,
 				"--proto-jump-height": "0px",
 				backgroundColor: sections[0].bg,
@@ -597,7 +755,7 @@ const ExpertisePrototypePage = () => {
 									type="button"
 									className="proto-cta"
 									onClick={() => {
-										handleOpenProjectModal(item);
+										handleProjectPrimaryAction(item);
 									}}
 								>
 									Learn More
@@ -627,10 +785,21 @@ const ExpertisePrototypePage = () => {
 									layerWrapRefs.current[index] = el;
 								}}
 							>
-								{renderProjectMedia(item, item.title, {
-									pictureClassName: "proto-layer-picture",
-									imgClassName: "proto-layer",
-								})}
+								<button
+									type="button"
+									className="proto-layer-link"
+									onClick={() => {
+										handleProjectPrimaryAction(item);
+									}}
+									aria-label={`Learn more about ${item.title}`}
+									tabIndex={index === activeIndex ? 0 : -1}
+									disabled={index !== activeIndex}
+								>
+									{renderProjectMedia(item, item.title, {
+										pictureClassName: "proto-layer-picture",
+										imgClassName: "proto-layer",
+									})}
+								</button>
 							</div>
 						))}
 					</div>

@@ -5,7 +5,9 @@ import "./../App.css";
 
 const Menu = ({ openModal }) => {
 	const [menuOpen, setMenuOpen] = useState(false);
+	const [contactMenuOpen, setContactMenuOpen] = useState(false);
 	const overlayRef = useRef(null);
+	const contactMenuRef = useRef(null);
 	const previousOverflowRef = useRef(null);
 	const hasAppliedScrollLockRef = useRef(false);
 
@@ -107,6 +109,31 @@ const Menu = ({ openModal }) => {
 	}, [menuOpen]);
 
 	useEffect(() => {
+		const handleDocumentClick = (event) => {
+			if (
+				contactMenuRef.current &&
+				!contactMenuRef.current.contains(event.target)
+			) {
+				setContactMenuOpen(false);
+			}
+		};
+
+		const handleEscapeKey = (event) => {
+			if (event.key === "Escape") {
+				setContactMenuOpen(false);
+			}
+		};
+
+		document.addEventListener("mousedown", handleDocumentClick);
+		document.addEventListener("keydown", handleEscapeKey);
+
+		return () => {
+			document.removeEventListener("mousedown", handleDocumentClick);
+			document.removeEventListener("keydown", handleEscapeKey);
+		};
+	}, []);
+
+	useEffect(() => {
 		const handleEscapeKey = (event) => {
 			if (event.key === "Escape" && menuOpen) {
 				setMenuOpen(false);
@@ -198,6 +225,10 @@ const Menu = ({ openModal }) => {
 		}
 	};
 
+	const toggleContactMenu = () => {
+		setContactMenuOpen((prev) => !prev);
+	};
+
 	const renderMenuItem = (text, sectionTitle) => (
 		<li key={sectionTitle}>
 			<span
@@ -234,7 +265,7 @@ const Menu = ({ openModal }) => {
 					{renderDesktopMenuItem("HOME", "home")}
 					{renderDesktopMenuItem("EXPERTISE", "EXPERTISE")}
 					{/* LinkedIn Link */}
-					<li className="desktop-menu-item">
+					<li className="desktop-menu-item desktop-menu-item--icons-start">
 						<a
 							href="https://www.linkedin.com/in/samdecoteau"
 							target="_blank"
@@ -265,6 +296,56 @@ const Menu = ({ openModal }) => {
 								/>
 							</svg>
 						</a>
+					</li>
+					<li className="desktop-menu-item dropdown" ref={contactMenuRef}>
+						<button
+							type="button"
+							className="contact-link"
+							onClick={toggleContactMenu}
+							aria-label="Contact information"
+							aria-expanded={contactMenuOpen}
+							aria-controls="contact-info-dropdown"
+						>
+							<svg
+								width="32"
+								height="32"
+								viewBox="0 0 24 24"
+								fill="none"
+								xmlns="http://www.w3.org/2000/svg"
+							>
+								<circle
+									cx="12"
+									cy="12"
+									r="10"
+									stroke="currentColor"
+									strokeWidth="1.5"
+								/>
+								<path
+									d="M7 9H17V15H7V9ZM7 9L12 12.5L17 9"
+									stroke="currentColor"
+									strokeWidth="1.5"
+									strokeLinecap="round"
+									strokeLinejoin="round"
+								/>
+							</svg>
+						</button>
+						{contactMenuOpen && (
+							<div
+								id="contact-info-dropdown"
+								className="contact-dropdown"
+								role="menu"
+								aria-label="Contact details"
+							>
+								<p className="contact-dropdown-title">Contact</p>
+								<p className="contact-dropdown-item">
+									Email: sfdecoteau@gmail.com
+								</p>
+								<p className="contact-dropdown-item">Phone: (617) 947-2402</p>
+								<p className="contact-dropdown-item">
+									Location: Remote / MA, RI
+								</p>
+							</div>
+						)}
 					</li>
 				</ul>
 			</nav>

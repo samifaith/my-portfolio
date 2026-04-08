@@ -158,7 +158,7 @@ const defaultItems = [
 
 export default function VerticalTimeline({
 	items = defaultItems,
-	accent = "#ffd0d7",
+	accent = "#c5ec56",
 	order = "desc",
 }) {
 	const normalizedOrder = order === "asc" ? "asc" : "desc";
@@ -271,8 +271,8 @@ export default function VerticalTimeline({
 			<div className="timeline-header">
 				<h2 className="timeline-heading">My Journey</h2>
 				<a
-					href="/Resume_DeCoteauSam2025.pdf"
-					download="Resume_DeCoteauSam2025.pdf"
+					href="/Resume_DeCoteauSam2026.pdf"
+					download="Resume_DeCoteauSam2026.pdf"
 					className="resume-download-btn"
 					aria-label="Download Resume"
 				>

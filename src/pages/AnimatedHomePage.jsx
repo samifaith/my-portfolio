@@ -12,7 +12,7 @@ gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
 
 // Configure ScrollTrigger for smooth scrolling
 ScrollTrigger.config({
-	autoRefreshEvents: "visibilitychange,DOMContentLoaded,load",
+	autoRefreshEvents: "visibilitychange,DOMContentLoaded,load,resize",
 	ignoreMobileResize: true,
 });
 
@@ -33,20 +33,6 @@ const setAnimationPlayedInSession = () => {
 		// Ignore storage failures in restricted contexts.
 	}
 };
-
-const requestIdle =
-	typeof window !== "undefined" && "requestIdleCallback" in window
-		? window.requestIdleCallback.bind(window)
-		: (callback) =>
-				setTimeout(
-					() => callback({ didTimeout: false, timeRemaining: () => 0 }),
-					1,
-				);
-
-const cancelIdle =
-	typeof window !== "undefined" && "cancelIdleCallback" in window
-		? window.cancelIdleCallback.bind(window)
-		: (id) => clearTimeout(id);
 
 const HomePageComponent = () => {
 	const signatureRef = useRef(null);
@@ -108,7 +94,6 @@ const HomePageComponent = () => {
 
 		let currentIndex = 0;
 		let rafId = null;
-		let idleId = null;
 		let lastTime = 0;
 		const typingSpeed = 3; // ~1.2 seconds total for full paragraph
 
@@ -127,44 +112,6 @@ const HomePageComponent = () => {
 
 						// Mark animation as played for this session
 						setAnimationPlayedInSession();
-
-						// Defer signature animation to reduce main thread blocking
-						try {
-							idleId = requestIdle(
-								() => {
-									try {
-										gsap.fromTo(
-											signatureRef.current,
-											{ opacity: 0, y: 20, willChange: "opacity, transform" },
-											{
-												opacity: 1,
-												y: 0,
-												duration: 1,
-												ease: "power2.out",
-												delay: 0.3,
-												clearProps: "willChange",
-											},
-										);
-									} catch (err) {
-										console.error("Failed to animate signature:", err);
-										// Ensure signature is visible on error
-										try {
-											if (signatureRef.current) {
-												signatureRef.current.style.opacity = "1";
-											}
-										} catch (resetErr) {
-											console.error(
-												"Failed to reset signature on error:",
-												resetErr,
-											);
-										}
-									}
-								},
-								{ timeout: 500 },
-							);
-						} catch (err) {
-							console.error("Failed to schedule signature animation:", err);
-						}
 						return;
 					}
 				}
@@ -181,16 +128,28 @@ const HomePageComponent = () => {
 
 		return () => {
 			if (rafId) cancelAnimationFrame(rafId);
-			if (idleId) cancelIdle(idleId);
 		};
 	}, [hasAnimationPlayed, fullText]);
 
-	// Show signature section instantly if animation has already played
+	// Show signature immediately on load (and still keep a subtle first-load reveal).
 	useEffect(() => {
 		try {
 			if (hasAnimationPlayed) {
 				gsap.set(signatureRef.current, { opacity: 1, y: 0 });
+				return;
 			}
+
+			gsap.fromTo(
+				signatureRef.current,
+				{ opacity: 0, y: 12, willChange: "opacity, transform" },
+				{
+					opacity: 1,
+					y: 0,
+					duration: 0.45,
+					ease: "power2.out",
+					clearProps: "willChange",
+				},
+			);
 		} catch (err) {
 			console.error("Failed to set signature visibility:", err);
 			// Ensure signature is visible on error

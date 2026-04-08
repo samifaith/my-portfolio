@@ -18,11 +18,11 @@
 }
 
 .scroll-indicator:hover .scroll-text {
-	color: #a2003b;
+	color: #c5ec56;
 }
 
 .scroll-indicator:hover .scroll-arrow {
-	color: #a2003b;
+	color: #c5ec56;
 }
 
 .scroll-text {
@@ -30,7 +30,7 @@
 	font-weight: 500;
 	letter-spacing: 0.1em;
 	text-transform: uppercase;
-	color: #333;
+	color: #f6e6de;
 	transition: color 0.3s ease;
 }
 
@@ -38,7 +38,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	color: #333;
+	color: #f6e6de;
 	transition: color 0.3s ease;
 }
 

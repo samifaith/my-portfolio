@@ -55,46 +55,6 @@
 	line-height: 0.8;
 }
 
-.sam-text {
-	text-shadow:
-		0 0 7px #fff,
-		0 0 10px #fff,
-		0 0 21px #fff,
-		0 0 42px #f09,
-		0 0 82px #f09,
-		0 0 92px #f09,
-		0 0 102px #f09,
-		0 0 151px #f09;
-}
-@keyframes pulsate {
-	100% {
-		text-shadow:
-			0 0 4px #fff,
-			0 0 11px #fff,
-			0 0 19px #fff,
-			0 0 40px #f09,
-			0 0 80px #f09,
-			0 0 90px #f09,
-			0 0 100px #f09,
-			0 0 150px #f09;
-	}
-
-	0% {
-		text-shadow:
-			0 0 4px #fff,
-			0 0 10px #fff,
-			0 0 18px #fff,
-			0 0 38px #f09,
-			0 0 73px #f09,
-			0 0 80px #f09,
-			0 0 94px #f09,
-			0 0 140px #f09;
-	}
-}
-.animated-neon {
-	animation: pulsate 0.11s ease-in-out infinite alternate;
-}
-
 h2 {
 	font-family: "Avenir Next", "Helvetica Neue", Arial, sans-serif;
 	font-weight: 500;
@@ -130,7 +90,21 @@ p {
 	overflow: visible;
 	position: relative;
 	contain: style;
-	margin-top: 3.5rem;
+	padding-top: 3.5rem;
+	background: #993333;
+}
+
+.hero-wrap .title {
+	color: #c5ec56;
+}
+
+.hero-wrap .signature-title {
+	color: #f6e6de;
+}
+
+.hero-wrap .intro-paragraph,
+.hero-wrap .typing-cursor {
+	color: #f6e6de;
 }
 
 /* Desktop Head - Full height, oversized for effect */
@@ -261,6 +235,7 @@ p {
 		height: auto;
 		min-height: 100vh;
 		overflow: visible;
+		padding-top: 0;
 	}
 
 	.hero-split {
@@ -389,32 +364,25 @@ p {
 		width: 100%;
 		justify-content: center;
 		padding: 0.55rem 1.25rem;
-		background: linear-gradient(
-			180deg,
-			color-mix(
-					in srgb,
-					var(--site-nav-tint, #efe6dc) 42%,
-					rgba(255, 248, 240, 0.62)
-				)
-				0%,
-			color-mix(
-					in srgb,
-					var(--site-nav-tint, #efe6dc) 30%,
-					rgba(255, 248, 240, 0.52)
-				)
-				100%
-		);
-		backdrop-filter: blur(18px) saturate(120%);
-		-webkit-backdrop-filter: blur(18px) saturate(120%);
-		border-bottom: 1px solid
-			color-mix(
-				in srgb,
-				var(--site-nav-tint, #efe6dc) 38%,
-				rgba(69, 54, 44, 0.1)
+		background:
+			linear-gradient(
+				180deg,
+				rgba(255, 255, 255, 0.2) 0%,
+				rgba(255, 255, 255, 0.08) 100%
+			),
+			linear-gradient(
+				180deg,
+				rgba(12, 12, 12, 0.22) 0%,
+				rgba(12, 12, 12, 0.12) 100%
 			);
+		backdrop-filter: blur(20px) saturate(145%);
+		-webkit-backdrop-filter: blur(20px) saturate(145%);
 		box-shadow:
-			0 10px 30px rgba(69, 54, 44, 0.1),
-			inset 0 1px 0 rgba(255, 255, 255, 0.72);
+			inset 0 1px 0 rgba(255, 255, 255, 0.34),
+			inset 0 -1px 0 rgba(255, 255, 255, 0.14),
+			inset 0 0 0 1px rgba(255, 255, 255, 0.18),
+			0 10px 24px rgba(7, 9, 15, 0.12),
+			0 2px 8px rgba(7, 9, 15, 0.08);
 	}
 
 	.desktop-nav ul {
@@ -425,7 +393,7 @@ p {
 		flex-direction: row;
 		gap: 0;
 		align-items: center;
-		justify-content: space-between;
+		justify-content: flex-start;
 		width: 100%;
 	}
 
@@ -434,8 +402,12 @@ p {
 		margin-right: 1.25rem;
 	}
 
-	.desktop-nav ul > .desktop-menu-item:last-child {
+	.desktop-menu-item--icons-start {
 		margin-left: auto;
+	}
+
+	.desktop-menu-item--icons-start + .desktop-menu-item.dropdown {
+		margin-left: 0.4rem;
 	}
 
 	.desktop-menu-item {
@@ -445,17 +417,24 @@ p {
 	.desktop-menu-link {
 		font-family: "Impact", sans-serif;
 		font-size: 1.02rem;
-		color: #333;
+		color: #ffffff;
 		cursor: pointer;
 		transition: all 0.3s ease;
 		text-transform: uppercase;
 		letter-spacing: 0.05em;
 		text-decoration: none;
+		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
 	}
 
 	.desktop-menu-link:hover {
-		color: #a2003b;
+		color: #ffffff;
 		transform: translateY(-2px);
+	}
+
+	.desktop-menu-link:focus-visible {
+		outline: 2px solid #fff6f2;
+		outline-offset: 4px;
+		border-radius: 2px;
 	}
 
 	.desktop-menu-item.dropdown {
@@ -467,17 +446,17 @@ p {
 		top: 100%;
 		left: 0;
 		margin-top: 0.5rem;
-		background: rgba(255, 255, 255, 0.15);
+		background: rgba(0, 0, 0, 0.78);
 		backdrop-filter: blur(20px);
 		-webkit-backdrop-filter: blur(20px);
-		border: 1px solid rgba(255, 255, 255, 0.3);
+		border: 1px solid rgba(255, 255, 255, 0.12);
 		border-radius: 12px;
 		padding: 0.5rem 0;
 		list-style: none;
 		min-width: 180px;
 		box-shadow:
-			0 8px 32px rgba(0, 0, 0, 0.1),
-			inset 0 1px 0 rgba(255, 255, 255, 0.2);
+			0 8px 32px rgba(0, 0, 0, 0.28),
+			inset 0 1px 0 rgba(255, 255, 255, 0.1);
 		z-index: 101;
 		display: flex !important;
 		flex-direction: column !important;
@@ -496,13 +475,18 @@ p {
 		padding: 0.5rem 1.25rem;
 		font-size: 1rem;
 		transition: all 0.2s ease;
-		color: rgba(51, 51, 51, 0.9);
+		color: #ffffff;
+		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
 	}
 
 	.dropdown-menu .desktop-menu-link:hover {
 		background: transparent;
-		color: #a2003b;
+		color: #ffffff;
 		transform: translateX(5px);
+	}
+
+	.dropdown-menu .desktop-menu-link:focus-visible {
+		outline-offset: -2px;
 	}
 
 	.linkedin-link {
@@ -511,17 +495,85 @@ p {
 		justify-content: center;
 		width: 32px;
 		height: 32px;
-		color: #333;
+		color: #ffffff;
 		cursor: pointer;
 		transition:
 			color 0.3s ease,
 			transform 0.3s ease;
 		text-decoration: none;
+		filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.45));
 	}
 
 	.linkedin-link:hover {
-		color: #a2003b;
+		color: #ffffff;
 		transform: translateY(-2px) scale(1.05);
+	}
+
+	.linkedin-link:focus-visible {
+		outline: 2px solid #fff6f2;
+		outline-offset: 4px;
+		border-radius: 6px;
+	}
+
+	.contact-link {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 32px;
+		height: 32px;
+		color: #ffffff;
+		background: transparent;
+		border: none;
+		cursor: pointer;
+		transition:
+			color 0.3s ease,
+			transform 0.3s ease;
+		filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.45));
+	}
+
+	.contact-link:hover {
+		color: #ffffff;
+		transform: translateY(-2px) scale(1.05);
+	}
+
+	.contact-link:focus-visible {
+		outline: 2px solid #fff6f2;
+		outline-offset: 4px;
+		border-radius: 6px;
+	}
+
+	.contact-dropdown {
+		position: absolute;
+		top: 100%;
+		right: 0;
+		margin-top: 0.5rem;
+		min-width: 240px;
+		padding: 0.75rem;
+		background: rgba(255, 255, 255, 0.35);
+		backdrop-filter: blur(20px);
+		-webkit-backdrop-filter: blur(20px);
+		border: 1px solid rgba(255, 255, 255, 0.6);
+		border-radius: 12px;
+		box-shadow:
+			0 8px 24px rgba(12, 13, 11, 0.08),
+			inset 0 1px 0 rgba(255, 255, 255, 0.45);
+		z-index: 130;
+	}
+
+	.contact-dropdown-title {
+		margin: 0 0 0.4rem;
+		font-size: 0.82rem;
+		font-weight: 700;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: rgba(22, 24, 23, 0.85);
+	}
+
+	.contact-dropdown-item {
+		margin: 0.2rem 0;
+		font-size: 0.9rem;
+		color: rgba(22, 24, 23, 0.92);
+		text-shadow: 0 1px 1px rgba(255, 255, 255, 0.3);
 	}
 
 	.menu-button {
