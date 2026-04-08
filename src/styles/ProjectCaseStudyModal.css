@@ -43,6 +43,11 @@
 	pointer-events: auto;
 }
 
+.case-study-backdrop--wide {
+	width: min(96vw, 1240px);
+	max-width: 1240px;
+}
+
 /* Smooth scrollbar for modal */
 .case-study-backdrop::-webkit-scrollbar {
 	width: 8px;
@@ -301,6 +306,11 @@
 		width: 95vw;
 		max-height: 95vh;
 		border-radius: 24px;
+	}
+
+	.case-study-backdrop--wide {
+		width: 95vw;
+		max-width: 95vw;
 	}
 
 	.case-study-container {

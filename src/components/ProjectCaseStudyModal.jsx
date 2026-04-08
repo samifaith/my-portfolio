@@ -38,6 +38,7 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose }) => {
 	const modalContent = resolveModalContent(project);
 	const isStory = modalContent.kind === "story";
 	const isCaseStudy = modalContent.kind === "case-study";
+	const isWideModal = isStory || isCaseStudy;
 	const story = isStory ? modalContent.story : null;
 	const caseStudy = isCaseStudy ? modalContent.caseStudy : null;
 	const heroImagePath = story?.coverImage || project?.image || null;
@@ -204,7 +205,12 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose }) => {
 			aria-modal="true"
 			aria-labelledby={`case-study-title-${project.id}`}
 		>
-			<div ref={contentRef} className="case-study-backdrop">
+			<div
+				ref={contentRef}
+				className={`case-study-backdrop ${
+					isWideModal ? "case-study-backdrop--wide" : ""
+				}`}
+			>
 				<button
 					type="button"
 					className="case-study-close"
