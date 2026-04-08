@@ -28,7 +28,7 @@ export default function Letter() {
 			// set initial appearance & dash attributes
 			gsap.set(mainPath, {
 				attr: {
-					stroke: "#a2003b",
+					stroke: "#fff6f2",
 					"stroke-width": 7,
 					fill: "none",
 					"stroke-linecap": "round",
@@ -44,8 +44,8 @@ export default function Letter() {
 				gsap.set(glowPath, {
 					attr: {
 						filter: "url(#neon-blur)",
-						stroke: "#a2003b",
-						"stroke-width": 14,
+						stroke: "#ffffff",
+						"stroke-width": 10,
 						fill: "none",
 						opacity: 0, // <-- was 0.45, start fully hidden
 					},
@@ -53,13 +53,19 @@ export default function Letter() {
 			}
 
 			if (!prefersReducedMotion) {
-				// sequence: draw -> quick snap-to-full glow -> hold -> snap back to start for repeat
-				// timings are tuned to make the glow feel instantaneous at the end of the draw
-				const drawDuration = 4; // how long the path draws
-				const overlap = 0.35; // start the glow just before the draw completes
+				// sequence: draw -> earlier neon ramp -> hold for a beat -> smooth fade back to white
+				const drawDuration = 4;
+				const neonStart = drawDuration - 1;
+				const rampDuration = 0.1;
+				const holdAtFull = 0.75;
+				const fadeDuration = 0.22;
 
 				// timeline: repeat forever, no yoyo. We'll snap properties back to initial values at the end
-				const tl = gsap.timeline({ repeat: -1, yoyo: false, repeatDelay: 0 });
+				const tl = gsap.timeline({
+					repeat: -1,
+					yoyo: false,
+					repeatDelay: 0,
+				});
 
 				// capture local refs so cleanup uses stable references (prevents lint warning)
 
@@ -76,47 +82,70 @@ export default function Letter() {
 					ease: "power1.inOut",
 				});
 
-				// make the glow ramp very fast and use no easing so it snaps to full instantly
-				const rampDuration = 0.12; // very quick ramp into full glow
-				const holdAtFull = 0.8; // hold the full glow for a short time
-
 				if (glowPath && feGaussian) {
 					tl.to(
 						feGaussian,
 						{
 							duration: rampDuration,
-							attr: { stdDeviation: 18 },
-							ease: "none",
+							attr: { stdDeviation: 9 },
+							ease: "power1.out",
 						},
-						`-=${overlap}`,
+						neonStart,
 					);
 					tl.to(
 						glowPath,
 						{
 							duration: rampDuration,
-							attr: { opacity: 0.95 },
-							ease: "none",
+							attr: { opacity: 0.58 },
+							ease: "power1.out",
 						},
-						"<",
+						neonStart,
+					);
+					tl.to(
+						glowPath,
+						{
+							duration: fadeDuration,
+							attr: { opacity: 0 },
+							ease: "power1.in",
+						},
+						neonStart + rampDuration + holdAtFull,
+					);
+					tl.to(
+						feGaussian,
+						{
+							duration: fadeDuration,
+							attr: { stdDeviation: 0 },
+							ease: "power1.in",
+						},
+						neonStart + rampDuration + holdAtFull,
 					);
 				} else {
 					tl.to(
 						svg,
 						{
 							duration: rampDuration,
-							filter: "drop-shadow(0 20px 70px rgba(162,0,59,0.34))",
-							ease: "none",
+							filter: "drop-shadow(0 10px 28px rgba(255,255,255,0.35))",
+							ease: "power1.out",
 						},
-						`-=${overlap}`,
+						neonStart,
+					);
+					tl.to(
+						svg,
+						{ duration: fadeDuration, filter: "none", ease: "power1.in" },
+						neonStart + rampDuration + holdAtFull,
 					);
 				}
 
 				tl.to(
 					mainPath,
-					{ duration: rampDuration, stroke: "#ff4d79", ease: "none" },
-					"<",
+					{ duration: rampDuration, stroke: "#ffffff", ease: "power1.out" },
+					neonStart,
 				);
-				tl.to({}, { duration: holdAtFull });
+				tl.to(
+					mainPath,
+					{ duration: fadeDuration, stroke: "#fff6f2", ease: "power1.in" },
+					neonStart + rampDuration + holdAtFull,
+				);
 
 				// snap properties back to their initial values immediately before the timeline restarts
 				if (glowPath && feGaussian) {
@@ -125,7 +154,7 @@ export default function Letter() {
 				} else {
 					tl.set(svg, { filter: "none" });
 				}
-				tl.set(mainPath, { attr: { stroke: "#a2003b" } });
+				tl.set(mainPath, { attr: { stroke: "#fff6f2" } });
 
 				localDrawTween = tl;
 			}
@@ -140,11 +169,7 @@ export default function Letter() {
 
 	return (
 		<>
-			<Grid
-				container
-				className="animated-neon"
-				sx={{ justifyContent: "center", alignItems: "center" }}
-			>
+			<Grid container sx={{ justifyContent: "center", alignItems: "center" }}>
 				<svg
 					ref={svgRef}
 					viewBox="0 0 600 300"
