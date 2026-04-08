@@ -82,6 +82,7 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose }) => {
 
 			if (isOpen) {
 				try {
+					// Preserve existing overflow state so we do not clobber other overlays.
 					if (previousOverflowRef.current === null) {
 						previousOverflowRef.current = document.body.style.overflow;
 					}
@@ -119,6 +120,12 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose }) => {
 						transformOrigin: "50% 8%",
 					});
 					gsap.set(animatedBlocks, { opacity: 0, y: 16 });
+
+					if (prefersReducedMotion) {
+						gsap.set(modalRef.current, { opacity: 1 });
+						gsap.set(contentRef.current, { scale: 1, opacity: 1, y: 0 });
+						return undefined;
+					}
 
 					gsap
 						.timeline()

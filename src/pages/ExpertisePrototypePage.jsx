@@ -629,7 +629,7 @@ const ExpertisePrototypePage = () => {
 			window.removeEventListener("scroll", updateVisibility);
 			window.removeEventListener("resize", updateVisibility);
 		};
-	}, []);
+	}, [isModalOpen]);
 
 	const handleReturnToTop = () => {
 		jumpRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
