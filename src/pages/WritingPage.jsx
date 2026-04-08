@@ -288,11 +288,11 @@ const WritingPage = () => {
 				backText="Back to Expertise"
 				isStoryPage={true}
 			>
-				<article className="bg-white rounded-lg shadow-lg p-8">
+				<article className="bg-white rounded-lg shadow-lg p-6">
 					<h1 className="text-4xl font-bold text-gray-900 mb-4">
 						{story.title}
 					</h1>
-					<p className="text-gray-600 mb-8">{story.subtitle}</p>
+					<p className="text-gray-600 mb-6">{story.subtitle}</p>
 
 					{story.audioFile && (
 						<AudioStoryPlayer
@@ -305,7 +305,7 @@ const WritingPage = () => {
 					)}
 
 					{story.pdfFile && (
-						<section className="mb-8" aria-label="Article PDF viewer">
+						<section className="mb-6" aria-label="Article PDF viewer">
 							<iframe
 								src={`${story.pdfFile}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`}
 								title={`${story.title} PDF viewer`}
@@ -329,7 +329,7 @@ const WritingPage = () => {
 			title="WRITING"
 			description="Crafting narratives that explore culture, identity, and the human experience through essays, profiles, and multimedia storytelling."
 		>
-			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 				{Object.values(storiesData).map((storyData) => (
 					<ProjectCard key={storyData.id} projectData={storyData} />
 				))}

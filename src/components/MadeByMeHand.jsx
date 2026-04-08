@@ -8,66 +8,99 @@ const MadeByMeHand = () => {
 	const [isHovered, setIsHovered] = useState(false);
 
 	useEffect(() => {
-		if (handRef.current) {
-			// Initial position - hand starts below screen
-			gsap.set(handRef.current, {
-				y: 100,
-				opacity: 0,
-			});
+		try {
+			if (handRef.current) {
+				// Initial position - hand starts below screen
+				gsap.set(handRef.current, {
+					y: 100,
+					opacity: 0,
+				});
 
-			// Animate hand raising up with sign
-			gsap.to(handRef.current, {
-				y: 0,
-				opacity: 1,
-				duration: 1.5,
-				ease: "power2.out",
-				delay: 2, // Delay to let bubbles animate first
-			});
+				// Animate hand raising up with sign
+				gsap.to(handRef.current, {
+					y: 0,
+					opacity: 1,
+					duration: 1.5,
+					ease: "power2.out",
+					delay: 2, // Delay to let bubbles animate first
+				});
+			}
+		} catch (err) {
+			console.error("Failed to animate hand:", err);
+			// Ensure hand is visible even if animation fails
+			const prefersReducedMotion = window.matchMedia(
+				"(prefers-reduced-motion: reduce)",
+			).matches;
+
+			try {
+				if (handRef.current && !prefersReducedMotion) {
+					handRef.current.style.opacity = "1";
+					handRef.current.style.transform = "translateY(0)";
+				}
+			} catch (resetErr) {
+				console.error("Failed to reset hand on error:", resetErr);
+			}
 		}
 	}, []);
 
 	useEffect(() => {
-		if (signRef.current && techStackRef.current) {
-			if (isHovered) {
-				// Expand animation
-				gsap.to(signRef.current, {
-					padding: "12px 16px",
-					minWidth: 180,
-					duration: 0.4,
-					ease: "power2.out",
-				});
-				gsap.fromTo(
-					techStackRef.current,
-					{
-						height: 0,
-						opacity: 0,
-						marginTop: 0,
-					},
-					{
-						height: "auto",
-						opacity: 1,
-						marginTop: 8,
-						duration: 0.4,
-						ease: "power2.out",
+		try {
+			const prefersReducedMotion = window.matchMedia(
+				"(prefers-reduced-motion: reduce)",
+			).matches;
+
+			if (signRef.current && techStackRef.current && !prefersReducedMotion) {
+				if (isHovered) {
+					// Expand animation
+					try {
+						gsap.to(signRef.current, {
+							padding: "12px 16px",
+							minWidth: 180,
+							duration: 0.4,
+							ease: "power2.out",
+						});
+						gsap.fromTo(
+							techStackRef.current,
+							{
+								height: 0,
+								opacity: 0,
+								marginTop: 0,
+							},
+							{
+								height: "auto",
+								opacity: 1,
+								marginTop: 8,
+								duration: 0.4,
+								ease: "power2.out",
+							},
+						);
+					} catch (err) {
+						console.error("Failed to animate expand:", err);
 					}
-				);
-			} else {
-				// Collapse animation
-				gsap.to(techStackRef.current, {
-					height: 0,
-					opacity: 0,
-					marginTop: 0,
-					duration: 0.3,
-					ease: "power2.in",
-				});
-				gsap.to(signRef.current, {
-					padding: "8px 12px",
-					minWidth: "auto",
-					duration: 0.3,
-					ease: "power2.in",
-					delay: 0.1,
-				});
+				} else {
+					// Collapse animation
+					try {
+						gsap.to(techStackRef.current, {
+							height: 0,
+							opacity: 0,
+							marginTop: 0,
+							duration: 0.3,
+							ease: "power2.in",
+						});
+						gsap.to(signRef.current, {
+							padding: "8px 12px",
+							minWidth: "auto",
+							duration: 0.3,
+							ease: "power2.in",
+							delay: 0.1,
+						});
+					} catch (err) {
+						console.error("Failed to animate collapse:", err);
+					}
+				}
 			}
+		} catch (err) {
+			console.error("Hover animation error:", err);
 		}
 	}, [isHovered]);
 

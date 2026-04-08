@@ -7,6 +7,7 @@ import {
 	useParams,
 } from "react-router-dom";
 import "./App.css";
+import Menu from "./components/Menu";
 
 const AnimatedHomePage = lazy(() => import("./pages/AnimatedHomePage"));
 const ExpertisePage = lazy(() => import("./pages/ExpertisePage"));
@@ -25,6 +26,7 @@ const App = () => {
 	return (
 		<Router>
 			<div className="App">
+				<Menu />
 				<Suspense fallback={null}>
 					<Routes>
 						<Route path="/" element={<AnimatedHomePage />} />

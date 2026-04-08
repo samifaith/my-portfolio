@@ -138,35 +138,12 @@ const PageLayout = ({
 	]);
 
 	return (
-		<div className="min-h-screen bg-gray-50">
-			{!isStoryPage && (
-				<header className="bg-white shadow-sm p-6">
-					<div className="max-w-6xl mx-auto flex items-center justify-between">
-						<Link
-							to={backLink}
-							className="flex items-center space-x-2 text-gray-600"
-						>
-							<ArrowLeft className="w-5 h-5" />
-							<span>{backText}</span>
-						</Link>
-						<h1
-							className="text-3xl font-bold"
-							style={{
-								color: "#a2003b",
-								fontFamily: "Impact, Poppins, sans-serif",
-							}}
-						>
-							{title}
-						</h1>
-					</div>
-				</header>
-			)}
-
-			<main className={`max-w-6xl mx-auto p-6 ${isStoryPage ? "py-12" : ""}`}>
+		<div className="min-h-screen bg-gray-50 mt-14">
+			<main className={`max-w-6xl mx-auto p-4 ${isStoryPage ? "py-8" : ""}`}>
 				{isStoryPage && (
 					<Link
 						to={backLink}
-						className="inline-flex items-center space-x-2 text-gray-600 hover:text-gray-900 mb-8"
+						className="inline-flex items-center space-x-2 text-gray-600 hover:text-gray-900 mb-6"
 					>
 						<ArrowLeft className="w-4 h-4" />
 						<span>{backText}</span>
@@ -174,7 +151,7 @@ const PageLayout = ({
 				)}
 
 				{description && !isStoryPage && (
-					<div className="mb-8">
+					<div className="mb-6">
 						<p className="text-lg text-gray-700 leading-relaxed">
 							{description}
 						</p>
