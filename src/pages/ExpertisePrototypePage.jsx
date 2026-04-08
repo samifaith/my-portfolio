@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ChevronUp } from "lucide-react";
 import { getModernImageSources } from "../utils/imageFormats";
 import ProjectCaseStudyModal from "../components/ProjectCaseStudyModal";
 import "../styles/ExpertisePrototype.css";
@@ -12,9 +13,12 @@ const ExpertisePrototypePage = () => {
 	const navigate = useNavigate();
 	const [activeIndex, setActiveIndex] = useState(0);
 	const [selectedProject, setSelectedProject] = useState(null);
+	const [isReturnToTopVisible, setIsReturnToTopVisible] = useState(false);
 	const sectionRefs = useRef([]);
 	const pageRef = useRef(null);
+	const jumpRef = useRef(null);
 	const rightColumnRef = useRef(null);
+	const imageStackRef = useRef(null);
 	const layerWrapRefs = useRef([]);
 
 	const sections = useMemo(
@@ -63,6 +67,7 @@ const ExpertisePrototypePage = () => {
 				title: "Wanderlust",
 				description:
 					"A comprehensive travel planning app designed to simplify trip organization and enhance user experience through intuitive design.",
+				image: "/design/SamDeCoteau_Vector.avif",
 				label: "Development",
 				role: "UX/UI Designer",
 				result:
@@ -190,8 +195,7 @@ const ExpertisePrototypePage = () => {
 				try {
 					const pageElement = pageRef.current;
 					const rightColumnElement = rightColumnRef.current;
-					const pinTargetElement =
-						rightColumnElement?.querySelector(".proto-image-stack") || null;
+					const pinTargetElement = imageStackRef.current;
 					const layerWrappers = layerWrapRefs.current.filter(Boolean);
 
 					if (
@@ -206,8 +210,14 @@ const ExpertisePrototypePage = () => {
 					const ctx = gsap.context(() => {
 						try {
 							gsap.set(layerWrappers, {
-								willChange: "clip-path, opacity",
+								willChange: "clip-path, opacity, transform",
 							});
+
+							if (pinTargetElement) {
+								gsap.set(pinTargetElement, {
+									"--proto-stack-tint": sections[activeIndex]?.bg,
+								});
+							}
 
 							layerWrappers.forEach((layerWrapper, index) => {
 								try {
@@ -230,10 +240,10 @@ const ExpertisePrototypePage = () => {
 									start: "top top",
 									end: "bottom bottom",
 									pin: pinTargetElement,
-									scrub: true,
+									scrub: 0.55,
 									anticipatePin: 1,
 									invalidateOnRefresh: true,
-									fastScrollEnd: true,
+									fastScrollEnd: false,
 								},
 							});
 
@@ -261,8 +271,8 @@ const ExpertisePrototypePage = () => {
 												currentLayer,
 												{
 													clipPath: "inset(0px 0px 100% 0px)",
-													duration: 1.5,
-													ease: "none",
+													duration: 1.2,
+													ease: "power2.inOut",
 												},
 												0,
 											)
@@ -270,17 +280,17 @@ const ExpertisePrototypePage = () => {
 												nextLayer,
 												{
 													clipPath: "inset(0px 0px 0px 0px)",
-													duration: 1.5,
-													ease: "none",
+													duration: 1.2,
+													ease: "power2.inOut",
 												},
-												0,
+												0.08,
 											)
 											.set(
 												currentLayer,
 												{
 													autoAlpha: 0,
 												},
-												1.5,
+												1.21,
 											);
 									}
 
@@ -331,28 +341,61 @@ const ExpertisePrototypePage = () => {
 				return undefined;
 			}
 
-			rootElement.style.setProperty("--site-nav-tint", activeSection.bg);
+			const pinTargetElement = imageStackRef.current;
 
 			const prefersReducedMotion = window.matchMedia(
 				"(prefers-reduced-motion: reduce)",
 			).matches;
+			const tintVars = {
+				"--site-nav-tint": activeSection.bg,
+				"--proto-page-tint": activeSection.bg,
+			};
 
 			if (prefersReducedMotion) {
+				Object.entries(tintVars).forEach(([property, value]) => {
+					rootElement.style.setProperty(property, value);
+					pageElement.style.setProperty(property, value);
+				});
 				pageElement.style.backgroundColor = activeSection.bg;
 				return undefined;
 			}
 
+			gsap.to(rootElement, {
+				"--site-nav-tint": activeSection.bg,
+				duration: 0.9,
+				ease: "power2.out",
+				overwrite: "auto",
+			});
+
 			gsap.to(pageElement, {
+				"--proto-page-tint": activeSection.bg,
 				backgroundColor: activeSection.bg,
 				duration: 0.9,
 				ease: "power2.out",
 				overwrite: "auto",
 			});
 
+			if (pinTargetElement) {
+				gsap.to(pinTargetElement, {
+					"--proto-stack-tint": activeSection.bg,
+					duration: 0.9,
+					ease: "power2.out",
+					overwrite: "auto",
+				});
+			}
+
 			return () => {
 				try {
 					gsap.killTweensOf(pageElement);
+					gsap.killTweensOf(rootElement);
+					if (pinTargetElement) {
+						gsap.killTweensOf(pinTargetElement);
+					}
 					rootElement.style.removeProperty("--site-nav-tint");
+					pageElement.style.removeProperty("--proto-page-tint");
+					if (pinTargetElement) {
+						pinTargetElement.style.removeProperty("--proto-stack-tint");
+					}
 				} catch (err) {
 					console.error("Failed to cleanup background color tween:", err);
 				}
@@ -363,17 +406,39 @@ const ExpertisePrototypePage = () => {
 		}
 	}, [activeSection]);
 
+	useEffect(() => {
+		const pageElement = pageRef.current;
+		const jumpElement = jumpRef.current;
+
+		if (!pageElement || !jumpElement) {
+			return undefined;
+		}
+
+		const updateJumpHeight = () => {
+			const jumpHeight = Math.ceil(jumpElement.getBoundingClientRect().height);
+			pageElement.style.setProperty("--proto-jump-height", `${jumpHeight}px`);
+		};
+
+		updateJumpHeight();
+
+		const resizeObserver = new ResizeObserver(updateJumpHeight);
+		resizeObserver.observe(jumpElement);
+
+		window.addEventListener("resize", updateJumpHeight);
+
+		return () => {
+			resizeObserver.disconnect();
+			window.removeEventListener("resize", updateJumpHeight);
+			pageElement.style.removeProperty("--proto-jump-height");
+		};
+	}, []);
+
 	const jumpFilters = useMemo(
-		() => ["All", ...new Set(sections.map((section) => section.label))],
+		() => [...new Set(sections.map((section) => section.label))],
 		[sections],
 	);
 
 	const handleJumpTo = (label) => {
-		if (label === "All") {
-			pageRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-			return;
-		}
-
 		const targetIndex = sections.findIndex(
 			(section) => section.label === label,
 		);
@@ -385,6 +450,33 @@ const ExpertisePrototypePage = () => {
 			behavior: "smooth",
 			block: "start",
 		});
+	};
+
+	useEffect(() => {
+		const updateVisibility = () => {
+			const jumpElement = jumpRef.current;
+
+			if (!jumpElement) {
+				setIsReturnToTopVisible(false);
+				return;
+			}
+
+			const jumpBottomOffset = jumpElement.offsetTop + jumpElement.offsetHeight;
+			setIsReturnToTopVisible(window.scrollY >= jumpBottomOffset - 24);
+		};
+
+		updateVisibility();
+		window.addEventListener("scroll", updateVisibility, { passive: true });
+		window.addEventListener("resize", updateVisibility);
+
+		return () => {
+			window.removeEventListener("scroll", updateVisibility);
+			window.removeEventListener("resize", updateVisibility);
+		};
+	}, []);
+
+	const handleReturnToTop = () => {
+		jumpRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
 	};
 
 	const renderProjectMedia = (
@@ -439,10 +531,18 @@ const ExpertisePrototypePage = () => {
 		<div
 			ref={pageRef}
 			className="proto-page"
-			style={{ backgroundColor: sections[0].bg }}
+			style={{
+				"--proto-page-tint": sections[0].bg,
+				"--proto-jump-height": "0px",
+				backgroundColor: sections[0].bg,
+			}}
 		>
 			<main className="proto-shell">
-				<section className="proto-jump" aria-label="Jump to section">
+				<section
+					ref={jumpRef}
+					className="proto-jump"
+					aria-label="Jump to section"
+				>
 					<p className="proto-jump-label">Jump to</p>
 					<div className="proto-jump-controls">
 						{jumpFilters.map((filterLabel) => (
@@ -496,8 +596,9 @@ const ExpertisePrototypePage = () => {
 
 				<section ref={rightColumnRef} className="proto-right">
 					<div
+						ref={imageStackRef}
 						className="proto-image-stack"
-						style={{ backgroundColor: activeSection.bg }}
+						style={{ "--proto-stack-tint": sections[0].bg }}
 					>
 						{sections.map((item, index) => (
 							<div
@@ -517,6 +618,18 @@ const ExpertisePrototypePage = () => {
 					</div>
 				</section>
 			</main>
+
+			<button
+				type="button"
+				className={`proto-return-to-top ${
+					isReturnToTopVisible ? "is-visible" : ""
+				}`}
+				onClick={handleReturnToTop}
+				aria-label="Return to top"
+			>
+				<ChevronUp className="proto-return-to-top-icon" />
+				<span>Top</span>
+			</button>
 
 			<ProjectCaseStudyModal
 				project={selectedProject}

@@ -321,6 +321,29 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose }) => {
 
 					{isCaseStudy && caseStudy && (
 						<div className="case-study-embedded-case-study">
+							{heroImagePath && heroImageSources && (
+								<div className="case-study-media case-study-media--story">
+									<picture>
+										{heroImageSources.avif && (
+											<source
+												srcSet={heroImageSources.avif}
+												type="image/avif"
+											/>
+										)}
+										{heroImageSources.webp && (
+											<source
+												srcSet={heroImageSources.webp}
+												type="image/webp"
+											/>
+										)}
+										<img
+											src={heroImagePath}
+											alt={project.title}
+											className="case-study-image"
+										/>
+									</picture>
+								</div>
+							)}
 							<WanderlustCaseStudyContent caseStudy={caseStudy} />
 						</div>
 					)}

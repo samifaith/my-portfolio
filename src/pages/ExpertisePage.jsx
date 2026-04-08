@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { Compass, Code, Camera, Pen } from "lucide-react";
+import { Compass, Code, Camera, Pen, ChevronUp } from "lucide-react";
 import PageLayout from "../components/PageLayout";
 import ProjectCard from "../components/ProjectCard";
 import "../styles/MosaicGrid.css";
@@ -14,6 +14,8 @@ const ExpertisePage = () => {
 		useState(null);
 	const [isModalContentLoading, setIsModalContentLoading] = useState(false);
 	const [modalContentError, setModalContentError] = useState(null);
+	const [isReturnToTopVisible, setIsReturnToTopVisible] = useState(false);
+	const filterTabsRef = useRef(null);
 
 	// Unified projects from all expertise areas
 	const allProjects = useMemo(
@@ -91,6 +93,7 @@ const ExpertisePage = () => {
 				type: "UX/UI Case Study",
 				description:
 					"A comprehensive travel planning app designed to simplify trip organization and enhance user experience through intuitive design.",
+				image: "/design/SamDeCoteau_Vector.avif",
 				role: "UX/UI Designer",
 				backgroundIcon: Compass,
 				accentIcon: Code,
@@ -367,68 +370,109 @@ const ExpertisePage = () => {
 		setSelectedProject(null);
 	}, []);
 
-	return (
-		<PageLayout
-			title="EXPERTISE"
-			// description="A curated collection of design, development, writing, and media projects that showcase my multidisciplinary approach to creating meaningful experiences."
-			showModal={!!selectedProject}
-			selectedProject={selectedProject}
-			renderModalContent={renderModalContent}
-			isModalContentLoading={isModalContentLoading}
-			onCloseModal={handleCloseModal}
-			onPreviousProject={handlePreviousProject}
-			onNextProject={handleNextProject}
-			hasPreviousProject={selectedProjectIndex > 0}
-			hasNextProject={
-				selectedProjectIndex >= 0 &&
-				selectedProjectIndex < filteredProjects.length - 1
+	useEffect(() => {
+		const updateVisibility = () => {
+			const filterTabsElement = filterTabsRef.current;
+
+			if (!selectedProject || !filterTabsElement) {
+				setIsReturnToTopVisible(false);
+				return;
 			}
-		>
-			{/* Filter Tabs */}
-			<div className="filter-tabs">
-				{filters.map((filter) => (
-					<button
-						key={filter.id}
-						onClick={() => handleFilterChange(filter.id)}
-						className={`filter-tab ${
-							activeFilter === filter.id ? "active" : ""
-						}`}
-					>
-						{filter.icon && <filter.icon className="filter-icon" />}
-						<span>{filter.label}</span>
-					</button>
-				))}
-			</div>
 
-			{/* Mosaic Grid */}
-			<div className="mosaic-grid">
-				{filteredProjects.map((project, index) => (
-					<div
-						key={project.id}
-						className={`mosaic-item mosaic-${
-							project.size || "medium"
-						} reveal-item`}
-						style={{ animationDelay: `${index * 0.1}s` }}
-					>
-						<ProjectCard
-							projectData={project}
-							onProjectClick={setSelectedProject}
-							forceModal
-						/>
-					</div>
-				))}
-			</div>
+			const filterBottomOffset =
+				filterTabsElement.offsetTop + filterTabsElement.offsetHeight;
+			const scrolledPastFilters = window.scrollY >= filterBottomOffset - 24;
+			setIsReturnToTopVisible(scrolledPastFilters);
+		};
 
-			{/* Empty State */}
-			{filteredProjects.length === 0 && (
-				<div className="empty-state">
-					<div className="empty-state-content">
-						<h3>No projects in this category yet</h3>
-						<p>Check back soon for new work!</p>
-					</div>
+		updateVisibility();
+		window.addEventListener("scroll", updateVisibility, { passive: true });
+		window.addEventListener("resize", updateVisibility);
+
+		return () => {
+			window.removeEventListener("scroll", updateVisibility);
+			window.removeEventListener("resize", updateVisibility);
+		};
+	}, [selectedProject]);
+
+	const handleReturnToTop = useCallback(() => {
+		window.scrollTo({ top: 0, behavior: "smooth" });
+	}, []);
+
+	return (
+		<>
+			<PageLayout
+				title="EXPERTISE"
+				// description="A curated collection of design, development, writing, and media projects that showcase my multidisciplinary approach to creating meaningful experiences."
+				showModal={!!selectedProject}
+				selectedProject={selectedProject}
+				renderModalContent={renderModalContent}
+				isModalContentLoading={isModalContentLoading}
+				onCloseModal={handleCloseModal}
+				onPreviousProject={handlePreviousProject}
+				onNextProject={handleNextProject}
+				hasPreviousProject={selectedProjectIndex > 0}
+				hasNextProject={
+					selectedProjectIndex >= 0 &&
+					selectedProjectIndex < filteredProjects.length - 1
+				}
+			>
+				{/* Filter Tabs */}
+				<div ref={filterTabsRef} className="filter-tabs">
+					{filters.map((filter) => (
+						<button
+							key={filter.id}
+							onClick={() => handleFilterChange(filter.id)}
+							className={`filter-tab ${
+								activeFilter === filter.id ? "active" : ""
+							}`}
+						>
+							{filter.icon && <filter.icon className="filter-icon" />}
+							<span>{filter.label}</span>
+						</button>
+					))}
 				</div>
-			)}
-		</PageLayout>
+
+				{/* Mosaic Grid */}
+				<div className="mosaic-grid">
+					{filteredProjects.map((project, index) => (
+						<div
+							key={project.id}
+							className={`mosaic-item mosaic-${
+								project.size || "medium"
+							} reveal-item`}
+							style={{ animationDelay: `${index * 0.1}s` }}
+						>
+							<ProjectCard
+								projectData={project}
+								onProjectClick={setSelectedProject}
+								forceModal
+							/>
+						</div>
+					))}
+				</div>
+
+				{/* Empty State */}
+				{filteredProjects.length === 0 && (
+					<div className="empty-state">
+						<div className="empty-state-content">
+							<h3>No projects in this category yet</h3>
+							<p>Check back soon for new work!</p>
+						</div>
+					</div>
+				)}
+			</PageLayout>
+
+			<button
+				type="button"
+				className={`return-to-top ${isReturnToTopVisible ? "is-visible" : ""}`}
+				onClick={handleReturnToTop}
+				aria-label="Return to top"
+			>
+				<ChevronUp className="return-to-top-icon" />
+				<span>Top</span>
+			</button>
+		</>
 	);
 };
 

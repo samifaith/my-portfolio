@@ -12,6 +12,21 @@ html {
 	scroll-behavior: smooth;
 }
 
+:root {
+	--ui-glass-bg: rgba(255, 255, 255, 0.55);
+	--ui-glass-bg-strong: rgba(255, 255, 255, 0.78);
+	--ui-glass-border: rgba(255, 255, 255, 0.62);
+	--ui-glass-shadow:
+		0 10px 30px rgba(12, 13, 11, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.65);
+	--ui-glass-shadow-hover: 0 12px 34px rgba(12, 13, 11, 0.16);
+	--ui-glass-blur: blur(16px);
+	--ui-pill-radius: 999px;
+	--ui-text-primary: rgba(22, 24, 23, 0.9);
+	--ui-focus-outline: rgba(22, 24, 23, 0.4);
+	--ui-motion-fast: 220ms ease;
+	--ui-motion-float: 3.5s ease-in-out infinite;
+}
+
 body {
 	margin: 0;
 	-webkit-font-smoothing: antialiased;

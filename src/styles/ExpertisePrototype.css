@@ -1,9 +1,21 @@
 .proto-page {
 	min-height: 100vh;
 	--proto-top-offset: 3.5rem;
+	--proto-jump-height: 0px;
+	--proto-content-height: calc(
+		100svh - var(--proto-top-offset) - var(--proto-jump-height)
+	);
 	--proto-rail-inset: clamp(0.75rem, 2vh, 1.5rem);
 	--proto-media-scale: 0.7;
+	--proto-page-tint: #e7ddd2;
+	--proto-stack-tint: #e7ddd2;
 	margin-top: 3.5rem;
+	background: linear-gradient(
+		180deg,
+		color-mix(in srgb, var(--proto-page-tint) 86%, rgba(255, 255, 255, 0.18)) 0%,
+		color-mix(in srgb, var(--proto-page-tint) 72%, rgba(255, 255, 255, 0.08))
+			100%
+	);
 }
 
 .proto-shell {
@@ -95,7 +107,7 @@
 }
 
 .proto-section {
-	min-height: 100svh;
+	min-height: var(--proto-content-height);
 	display: flex;
 	align-items: center;
 	padding: 0;
@@ -192,7 +204,7 @@
 
 .proto-right {
 	position: relative;
-	height: calc(100svh - var(--proto-top-offset));
+	height: var(--proto-content-height);
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -211,12 +223,11 @@
 	overflow: hidden;
 	background: linear-gradient(
 		180deg,
-		rgba(255, 253, 249, 0.98) 0%,
-		rgba(244, 240, 233, 0.98) 100%
+		color-mix(in srgb, var(--proto-stack-tint) 92%, rgba(255, 255, 255, 0.2)) 0%,
+		color-mix(in srgb, var(--proto-stack-tint) 74%, rgba(255, 255, 255, 0.08))
+			100%
 	);
-	box-shadow:
-		0 18px 50px rgba(22, 24, 23, 0.08),
-		inset 0 0 0 1px rgba(255, 255, 255, 0.8);
+	box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.8);
 }
 
 .proto-layer-wrap {
@@ -224,9 +235,15 @@
 	inset: 0;
 	overflow: hidden;
 	border-radius: inherit;
-	clip-path: inset(0px 0px 0px 0px);
-	will-change: clip-path;
-	background: rgba(255, 253, 249, 0.98);
+	will-change: clip-path, opacity, transform;
+	transform: translateZ(0);
+	background: linear-gradient(
+		180deg,
+		color-mix(in srgb, var(--proto-stack-tint) 96%, rgba(255, 255, 255, 0.12))
+			0%,
+		color-mix(in srgb, var(--proto-stack-tint) 82%, rgba(255, 255, 255, 0.04))
+			100%
+	);
 }
 
 /* Feathered mask edge to hide clip-path lines */
@@ -236,13 +253,7 @@
 	inset: 0;
 	pointer-events: none;
 	border-radius: inherit;
-	background: radial-gradient(
-		ellipse 120% 120% at 50% 50%,
-		transparent 0%,
-		transparent 92%,
-		rgba(0, 0, 0, 0.015) 98%,
-		rgba(0, 0, 0, 0.03) 100%
-	);
+	background: transparent;
 	will-change: opacity;
 }
 
@@ -264,6 +275,70 @@
 	-webkit-font-smoothing: antialiased;
 }
 
+.proto-return-to-top {
+	position: fixed;
+	right: 1.25rem;
+	bottom: 1.25rem;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.45rem;
+	padding: 0.75rem 1rem;
+	border: 1px solid var(--ui-glass-border);
+	border-radius: var(--ui-pill-radius);
+	background: var(--ui-glass-bg);
+	-webkit-backdrop-filter: var(--ui-glass-blur);
+	backdrop-filter: var(--ui-glass-blur);
+	box-shadow: var(--ui-glass-shadow);
+	color: var(--ui-text-primary);
+	font:
+		600 0.85rem/1 "Avenir Next",
+		"Helvetica Neue",
+		Arial,
+		sans-serif;
+	cursor: pointer;
+	opacity: 0;
+	transform: translateY(12px) scale(0.98);
+	pointer-events: none;
+	transition:
+		opacity var(--ui-motion-fast),
+		transform var(--ui-motion-fast),
+		background-color var(--ui-motion-fast),
+		box-shadow var(--ui-motion-fast);
+	z-index: 90;
+}
+
+.proto-return-to-top.is-visible {
+	opacity: 1;
+	transform: translateY(0) scale(1);
+	pointer-events: auto;
+	animation: proto-return-to-top-float var(--ui-motion-float);
+}
+
+.proto-return-to-top:hover {
+	background: var(--ui-glass-bg-strong);
+	box-shadow: var(--ui-glass-shadow-hover);
+}
+
+.proto-return-to-top:focus-visible {
+	outline: 2px solid var(--ui-focus-outline);
+	outline-offset: 3px;
+}
+
+.proto-return-to-top-icon {
+	width: 1rem;
+	height: 1rem;
+}
+
+@keyframes proto-return-to-top-float {
+	0%,
+	100% {
+		transform: translateY(0) scale(1);
+	}
+	50% {
+		transform: translateY(-3px) scale(1);
+	}
+}
+
 @media (max-width: 1024px) {
 	.proto-shell {
 		grid-template-columns: 1fr;
@@ -276,6 +351,13 @@
 
 	.proto-right {
 		display: none;
+	}
+
+	.proto-return-to-top {
+		right: 1rem;
+		bottom: 1rem;
+		padding: 0.7rem 0.9rem;
+		font-size: 0.8rem;
 	}
 
 	.proto-section {
@@ -303,7 +385,8 @@
 	.proto-layer,
 	.proto-layer-wrap,
 	.proto-layer-picture,
-	.proto-image-stack::after {
+	.proto-image-stack::after,
+	.proto-return-to-top {
 		transition: none !important;
 		animation: none !important;
 	}
