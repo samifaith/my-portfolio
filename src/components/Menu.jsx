@@ -6,6 +6,8 @@ import "./../App.css";
 const Menu = ({ openModal }) => {
 	const [menuOpen, setMenuOpen] = useState(false);
 	const overlayRef = useRef(null);
+	const previousOverflowRef = useRef(null);
+	const hasAppliedScrollLockRef = useRef(false);
 
 	const topLine = useRef(null);
 	const middleLine = useRef(null);
@@ -14,6 +16,26 @@ const Menu = ({ openModal }) => {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const isHomePage = location.pathname === "/";
+
+	const applyScrollLock = () => {
+		if (hasAppliedScrollLockRef.current) {
+			return;
+		}
+
+		previousOverflowRef.current = document.body.style.overflow;
+		document.body.style.overflow = "hidden";
+		hasAppliedScrollLockRef.current = true;
+	};
+
+	const restoreScrollLock = () => {
+		if (!hasAppliedScrollLockRef.current) {
+			return;
+		}
+
+		document.body.style.overflow = previousOverflowRef.current ?? "";
+		previousOverflowRef.current = null;
+		hasAppliedScrollLockRef.current = false;
+	};
 
 	const toggleMenu = () => {
 		setMenuOpen((prev) => !prev);
@@ -93,14 +115,14 @@ const Menu = ({ openModal }) => {
 
 		if (menuOpen) {
 			document.addEventListener("keydown", handleEscapeKey);
-			document.body.style.overflow = "hidden";
+			applyScrollLock();
 		} else {
-			document.body.style.overflow = "unset";
+			restoreScrollLock();
 		}
 
 		return () => {
 			document.removeEventListener("keydown", handleEscapeKey);
-			document.body.style.overflow = "unset";
+			restoreScrollLock();
 		};
 	}, [menuOpen]);
 

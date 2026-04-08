@@ -369,7 +369,7 @@ const ExpertisePage = () => {
 		const updateVisibility = () => {
 			const filterTabsElement = filterTabsRef.current;
 
-			if (!selectedProject || !filterTabsElement) {
+			if (!filterTabsElement) {
 				setIsReturnToTopVisible(false);
 				return;
 			}
@@ -377,7 +377,7 @@ const ExpertisePage = () => {
 			const filterBottomOffset =
 				filterTabsElement.offsetTop + filterTabsElement.offsetHeight;
 			const scrolledPastFilters = window.scrollY >= filterBottomOffset - 24;
-			setIsReturnToTopVisible(scrolledPastFilters);
+			setIsReturnToTopVisible(scrolledPastFilters && !selectedProject);
 		};
 
 		updateVisibility();
@@ -458,15 +458,17 @@ const ExpertisePage = () => {
 				)}
 			</PageLayout>
 
-			<button
-				type="button"
-				className={`return-to-top ${isReturnToTopVisible ? "is-visible" : ""}`}
-				onClick={handleReturnToTop}
-				aria-label="Return to top"
-			>
-				<ChevronUp className="return-to-top-icon" />
-				<span>Top</span>
-			</button>
+			{isReturnToTopVisible && (
+				<button
+					type="button"
+					className="return-to-top is-visible"
+					onClick={handleReturnToTop}
+					aria-label="Return to top"
+				>
+					<ChevronUp className="return-to-top-icon" />
+					<span>Top</span>
+				</button>
+			)}
 		</>
 	);
 };

@@ -453,7 +453,7 @@ const ExpertisePrototypePage = () => {
 		const updateVisibility = () => {
 			const jumpElement = jumpRef.current;
 
-			if (!jumpElement) {
+			if (!jumpElement || isModalOpen) {
 				setIsReturnToTopVisible(false);
 				return;
 			}
@@ -470,7 +470,7 @@ const ExpertisePrototypePage = () => {
 			window.removeEventListener("scroll", updateVisibility);
 			window.removeEventListener("resize", updateVisibility);
 		};
-	}, []);
+	}, [isModalOpen]);
 
 	const handleReturnToTop = () => {
 		jumpRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -629,17 +629,17 @@ const ExpertisePrototypePage = () => {
 				</section>
 			</main>
 
-			<button
-				type="button"
-				className={`proto-return-to-top ${
-					isReturnToTopVisible ? "is-visible" : ""
-				}`}
-				onClick={handleReturnToTop}
-				aria-label="Return to top"
-			>
-				<ChevronUp className="proto-return-to-top-icon" />
-				<span>Top</span>
-			</button>
+			{isReturnToTopVisible && (
+				<button
+					type="button"
+					className="proto-return-to-top is-visible"
+					onClick={handleReturnToTop}
+					aria-label="Return to top"
+				>
+					<ChevronUp className="proto-return-to-top-icon" />
+					<span>Top</span>
+				</button>
+			)}
 
 			{selectedProject && (
 				<ProjectCaseStudyModal
