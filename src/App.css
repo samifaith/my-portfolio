@@ -570,10 +570,22 @@ p {
 	}
 
 	.contact-dropdown-item {
+		display: block;
 		margin: 0.2rem 0;
 		font-size: 0.9rem;
 		color: rgba(22, 24, 23, 0.92);
 		text-shadow: 0 1px 1px rgba(255, 255, 255, 0.3);
+		text-decoration: none;
+	}
+
+	.contact-dropdown-address {
+		margin: 0;
+		font-style: normal;
+	}
+
+	.contact-dropdown-item:hover,
+	.contact-dropdown-item:focus-visible {
+		text-decoration: underline;
 	}
 
 	.menu-button {

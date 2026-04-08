@@ -4,7 +4,11 @@ import { CardMedia } from "@mui/material";
 import stories from "../constants/WritingPieces";
 import caseStudies from "../constants/CaseStudies";
 import WanderlustCaseStudyContent from "./WanderlustCaseStudyContent";
+import { getModernImageSources } from "../utils/imageFormats";
 import "../styles/ProjectCaseStudyModal.css";
+
+const FOCUSABLE_SELECTOR =
+	'a[href], area[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"]), [contenteditable="true"]';
 
 const splitParagraphs = (content) =>
 	content
@@ -46,6 +50,9 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose }) => {
 	const story = isStory ? modalContent.story : null;
 	const caseStudy = isCaseStudy ? modalContent.caseStudy : null;
 	const heroImagePath = story?.coverImage || project?.image || null;
+	const projectImageSources = project?.image
+		? getModernImageSources(project.image)
+		: null;
 	const shouldShowStoryCover = isStory && project?.id === "tea-with-sami";
 	const storyParagraphs = splitParagraphs(story?.content);
 	const prefersReducedMotion =
@@ -224,21 +231,25 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose }) => {
 				}
 			}
 
-			return () => {
-				restoreBodyOverflow();
-				try {
-					if (previousFocusRef.current instanceof HTMLElement) {
-						previousFocusRef.current.focus();
-					}
-				} catch (err) {
-					console.error("Failed to restore focus:", err);
-				}
-			};
+			return undefined;
 		} catch (err) {
 			console.error("useEffect animation error:", err);
 			return undefined;
 		}
 	}, [isOpen, onAfterClose, prefersReducedMotion, restoreBodyOverflow]);
+
+	useEffect(() => {
+		return () => {
+			restoreBodyOverflow();
+			try {
+				if (previousFocusRef.current instanceof HTMLElement) {
+					previousFocusRef.current.focus();
+				}
+			} catch (err) {
+				console.error("Failed to restore focus:", err);
+			}
+		};
+	}, [restoreBodyOverflow]);
 
 	const handleBackdropClick = useCallback(
 		(e) => {
@@ -257,9 +268,8 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose }) => {
 			}
 
 			if (e.key === "Tab" && contentRef.current) {
-				const focusableElements = contentRef.current.querySelectorAll(
-					'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
-				);
+				const focusableElements =
+					contentRef.current.querySelectorAll(FOCUSABLE_SELECTOR);
 
 				if (!focusableElements.length) {
 					return;
@@ -430,13 +440,27 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose }) => {
 							{(project.image || project.video) && (
 								<div className="case-study-media case-study-media--split">
 									{project.image && (
-										<img
-											src={project.image}
-											alt={project.title}
-											className="case-study-image"
-											loading="lazy"
-											decoding="async"
-										/>
+										<picture>
+											{projectImageSources?.avif && (
+												<source
+													srcSet={projectImageSources.avif}
+													type="image/avif"
+												/>
+											)}
+											{projectImageSources?.webp && (
+												<source
+													srcSet={projectImageSources.webp}
+													type="image/webp"
+												/>
+											)}
+											<img
+												src={projectImageSources?.fallback || project.image}
+												alt={project.title}
+												className="case-study-image"
+												loading="lazy"
+												decoding="async"
+											/>
+										</picture>
 									)}
 									{project.video && (
 										<video

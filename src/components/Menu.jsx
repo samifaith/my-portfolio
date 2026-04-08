@@ -305,6 +305,7 @@ const Menu = ({ openModal }) => {
 							aria-label="Contact information"
 							aria-expanded={contactMenuOpen}
 							aria-controls="contact-info-dropdown"
+							aria-haspopup="true"
 						>
 							<svg
 								width="32"
@@ -333,17 +334,28 @@ const Menu = ({ openModal }) => {
 							<div
 								id="contact-info-dropdown"
 								className="contact-dropdown"
-								role="menu"
-								aria-label="Contact details"
+								aria-labelledby="contact-dropdown-title"
 							>
-								<p className="contact-dropdown-title">Contact</p>
-								<p className="contact-dropdown-item">
-									Email: sfdecoteau@gmail.com
+								<p
+									id="contact-dropdown-title"
+									className="contact-dropdown-title"
+								>
+									Contact
 								</p>
-								<p className="contact-dropdown-item">Phone: (617) 947-2402</p>
-								<p className="contact-dropdown-item">
-									Location: Remote / MA, RI
-								</p>
+								<address className="contact-dropdown-address">
+									<a
+										href="mailto:sfdecoteau@gmail.com"
+										className="contact-dropdown-item"
+									>
+										Email: sfdecoteau@gmail.com
+									</a>
+									<a href="tel:+16179472402" className="contact-dropdown-item">
+										Phone: (617) 947-2402
+									</a>
+									<p className="contact-dropdown-item">
+										Location: Remote / MA, RI
+									</p>
+								</address>
 							</div>
 						)}
 					</li>
