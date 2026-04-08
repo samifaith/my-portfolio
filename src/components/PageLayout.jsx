@@ -1,5 +1,6 @@
 import React, { useEffect, useId, useRef } from "react";
 import { Link } from "react-router-dom";
+import { Button, IconButton } from "@mui/material";
 import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
 import { getModernImageSources } from "../utils/imageFormats";
 
@@ -173,22 +174,24 @@ const PageLayout = ({
 					>
 						<div className="p-8">
 							<div className="flex items-center justify-between mb-4">
-								<button
+								<IconButton
 									onClick={onPreviousProject}
-									className="text-gray-600 disabled:text-gray-300"
 									disabled={!hasPreviousProject || !onPreviousProject}
 									aria-label="Previous project"
+									size="small"
+									sx={{ color: "#4b5563" }}
 								>
 									<ChevronLeft className="w-6 h-6" />
-								</button>
-								<button
+								</IconButton>
+								<IconButton
 									onClick={onNextProject}
-									className="text-gray-600 disabled:text-gray-300"
 									disabled={!hasNextProject || !onNextProject}
 									aria-label="Next project"
+									size="small"
+									sx={{ color: "#4b5563" }}
 								>
 									<ChevronRight className="w-6 h-6" />
-								</button>
+								</IconButton>
 							</div>
 
 							<div className="flex justify-between items-start mb-6">
@@ -201,14 +204,15 @@ const PageLayout = ({
 									</h2>
 									<p className="text-gray-600">{selectedProject.type}</p>
 								</div>
-								<button
+								<IconButton
 									ref={closeButtonRef}
 									onClick={onCloseModal}
-									className="text-gray-400 ml-4"
 									aria-label="Close modal"
+									size="small"
+									sx={{ ml: 1, color: "#9ca3af" }}
 								>
 									✕
-								</button>
+								</IconButton>
 							</div>
 
 							{customModalContent ? (
@@ -273,14 +277,17 @@ const PageLayout = ({
 
 							{selectedProject.externalUrl && (
 								<div className="mt-6">
-									<a
+									<Button
+										component="a"
 										href={selectedProject.externalUrl}
 										target="_blank"
 										rel="noopener noreferrer"
-										className="inline-flex items-center rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+										variant="outlined"
+										size="small"
+										sx={{ textTransform: "none" }}
 									>
 										Visit live website
-									</a>
+									</Button>
 								</div>
 							)}
 						</div>
