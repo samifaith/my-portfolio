@@ -1,5 +1,4 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ChevronUp } from "lucide-react";
@@ -10,9 +9,9 @@ import "../styles/ExpertisePrototype.css";
 gsap.registerPlugin(ScrollTrigger);
 
 const ExpertisePrototypePage = () => {
-	const navigate = useNavigate();
 	const [activeIndex, setActiveIndex] = useState(0);
 	const [selectedProject, setSelectedProject] = useState(null);
+	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [isReturnToTopVisible, setIsReturnToTopVisible] = useState(false);
 	const sectionRefs = useRef([]);
 	const pageRef = useRef(null);
@@ -26,8 +25,7 @@ const ExpertisePrototypePage = () => {
 			{
 				id: "eat-like-child",
 				title: "Eat Like a Child",
-				description:
-					"A nostalgic reflection on culture, family traditions, and immigrant identity through food.",
+				description: "Reflection on family, food, and immigrant identity.",
 				image: "/writing/manger.webp",
 				label: "Writing",
 				route: "/expertise/eat-like-child",
@@ -36,8 +34,7 @@ const ExpertisePrototypePage = () => {
 			{
 				id: "home-cook",
 				title: "The Rise of the Home Cook",
-				description:
-					"Profile feature on home-chef creativity, intuition, and culinary storytelling.",
+				description: "Profile on home-chef creativity and storytelling.",
 				image: "/writing/OuiChef.webp",
 				label: "Writing",
 				route: "/expertise/home-cook",
@@ -47,7 +44,7 @@ const ExpertisePrototypePage = () => {
 				id: "tea-with-sami",
 				title: "Tea with Sami",
 				description:
-					"An intimate audio conversation on relationships, growth, and healing.",
+					"Audio conversation on relationships, growth, and healing.",
 				image: "/writing/revengehot.gif",
 				label: "Writing",
 				route: "/expertise/tea-with-sami",
@@ -66,7 +63,7 @@ const ExpertisePrototypePage = () => {
 				id: "wanderlust",
 				title: "Wanderlust",
 				description:
-					"A comprehensive travel planning app designed to simplify trip organization and enhance user experience through intuitive design.",
+					"Travel-planning app concept that simplifies trips with intuitive UX.",
 				image: "/design/SamDeCoteau_Vector.avif",
 				label: "Development",
 				role: "UX/UI Designer",
@@ -78,7 +75,7 @@ const ExpertisePrototypePage = () => {
 			{
 				id: "rowdy",
 				title: "ROWDY Type Poster",
-				description: "Typography exploration with bold, energetic design.",
+				description: "Bold typography study.",
 				image: "/design/SD_TypePoster_ROWDY.avif",
 				label: "Design",
 				route: "/expertise",
@@ -87,7 +84,7 @@ const ExpertisePrototypePage = () => {
 			{
 				id: "lombardia",
 				title: "LOMBARDIA Type Poster",
-				description: "Elegant typography inspired by Italian design.",
+				description: "Italian-inspired type study.",
 				image: "/design/SD_TypePoster_LOMBARDIA.avif",
 				label: "Design",
 				route: "/expertise",
@@ -96,7 +93,7 @@ const ExpertisePrototypePage = () => {
 			{
 				id: "vote",
 				title: "Lady Liberty Says to Vote",
-				description: "Political awareness poster design.",
+				description: "Civic-awareness poster.",
 				image: "/design/Vote_Poster.avif",
 				label: "Design",
 				route: "/expertise",
@@ -105,7 +102,7 @@ const ExpertisePrototypePage = () => {
 			{
 				id: "black-unicorn",
 				title: "Black Unicorn",
-				description: "Illustration and brand expression study.",
+				description: "Brand illustration study.",
 				image: "/design/BlackUnicorn.avif",
 				label: "Design",
 				route: "/expertise",
@@ -114,7 +111,7 @@ const ExpertisePrototypePage = () => {
 			{
 				id: "diving-film",
 				title: "Diving",
-				description: "Short motion capture from the photography collection.",
+				description: "Short motion study.",
 				video: "/photography/diving.MP4",
 				label: "Media",
 				route: "/expertise",
@@ -479,6 +476,19 @@ const ExpertisePrototypePage = () => {
 		jumpRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
 	};
 
+	const handleOpenProjectModal = (item) => {
+		setSelectedProject(item);
+		setIsModalOpen(true);
+	};
+
+	const handleCloseProjectModal = () => {
+		setIsModalOpen(false);
+	};
+
+	const handleAfterProjectModalClose = () => {
+		setSelectedProject(null);
+	};
+
 	const renderProjectMedia = (
 		item,
 		altText,
@@ -579,7 +589,7 @@ const ExpertisePrototypePage = () => {
 									type="button"
 									className="proto-cta"
 									onClick={() => {
-										setSelectedProject(item);
+										handleOpenProjectModal(item);
 									}}
 								>
 									Learn More
@@ -631,11 +641,14 @@ const ExpertisePrototypePage = () => {
 				<span>Top</span>
 			</button>
 
-			<ProjectCaseStudyModal
-				project={selectedProject}
-				isOpen={!!selectedProject}
-				onClose={() => setSelectedProject(null)}
-			/>
+			{selectedProject && (
+				<ProjectCaseStudyModal
+					project={selectedProject}
+					isOpen={isModalOpen}
+					onClose={handleCloseProjectModal}
+					onAfterClose={handleAfterProjectModalClose}
+				/>
+			)}
 		</div>
 	);
 };

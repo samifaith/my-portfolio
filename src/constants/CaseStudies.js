@@ -14,7 +14,7 @@ const caseStudies = {
 		},
 		subtitle: "UX / UI Concept Project",
 		overview:
-			"Wanderlust is a travel app concept that simplifies trip discovery with a swipe-based experience tailored to user preferences and budget.",
+			"Travel app concept for faster, preference-based trip discovery on budget.",
 		meta: [
 			{ label: "Role", value: "Lead UX Designer" },
 			{ label: "Duration", value: "8 Weeks" },
@@ -30,39 +30,33 @@ const caseStudies = {
 			{
 				title: "Swipe to Match",
 				description:
-					"A card-based interface surfaces trips tailored to the user's style quiz — swipe right to save, left to skip.",
+					"Quiz-tailored trip cards; swipe right to save, left to skip.",
 			},
 			{
 				title: "Local Discovery",
-				description:
-					"Curated guides from locals replace generic tourist lists, surfacing hidden gems by neighborhood.",
+				description: "Neighborhood guides from locals surface hidden gems.",
 			},
 			{
 				title: "Budget Tracker",
-				description:
-					"Real-time spending breakdown keeps users confident and in control throughout their trip.",
+				description: "Live spend tracking keeps budgets clear during trips.",
 			},
 		],
 		process: [
 			{
 				title: "Research",
-				description:
-					"User interviews, surveys, and competitive analysis across major travel platforms.",
+				description: "Interviews, surveys, and competitor review.",
 			},
 			{
 				title: "Synthesize",
-				description:
-					"Affinity mapping, personas, and journey mapping to identify opportunity areas.",
+				description: "Affinity maps, personas, and journey maps.",
 			},
 			{
 				title: "Ideate",
-				description:
-					"Wireframes and interaction concepts centered on a card-based matching model.",
+				description: "Wireframes for a card-based matching flow.",
 			},
 			{
 				title: "Test & Iterate",
-				description:
-					"Multiple rounds of usability testing to improve clarity and flow confidence.",
+				description: "Usability rounds to improve clarity and flow.",
 			},
 		],
 		outcomes: [

@@ -6,6 +6,8 @@ import caseStudies from "../constants/CaseStudies";
 import WanderlustCaseStudyContent from "./WanderlustCaseStudyContent";
 import "../styles/ProjectCaseStudyModal.css";
 
+const EXIT_ANIMATION_MS = 350;
+
 const splitParagraphs = (content) =>
 	content
 		? content
@@ -32,9 +34,12 @@ const resolveModalContent = (project) => {
 	return { kind: "project" };
 };
 
-const ProjectCaseStudyModal = ({ project, isOpen, onClose }) => {
+const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose }) => {
 	const modalRef = useRef(null);
 	const contentRef = useRef(null);
+	const closeButtonRef = useRef(null);
+	const previousOverflowRef = useRef(null);
+	const previousFocusRef = useRef(null);
 	const modalContent = resolveModalContent(project);
 	const isStory = modalContent.kind === "story";
 	const isCaseStudy = modalContent.kind === "case-study";
@@ -46,6 +51,20 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose }) => {
 		? getModernImageSources(heroImagePath)
 		: null;
 	const storyParagraphs = splitParagraphs(story?.content);
+	const prefersReducedMotion =
+		typeof window !== "undefined" &&
+		window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+	const restoreBodyOverflow = useCallback(() => {
+		try {
+			if (previousOverflowRef.current !== null) {
+				document.body.style.overflow = previousOverflowRef.current;
+				previousOverflowRef.current = null;
+			}
+		} catch (err) {
+			console.error("Failed to restore body overflow:", err);
+		}
+	}, []);
 
 	useEffect(() => {
 		try {
@@ -55,17 +74,32 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose }) => {
 
 			if (isOpen) {
 				try {
-					// Prevent body scroll
+					// Preserve existing overflow state so we do not clobber other overlays.
+					if (previousOverflowRef.current === null) {
+						previousOverflowRef.current = document.body.style.overflow;
+					}
 					document.body.style.overflow = "hidden";
 				} catch (err) {
 					console.error("Failed to set body overflow:", err);
 				}
 
 				try {
-					// Entrance animation: backdrop fade + content scale & fade
+					previousFocusRef.current = document.activeElement;
+					closeButtonRef.current?.focus();
+				} catch (err) {
+					console.error("Failed to move focus to modal:", err);
+				}
+
+				try {
 					gsap.set([modalRef.current, contentRef.current], {
 						pointerEvents: isOpen ? "auto" : "none",
 					});
+
+					if (prefersReducedMotion) {
+						gsap.set(modalRef.current, { opacity: 1 });
+						gsap.set(contentRef.current, { scale: 1, opacity: 1, y: 0 });
+						return undefined;
+					}
 
 					gsap
 						.timeline()
@@ -101,7 +135,14 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose }) => {
 				}
 			} else {
 				try {
-					// Exit animation
+					if (prefersReducedMotion) {
+						gsap.set(contentRef.current, { scale: 1, opacity: 0, y: 0 });
+						gsap.set(modalRef.current, { opacity: 0, pointerEvents: "none" });
+						restoreBodyOverflow();
+						onAfterClose?.();
+						return undefined;
+					}
+
 					gsap
 						.timeline()
 						.to(
@@ -122,37 +163,34 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose }) => {
 								duration: 0.3,
 								ease: "power2.in",
 								onComplete: () => {
-									try {
-										document.body.style.overflow = "";
-									} catch (err) {
-										console.error("Failed to reset body overflow:", err);
-									}
+									restoreBodyOverflow();
+									onAfterClose?.();
 								},
 							},
 							0.05,
 						);
 				} catch (err) {
 					console.error("Failed to animate modal exit:", err);
-					try {
-						document.body.style.overflow = "";
-					} catch (resetErr) {
-						console.error("Failed to reset body overflow on error:", resetErr);
-					}
+					restoreBodyOverflow();
+					onAfterClose?.();
 				}
 			}
 
 			return () => {
+				restoreBodyOverflow();
 				try {
-					document.body.style.overflow = "";
+					if (previousFocusRef.current instanceof HTMLElement) {
+						previousFocusRef.current.focus();
+					}
 				} catch (err) {
-					console.error("Failed to reset body overflow on cleanup:", err);
+					console.error("Failed to restore focus:", err);
 				}
 			};
 		} catch (err) {
 			console.error("useEffect animation error:", err);
 			return undefined;
 		}
-	}, [isOpen]);
+	}, [isOpen, onAfterClose, prefersReducedMotion, restoreBodyOverflow]);
 
 	const handleBackdropClick = useCallback(
 		(e) => {
@@ -167,6 +205,31 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose }) => {
 		(e) => {
 			if (e.key === "Escape") {
 				onClose();
+				return;
+			}
+
+			if (e.key === "Tab" && contentRef.current) {
+				const focusableElements = contentRef.current.querySelectorAll(
+					'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+				);
+
+				if (!focusableElements.length) {
+					return;
+				}
+
+				const firstElement = focusableElements[0];
+				const lastElement = focusableElements[focusableElements.length - 1];
+
+				if (e.shiftKey && document.activeElement === firstElement) {
+					e.preventDefault();
+					lastElement.focus();
+					return;
+				}
+
+				if (!e.shiftKey && document.activeElement === lastElement) {
+					e.preventDefault();
+					firstElement.focus();
+				}
 			}
 		},
 		[onClose],
@@ -216,6 +279,7 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose }) => {
 					className="case-study-close"
 					onClick={onClose}
 					aria-label="Close modal"
+					ref={closeButtonRef}
 				>
 					<svg
 						width="24"
@@ -276,9 +340,11 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose }) => {
 											/>
 										)}
 										<img
-											src={heroImagePath}
+											src={heroImageSources.fallback}
 											alt={project.title}
 											className="case-study-image"
+											loading="lazy"
+											decoding="async"
 										/>
 									</picture>
 								</div>
@@ -337,9 +403,11 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose }) => {
 											/>
 										)}
 										<img
-											src={heroImagePath}
+											src={heroImageSources.fallback}
 											alt={project.title}
 											className="case-study-image"
+											loading="lazy"
+											decoding="async"
 										/>
 									</picture>
 								</div>
@@ -361,9 +429,11 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose }) => {
 												<source srcSet={imageSources.webp} type="image/webp" />
 											)}
 											<img
-												src={project.image}
+												src={imageSources.fallback}
 												alt={project.title}
 												className="case-study-image"
+												loading="lazy"
+												decoding="async"
 											/>
 										</picture>
 									)}
