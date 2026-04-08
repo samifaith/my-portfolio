@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { Button } from "@mui/material";
 import { ExternalLink } from "lucide-react";
 import { getModernImageSources } from "../utils/imageFormats";
 
@@ -12,16 +13,27 @@ const ProjectCard = ({ projectData, onProjectClick, forceModal = false }) => {
 		}
 
 		return (
-			<a
+			<Button
+				component="a"
 				href={projectData.externalUrl}
 				target="_blank"
 				rel="noopener noreferrer"
 				onClick={(event) => event.stopPropagation()}
-				className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-gray-700 hover:text-gray-900"
+				endIcon={<ExternalLink className="w-4 h-4" />}
+				size="small"
+				variant="text"
+				sx={{
+					mt: 1,
+					px: 0,
+					minWidth: "auto",
+					textTransform: "none",
+					fontWeight: 500,
+					color: "#374151",
+					"&:hover": { backgroundColor: "transparent", color: "#111827" },
+				}}
 			>
 				Visit live
-				<ExternalLink className="w-4 h-4" />
-			</a>
+			</Button>
 		);
 	};
 

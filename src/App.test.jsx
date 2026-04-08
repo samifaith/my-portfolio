@@ -32,9 +32,9 @@ describe("App", () => {
 		window.history.pushState({}, "", "/writing/home-cook");
 		render(<App />);
 
-		expect(window.location.pathname).toBe("/expertise/home-cook");
+		expect(window.location.pathname).toBe("/expertise-archived/home-cook");
 		expect(
-			await screen.findByText("Writing route: /expertise/home-cook"),
+			await screen.findByText("Writing route: /expertise-archived/home-cook"),
 		).toBeInTheDocument();
 	});
 });
