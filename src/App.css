@@ -130,6 +130,7 @@ p {
 	overflow: visible;
 	position: relative;
 	contain: style;
+	margin-top: 3.5rem;
 }
 
 /* Desktop Head - Full height, oversized for effect */
@@ -166,10 +167,10 @@ p {
 	flex-direction: column;
 	align-items: flex-start;
 	justify-content: flex-start;
-	padding: 4rem 2rem 6rem 2rem;
+	padding: 3rem 2rem 4rem 2rem;
 	z-index: 20;
 	min-height: 100vh;
-	gap: 3rem;
+	gap: 2rem;
 	overflow: visible; /* Ensure content isn't clipped */
 	contain: layout style;
 }
@@ -369,6 +370,10 @@ p {
 	background-color: rgba(167, 167, 167, 0.8);
 }
 
+.App {
+	position: relative;
+}
+
 /* Desktop Navigation */
 .desktop-nav {
 	display: none;
@@ -377,9 +382,39 @@ p {
 @media (min-width: 769px) {
 	.desktop-nav {
 		display: flex;
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 120;
 		width: 100%;
 		justify-content: center;
-		padding: 1.5rem 2rem;
+		padding: 0.55rem 1.25rem;
+		background: linear-gradient(
+			180deg,
+			color-mix(
+					in srgb,
+					var(--site-nav-tint, #efe6dc) 42%,
+					rgba(255, 248, 240, 0.62)
+				)
+				0%,
+			color-mix(
+					in srgb,
+					var(--site-nav-tint, #efe6dc) 30%,
+					rgba(255, 248, 240, 0.52)
+				)
+				100%
+		);
+		backdrop-filter: blur(18px) saturate(120%);
+		-webkit-backdrop-filter: blur(18px) saturate(120%);
+		border-bottom: 1px solid
+			color-mix(
+				in srgb,
+				var(--site-nav-tint, #efe6dc) 38%,
+				rgba(69, 54, 44, 0.1)
+			);
+		box-shadow:
+			0 10px 30px rgba(69, 54, 44, 0.1),
+			inset 0 1px 0 rgba(255, 255, 255, 0.72);
 	}
 
 	.desktop-nav ul {
@@ -396,7 +431,7 @@ p {
 
 	.desktop-nav ul > .desktop-menu-item:nth-child(1),
 	.desktop-nav ul > .desktop-menu-item:nth-child(2) {
-		margin-right: 2rem;
+		margin-right: 1.25rem;
 	}
 
 	.desktop-nav ul > .desktop-menu-item:last-child {
@@ -409,7 +444,7 @@ p {
 
 	.desktop-menu-link {
 		font-family: "Impact", sans-serif;
-		font-size: 1.2rem;
+		font-size: 1.02rem;
 		color: #333;
 		cursor: pointer;
 		transition: all 0.3s ease;
@@ -474,8 +509,8 @@ p {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		width: 40px;
-		height: 40px;
+		width: 32px;
+		height: 32px;
 		color: #333;
 		cursor: pointer;
 		transition:

@@ -172,79 +172,98 @@ export default function VerticalTimeline({
 	const oppositeRef = useRef([]);
 
 	useLayoutEffect(() => {
-		const ctx = gsap.context(() => {
-			displayItems.forEach((item, i) => {
-				const card = cardsRef.current[i];
-				const badge = badgesRef.current[i];
-				const opposite = oppositeRef.current[i];
+		try {
+			const ctx = gsap.context(() => {
+				try {
+					displayItems.forEach((item, i) => {
+						try {
+							const card = cardsRef.current[i];
+							const badge = badgesRef.current[i];
+							const opposite = oppositeRef.current[i];
 
-				if (card) {
-					gsap.fromTo(
-						card,
-						{ opacity: 0, y: 30, willChange: "opacity, transform" },
-						{
-							opacity: 1,
-							y: 0,
-							duration: 0.6,
-							scrollTrigger: {
-								trigger: card,
-								start: "top 85%",
-								toggleActions: "play none none reverse",
-								fastScrollEnd: true,
-							},
-							clearProps: "willChange",
-						},
-					);
+							if (card) {
+								gsap.fromTo(
+									card,
+									{ opacity: 0, y: 30, willChange: "opacity, transform" },
+									{
+										opacity: 1,
+										y: 0,
+										duration: 0.6,
+										scrollTrigger: {
+											trigger: card,
+											start: "top 85%",
+											toggleActions: "play none none reverse",
+											fastScrollEnd: true,
+										},
+										clearProps: "willChange",
+									},
+								);
+							}
+
+							if (badge) {
+								gsap.fromTo(
+									badge,
+									{ scale: 0, opacity: 0, willChange: "transform, opacity" },
+									{
+										scale: 1,
+										opacity: 1,
+										duration: 0.4,
+										ease: "back.out(1.7)",
+										scrollTrigger: {
+											trigger: badge,
+											start: "top 90%",
+											toggleActions: "play none none reverse",
+											fastScrollEnd: true,
+										},
+										clearProps: "willChange",
+									},
+								);
+							}
+
+							if (opposite) {
+								// If card is on right, skills are on left (slide from left = negative x)
+								// If card is on left, skills are on right (slide from right = positive x)
+								gsap.fromTo(
+									opposite,
+									{
+										opacity: 0,
+										x: item.side === "right" ? -30 : 30,
+										willChange: "opacity, transform",
+									},
+									{
+										opacity: 1,
+										x: 0,
+										duration: 0.6,
+										scrollTrigger: {
+											trigger: opposite,
+											start: "top 85%",
+											toggleActions: "play none none reverse",
+											fastScrollEnd: true,
+										},
+										clearProps: "willChange",
+									},
+								);
+							}
+						} catch (err) {
+							console.error(`Failed to animate timeline item ${i}:`, err);
+						}
+					});
+				} catch (err) {
+					console.error("Timeline animation loop error:", err);
 				}
+			}, containerRef);
 
-				if (badge) {
-					gsap.fromTo(
-						badge,
-						{ scale: 0, opacity: 0, willChange: "transform, opacity" },
-						{
-							scale: 1,
-							opacity: 1,
-							duration: 0.4,
-							ease: "back.out(1.7)",
-							scrollTrigger: {
-								trigger: badge,
-								start: "top 90%",
-								toggleActions: "play none none reverse",
-								fastScrollEnd: true,
-							},
-							clearProps: "willChange",
-						},
-					);
+			return () => {
+				try {
+					ctx.revert();
+				} catch (err) {
+					console.error("GSAP context cleanup error:", err);
 				}
-
-				if (opposite) {
-					// If card is on right, skills are on left (slide from left = negative x)
-					// If card is on left, skills are on right (slide from right = positive x)
-					gsap.fromTo(
-						opposite,
-						{
-							opacity: 0,
-							x: item.side === "right" ? -30 : 30,
-							willChange: "opacity, transform",
-						},
-						{
-							opacity: 1,
-							x: 0,
-							duration: 0.6,
-							scrollTrigger: {
-								trigger: opposite,
-								start: "top 85%",
-								toggleActions: "play none none reverse",
-								fastScrollEnd: true,
-							},
-							clearProps: "willChange",
-						},
-					);
-				}
-			});
-		}, containerRef);
-
-		return () => ctx.revert();
+			};
+		} catch (err) {
+			console.error("useLayoutEffect error:", err);
+			return undefined;
+		}
 	}, [displayItems]);
 
 	return (

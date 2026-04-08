@@ -1,0 +1,361 @@
+/* Case Study Modal - Glassmorphism with Fluid Animations */
+
+.case-study-modal {
+	position: fixed;
+	inset: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	pointer-events: none;
+	z-index: 300;
+}
+
+.case-study-modal.is-open {
+	pointer-events: auto;
+}
+
+/* Animated Backdrop */
+.case-study-modal::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: rgba(12, 13, 11, 0.4);
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
+}
+
+/* Glass Container */
+.case-study-backdrop {
+	position: relative;
+	width: 90vw;
+	max-width: 900px;
+	height: min(90dvh, calc(100dvh - 2rem));
+	max-height: min(90dvh, calc(100dvh - 2rem));
+	background: rgba(255, 255, 255, 0.8);
+	-webkit-backdrop-filter: blur(20px);
+	backdrop-filter: blur(20px);
+	border: 1px solid rgba(255, 255, 255, 0.95);
+	border-radius: 32px;
+	box-shadow:
+		0 8px 32px rgba(12, 13, 11, 0.1),
+		inset 0 1px 0 rgba(255, 255, 255, 0.5);
+	overflow-y: auto;
+	overflow-x: hidden;
+	pointer-events: auto;
+}
+
+.case-study-backdrop--wide {
+	width: min(96vw, 1240px);
+	max-width: 1240px;
+}
+
+/* Smooth scrollbar for modal */
+.case-study-backdrop::-webkit-scrollbar {
+	width: 8px;
+}
+
+.case-study-backdrop::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+.case-study-backdrop::-webkit-scrollbar-thumb {
+	background: rgba(12, 13, 11, 0.2);
+	border-radius: 4px;
+}
+
+.case-study-backdrop::-webkit-scrollbar-thumb:hover {
+	background: rgba(12, 13, 11, 0.3);
+}
+
+/* Close Button */
+.case-study-close {
+	position: sticky;
+	top: 0;
+	right: 0;
+	width: 48px;
+	height: 48px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: var(--ui-glass-bg);
+	border: none;
+	border-radius: var(--ui-pill-radius);
+	border: 1px solid var(--ui-glass-border);
+	cursor: pointer;
+	color: #161817;
+	margin: 1.25rem 1.25rem 0 auto;
+	z-index: 10;
+	transition: all 0.3s ease;
+	flex-shrink: 0;
+}
+
+.case-study-close:hover {
+	background: var(--ui-glass-bg-strong);
+	transform: rotate(90deg);
+}
+
+.case-study-close:active {
+	transform: rotate(90deg) scale(0.95);
+}
+
+/* Container Layout */
+.case-study-container {
+	padding: 0 1.75rem 1.75rem;
+	display: grid;
+	gap: 2.5rem;
+}
+
+/* Header Section */
+.case-study-header {
+	display: grid;
+	gap: 0.85rem;
+}
+
+.case-study-label-group {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	flex-wrap: wrap;
+}
+
+.case-study-label {
+	display: inline-block;
+	font:
+		700 0.72rem / 1 "Avenir Next",
+		"Helvetica Neue",
+		Arial,
+		sans-serif;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: rgba(12, 13, 11, 0.6);
+	padding: 0.35rem 0.75rem;
+	background: rgba(12, 13, 11, 0.04);
+	border-radius: 999px;
+	width: fit-content;
+}
+
+.case-study-label--soft {
+	background: rgba(12, 13, 11, 0.02);
+	color: rgba(12, 13, 11, 0.5);
+}
+
+.case-study-title {
+	font:
+		700 clamp(2rem, 5vw, 3.5rem) / 1 "Avenir Next",
+		"Helvetica Neue",
+		Arial,
+		sans-serif;
+	color: #09090a;
+	margin: 0;
+}
+
+.case-study-intro {
+	font:
+		500 clamp(1rem, 1.8vw, 1.2rem) / 1.5 "Avenir Next",
+		"Helvetica Neue",
+		Arial,
+		sans-serif;
+	color: rgba(22, 23, 18, 0.75);
+	margin: 0;
+}
+
+/* Media Section */
+.case-study-media {
+	width: 100%;
+	border-radius: 20px;
+	overflow: hidden;
+	background: rgba(12, 13, 11, 0.04);
+}
+
+.case-study-media picture,
+.case-study-media img,
+.case-study-media video {
+	display: block;
+	width: 100%;
+	height: auto;
+	object-fit: cover;
+}
+
+.case-study-image,
+.case-study-video {
+	width: 100%;
+	height: auto;
+	display: block;
+}
+
+/* Content Section */
+.case-study-content {
+	display: grid;
+	gap: 2rem;
+}
+
+.case-study-content--story {
+	gap: 1.5rem;
+}
+
+.case-study-story-block {
+	display: grid;
+	gap: 0.85rem;
+}
+
+.case-study-story-block h2 {
+	font:
+		700 1.4rem / 1 "Avenir Next",
+		"Helvetica Neue",
+		Arial,
+		sans-serif;
+	color: #09090a;
+	margin: 0;
+}
+
+.case-study-story-audio {
+	width: 100%;
+	border-radius: 999px;
+	background: rgba(12, 13, 11, 0.04);
+	box-shadow: 0 4px 16px rgba(12, 13, 11, 0.08);
+}
+
+.case-study-story-pdf {
+	width: 100%;
+	height: min(60dvh, calc(100dvh - 18rem));
+	min-height: 360px;
+	border: 1px solid rgba(12, 13, 11, 0.08);
+	border-radius: 18px;
+	background: rgba(255, 255, 255, 0.65);
+}
+
+.case-study-story-prose {
+	display: grid;
+	gap: 1rem;
+	font:
+		500 1rem / 1.75 "Avenir Next",
+		"Helvetica Neue",
+		Arial,
+		sans-serif;
+	color: rgba(22, 23, 18, 0.82);
+}
+
+.case-study-story-prose p {
+	margin: 0;
+}
+
+.case-study-embedded-case-study {
+	display: grid;
+	gap: 1rem;
+}
+
+.case-study-embedded-case-study article {
+	width: 100%;
+}
+
+.case-study-details {
+	display: grid;
+	gap: 1.5rem;
+}
+
+.case-study-details h2 {
+	font:
+		700 1.75rem / 1 "Avenir Next",
+		"Helvetica Neue",
+		Arial,
+		sans-serif;
+	color: #09090a;
+	margin: 0;
+}
+
+.case-study-details > p {
+	font:
+		500 1rem / 1.6 "Avenir Next",
+		"Helvetica Neue",
+		Arial,
+		sans-serif;
+	color: rgba(22, 23, 18, 0.8);
+	margin: 0;
+}
+
+/* Field Blocks */
+.case-study-field {
+	display: grid;
+	gap: 0.5rem;
+}
+
+.case-study-field h3 {
+	font:
+		700 0.9rem / 1 "Avenir Next",
+		"Helvetica Neue",
+		Arial,
+		sans-serif;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	color: rgba(12, 13, 11, 0.65);
+	margin: 0;
+}
+
+.case-study-field p {
+	font:
+		500 1rem / 1.6 "Avenir Next",
+		"Helvetica Neue",
+		Arial,
+		sans-serif;
+	color: rgba(22, 23, 18, 0.8);
+	margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+	.case-study-backdrop {
+		width: 95vw;
+		height: min(95dvh, calc(100dvh - 1rem));
+		max-height: min(95dvh, calc(100dvh - 1rem));
+		border-radius: 24px;
+	}
+
+	.case-study-backdrop--wide {
+		width: 95vw;
+		max-width: 95vw;
+	}
+
+	.case-study-container {
+		padding: 0 1.25rem 1.25rem;
+		gap: 1.75rem;
+	}
+
+	.case-study-close {
+		margin: 0.85rem 0.85rem 0 auto;
+	}
+
+	.case-study-title {
+		font-size: clamp(1.5rem, 4vw, 2.5rem);
+	}
+
+	.case-study-details h2 {
+		font-size: 1.35rem;
+	}
+
+	.case-study-story-pdf {
+		height: min(52dvh, calc(100dvh - 16rem));
+		min-height: 280px;
+	}
+}
+
+/* Animation keyframes for additional fluid effects */
+@keyframes float-in {
+	from {
+		opacity: 0;
+		transform: translateY(12px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.case-study-details {
+	animation: float-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.case-study-details {
+		animation: none;
+	}
+}

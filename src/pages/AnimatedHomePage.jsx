@@ -1,13 +1,11 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
-import Menu from "../components/Menu";
 import Letter from "../components/DrawLetters";
 import MadeByMeHand from "../components/MadeByMeHand";
 import VerticalTimeline from "../components/VerticalTimeline";
 import ScrollIndicator from "../components/ScrollIndicator";
-import { useNavigate } from "react-router-dom";
 import headshotImage from "../illustratedheadshot.webp";
 
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
@@ -50,7 +48,7 @@ const cancelIdle =
 		? window.cancelIdleCallback.bind(window)
 		: (id) => clearTimeout(id);
 
-const HomePageComponent = ({ openModal }) => {
+const HomePageComponent = () => {
 	const signatureRef = useRef(null);
 	const headRef = useRef(null);
 
@@ -67,25 +65,37 @@ const HomePageComponent = ({ openModal }) => {
 
 	// Animate headshot immediately on mount (or show instantly if animation already played)
 	useEffect(() => {
-		if (hasAnimationPlayed) {
-			// Show instantly if animation has already played
-			gsap.set(headRef.current, { opacity: 1, scale: 1 });
-		} else {
-			gsap.fromTo(
-				headRef.current,
-				{
-					opacity: 0,
-					scale: 0.8,
-					willChange: "opacity, transform",
-				},
-				{
-					opacity: 1,
-					scale: 1,
-					duration: 1.2,
-					ease: "power2.out",
-					clearProps: "willChange",
-				},
-			);
+		try {
+			if (hasAnimationPlayed) {
+				// Show instantly if animation has already played
+				gsap.set(headRef.current, { opacity: 1, scale: 1 });
+			} else {
+				gsap.fromTo(
+					headRef.current,
+					{
+						opacity: 0,
+						scale: 0.8,
+						willChange: "opacity, transform",
+					},
+					{
+						opacity: 1,
+						scale: 1,
+						duration: 1.2,
+						ease: "power2.out",
+						clearProps: "willChange",
+					},
+				);
+			}
+		} catch (err) {
+			console.error("Failed to animate headshot:", err);
+			// Ensure headshot is visible even if animation fails
+			try {
+				if (headRef.current) {
+					headRef.current.style.opacity = "1";
+				}
+			} catch (resetErr) {
+				console.error("Failed to reset headshot on error:", resetErr);
+			}
 		}
 	}, [hasAnimationPlayed]);
 
@@ -103,43 +113,68 @@ const HomePageComponent = ({ openModal }) => {
 		const typingSpeed = 3; // ~1.2 seconds total for full paragraph
 
 		const typeNextChar = (timestamp) => {
-			if (!lastTime) lastTime = timestamp;
-			const elapsed = timestamp - lastTime;
+			try {
+				if (!lastTime) lastTime = timestamp;
+				const elapsed = timestamp - lastTime;
 
-			if (elapsed > typingSpeed) {
-				if (currentIndex <= fullText.length) {
-					setTypedText(fullText.slice(0, currentIndex));
-					currentIndex++;
-					lastTime = timestamp;
-				} else {
-					setIsTypingComplete(true);
+				if (elapsed > typingSpeed) {
+					if (currentIndex <= fullText.length) {
+						setTypedText(fullText.slice(0, currentIndex));
+						currentIndex++;
+						lastTime = timestamp;
+					} else {
+						setIsTypingComplete(true);
 
-					// Mark animation as played for this session
-					setAnimationPlayedInSession();
+						// Mark animation as played for this session
+						setAnimationPlayedInSession();
 
-					// Defer signature animation to reduce main thread blocking
-					idleId = requestIdle(
-						() => {
-							gsap.fromTo(
-								signatureRef.current,
-								{ opacity: 0, y: 20, willChange: "opacity, transform" },
-								{
-									opacity: 1,
-									y: 0,
-									duration: 1,
-									ease: "power2.out",
-									delay: 0.3,
-									clearProps: "willChange",
+						// Defer signature animation to reduce main thread blocking
+						try {
+							idleId = requestIdle(
+								() => {
+									try {
+										gsap.fromTo(
+											signatureRef.current,
+											{ opacity: 0, y: 20, willChange: "opacity, transform" },
+											{
+												opacity: 1,
+												y: 0,
+												duration: 1,
+												ease: "power2.out",
+												delay: 0.3,
+												clearProps: "willChange",
+											},
+										);
+									} catch (err) {
+										console.error("Failed to animate signature:", err);
+										// Ensure signature is visible on error
+										try {
+											if (signatureRef.current) {
+												signatureRef.current.style.opacity = "1";
+											}
+										} catch (resetErr) {
+											console.error(
+												"Failed to reset signature on error:",
+												resetErr,
+											);
+										}
+									}
 								},
+								{ timeout: 500 },
 							);
-						},
-						{ timeout: 500 },
-					);
-					return;
+						} catch (err) {
+							console.error("Failed to schedule signature animation:", err);
+						}
+						return;
+					}
 				}
-			}
 
-			rafId = requestAnimationFrame(typeNextChar);
+				rafId = requestAnimationFrame(typeNextChar);
+			} catch (err) {
+				console.error("Typing animation error:", err);
+				setIsTypingComplete(true);
+				setAnimationPlayedInSession();
+			}
 		};
 
 		rafId = requestAnimationFrame(typeNextChar);
@@ -152,16 +187,25 @@ const HomePageComponent = ({ openModal }) => {
 
 	// Show signature section instantly if animation has already played
 	useEffect(() => {
-		if (hasAnimationPlayed) {
-			gsap.set(signatureRef.current, { opacity: 1, y: 0 });
+		try {
+			if (hasAnimationPlayed) {
+				gsap.set(signatureRef.current, { opacity: 1, y: 0 });
+			}
+		} catch (err) {
+			console.error("Failed to set signature visibility:", err);
+			// Ensure signature is visible on error
+			try {
+				if (signatureRef.current) {
+					signatureRef.current.style.opacity = "1";
+				}
+			} catch (resetErr) {
+				console.error("Failed to reset signature on error:", resetErr);
+			}
 		}
 	}, [hasAnimationPlayed]);
 
 	return (
 		<div className="hero-wrap">
-			{/* Menu at the top */}
-			<Menu openModal={openModal} />
-
 			<div className="hero-split">
 				<div className="hero-text-section">
 					<div ref={signatureRef} className="signature-section">
@@ -210,32 +254,14 @@ const HomePageComponent = ({ openModal }) => {
 };
 
 const AnimatedHomePage = () => {
-	const navigate = useNavigate();
-
 	// Refresh ScrollTrigger on mount to ensure smooth scrolling
 	useEffect(() => {
 		ScrollTrigger.refresh();
 	}, []);
 
-	const openModal = useCallback(
-		(sectionTitle) => {
-			const routes = {
-				DESIGN: "/expertise?filter=design",
-				DEVELOPMENT: "/expertise?filter=development",
-				WRITING: "/expertise?filter=writing",
-				MEDIA: "/expertise?filter=media",
-			};
-
-			if (routes[sectionTitle]) {
-				navigate(routes[sectionTitle]);
-			}
-		},
-		[navigate],
-	);
-
 	return (
 		<div>
-			<HomePageComponent openModal={openModal} />
+			<HomePageComponent />
 			<VerticalTimeline />
 			{/* <TechSkills /> */}
 			<MadeByMeHand />
