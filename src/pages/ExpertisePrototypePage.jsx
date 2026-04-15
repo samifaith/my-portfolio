@@ -60,7 +60,8 @@ const ExpertisePrototypePage = () => {
 			{
 				id: "eat-like-child",
 				title: "Eat Like a Child",
-				description: "Reflection on family, food, and immigrant identity.",
+				description:
+					"A personal reflection on a childhood memory about food and family.",
 				image: "/writing/manger.webp",
 				label: "Writing",
 				route: "/expertise-archived/eat-like-child",
@@ -69,7 +70,8 @@ const ExpertisePrototypePage = () => {
 			{
 				id: "home-cook",
 				title: "The Rise of the Home Cook",
-				description: "Profile on home-chef creativity and storytelling.",
+				description:
+					"An exploration of the rise of the homecook and what it means to be a kitchen witch.",
 				image: "/writing/OuiChef.webp",
 				label: "Writing",
 				route: "/expertise-archived/home-cook",
@@ -79,7 +81,7 @@ const ExpertisePrototypePage = () => {
 				id: "tea-with-sami",
 				title: "Tea with Sami",
 				description:
-					"Audio conversation on relationships, growth, and healing.",
+					"A fictional podcast episode about the origins of the Nashville Hot Chicken. Part of a larger project exploring the history of food through fictional narratives.",
 				image: "/writing/revengehot.gif",
 				label: "Writing",
 				route: "/expertise-archived/tea-with-sami",
@@ -88,7 +90,8 @@ const ExpertisePrototypePage = () => {
 			{
 				id: "life2life",
 				title: "Life 2 Life Travel Agency | Web Interface",
-				description: "Vector portrait exploration.",
+				description:
+					"A home page concept for a travel agency specializing in AI-cultivated travel experiences.",
 				image: "/design/SamDeCoteau_Vector.avif",
 				label: "Development",
 				route: "/expertise",
@@ -98,7 +101,7 @@ const ExpertisePrototypePage = () => {
 				id: "wanderlust",
 				title: "Wanderlust",
 				description:
-					"Travel-planning app concept that simplifies trips with intuitive UX.",
+					"Travel-planning app concept that simplifies trips. Designed to help users easily organize and visualize their travel plans, streamlining the process of trip planning.",
 				image: "/design/SamDeCoteau_Vector.avif",
 				label: "Development",
 				role: "UX/UI Designer",
@@ -110,7 +113,8 @@ const ExpertisePrototypePage = () => {
 			{
 				id: "rowdy",
 				title: "ROWDY Type Poster",
-				description: "Bold typography study.",
+				description:
+					"Type study inspired by the UK punk scene of the late 70s utilizing the typeface Rowdy by Benjamin Busse.",
 				image: "/design/SD_TypePoster_ROWDY.avif",
 				label: "Design",
 				route: "/expertise",
@@ -119,7 +123,8 @@ const ExpertisePrototypePage = () => {
 			{
 				id: "lombardia",
 				title: "LOMBARDIA Type Poster",
-				description: "Italian-inspired type study.",
+				description:
+					"My take on a Saul Bass-inspired type poster using the typeface Lombardia by Luciano Perondi.",
 				image: "/design/SD_TypePoster_LOMBARDIA.avif",
 				label: "Design",
 				route: "/expertise",
@@ -128,7 +133,8 @@ const ExpertisePrototypePage = () => {
 			{
 				id: "vote",
 				title: "Lady Liberty Says to Vote",
-				description: "Civic-awareness poster.",
+				description:
+					"I'm not an illustrator, but I use Illustrator... if you know what I mean. A poster design encouraging voter participation inspired by the iconic 'We Can Do It!' Rosie the Riveter poster.",
 				image: "/design/Vote_Poster.avif",
 				label: "Design",
 				route: "/expertise",
@@ -137,7 +143,8 @@ const ExpertisePrototypePage = () => {
 			{
 				id: "black-unicorn",
 				title: "Black Unicorn",
-				description: "Brand illustration study.",
+				description:
+					"Conceptual branding and poster design for a personal brand called Black Unicorn. A reflection of my own journey as a designer and creative, embracing the unique and unconventional path I've taken in my career.",
 				image: "/design/BlackUnicorn.avif",
 				label: "Design",
 				route: "/expertise",
@@ -146,7 +153,8 @@ const ExpertisePrototypePage = () => {
 			{
 				id: "diving-film",
 				title: "Diving",
-				description: "Short motion study.",
+				description:
+					"I am a certified scuba diver and have a passion for travel and photography. This is a short clip compiled from footage captured during a diving trip in Cabo San Lucas, Mexico.",
 				video: "/photography/diving.MP4",
 				label: "Media",
 				route: "/expertise",
