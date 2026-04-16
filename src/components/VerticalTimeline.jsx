@@ -10,7 +10,7 @@ const defaultItems = [
 		id: 1,
 		year: "2009",
 		title: "Graduated from Boston Latin Academy",
-		text: "The school paper and track shaped how I work. I learned to hit deadlines, edit under pressure, and collaborate with care.",
+		text: "Where the creativity started. Balancing the school paper with competitive track was my first lesson in hitting deadlines and participating with a team under pressure. I’ve been running with that same hustle ever since.",
 		side: "left",
 		skills: [
 			"Team Leadership",
@@ -25,7 +25,7 @@ const defaultItems = [
 		id: 2,
 		year: "2010",
 		title: "Center for Digital Imaging Arts at Boston University",
-		text: "Studio training taught me to shape light, compose with intention, and run a consistent shoot-to-delivery workflow. I produced ~12–18 studio sets per term, maintained calibrated color across shoots, and cut edit time by ~25% using presets and checklists.",
+		text: "I couldn't draw but I knew what looked good--I had a good 'eye'. This was a deep dive into the technical side of the lens. I learned the science of composition and how to handle a studio.",
 		side: "right",
 		skills: [
 			"Photography & Composition",
@@ -39,7 +39,7 @@ const defaultItems = [
 		id: 3,
 		year: "2018",
 		title: "DeCoteau Photography",
-		text: "Launched a portrait and wedding studio. Averaged ~20–30 shoots per season with on-time delivery at ~98%. Referral and repeat clients drove ~60% of bookings. Pre-shoot moodboards and shot lists cut revision cycles by ~40–50%.",
+		text: "Long before I was writing code, I was a photographer. My years in photography and handling its operations taught me two things: how to see what others miss, and how to stay calm when the stakes are high. Whether I was photographing a wedding or designing photobook layouts, I was learning how to define my voice, creating the moment where a service becomes an experience.",
 		side: "left",
 		skills: [
 			"Client Discovery",
@@ -61,7 +61,7 @@ const defaultItems = [
 		id: 4,
 		year: "2017",
 		title: "Sandpiper Rentals · Martha's Vineyard",
-		text: "Standardized listing templates and development the company's brand identity. Brought the average first-response time from ~24h to ~1h during peak season by implementing communication rotations, reduced avoidable listing errors to near-zero, and kept owner and guest satisfaction high via simple SOPs.",
+		text: "A masterclass in dynamic operations. I managed the logistics for 600+ properties and a 12-person team. I didn’t just follow processes—I built the engine, slashing first-response times from 24 hours to 1. This was where I learned to drive change, manage demanding stakeholders, and move with purpose when the pressure was on.",
 		side: "right",
 		skills: [
 			"Customer Experience",
@@ -76,7 +76,7 @@ const defaultItems = [
 		id: 5,
 		year: "2018",
 		title: "Wayfair · Campus Recruitment",
-		text: "Sourced and shepherded early-career candidates, ran campus events, and supported structured interview loops. Increased representation of diversely qualified candidates in pipelines from ~7% to ~30%, trimmed time-to-fill by ~2 weeks on recurring roles, and held offer acceptance near ~70% by clarifying rubrics and smoothing loops.",
+		text: "Wayfair was where I learned that the most important product you ever build is the team itself. As a recruiter and co-leader of the WayBlack ERG, I was introduced to engineers driving change, inspiring me to take that same leap. Our recruitment efforts managed to move the needle on diversity from 7% to 30% because we stopped looking at checkboxes and started looking at human potential. I bring that same lens to my work today: if it isn't inclusive, it isn't finished.",
 		side: "left",
 		skills: [
 			"Talent Sourcing",
@@ -91,7 +91,7 @@ const defaultItems = [
 		id: 6,
 		year: "2020",
 		title: "Resilient Coders",
-		text: "Shifted into software with full-stack projects. Delivered capstone apps with Lighthouse performance at ~95–98% on key flows, practiced agile development sprints, and shipped responsive UI with structured code reviews and issue tracking.",
+		text: "This was my deep dive into the 'how.' I believe a designer who understands the code makes for a better collaborator. At Resilient Coders, I grounded my creative skills in technical development, shipping full-stack applications, aiming for near-perfect Lighthouse scores. It taught me the art of lean code, delegation and collaboration, and ultimately to create human-centered products that deliver.",
 		side: "right",
 		skills: ["Responsive Design", "Agile Practices"],
 		techTools: [
@@ -111,7 +111,7 @@ const defaultItems = [
 		id: 7,
 		year: "2024",
 		title: "AESARA Inc.",
-		text: "Worked on the Health Economics and Outcomes Research (HEOR) evidence tool, ATLAS, utilizing product, design, and front-end development skills. Built ~20–30 reusable UI components and introduced design-systems. Helped move releases from ~1–2 to ~3–4 per quarter by tightening handoffs and acceptance criteria.",
+		text: "In the world of Health Economics, data is usually dense and complex. At AESARA, my job was to make it fluid and intuitive. I took lead on UX product strategy for the ATLAS platform, where I wasn't just designing—I was conceptualizing each release. By creating a system of 30+ reusable components, I didn't just help the product look better; I streamlined the development process. I turned clinical data into something real, interactive, and—most importantly—usable.",
 		side: "left",
 		skills: [
 			"Product Development",
@@ -135,7 +135,7 @@ const defaultItems = [
 		id: 8,
 		year: "2026",
 		title: "Johnson & Wales University · Food Studies, Media & Design",
-		text: "I wanted to design a degree that blended culture, food systems, and storytelling into shippable work. I produced case studies, ran user tests on prototypes, and directed design and brand direction for the JWU innovation lab, The Launch Pad.",
+		text: "I don’t believe in silos. My work intersects high-level systems thinking and the stories that drive them. I’m wrapping up at Johnson & Wales, thinking about how we build community through food and media, but my roots are in the code. I’ve built enterprise tools for global consultants and scaled diversity for retail giants. I’m not just designing interfaces; I’m architecting the way people interact with their world.",
 		side: "right",
 		skills: [
 			"User-Centered Design",
