@@ -264,6 +264,7 @@ const Menu = ({ openModal }) => {
 				<ul>
 					{renderDesktopMenuItem("HOME", "home")}
 					{renderDesktopMenuItem("EXPERTISE", "EXPERTISE")}
+					<li id="nav-filter-slot" className="desktop-menu-item nav-filter-slot"></li>
 					{/* LinkedIn Link */}
 					<li className="desktop-menu-item desktop-menu-item--icons-start">
 						<a

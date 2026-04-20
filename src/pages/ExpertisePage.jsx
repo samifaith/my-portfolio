@@ -6,6 +6,7 @@ import {
 	useRef,
 	useState,
 } from "react";
+import { createPortal } from "react-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
@@ -35,6 +36,7 @@ const ExpertisePage = () => {
 	const [isReturnToTopVisible, setIsReturnToTopVisible] = useState(false);
 	const [isAboveProtoPage, setIsAboveProtoPage] = useState(true);
 	const [topOffset, setTopOffset] = useState("0px");
+	const [navFilterSlot, setNavFilterSlot] = useState(null);
 	const sectionRefs = useRef([]);
 	const pageRef = useRef(null);
 	const featuredRef = useRef(null);
@@ -620,6 +622,12 @@ const ExpertisePage = () => {
 		};
 	}, [isModalOpen, requestScrollTriggerRefresh]);
 
+	useEffect(() => {
+		const slot = document.getElementById("nav-filter-slot");
+		setNavFilterSlot(slot);
+		return () => setNavFilterSlot(null);
+	}, []);
+
 	const jumpFilters = useMemo(
 		() => [...new Set(sections.map((section) => section.label))],
 		[sections],
@@ -803,8 +811,27 @@ const ExpertisePage = () => {
 		);
 	};
 
+	const filterButtons = ["Featured", ...jumpFilters].map((filterLabel) => (
+		<button
+			key={filterLabel}
+			type="button"
+			className={`proto-jump-btn ${
+				filterLabel === "Featured"
+					? isAboveProtoPage ? "is-active" : ""
+					: activeSection.label === filterLabel ? "is-active" : ""
+			}`}
+			onClick={() => handleJumpTo(filterLabel)}
+		>
+			{filterLabel}
+		</button>
+	));
+
 	return (
 		<>
+		{navFilterSlot && createPortal(
+			<div className="proto-jump-controls">{filterButtons}</div>,
+			navFilterSlot
+		)}
 		<div className="proto-jump-wrap">
 			<section
 				ref={jumpRef}
@@ -813,20 +840,7 @@ const ExpertisePage = () => {
 			>
 				<p className="proto-jump-label">Jump to</p>
 				<div className="proto-jump-controls">
-					{["Featured", ...jumpFilters].map((filterLabel) => (
-						<button
-							key={filterLabel}
-							type="button"
-							className={`proto-jump-btn ${
-								filterLabel === "Featured"
-									? isAboveProtoPage ? "is-active" : ""
-									: activeSection.label === filterLabel ? "is-active" : ""
-							}`}
-							onClick={() => handleJumpTo(filterLabel)}
-						>
-							{filterLabel}
-						</button>
-					))}
+					{filterButtons}
 				</div>
 			</section>
 		</div>
