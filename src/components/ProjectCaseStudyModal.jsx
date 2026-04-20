@@ -1,6 +1,6 @@
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef, useCallback, useMemo } from "react";
 import { gsap } from "gsap";
-import { CardMedia } from "@mui/material";
+import { CardMedia, Card, CardContent, Typography } from "@mui/material";
 import stories from "../constants/WritingPieces";
 import caseStudies from "../constants/CaseStudies";
 import WanderlustCaseStudyContent from "./WanderlustCaseStudyContent";
@@ -36,28 +36,61 @@ const resolveModalContent = (project) => {
 	return { kind: "project" };
 };
 
-const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose }) => {
+const StudyFields = ({ study, tools }) => (
+	<>
+		<div className="case-study-field">
+			<h3>Purpose</h3>
+			<p>{study.purpose}</p>
+		</div>
+		<div className="case-study-field">
+			<h3>My Role</h3>
+			<p>{study.role}</p>
+		</div>
+		<div className="case-study-field">
+			<h3>Direction</h3>
+			<p>{study.direction}</p>
+		</div>
+		{tools && tools.length > 0 && (
+			<div className="case-study-field">
+				<h3>Tools</h3>
+				<div className="case-study-tool-tags">
+					{tools.map((tool) => (
+						<span key={tool} className="case-study-tool-tag">{tool}</span>
+					))}
+				</div>
+			</div>
+		)}
+	</>
+);
+
+const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose, onNext, onPrev, hasNext, hasPrev }) => {
 	const modalRef = useRef(null);
 	const contentRef = useRef(null);
 	const closeButtonRef = useRef(null);
 	const previousOverflowRef = useRef(null);
 	const previousFocusRef = useRef(null);
-	const modalContent = resolveModalContent(project);
+	const modalContent = useMemo(() => resolveModalContent(project), [project]);
 	const isStory = modalContent.kind === "story";
 	const isCaseStudy = modalContent.kind === "case-study";
 	const isProjectModal = !isStory && !isCaseStudy;
-	const isWideModal = isStory || isCaseStudy;
 	const story = isStory ? modalContent.story : null;
 	const caseStudy = isCaseStudy ? modalContent.caseStudy : null;
-	const heroImagePath = story?.coverImage || project?.image || null;
-	const projectImageSources = project?.image
-		? getModernImageSources(project.image)
-		: null;
-	const shouldShowStoryCover = isStory && project?.id === "tea-with-sami";
-	const storyParagraphs = splitParagraphs(story?.content);
-	const prefersReducedMotion =
+	const projectImageSources = useMemo(
+		() => (project?.image ? getModernImageSources(project.image) : null),
+		[project?.image],
+	);
+	const storyParagraphs = useMemo(() => splitParagraphs(story?.content), [story?.content]);
+	const storyMediaKind = useMemo(() => {
+		if (!story) return null;
+		if (story.pdfFile) return "pdf";
+		if (story.coverImage && story.audioFile) return "image-audio";
+		if (story.coverImage) return "image-only";
+		return null;
+	}, [story]);
+	const prefersReducedMotion = useRef(
 		typeof window !== "undefined" &&
-		window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+			window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+	).current;
 
 	const restoreBodyOverflow = useCallback(() => {
 		try {
@@ -77,7 +110,7 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose }) => {
 			}
 
 			const animatedBlocks = contentRef.current.querySelectorAll(
-				".case-study-header, .case-study-content, .case-study-embedded-case-study, .case-study-details, .case-study-media, .case-study-story-block, .case-study-story-prose",
+				".case-study-header, .case-study-split-media, .case-study-split-text, .case-study-story-prose, .case-study-details, .case-study-overview-panel",
 			);
 
 			gsap.set([modalRef.current, contentRef.current], {
@@ -108,31 +141,17 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose }) => {
 				try {
 					if (prefersReducedMotion) {
 						gsap.set(modalRef.current, { opacity: 1 });
-						gsap.set(contentRef.current, {
-							scale: 1,
-							opacity: 1,
-							y: 0,
-							rotateX: 0,
-						});
+						gsap.set(contentRef.current, { opacity: 1, y: 0 });
 						gsap.set(animatedBlocks, { opacity: 1, y: 0 });
 						return undefined;
 					}
 
 					gsap.set(modalRef.current, { opacity: 0 });
 					gsap.set(contentRef.current, {
-						scale: 0.96,
 						opacity: 0,
-						y: 26,
-						rotateX: -6,
-						transformOrigin: "50% 8%",
+						y: 20,
 					});
 					gsap.set(animatedBlocks, { opacity: 0, y: 16 });
-
-					if (prefersReducedMotion) {
-						gsap.set(modalRef.current, { opacity: 1 });
-						gsap.set(contentRef.current, { scale: 1, opacity: 1, y: 0 });
-						return undefined;
-					}
 
 					gsap
 						.timeline()
@@ -148,12 +167,10 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose }) => {
 						.to(
 							contentRef.current,
 							{
-								scale: 1,
 								opacity: 1,
 								y: 0,
-								rotateX: 0,
-								duration: 0.62,
-								ease: "power4.out",
+								duration: 0.5,
+								ease: "power3.out",
 							},
 							0,
 						)
@@ -174,12 +191,7 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose }) => {
 			} else {
 				try {
 					if (prefersReducedMotion) {
-						gsap.set(contentRef.current, {
-							scale: 1,
-							opacity: 0,
-							y: 0,
-							rotateX: 0,
-						});
+						gsap.set(contentRef.current, { opacity: 0, y: 0 });
 						gsap.set(modalRef.current, { opacity: 0, pointerEvents: "none" });
 						restoreBodyOverflow();
 						onAfterClose?.();
@@ -202,11 +214,9 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose }) => {
 						.to(
 							contentRef.current,
 							{
-								scale: 0.97,
 								opacity: 0,
-								y: 18,
-								rotateX: 3,
-								duration: 0.3,
+								y: 14,
+								duration: 0.28,
 								ease: "power3.in",
 							},
 							0.05,
@@ -267,6 +277,18 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose }) => {
 				return;
 			}
 
+			if (e.key === "ArrowRight" && hasNext) {
+				e.preventDefault();
+				onNext();
+				return;
+			}
+
+			if (e.key === "ArrowLeft" && hasPrev) {
+				e.preventDefault();
+				onPrev();
+				return;
+			}
+
 			if (e.key === "Tab" && contentRef.current) {
 				const focusableElements =
 					contentRef.current.querySelectorAll(FOCUSABLE_SELECTOR);
@@ -290,7 +312,7 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose }) => {
 				}
 			}
 		},
-		[onClose],
+		[onClose, onNext, onPrev, hasNext, hasPrev],
 	);
 
 	useEffect(() => {
@@ -324,183 +346,241 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose }) => {
 		>
 			<div
 				ref={contentRef}
-				className={`case-study-backdrop ${
-					isWideModal ? "case-study-backdrop--wide" : ""
-				} ${isProjectModal ? "case-study-backdrop--project-contained" : ""}`}
+				className="case-study-backdrop case-study-backdrop--split"
 			>
-				<button
-					type="button"
-					className="case-study-close"
-					onClick={onClose}
-					aria-label="Close modal"
-					ref={closeButtonRef}
-				>
-					<svg
-						width="24"
-						height="24"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						strokeWidth="2"
-						strokeLinecap="round"
-						strokeLinejoin="round"
-					>
-						<line x1="18" y1="6" x2="6" y2="18" />
-						<line x1="6" y1="6" x2="18" y2="18" />
-					</svg>
-				</button>
-
-				<div className="case-study-container">
-					<header className="case-study-header">
-						<div className="case-study-label-group">
-							<span className="case-study-label">{project.label}</span>
-							{isStory && story?.subtitle && (
-								<span className="case-study-label case-study-label--soft">
-									{story.subtitle}
-								</span>
-							)}
-							{isCaseStudy && caseStudy?.subtitle && (
-								<span className="case-study-label case-study-label--soft">
-									{caseStudy.subtitle}
-								</span>
-							)}
-						</div>
-						<h1
-							id={`case-study-title-${project.id}`}
-							className="case-study-title"
+				<div className="case-study-controls">
+					{hasPrev && (
+						<button
+							type="button"
+							className="case-study-nav"
+							onClick={onPrev}
+							aria-label="Previous project"
 						>
-							{project.title}
-						</h1>
-						<p className="case-study-intro">
-							{story?.subtitle || caseStudy?.overview || project.description}
-						</p>
-					</header>
+							<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+								<polyline points="15 18 9 12 15 6" />
+							</svg>
+						</button>
+					)}
+					{hasNext && (
+						<button
+							type="button"
+							className="case-study-nav"
+							onClick={onNext}
+							aria-label="Next project"
+						>
+							<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+								<polyline points="9 18 15 12 9 6" />
+							</svg>
+						</button>
+					)}
+					<button
+						type="button"
+						className="case-study-close"
+						onClick={onClose}
+						aria-label="Close modal"
+						ref={closeButtonRef}
+					>
+						<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+							<line x1="18" y1="6" x2="6" y2="18" />
+							<line x1="6" y1="6" x2="18" y2="18" />
+						</svg>
+					</button>
+				</div>
 
-					{isStory && (
-						<div className="case-study-content case-study-content--story">
-							{shouldShowStoryCover && heroImagePath && (
-								<div className="case-study-media case-study-media--story">
-									<img
-										src={heroImagePath}
-										alt={project.title}
-										className="case-study-image case-study-image--story-cover"
-										loading="lazy"
-										decoding="async"
-									/>
-								</div>
-							)}
-
-							{story.audioFile && (
-								<div className="case-study-story-block">
-									<h2>Listen</h2>
-									<CardMedia
-										component="audio"
+				<div className="case-study-split">
+					<div className="case-study-split-media">
+						{isStory && story?.pdfFile && (
+							<iframe
+								src={`${story.pdfFile}#toolbar=0&navpanes=0&scrollbar=0&view=Fit`}
+								title={`${story.title} PDF viewer`}
+								className="case-study-story-pdf"
+								loading="lazy"
+							/>
+						)}
+						{isStory && !story?.pdfFile && story?.coverImage && story?.audioFile && (
+							<Card sx={{
+								background: "rgba(0,0,0,0.25)",
+								border: "1px solid rgba(246,230,222,0.15)",
+								borderRadius: "20px",
+								width: "min(90%, 380px)",
+								overflow: "hidden",
+								boxShadow: "0 8px 32px rgba(0,0,0,0.35)",
+								flexShrink: 0,
+							}}>
+								<CardMedia
+									component="img"
+									image={story.coverImage}
+									alt={story.title}
+									sx={{ objectFit: "contain", background: "rgba(0,0,0,0.15)", maxHeight: "300px" }}
+								/>
+								<CardContent sx={{ display: "flex", flexDirection: "column", gap: 1.5, pb: "20px !important", pt: 2, px: 2.5 }}>
+									<Typography variant="overline" sx={{ color: "#c5ec56", letterSpacing: "0.1em", fontFamily: '"Avenir Next", sans-serif', lineHeight: 1 }}>
+										{story.subtitle}
+									</Typography>
+									<Typography variant="subtitle1" sx={{ color: "#f6e6de", fontFamily: '"Avenir Next", sans-serif', fontWeight: 700, lineHeight: 1.3 }}>
+										{story.title}
+									</Typography>
+									<audio
 										controls
-										preload="metadata"
 										src={story.audioFile}
+										style={{ width: "100%", marginTop: "4px" }}
 										aria-label={`${story.title} audio player`}
-										className="case-study-story-audio"
-										sx={{ width: "100%", display: "block" }}
 									>
 										<source src={story.audioFile} type="audio/mpeg" />
 										<source src={story.audioFile} type="audio/mp3" />
-										Your browser does not support the audio element.
-									</CardMedia>
-								</div>
-							)}
-
-							{story.pdfFile && (
-								<div className="case-study-story-block">
-									<h2>Read the Article</h2>
-									<iframe
-										src={`${story.pdfFile}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`}
-										title={`${story.title} PDF viewer`}
-										className="case-study-story-pdf"
-										loading="lazy"
-									/>
-								</div>
-							)}
-
-							<div className="case-study-story-prose">
-								{storyParagraphs.map((paragraph, index) => (
-									<p key={`${project.id}-paragraph-${index}`}>{paragraph}</p>
-								))}
+									</audio>
+								</CardContent>
+							</Card>
+						)}
+						{isStory && !story?.pdfFile && story?.coverImage && !story?.audioFile && (
+							<img
+								src={story.coverImage}
+								alt={project.title}
+								className="case-study-split-image"
+								loading="lazy"
+								decoding="async"
+							/>
+						)}
+						{isCaseStudy && caseStudy && (
+							<div
+								className="case-study-overview-panel"
+								style={{ background: caseStudy.theme?.coral }}
+							>
+								<p className="case-study-overview-text">{caseStudy.overview}</p>
+								{caseStudy.meta && (
+									<dl className="case-study-meta-list">
+										{caseStudy.meta.map((m) => (
+											<div key={m.label} className="case-study-meta-item">
+												<dt>{m.label}</dt>
+												<dd>{m.value}</dd>
+											</div>
+										))}
+									</dl>
+								)}
 							</div>
-						</div>
-					)}
+						)}
+						{isProjectModal && project.image && (
+							<picture>
+								{projectImageSources?.avif && (
+									<source srcSet={projectImageSources.avif} type="image/avif" />
+								)}
+								{projectImageSources?.webp && (
+									<source srcSet={projectImageSources.webp} type="image/webp" />
+								)}
+								<img
+									src={projectImageSources?.fallback || project.image}
+									alt={project.title}
+									className="case-study-split-image"
+									loading="lazy"
+									decoding="async"
+								/>
+							</picture>
+						)}
+						{isProjectModal && !project.image && project.video && (
+							<video
+								src={project.video}
+								className="case-study-split-image"
+								controls
+								muted
+								playsInline
+							/>
+						)}
+					</div>
 
-					{isCaseStudy && caseStudy && (
-						<div className="case-study-embedded-case-study">
-							<WanderlustCaseStudyContent caseStudy={caseStudy} />
-						</div>
-					)}
+					<div className="case-study-split-text">
+						<header className="case-study-header">
+							<div className="case-study-label-group">
+								<span className="case-study-label">{project.label}</span>
+								{isStory && story?.subtitle && (
+									<span className="case-study-label case-study-label--soft">
+										{story.subtitle}
+									</span>
+								)}
+								{isCaseStudy && caseStudy?.subtitle && (
+									<span className="case-study-label case-study-label--soft">
+										{caseStudy.subtitle}
+									</span>
+								)}
+							</div>
+							<h1
+								id={`case-study-title-${project.id}`}
+								className="case-study-title"
+							>
+								{project.title}
+							</h1>
+							<p className="case-study-intro">
+								{story?.subtitle || caseStudy?.overview || project.description}
+							</p>
+						</header>
 
-					{!isStory && !isCaseStudy && (
-						<div className="case-study-content case-study-content--split">
-							{(project.image || project.video) && (
-								<div className="case-study-media case-study-media--split">
-									{project.image && (
-										<picture>
-											{projectImageSources?.avif && (
-												<source
-													srcSet={projectImageSources.avif}
-													type="image/avif"
-												/>
-											)}
-											{projectImageSources?.webp && (
-												<source
-													srcSet={projectImageSources.webp}
-													type="image/webp"
-												/>
-											)}
-											<img
-												src={projectImageSources?.fallback || project.image}
-												alt={project.title}
-												className="case-study-image"
-												loading="lazy"
-												decoding="async"
-											/>
-										</picture>
-									)}
-									{project.video && (
-										<video
-											src={project.video}
-											className="case-study-video"
+						{isStory && (
+							<>
+								{story.audioFile && !story.coverImage && (
+									<div className="case-study-story-block">
+										<h2>Listen</h2>
+										<CardMedia
+											component="audio"
 											controls
-											muted
-											playsInline
-										/>
-									)}
+											preload="metadata"
+											src={story.audioFile}
+											aria-label={`${story.title} audio player`}
+											className="case-study-story-audio"
+											sx={{ width: "100%", display: "block" }}
+										>
+											<source src={story.audioFile} type="audio/mpeg" />
+											<source src={story.audioFile} type="audio/mp3" />
+											Your browser does not support the audio element.
+										</CardMedia>
+									</div>
+								)}
+								{project.study && (
+									<div className="case-study-details">
+										<StudyFields study={project.study} tools={project.tools} />
+									</div>
+								)}
+								<div className="case-study-story-prose">
+									{storyParagraphs.map((paragraph, index) => (
+										<p key={`${project.id}-paragraph-${index}`}>{paragraph}</p>
+									))}
 								</div>
-							)}
+							</>
+						)}
 
+						{isCaseStudy && caseStudy && (
+							<>
+								{project.study && (
+									<div className="case-study-details">
+										<StudyFields study={project.study} tools={project.tools} />
+									</div>
+								)}
+								<WanderlustCaseStudyContent caseStudy={caseStudy} />
+							</>
+						)}
+
+						{isProjectModal && (
 							<div className="case-study-details">
-								<h2>About This Project</h2>
-								<p>{project.description}</p>
-
-								{project.role && (
-									<div className="case-study-field">
-										<h3>Role</h3>
-										<p>{project.role}</p>
-									</div>
-								)}
-
-								{project.tools && (
-									<div className="case-study-field">
-										<h3>Tools & Skills</h3>
-										<p>{project.tools}</p>
-									</div>
-								)}
-
-								{project.result && (
-									<div className="case-study-field">
-										<h3>Result</h3>
-										<p>{project.result}</p>
-									</div>
+								{project.study ? (
+									<StudyFields study={project.study} tools={project.tools} />
+								) : (
+									<>
+										<p>{project.description}</p>
+										{project.role && (
+											<div className="case-study-field">
+												<h3>Role</h3>
+												<p>{project.role}</p>
+											</div>
+										)}
+										{project.result && (
+											<div className="case-study-field">
+												<h3>Result</h3>
+												<p>{project.result}</p>
+											</div>
+										)}
+									</>
 								)}
 							</div>
-						</div>
-					)}
+						)}
+					</div>
 				</div>
 			</div>
 		</div>

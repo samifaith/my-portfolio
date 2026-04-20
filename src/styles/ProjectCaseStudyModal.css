@@ -28,58 +28,68 @@
 /* Glass Container */
 .case-study-backdrop {
 	position: relative;
-	width: 90vw;
-	max-width: 900px;
-	height: min(90dvh, calc(100dvh - 2rem));
-	max-height: min(90dvh, calc(100dvh - 2rem));
-	background: rgba(153, 51, 51, 0.92);
-	-webkit-backdrop-filter: blur(20px);
-	backdrop-filter: blur(20px);
-	border: 1px solid rgba(246, 230, 222, 0.26);
-	border-radius: 32px;
-	box-shadow:
-		0 12px 36px rgba(37, 13, 13, 0.45),
-		inset 0 1px 0 rgba(246, 230, 222, 0.2);
-	overflow-y: auto;
-	overflow-x: hidden;
+	width: 100vw;
+	max-width: 100vw;
+	height: 100dvh;
+	max-height: 100dvh;
+	background: rgba(153, 51, 51, 0.97);
+	border: none;
+	border-radius: 0;
 	pointer-events: auto;
-	transform-origin: 50% 8%;
 	will-change: transform, opacity;
-	scrollbar-color: auto transparent;
 }
 
-.case-study-backdrop::-webkit-scrollbar-track {
-	background: transparent;
-}
-
-.case-study-backdrop--wide {
-	width: min(96vw, 1240px);
-	max-width: 1240px;
-}
-
-.case-study-backdrop--project-contained {
+/* Unified split layout */
+.case-study-backdrop--split {
 	overflow: hidden;
 	display: flex;
 	flex-direction: column;
 }
 
+/* Controls group: nav + close in top-right */
+.case-study-controls {
+	position: absolute;
+	top: 1rem;
+	right: 1rem;
+	display: flex;
+	align-items: center;
+	gap: 0.375rem;
+	z-index: 20;
+}
+
+/* Navigation Buttons — discreet, same height as close */
+.case-study-nav {
+	width: 36px;
+	height: 36px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: rgba(246, 230, 222, 0.08);
+	border: 1px solid rgba(246, 230, 222, 0.18);
+	border-radius: var(--ui-pill-radius);
+	cursor: pointer;
+	color: rgba(246, 230, 222, 0.65);
+	transition: all 0.2s ease;
+}
+
+.case-study-nav:hover {
+	background: rgba(197, 236, 86, 0.18);
+	color: #c5ec56;
+	border-color: rgba(197, 236, 86, 0.35);
+}
+
 /* Close Button */
 .case-study-close {
-	position: sticky;
-	top: 0;
-	right: 0;
-	width: 48px;
-	height: 48px;
+	width: 36px;
+	height: 36px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	background: var(--ui-glass-bg);
-	border: none;
-	border-radius: var(--ui-pill-radius);
 	border: 1px solid var(--ui-glass-border);
+	border-radius: var(--ui-pill-radius);
 	cursor: pointer;
 	color: #f6e6de;
-	margin: 1.25rem 1.25rem 0 auto;
 	z-index: 10;
 	transition: all 0.3s ease;
 	flex-shrink: 0;
@@ -94,18 +104,97 @@
 	transform: rotate(90deg) scale(0.95);
 }
 
-/* Container Layout */
-.case-study-container {
-	padding: 0 1.75rem 1.75rem;
+/* Split Layout */
+.case-study-split {
 	display: grid;
-	gap: 2.5rem;
-}
-
-.case-study-backdrop--project-contained .case-study-container {
-	grid-template-rows: auto minmax(0, 1fr);
+	grid-template-columns: 1fr 1fr;
 	flex: 1;
 	min-height: 0;
 	overflow: hidden;
+}
+
+.case-study-split-media {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+	background: rgba(0, 0, 0, 0.15);
+}
+
+.case-study-split-media picture {
+	display: contents;
+}
+
+.case-study-split-image {
+	max-width: 100%;
+	max-height: 100%;
+	width: auto;
+	height: auto;
+	object-fit: contain;
+	display: block;
+}
+
+.case-study-story-pdf {
+	width: 100%;
+	height: 100%;
+	border: none;
+	border-radius: 0;
+	min-height: 0;
+	display: block;
+}
+
+.case-study-split-text {
+	overflow-y: auto;
+	padding: 4rem 2.5rem 3rem;
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
+	scrollbar-color: auto transparent;
+}
+
+/* Case study overview panel (left side) */
+.case-study-overview-panel {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 2rem;
+	padding: 3rem 2.5rem;
+}
+
+.case-study-overview-text {
+	font:
+		600 clamp(1rem, 1.6vw, 1.25rem) / 1.6 "Avenir Next",
+		sans-serif;
+	color: rgba(255, 255, 255, 0.92);
+	margin: 0;
+}
+
+.case-study-meta-list {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 1.25rem 1rem;
+	margin: 0;
+	padding: 0;
+}
+
+.case-study-meta-item dt {
+	font:
+		700 0.7rem / 1 "Avenir Next",
+		sans-serif;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: rgba(255, 255, 255, 0.55);
+	margin-bottom: 0.25rem;
+}
+
+.case-study-meta-item dd {
+	font:
+		600 1rem / 1.3 "Avenir Next",
+		sans-serif;
+	color: #fff;
+	margin: 0;
 }
 
 /* Header Section */
@@ -162,58 +251,6 @@
 	margin: 0;
 }
 
-/* Media Section */
-.case-study-media {
-	width: 100%;
-	border-radius: 20px;
-	overflow: hidden;
-	background: rgba(41, 14, 14, 0.4);
-	display: flex;
-	justify-content: center;
-}
-
-.case-study-media picture,
-.case-study-media img,
-.case-study-media video {
-	display: block;
-	max-width: 100%;
-	height: auto;
-	object-fit: contain;
-}
-
-.case-study-image,
-.case-study-video {
-	width: 100%;
-	height: auto;
-	display: block;
-}
-
-/* Content Section */
-.case-study-content {
-	display: grid;
-	gap: 2rem;
-}
-
-.case-study-content--split {
-	grid-template-columns: 1fr;
-	align-items: start;
-}
-
-.case-study-content--story {
-	gap: 1.5rem;
-}
-
-.case-study-media--story {
-	max-height: min(40dvh, 400px);
-}
-
-.case-study-image--story-cover {
-	width: auto;
-	max-width: 100%;
-	max-height: inherit;
-	object-fit: contain;
-	margin: 0 auto;
-}
 
 .case-study-story-block {
 	display: grid;
@@ -237,14 +274,6 @@
 	box-shadow: 0 4px 16px rgba(33, 11, 11, 0.2);
 }
 
-.case-study-story-pdf {
-	width: 100%;
-	height: min(50dvh, calc(100dvh - 22rem));
-	min-height: 260px;
-	border: 1px solid rgba(12, 13, 11, 0.08);
-	border-radius: 18px;
-	background: rgba(246, 230, 222, 0.9);
-}
 
 .case-study-story-prose {
 	display: grid;
@@ -263,58 +292,12 @@
 	margin: 0;
 }
 
-@media (min-width: 1024px) {
-	.case-study-content--split {
-		grid-template-columns: minmax(320px, 0.95fr) minmax(360px, 1.05fr);
-		gap: 2rem;
-	}
-
-	.case-study-media--split {
-		position: sticky;
-		top: 1rem;
-		align-self: start;
-		max-height: calc(90dvh - 12rem);
-	}
-
-	.case-study-media--split .case-study-image,
-	.case-study-media--split .case-study-video {
-		max-height: calc(90dvh - 12rem);
-		object-fit: contain;
-	}
-
-	.case-study-content--split .case-study-details {
-		max-width: 58ch;
-	}
-
-	.case-study-backdrop--project-contained .case-study-content--split {
-		height: 100%;
-	}
-}
-
-.case-study-embedded-case-study {
-	display: grid;
-	gap: 1rem;
-}
-
-.case-study-embedded-case-study article {
-	width: 100%;
-}
 
 .case-study-details {
 	display: grid;
 	gap: 1.5rem;
 }
 
-.case-study-backdrop--project-contained .case-study-content--split {
-	min-height: 0;
-	overflow: hidden;
-}
-
-.case-study-backdrop--project-contained .case-study-details {
-	min-height: 0;
-	overflow-y: auto;
-	padding-right: 0.35rem;
-}
 
 .case-study-details h2 {
 	font:
@@ -364,40 +347,39 @@
 	margin: 0;
 }
 
+.case-study-tool-tags {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.4rem;
+}
+
+.case-study-tool-tag {
+	font:
+		600 0.68rem / 1 "Avenir Next",
+		sans-serif;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: rgba(246, 230, 222, 0.6);
+	padding: 0.25rem 0.6rem;
+	border: 1px solid rgba(246, 230, 222, 0.18);
+	border-radius: 999px;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
-	.case-study-backdrop {
-		width: 95vw;
-		height: min(95dvh, calc(100dvh - 1rem));
-		max-height: min(95dvh, calc(100dvh - 1rem));
-		border-radius: 24px;
-	}
-
-	.case-study-backdrop--wide {
-		width: 95vw;
-		max-width: 95vw;
-	}
-
-	.case-study-container {
-		padding: 0 1.25rem 1.25rem;
-		gap: 1.75rem;
-	}
-
-	.case-study-backdrop--project-contained .case-study-container {
+	.case-study-split {
+		grid-template-columns: 1fr;
 		overflow-y: auto;
 	}
 
-	.case-study-backdrop--project-contained .case-study-content--split {
-		overflow: visible;
+	.case-study-split-media {
+		height: 55dvh;
+		flex-shrink: 0;
 	}
 
-	.case-study-backdrop--project-contained .case-study-details {
+	.case-study-split-text {
 		overflow: visible;
-		padding-right: 0;
-	}
-
-	.case-study-close {
-		margin: 0.85rem 0.85rem 0 auto;
+		padding: 2rem 1.25rem 3rem;
 	}
 
 	.case-study-title {
@@ -408,34 +390,8 @@
 		font-size: 1.35rem;
 	}
 
-	.case-study-story-pdf {
-		height: min(42dvh, calc(100dvh - 18rem));
-		min-height: 220px;
-	}
-
-	.case-study-media--story {
-		max-height: min(34dvh, 280px);
+	.case-study-meta-list {
+		grid-template-columns: 1fr;
 	}
 }
 
-/* Animation keyframes for additional fluid effects */
-@keyframes float-in {
-	from {
-		opacity: 0;
-		transform: translateY(12px);
-	}
-	to {
-		opacity: 1;
-		transform: translateY(0);
-	}
-}
-
-.case-study-details {
-	animation: float-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both;
-}
-
-@media (prefers-reduced-motion: reduce) {
-	.case-study-details {
-		animation: none;
-	}
-}

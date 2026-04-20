@@ -9,7 +9,7 @@
 	--proto-media-scale: 0.7;
 	--proto-page-tint: #e7ddd2;
 	--proto-stack-tint: #e7ddd2;
-	padding-top: var(--proto-top-offset);
+	padding-top: calc(var(--proto-top-offset) + var(--proto-jump-height));
 	background: linear-gradient(
 		180deg,
 		color-mix(in srgb, var(--proto-page-tint) 86%, rgba(255, 255, 255, 0.18)) 0%,
@@ -18,13 +18,33 @@
 	);
 }
 
+/* Sticky filter bar above all content */
+.proto-jump-wrap {
+	position: sticky;
+	top: var(--proto-top-offset, 3.5rem);
+	z-index: 200;
+	background: rgba(255, 255, 255, 0.88);
+	backdrop-filter: blur(18px);
+	-webkit-backdrop-filter: blur(18px);
+	border-bottom: 1px solid rgba(12, 13, 11, 0.07);
+	margin-top: var(--proto-top-offset, 3.5rem);
+}
+
+.proto-jump {
+	max-width: 1400px;
+	margin: 0 auto;
+	display: flex;
+	align-items: center;
+	gap: 0.9rem;
+	padding: 0.55rem 2rem;
+}
+
 .proto-shell {
 	max-width: 1400px;
 	margin: 0 auto;
-	padding: 1rem 2rem 1rem;
+	padding: 0 2rem 1rem;
 	display: grid;
 	grid-template-columns: 1fr 1fr;
-	grid-template-rows: auto 1fr;
 	gap: 0.5rem;
 	align-items: start;
 	align-content: start;
@@ -33,17 +53,6 @@
 .proto-left {
 	display: grid;
 	grid-column: 1;
-	grid-row: 2;
-}
-
-.proto-jump {
-	grid-column: 1 / -1;
-	grid-row: 1;
-	display: flex;
-	align-items: center;
-	gap: 0.9rem;
-	padding: 0 0 0.5rem;
-	margin-bottom: 0;
 }
 
 .proto-jump-label {
@@ -192,21 +201,39 @@
 .proto-cta:hover {
 	background: linear-gradient(
 		135deg,
-		rgba(176, 66, 66, 0.95) 0%,
-		rgba(132, 38, 38, 0.92) 100%
+		rgba(185, 230, 40, 1) 0%,
+		rgba(165, 210, 20, 1) 100%
 	);
 	box-shadow:
-		0 10px 24px rgba(88, 24, 24, 0.32),
-		inset 0 1px 0 rgba(242, 202, 202, 0.55);
-	color: #f6e6de;
+		0 10px 24px rgba(131, 166, 20, 0.35),
+		inset 0 1px 0 rgba(246, 255, 208, 0.55);
 	transform: translateY(-1px);
 }
 
 .proto-cta:active {
 	transform: translateY(0);
 	box-shadow:
-		0 5px 14px rgba(88, 24, 24, 0.24),
-		inset 0 1px 0 rgba(242, 202, 202, 0.4);
+		0 5px 14px rgba(131, 166, 20, 0.24),
+		inset 0 1px 0 rgba(246, 255, 208, 0.4);
+}
+
+.proto-tool-list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.35rem;
+	margin-top: 0.65rem;
+}
+
+.proto-tool-tag {
+	font:
+		600 0.65rem / 1 "Avenir Next",
+		sans-serif;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: rgba(22, 23, 18, 0.5);
+	padding: 0.2rem 0.55rem;
+	border: 1px solid rgba(22, 23, 18, 0.16);
+	border-radius: 999px;
 }
 
 .proto-mobile-media {
@@ -221,7 +248,6 @@
 	justify-content: center;
 	align-self: start;
 	grid-column: 2;
-	grid-row: 2;
 }
 
 .proto-image-stack {

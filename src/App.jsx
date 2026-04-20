@@ -10,10 +10,10 @@ import "./App.css";
 import Menu from "./components/Menu";
 
 const AnimatedHomePage = lazy(() => import("./pages/AnimatedHomePage"));
-const ExpertisePage = lazy(() => import("./pages/ExpertisePage"));
-const ExpertisePrototypePage = lazy(
-	() => import("./pages/ExpertisePrototypePage"),
+const ExpertisePageArchived = lazy(
+	() => import("./pages/ExpertisePageArchived"),
 );
+const ExpertisePage = lazy(() => import("./pages/ExpertisePage"));
 const WritingPage = lazy(() => import("./pages/WritingPage"));
 const WanderlustCaseStudy = lazy(() => import("./development/Wander"));
 
@@ -30,8 +30,11 @@ const App = () => {
 				<Suspense fallback={null}>
 					<Routes>
 						<Route path="/" element={<AnimatedHomePage />} />
-						<Route path="/expertise" element={<ExpertisePrototypePage />} />
-						<Route path="/expertise-archived" element={<ExpertisePage />} />
+						<Route path="/expertise" element={<ExpertisePage />} />
+						<Route
+							path="/expertise-archived"
+							element={<ExpertisePageArchived />}
+						/>
 						<Route
 							path="/expertise-prototype"
 							element={<Navigate to="/expertise" replace />}

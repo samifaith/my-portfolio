@@ -1,0 +1,302 @@
+.aesara-section {
+	background: linear-gradient(150deg, #1e0505 0%, #541212 42%, #6b1e0e 100%);
+	padding-top: 3rem;
+	position: relative;
+	overflow: hidden;
+	border-bottom: 1px solid rgba(197, 236, 86, 0.1);
+}
+
+/* Atmospheric radial glow — like a sunset bleed */
+.aesara-section::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: radial-gradient(
+		ellipse 65% 90% at 80% 25%,
+		rgba(175, 50, 12, 0.55) 0%,
+		transparent 65%
+	);
+	pointer-events: none;
+}
+
+.aesara-inner {
+	max-width: 1400px;
+	margin: 0 auto;
+	position: relative;
+	z-index: 1;
+	display: grid;
+	grid-template-columns: minmax(180px, 26%) 1fr;
+}
+
+/* ── Header ── */
+.aesara-header {
+	display: flex;
+	flex-direction: column;
+	gap: 0.55rem;
+	padding: 2rem 2rem 2.5rem 2.5rem;
+	border-right: 1px solid rgba(246, 230, 222, 0.08);
+	justify-content: flex-start;
+}
+
+.aesara-rule {
+	width: 2rem;
+	height: 1px;
+	background: #c5ec56;
+	margin-bottom: 0.15rem;
+}
+
+.aesara-eyebrow {
+	font:
+		700 0.62rem / 1 "Avenir Next",
+		sans-serif;
+	letter-spacing: 0.2em;
+	text-transform: uppercase;
+	color: #c5ec56;
+	margin: 0;
+}
+
+.aesara-heading {
+	font:
+		900 clamp(1.6rem, 2.8vw, 2.5rem) / 1 "Avenir Next",
+		sans-serif;
+	color: #f6e6de;
+	margin: 0;
+	letter-spacing: -0.02em;
+}
+
+.aesara-heading-sub {
+	font-weight: 300;
+	font-style: italic;
+	color: rgba(246, 230, 222, 0.65);
+}
+
+/* Tech stack list in left header column */
+.aesara-stack {
+	margin-top: 1.25rem;
+	padding-top: 1.25rem;
+	border-top: 1px solid rgba(246, 230, 222, 0.08);
+	display: grid;
+	gap: 0.6rem;
+}
+
+.aesara-stack-label {
+	font:
+		700 0.58rem / 1 "Avenir Next",
+		sans-serif;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	color: #c5ec56;
+	margin: 0;
+}
+
+.aesara-stack-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.35rem;
+}
+
+.aesara-stack-item {
+	font:
+		600 0.65rem / 1 "Avenir Next",
+		sans-serif;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: rgba(246, 230, 222, 0.6);
+	padding: 0.25rem 0.6rem;
+	border: 1px solid rgba(246, 230, 222, 0.18);
+	border-radius: 999px;
+}
+
+/* ── Ribbon ── */
+.aesara-ribbon {
+	background: #160303;
+	border-top: 1px solid rgba(197, 236, 86, 0.12);
+	border-bottom: 1px solid rgba(12, 13, 11, 0.3);
+	padding: 0.85rem 0;
+	display: flex;
+	align-items: center;
+	gap: 2rem;
+	overflow: hidden;
+}
+
+.aesara-ribbon-prefix {
+	font:
+		700 0.65rem / 1 "Avenir Next",
+		sans-serif;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+	color: rgba(246, 230, 222, 0.3);
+	white-space: nowrap;
+	padding-left: 2.5rem;
+	flex-shrink: 0;
+}
+
+.aesara-ribbon-track-wrap {
+	flex: 1;
+	overflow: hidden;
+	min-width: 0;
+}
+
+.aesara-ribbon-track {
+	display: flex;
+	align-items: center;
+	gap: 2.5rem;
+	will-change: transform;
+}
+
+.aesara-ribbon-item {
+	font:
+		500 0.85rem / 1 "Avenir Next",
+		sans-serif;
+	letter-spacing: 0.06em;
+	color: #c5ec56;
+	white-space: nowrap;
+	flex-shrink: 0;
+}
+
+.aesara-note {
+	font:
+		400 italic 0.85rem / 1.65 "Avenir Next",
+		sans-serif;
+	color: rgba(246, 230, 222, 0.35);
+	margin: 0.4rem 0 0;
+	max-width: 48ch;
+}
+
+/* ── Project columns ── */
+.aesara-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+}
+
+.aesara-entry {
+	display: flex;
+	flex-direction: column;
+	gap: 0.9rem;
+	padding: 2rem 2.5rem 2.5rem;
+	background: rgba(0, 0, 0, 0.18);
+	border-right: 1px solid rgba(246, 230, 222, 0.06);
+	transition: background 0.3s ease;
+}
+
+.aesara-entry:last-child {
+	border-right: none;
+}
+
+.aesara-entry:hover {
+	background: rgba(0, 0, 0, 0.28);
+}
+
+.aesara-entry-rule {
+	width: 1.75rem;
+	height: 1px;
+	background: rgba(246, 230, 222, 0.28);
+	margin-bottom: 0.15rem;
+}
+
+.aesara-entry-disciplines {
+	font:
+		600 0.6rem / 1 "Avenir Next",
+		sans-serif;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	color: rgba(246, 230, 222, 0.38);
+	margin: 0;
+}
+
+.aesara-entry-name {
+	font:
+		700 1.15rem / 1.25 "Avenir Next",
+		sans-serif;
+	color: #f6e6de;
+	margin: 0;
+}
+
+.aesara-entry-tenure {
+	font:
+		500 0.7rem / 1 "Avenir Next",
+		sans-serif;
+	letter-spacing: 0.04em;
+	color: rgba(246, 230, 222, 0.32);
+	margin: 0;
+}
+
+/* ── Study fields ── */
+.aesara-entry-study {
+	display: flex;
+	flex-direction: column;
+	gap: 0.7rem;
+	flex: 1;
+	padding-top: 0.85rem;
+	border-top: 1px solid rgba(246, 230, 222, 0.06);
+}
+
+.aesara-study-field h4 {
+	font:
+		700 0.58rem / 1 "Avenir Next",
+		sans-serif;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	color: #c5ec56;
+	margin: 0 0 0.2rem;
+}
+
+.aesara-study-field p {
+	font:
+		400 0.83rem / 1.55 "Avenir Next",
+		sans-serif;
+	color: rgba(246, 230, 222, 0.55);
+	margin: 0;
+}
+
+/* ── Link — sharp corner, like the reference button ── */
+.aesara-entry-link {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	font:
+		700 0.65rem / 1 "Avenir Next",
+		sans-serif;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	color: #c5ec56;
+	text-decoration: none;
+	padding: 0.5rem 0.9rem;
+	border: 1px solid rgba(197, 236, 86, 0.35);
+	width: fit-content;
+	margin-top: 0.25rem;
+	transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.aesara-entry-link:hover {
+	background: rgba(197, 236, 86, 0.08);
+	border-color: rgba(197, 236, 86, 0.7);
+}
+
+@media (max-width: 768px) {
+	.aesara-inner {
+		grid-template-columns: 1fr;
+	}
+
+	.aesara-header {
+		padding: 1.5rem 1.25rem 1.5rem;
+		border-right: none;
+		border-bottom: 1px solid rgba(246, 230, 222, 0.08);
+	}
+
+	.aesara-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.aesara-entry {
+		border-right: none;
+		border-bottom: 1px solid rgba(246, 230, 222, 0.06);
+	}
+
+	.aesara-entry:last-child {
+		border-bottom: none;
+	}
+}
