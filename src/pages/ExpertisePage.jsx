@@ -66,153 +66,211 @@ const ExpertisePage = () => {
 			{
 				id: "eat-like-child",
 				title: "Eat Like a Child",
-				description: "A personal essay on cultural identity through food — the immigrant experience of rejecting what you later grieve.",
+				description:
+					"A personal essay on cultural identity through food — the immigrant experience of rejecting what you later grieve.",
 				image: "/writing/manger.webp",
 				label: "Writing",
 				route: "/expertise-archived/eat-like-child",
 				bg: "#e7ddd2",
 				tools: ["Illustrator", "Photoshop", "InDesign"],
 				study: {
-					purpose: "Explore the intersection of immigrant identity, generational memory, and food — told through the lens of a child who didn't know what she had until it was gone.",
+					purpose:
+						"Explore the intersection of immigrant identity, generational memory, and food — told through the lens of a child who didn't know what she had until it was gone.",
 					role: "Writer and art director. Crafted the personal essay and designed the full editorial layout in Illustrator, Photoshop, and InDesign.",
-					direction: "Warm, tactile typography to evoke memory. The layout breathes the way a good meal lingers — unhurried, generous, layered with meaning.",
+					direction:
+						"Warm, tactile typography to evoke memory. The layout breathes the way a good meal lingers — unhurried, generous, layered with meaning.",
 				},
 			},
 			{
 				id: "home-cook",
 				title: "The Rise of the Home Cook",
-				description: "A profile of Arielle Faria — a home chef whose story illuminates the cultural shift toward cooking as craft, identity, and inheritance.",
+				description:
+					"A profile of Arielle Faria — a home chef whose story illuminates the cultural shift toward cooking as craft, identity, and inheritance.",
 				image: "/writing/OuiChef.webp",
 				label: "Writing",
 				route: "/expertise-archived/home-cook",
 				bg: "#e5e6d7",
 				tools: ["Photoshop"],
 				study: {
-					purpose: "Profile Arielle Faria and use her story to explore what food culture means in the age of the home cook — from PBS cooking shows to kitchen witchcraft.",
+					purpose:
+						"Profile Arielle Faria and use her story to explore what food culture means in the age of the home cook — from PBS cooking shows to kitchen witchcraft.",
 					role: "Writer and editorial designer. Conducted the interview, wrote the feature, and designed the print spread for Oui Chef magazine.",
-					direction: "Editorial restraint with warmth. Let the story carry the weight — clean hierarchy, honest photography, type that guides without imposing.",
+					direction:
+						"Editorial restraint with warmth. Let the story carry the weight — clean hierarchy, honest photography, type that guides without imposing.",
 				},
 			},
 			{
 				id: "tea-with-sami",
 				title: "Tea with Sami",
-				description: "A fictional podcast episode exploring the origin story of Nashville Hot Chicken, connecting food history to culture and folklore.",
+				description:
+					"A fictional podcast episode exploring the origin story of Nashville Hot Chicken, connecting food history to culture and folklore.",
 				image: "/writing/revengehot.gif",
 				label: "Writing",
 				route: "/expertise-archived/tea-with-sami",
 				bg: "#d8dde7",
 				tools: ["Audacity", "Photoshop"],
 				study: {
-					purpose: "Create a fictional podcast episode that connects food history to culture and folklore — part of a larger series on the stories behind what we eat.",
+					purpose:
+						"Create a fictional podcast episode that connects food history to culture and folklore — part of a larger series on the stories behind what we eat.",
 					role: "Writer, audio producer, and cover artist. Scripted and recorded the episode; designed cover art in Photoshop.",
-					direction: "The cover needed to feel like a guilty pleasure — bold, irreverent, impossible to ignore. Saturated reds and smoky darks to match the heat of the subject.",
+					direction:
+						"The cover needed to feel like a guilty pleasure — bold, irreverent, impossible to ignore. Saturated reds and smoky darks to match the heat of the subject.",
+				},
+			},
+			{
+				id: "discovereats",
+				title: "DiscoverEats",
+				description:
+					"A food-origin encyclopedia for the curious foodie — exploring the stories, techniques, and cultural significance behind the dishes we love.",
+				image: "/discovereatssh.png",
+				label: "Development",
+				route: "https://discovereats.samoncanvas.com",
+				bg: "#f5e6d3",
+				tools: [
+					"React",
+					"GSAP",
+					"MUI",
+					"Claude AI",
+					"Figma",
+					"Lighthouse",
+					"D3",
+					"ThreeJS",
+				],
+				study: {
+					purpose:
+						"Build an interactive encyclopedia that celebrates food origins — making culinary history accessible and engaging for food enthusiasts.",
+					role: "Full-stack developer and designer. Conceptualized, designed, and built the entire platform using modern web technologies.",
+					direction:
+						"Food is storytelling. The experience needed to feel like opening a beautifully bound cookbook — rich with detail, intuitive navigation, and genuine curiosity.",
 				},
 			},
 			{
 				id: "life2life",
 				title: "Life 2 Life Travel Agency | Web Interface",
-				description: "A homepage concept for a travel agency specializing in AI-cultivated travel experiences.",
+				description:
+					"A homepage concept for a travel agency specializing in AI-cultivated travel experiences.",
 				image: "/design/SamDeCoteau_Vector.avif",
 				label: "Development",
 				route: "/expertise",
 				bg: "#d8e4d9",
 				tools: ["React", "CSS", "Vite"],
 				study: {
-					purpose: "Concept a homepage for an AI-curated travel agency — exploring how to make algorithmic curation feel personal and aspirational rather than algorithmic.",
+					purpose:
+						"Concept a homepage for an AI-curated travel agency — exploring how to make algorithmic curation feel personal and aspirational rather than algorithmic.",
 					role: "Front-end developer. Built the full interface in React with modern CSS layout and interaction design.",
-					direction: "Sky-meets-horizon color language. Designed to feel effortlessly curated — like a conversation with someone who's been everywhere and knows exactly what you'd love.",
+					direction:
+						"Sky-meets-horizon color language. Designed to feel effortlessly curated — like a conversation with someone who's been everywhere and knows exactly what you'd love.",
 				},
 			},
 			{
 				id: "wanderlust",
 				title: "Wanderlust",
-				description: "Travel-planning app concept designed to reduce decision fatigue through a swipe-first discovery flow for budget-conscious travelers.",
+				description:
+					"Travel-planning app concept designed to reduce decision fatigue through a swipe-first discovery flow for budget-conscious travelers.",
 				image: "/design/SamDeCoteau_Vector.avif",
 				label: "Development",
 				role: "UX/UI Designer",
-				result: "Streamlined user interface reducing trip planning steps and improving information architecture.",
+				result:
+					"Streamlined user interface reducing trip planning steps and improving information architecture.",
 				route: "/wanderlust-case-study",
 				bg: "#fae8d7",
 				tools: ["Figma", "Miro", "Maze"],
 				study: {
-					purpose: "Simplify travel planning for budget-conscious users through a swipe-first discovery flow that reduces decision fatigue and speeds up itinerary building.",
+					purpose:
+						"Simplify travel planning for budget-conscious users through a swipe-first discovery flow that reduces decision fatigue and speeds up itinerary building.",
 					role: "Lead UX Designer. Led research, synthesis, wireframing, and iterative usability testing across an 8-week sprint with a team of four.",
-					direction: "Borrowed the mental model of dating apps — swipe right on the trip, left on the overwhelm. Made a famously frustrating process feel like a game.",
+					direction:
+						"Borrowed the mental model of dating apps — swipe right on the trip, left on the overwhelm. Made a famously frustrating process feel like a game.",
 				},
 			},
 			{
 				id: "rowdy",
 				title: "ROWDY Type Poster",
-				description: "Type study inspired by the UK punk scene of the late 70s utilizing the typeface Rowdy by Benjamin Busse.",
+				description:
+					"Type study inspired by the UK punk scene of the late 70s utilizing the typeface Rowdy by Benjamin Busse.",
 				image: "/design/SD_TypePoster_ROWDY.avif",
 				label: "Design",
 				route: "/expertise",
 				bg: "#e2e6d5",
 				tools: ["Illustrator"],
 				study: {
-					purpose: "A typographic study channeling the visual energy of UK punk — using Rowdy by Benjamin Busse as the vessel for controlled chaos.",
+					purpose:
+						"A typographic study channeling the visual energy of UK punk — using Rowdy by Benjamin Busse as the vessel for controlled chaos.",
 					role: "Designer and art director. Concept and full execution in Illustrator.",
-					direction: "Tension within structure. Punk broke rules by knowing them — so the layout follows a strict grid it then deliberately fractures. Compressed type, raw edges, confrontational scale.",
+					direction:
+						"Tension within structure. Punk broke rules by knowing them — so the layout follows a strict grid it then deliberately fractures. Compressed type, raw edges, confrontational scale.",
 				},
 			},
 			{
 				id: "lombardia",
 				title: "LOMBARDIA Type Poster",
-				description: "My take on a Saul Bass-inspired type poster using the typeface Lombardia by Luciano Perondi.",
+				description:
+					"My take on a Saul Bass-inspired type poster using the typeface Lombardia by Luciano Perondi.",
 				image: "/design/SD_TypePoster_LOMBARDIA.avif",
 				label: "Design",
 				route: "/expertise",
 				bg: "#d5e2ea",
 				tools: ["Illustrator"],
 				study: {
-					purpose: "A tribute to the visual grammar of Saul Bass — exploring reduction, shape, and cinematic composition through the typeface Lombardia by Luciano Perondi.",
+					purpose:
+						"A tribute to the visual grammar of Saul Bass — exploring reduction, shape, and cinematic composition through the typeface Lombardia by Luciano Perondi.",
 					role: "Designer. Concept and execution in Illustrator.",
-					direction: "Less to say more. Bass condensed entire narratives into a single gesture. The driving question: what is the minimum needed to communicate maximum impact?",
+					direction:
+						"Less to say more. Bass condensed entire narratives into a single gesture. The driving question: what is the minimum needed to communicate maximum impact?",
 				},
 			},
 			{
 				id: "vote",
 				title: "Lady Liberty Says to Vote",
-				description: "A poster encouraging voter participation, inspired by the 'We Can Do It!' Rosie the Riveter poster — reframed through Lady Liberty.",
+				description:
+					"A poster encouraging voter participation, inspired by the 'We Can Do It!' Rosie the Riveter poster — reframed through Lady Liberty.",
 				image: "/design/Vote_Poster.avif",
 				label: "Design",
 				route: "/expertise",
 				bg: "#e9ddd3",
 				tools: ["Illustrator"],
 				study: {
-					purpose: "A poster encouraging civic participation — remixing the iconography of 'We Can Do It!' through the lens of Lady Liberty, making urgency feel both timeless and immediate.",
+					purpose:
+						"A poster encouraging civic participation — remixing the iconography of 'We Can Do It!' through the lens of Lady Liberty, making urgency feel both timeless and immediate.",
 					role: "Designer and illustrator. First serious vector illustration work; built entirely in Illustrator.",
-					direction: "Familiar form, fresh urgency. Leverage recognition to lower the barrier — make something people feel before they think about it.",
+					direction:
+						"Familiar form, fresh urgency. Leverage recognition to lower the barrier — make something people feel before they think about it.",
 				},
 			},
 			{
 				id: "black-unicorn",
 				title: "Black Unicorn",
-				description: "Conceptual branding and poster design for a personal brand celebrating the unconventional creative path.",
+				description:
+					"Conceptual branding and poster design for a personal brand celebrating the unconventional creative path.",
 				image: "/design/BlackUnicorn.avif",
 				label: "Design",
 				route: "/expertise",
 				bg: "#ddd9ea",
 				tools: ["Illustrator", "Photoshop"],
 				study: {
-					purpose: "Conceptual brand identity for those who don't fit the mold, don't want to, and have made that their superpower.",
+					purpose:
+						"Conceptual brand identity for those who don't fit the mold, don't want to, and have made that their superpower.",
 					role: "Brand strategist, designer, illustrator. Developed the full visual identity: wordmark, poster system, and design language.",
-					direction: "Darkness and iridescence in equal measure. The palette moves from deep black through electric violet — power, mystery, and a quiet refusal to be ordinary.",
+					direction:
+						"Darkness and iridescence in equal measure. The palette moves from deep black through electric violet — power, mystery, and a quiet refusal to be ordinary.",
 				},
 			},
 			{
 				id: "diving-film",
 				title: "Diving",
-				description: "A short film compiled from personal dive footage in Cabo San Lucas, Mexico — capturing what it feels like to be underwater.",
+				description:
+					"A short film compiled from personal dive footage in Cabo San Lucas, Mexico — capturing what it feels like to be underwater.",
 				video: "/photography/diving.MP4",
 				label: "Media",
 				route: "/expertise",
 				bg: "#d9e0e5",
 				tools: ["Premiere Pro"],
 				study: {
-					purpose: "Capture and edit personal footage from a scuba diving trip in Cabo San Lucas — creating a short film that communicates the disorienting calm of being underwater.",
+					purpose:
+						"Capture and edit personal footage from a scuba diving trip in Cabo San Lucas — creating a short film that communicates the disorienting calm of being underwater.",
 					role: "Cinematographer and editor. Shot on GoPro; assembled, color-graded, and paced in Premiere Pro.",
-					direction: "Let the ocean do the talking. The edit follows the rhythm of the water — unhurried, punctuated by sudden color and movement. No narration. No music that fights the footage.",
+					direction:
+						"Let the ocean do the talking. The edit follows the rhythm of the water — unhurried, punctuated by sudden color and movement. No narration. No music that fights the footage.",
 				},
 			},
 		],
@@ -327,8 +385,12 @@ const ExpertisePage = () => {
 
 								const computedStyles = window.getComputedStyle(pageElement);
 								const pageTopOffset =
-									getNumericCssVar(computedStyles.getPropertyValue("--proto-top-offset")) +
-									getNumericCssVar(computedStyles.getPropertyValue("--proto-jump-height"));
+									getNumericCssVar(
+										computedStyles.getPropertyValue("--proto-top-offset"),
+									) +
+									getNumericCssVar(
+										computedStyles.getPropertyValue("--proto-jump-height"),
+									);
 
 								const maxScroll = Math.max(
 									1,
@@ -337,7 +399,9 @@ const ExpertisePage = () => {
 
 								const points = sectionElements.map((sectionElement) => {
 									const sectionTopScroll =
-										sectionElement.offsetTop - pageElement.offsetTop - pageTopOffset;
+										sectionElement.offsetTop -
+										pageElement.offsetTop -
+										pageTopOffset;
 									return gsap.utils.clamp(0, 1, sectionTopScroll / maxScroll);
 								});
 
@@ -700,7 +764,8 @@ const ExpertisePage = () => {
 				return;
 			}
 
-			const featuredBottom = featuredElement.offsetTop + featuredElement.offsetHeight;
+			const featuredBottom =
+				featuredElement.offsetTop + featuredElement.offsetHeight;
 			setIsReturnToTopVisible(window.scrollY >= featuredBottom - 24);
 		};
 
@@ -758,6 +823,10 @@ const ExpertisePage = () => {
 	);
 
 	const handleProjectPrimaryAction = (item) => {
+		if (item.route && item.route.startsWith("http")) {
+			window.open(item.route, "_blank", "noopener,noreferrer");
+			return;
+		}
 		handleOpenProjectModal(item);
 	};
 
@@ -817,8 +886,12 @@ const ExpertisePage = () => {
 			type="button"
 			className={`proto-jump-btn ${
 				filterLabel === "Featured"
-					? isAboveProtoPage ? "is-active" : ""
-					: activeSection.label === filterLabel ? "is-active" : ""
+					? isAboveProtoPage
+						? "is-active"
+						: ""
+					: activeSection.label === filterLabel
+						? "is-active"
+						: ""
 			}`}
 			onClick={() => handleJumpTo(filterLabel)}
 		>
@@ -828,135 +901,136 @@ const ExpertisePage = () => {
 
 	return (
 		<>
-		{navFilterSlot && createPortal(
-			<div className="proto-jump-controls">{filterButtons}</div>,
-			navFilterSlot
-		)}
-		<div className="proto-jump-wrap">
-			<section
-				ref={jumpRef}
-				className="proto-jump"
-				aria-label="Jump to section"
-			>
-				<p className="proto-jump-label">Jump to</p>
-				<div className="proto-jump-controls">
-					{filterButtons}
-				</div>
-			</section>
-		</div>
-		<div ref={featuredRef}>
-			<FeaturedProjects />
-		</div>
-		<div
-			ref={pageRef}
-			className="proto-page"
-			style={{
-				"--proto-top-offset": topOffset,
-				"--proto-page-tint": sections[0].bg,
-				backgroundColor: sections[0].bg,
-			}}
-		>
-			<main className="proto-shell">
-				<section className="proto-left">
-					{sections.map((item, index) => (
-						<article
-							className="proto-section"
-							key={item.id}
-							ref={(el) => {
-								sectionRefs.current[index] = el;
-							}}
-						>
-							<div className="proto-copy">
-								<p className="proto-label">{item.label}</p>
-								<h2>{item.title}</h2>
-								<p>{item.description}</p>
-								{item.tools && item.tools.length > 0 && (
-									<div className="proto-tool-list">
-										{item.tools.map((tool) => (
-											<span key={tool} className="proto-tool-tag">{tool}</span>
-										))}
-									</div>
-								)}
-								<button
-									type="button"
-									className="proto-cta"
-									onClick={() => {
-										handleProjectPrimaryAction(item);
-									}}
-								>
-									Learn More
-								</button>
-							</div>
-							<div className="proto-mobile-media">
-								{renderProjectMedia(item, item.title, {
-									imgClassName: "proto-mobile-media-item",
-								})}
-							</div>
-						</article>
-					))}
+			{navFilterSlot &&
+				createPortal(
+					<div className="proto-jump-controls">{filterButtons}</div>,
+					navFilterSlot,
+				)}
+			<div className="proto-jump-wrap">
+				<section
+					ref={jumpRef}
+					className="proto-jump"
+					aria-label="Jump to section"
+				>
+					<p className="proto-jump-label">Jump to</p>
+					<div className="proto-jump-controls">{filterButtons}</div>
 				</section>
-
-				<section ref={rightColumnRef} className="proto-right">
-					<div
-						ref={imageStackRef}
-						className="proto-image-stack"
-						style={{ "--proto-stack-tint": sections[0].bg }}
-					>
+			</div>
+			<div ref={featuredRef}>
+				<FeaturedProjects />
+			</div>
+			<div
+				ref={pageRef}
+				className="proto-page"
+				style={{
+					"--proto-top-offset": topOffset,
+					"--proto-page-tint": sections[0].bg,
+					backgroundColor: sections[0].bg,
+				}}
+			>
+				<main className="proto-shell">
+					<section className="proto-left">
 						{sections.map((item, index) => (
-							<div
-								className="proto-layer-wrap"
+							<article
+								className="proto-section"
 								key={item.id}
-								style={{ backgroundColor: item.bg }}
 								ref={(el) => {
-									layerWrapRefs.current[index] = el;
+									sectionRefs.current[index] = el;
 								}}
 							>
-								<button
-									type="button"
-									className="proto-layer-link"
-									onClick={() => {
-										handleProjectPrimaryAction(item);
-									}}
-									aria-label={`Learn more about ${item.title}`}
-									tabIndex={index === activeIndex ? 0 : -1}
-									disabled={index !== activeIndex}
-								>
+								<div className="proto-copy">
+									<p className="proto-label">{item.label}</p>
+									<h2>{item.title}</h2>
+									<p>{item.description}</p>
+									{item.tools && item.tools.length > 0 && (
+										<div className="proto-tool-list">
+											{item.tools.map((tool) => (
+												<span key={tool} className="proto-tool-tag">
+													{tool}
+												</span>
+											))}
+										</div>
+									)}
+									<button
+										type="button"
+										className="proto-cta"
+										onClick={() => {
+											handleProjectPrimaryAction(item);
+										}}
+									>
+										Learn More
+									</button>
+								</div>
+								<div className="proto-mobile-media">
 									{renderProjectMedia(item, item.title, {
-										pictureClassName: "proto-layer-picture",
-										imgClassName: "proto-layer",
+										imgClassName: "proto-mobile-media-item",
 									})}
-								</button>
-							</div>
+								</div>
+							</article>
 						))}
-					</div>
-				</section>
-			</main>
+					</section>
 
-			{isReturnToTopVisible && (
-				<button
-					type="button"
-					className="proto-return-to-top is-visible"
-					onClick={handleReturnToTop}
-					aria-label="Return to top"
-				>
-					<ChevronUp className="proto-return-to-top-icon" />
-					<span>Top</span>
-				</button>
-			)}
+					<section ref={rightColumnRef} className="proto-right">
+						<div
+							ref={imageStackRef}
+							className="proto-image-stack"
+							style={{ "--proto-stack-tint": sections[0].bg }}
+						>
+							{sections.map((item, index) => (
+								<div
+									className="proto-layer-wrap"
+									key={item.id}
+									style={{ backgroundColor: item.bg }}
+									ref={(el) => {
+										layerWrapRefs.current[index] = el;
+									}}
+								>
+									<button
+										type="button"
+										className="proto-layer-link"
+										onClick={() => {
+											handleProjectPrimaryAction(item);
+										}}
+										aria-label={`Learn more about ${item.title}`}
+										tabIndex={index === activeIndex ? 0 : -1}
+										disabled={index !== activeIndex}
+									>
+										{renderProjectMedia(item, item.title, {
+											pictureClassName: "proto-layer-picture",
+											imgClassName: "proto-layer",
+										})}
+									</button>
+								</div>
+							))}
+						</div>
+					</section>
+				</main>
 
-			{selectedProject && (
-				<ProjectCaseStudyModal
-					project={selectedProject}
-					isOpen={isModalOpen}
-					onClose={handleCloseProjectModal}
-					onAfterClose={handleAfterProjectModalClose}
-					onPrev={() => handleNavigateModal(-1)}
-					onNext={() => handleNavigateModal(1)}
-					hasPrev={selectedIndex > 0}
-					hasNext={selectedIndex > -1 && selectedIndex < sections.length - 1}
-				/>
-			)}
-		</div>
+				{isReturnToTopVisible && (
+					<button
+						type="button"
+						className="proto-return-to-top is-visible"
+						onClick={handleReturnToTop}
+						aria-label="Return to top"
+					>
+						<ChevronUp className="proto-return-to-top-icon" />
+						<span>Top</span>
+					</button>
+				)}
+
+				{selectedProject && (
+					<ProjectCaseStudyModal
+						project={selectedProject}
+						isOpen={isModalOpen}
+						onClose={handleCloseProjectModal}
+						onAfterClose={handleAfterProjectModalClose}
+						onPrev={() => handleNavigateModal(-1)}
+						onNext={() => handleNavigateModal(1)}
+						hasPrev={selectedIndex > 0}
+						hasNext={selectedIndex > -1 && selectedIndex < sections.length - 1}
+					/>
+				)}
+			</div>
 		</>
 	);
 };
