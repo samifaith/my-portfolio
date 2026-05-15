@@ -313,9 +313,15 @@ p {
 	.menu-button {
 		display: flex;
 		position: fixed;
-		top: 20px;
-		right: 20px;
+		top: 14px;
+		right: 14px;
 		z-index: 200;
+		padding: 6px;
+		border-radius: 10px;
+		background: rgba(6, 7, 10, 0.55);
+		-webkit-backdrop-filter: blur(10px);
+		backdrop-filter: blur(10px);
+		border: 1px solid rgba(255, 255, 255, 0.1);
 	}
 
 	.linkedin-mobile {
