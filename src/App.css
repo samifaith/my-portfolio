@@ -313,9 +313,13 @@ p {
 	.menu-button {
 		display: flex;
 		position: fixed;
-		top: 16px;
-		right: 16px;
+		top: 0;
+		right: 0;
 		z-index: 300;
+		width: 56px;
+		height: 44px;
+		align-items: center;
+		justify-content: center;
 	}
 
 	.linkedin-mobile {
