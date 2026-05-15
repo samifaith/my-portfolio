@@ -1,200 +1,112 @@
-# Portfolio Website
+# Sam DeCoteau — Portfolio
 
-A modern, responsive portfolio website showcasing my work in writing, development, design, and media. Built with React + Vite, with a blend of MUI components, Tailwind utilities, and custom CSS.
+A scroll-driven, animation-heavy portfolio showcasing work across writing, product design, development, and visual systems. Built with React + Vite and custom CSS — no UI framework dependencies on the portfolio core.
 
-## 🚀 Features
+## Features
 
-- **Multi-section Portfolio**: Writing, Development, Design, and Media sections
-- **Interactive Cards**: Dynamic gradient cards with hover effects
-- **Audio Integration**: Embedded podcast episodes with custom audio players
-- **Responsive Design**: Mobile-first approach with mixed utility and component styling
-- **Modal System**: Full-screen project viewing experience
-- **Story Pages**: Individual pages for writing pieces with rich typography
-- **Animated Home Experience**: GSAP-powered intro and timeline interactions
+- **Full-screen hero** — GSAP pointer-parallax venn diagram with scroll-scale effect and animated ribbon ticker
+- **Scroll-pinned project viewer** — GSAP ScrollTrigger pin with scrubbed clip-path layer transitions and snap-to-section
+- **Enterprise work section** — Dedicated AESARA Inc. case studies extracted as a standalone component
+- **Case study modals** — Full-screen project detail overlays with prev/next navigation
+- **Writing archive** — Individual story pages with rich typography, PDF embeds, and audio players
+- **Animated home** — GSAP timeline with typed intro, headshot reveal, and vertical scroll timeline
+- **Nav filter portal** — Jump-to-section controls rendered into the desktop nav via React portal
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Frontend**: React 19, React Router 7
-- **Styling**: MUI (Emotion), Tailwind CSS, custom CSS
-- **Animation**: GSAP + ScrollTrigger
+- **Animation**: GSAP 3 (ScrollTrigger, ScrollToPlugin, MotionPathPlugin)
+- **Styling**: Custom CSS (component-scoped), MUI for writing/story pages
 - **Icons**: Lucide React
-- **Build Tool**: Vite
+- **Build**: Vite
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 src/
 ├── components/
-│   ├── PageLayout.jsx         # Consistent layout wrapper
-│   ├── Menu.jsx               # Desktop/mobile navigation
-│   └── ProjectCard.jsx        # Reusable card component
+│   ├── Menu.jsx                    # Desktop/mobile nav with filter portal slot
+│   ├── FeaturedProjects.jsx        # Full-screen hero — venn diagram, ribbon ticker
+│   ├── EnterpriseWork.jsx          # AESARA Inc. enterprise case studies
+│   ├── VerticalTimeline.jsx        # Home page scroll timeline
+│   ├── ProjectCard.jsx             # Reusable project card
+│   ├── ProjectCaseStudyModal.jsx   # Full-screen case study overlay
+│   ├── ScrollIndicator.jsx         # Home scroll prompt
+│   ├── DrawLetters.jsx             # GSAP letter-draw signature
+│   └── MadeByMeHand.jsx            # Hand-drawn credit section
 ├── pages/
-│   ├── AnimatedHomePage.jsx   # GSAP-driven landing experience
-│   ├── ExpertisePage.jsx      # Filtered work grid (design/dev/writing/media)
-│   └── WritingPage.jsx        # Story detail pages
+│   ├── AnimatedHomePage.jsx        # GSAP-driven landing experience
+│   ├── ExpertisePage.jsx           # Scroll-pinned portfolio viewer
+│   ├── ExpertisePageArchived.jsx   # Legacy writing grid
+│   └── WritingPage.jsx             # Individual story detail pages
 ├── development/
-│   └── Wander.jsx             # Case study page
+│   └── Wander.jsx                  # Wanderlust case study
+├── styles/
+│   ├── FeaturedProjects.css        # Hero section styles
+│   ├── ExpertisePrototype.css      # Expertise page + enterprise section styles
+│   └── ...
 ├── constants/
-│   └── WritingPieces.js       # Writing content data
-└── App.jsx                    # Main app routes
+│   └── WritingPieces.js            # Writing content data
+└── App.jsx                         # Routes
 ```
 
-## 🚀 Getting Started
-
-### Prerequisites
-
-- Node.js (v14 or higher)
-- npm or yarn
-
-### Installation
-
-1. Clone the repository:
-
-```bash
-git clone [your-repo-url]
-cd my-portfolio
-```
-
-2. Install dependencies:
+## Getting Started
 
 ```bash
 npm install
-```
-
-3. Start the development server:
-
-```bash
 npm run dev
 ```
 
-4. Open [http://localhost:5173](http://localhost:5173) to view the site.
+Open [http://localhost:5173](http://localhost:5173).
 
-## 📝 Content Management
+## Content
 
-### Adding Writing Pieces
+### Adding a project to the expertise viewer
 
-Update `src/constants/WritingPieces.js`:
+Add an entry to `baseSections` in [ExpertisePage.jsx](src/pages/ExpertisePage.jsx):
 
-```javascript
-"new-story": {
-  title: "Your Story Title",
-  subtitle: "Story Type",
-  content: `Your story content here...`,
-  audioFile: "/writing/audio-file.mp3", // optional
-  coverImage: "/writing/cover-image.png", // optional
-  pdfFile: "/writing/article.pdf", // optional
-  pdfPages: [1, 2, 3] // optional page numbers to embed inline
-}
-```
-
-### Adding Projects
-
-Add projects to the respective page files with this structure:
-
-```javascript
+```js
 {
   id: "project-id",
   title: "Project Title",
-  description: "Project description",
-  image: "./project-image.jpg",
-  type: "Project Type",
-  theme: "Project Theme"
+  description: "Short description.",
+  image: "/path/to/image.webp",   // or use video: "/path/to/clip.mp4"
+  label: "Writing | Development | Design | Media",
+  route: "/expertise-archived/story-id",  // or external URL
+  bg: "#e7ddd2",
+  tools: ["Tool A", "Tool B"],
+  study: {
+    purpose: "...",
+    role: "...",
+    direction: "...",
+  },
 }
 ```
 
-## 🎨 Customization
+### Adding a writing piece
 
-### Colors
+Add to `src/constants/WritingPieces.js`:
 
-The primary brand color is defined as `#a2003b`. Update in:
-
-- `src/components/PageLayout.jsx` for headers
-- Tailwind config for additional brand colors
-
-### Fonts
-
-Primary fonts: Impact, Poppins, sans-serif
-
-## 📦 Building for Production
-
-```bash
-npm run build
-```
-
-Creates optimized production build in the `dist` folder.
-
-Generated output folders (`dist`, `build`) are treated as build artifacts and should not be committed.
-
-## 🚀 Deployment
-
-### Vercel (Recommended)
-
-```bash
-npm install -g vercel
-vercel
-```
-
-### Netlify
-
-1. Connect your GitHub repository
-2. Set build command: `npm run build`
-3. Set publish directory: `dist`
-
-### GitHub Pages
-
-```bash
-npm install --save-dev gh-pages
-```
-
-Add to `package.json`:
-
-```json
-"homepage": "https://yourusername.github.io/repository-name",
-"scripts": {
-  "predeploy": "npm run build",
-  "deploy": "gh-pages -d build"
+```js
+"story-slug": {
+  title: "Title",
+  subtitle: "Subtitle",
+  content: `...`,
+  audioFile: "/writing/file.mp3",   // optional
+  coverImage: "/writing/cover.png", // optional
+  pdfFile: "/writing/article.pdf",  // optional
 }
 ```
 
-Then run:
+## Scripts
 
 ```bash
-npm run deploy
+npm run dev       # Development server
+npm run build     # Production build
+npm run preview   # Preview production build
+npm test          # Run tests
 ```
 
-## 📱 Responsive Breakpoints
+## Deployment
 
-- Mobile: `< 768px`
-- Tablet: `768px - 1024px`
-- Desktop: `> 1024px`
-
-## 🔧 Available Scripts
-
-- `npm start` - Development server
-- `npm run dev` - Development server
-- `npm test` - Run tests
-- `npm run build` - Production build
-- `npm run preview` - Preview production build locally
-- `npm run audit` - Run npm security audit
-- `npm run audit:fix` - Attempt automatic npm security fixes
-- `npm run audit:lighthouse` - Run one-command Lighthouse performance audit
-- `npm run audit:all` - Run npm audit and Lighthouse audit in sequence
-
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
-## 🤝 Contributing
-
-This is a personal portfolio, but feedback and suggestions are welcome! Feel free to open an issue or submit a pull request.
-
-## 📞 Contact
-
-<!-- - Website: [Your Website]
-- Email: [Your Email]
-- LinkedIn: [Your LinkedIn]
-- Twitter: [Your Twitter] -->
-
----
-
-Built with ❤️ using React and Tailwind CSS
+The site is deployed via **Vercel**. Pushes to `main` trigger automatic deployments. Build command: `npm run build`, output directory: `dist`.

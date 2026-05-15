@@ -14,6 +14,7 @@ import { ChevronUp } from "lucide-react";
 import { getModernImageSources } from "../utils/imageFormats";
 import ProjectCaseStudyModal from "../components/ProjectCaseStudyModal";
 import FeaturedProjects from "../components/FeaturedProjects";
+import EnterpriseWork from "../components/EnterpriseWork";
 import "../styles/ExpertisePrototype.css";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
@@ -61,7 +62,7 @@ const ExpertisePage = () => {
 		});
 	}, []);
 
-	const sections = useMemo(
+	const baseSections = useMemo(
 		() => [
 			{
 				id: "eat-like-child",
@@ -163,27 +164,6 @@ const ExpertisePage = () => {
 				},
 			},
 			{
-				id: "wanderlust",
-				title: "Wanderlust",
-				description:
-					"Travel-planning app concept designed to reduce decision fatigue through a swipe-first discovery flow for budget-conscious travelers.",
-				image: "/design/SamDeCoteau_Vector.avif",
-				label: "Development",
-				role: "UX/UI Designer",
-				result:
-					"Streamlined user interface reducing trip planning steps and improving information architecture.",
-				route: "/wanderlust-case-study",
-				bg: "#fae8d7",
-				tools: ["Figma", "Miro", "Maze"],
-				study: {
-					purpose:
-						"Simplify travel planning for budget-conscious users through a swipe-first discovery flow that reduces decision fatigue and speeds up itinerary building.",
-					role: "Lead UX Designer. Led research, synthesis, wireframing, and iterative usability testing across an 8-week sprint with a team of four.",
-					direction:
-						"Borrowed the mental model of dating apps — swipe right on the trip, left on the overwhelm. Made a famously frustrating process feel like a game.",
-				},
-			},
-			{
 				id: "rowdy",
 				title: "ROWDY Type Poster",
 				description:
@@ -275,6 +255,16 @@ const ExpertisePage = () => {
 			},
 		],
 		[],
+	);
+
+	const sections = useMemo(
+		() =>
+			[...baseSections].sort(
+				(leftSection, rightSection) =>
+					Number(Boolean(rightSection.featured)) -
+					Number(Boolean(leftSection.featured)),
+			),
+		[baseSections],
 	);
 
 	useEffect(() => {
@@ -1005,6 +995,8 @@ const ExpertisePage = () => {
 						</div>
 					</section>
 				</main>
+
+				<EnterpriseWork />
 
 				{isReturnToTopVisible && (
 					<button

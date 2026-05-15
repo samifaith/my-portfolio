@@ -1,302 +1,872 @@
-.aesara-section {
-	background: linear-gradient(150deg, #1e0505 0%, #541212 42%, #6b1e0e 100%);
-	padding-top: 3rem;
-	position: relative;
-	overflow: hidden;
-	border-bottom: 1px solid rgba(197, 236, 86, 0.1);
+:root {
+	--bg: #06070a;
+	--paper: #f5f2ec;
+	--olive: #a8b56a;
+	--violet: #8e7cc3;
+	--gold: #c8a95b;
+	--text: #f3eee7;
+	--text-dark: #2a2a26;
 }
 
-/* Atmospheric radial glow — like a sunset bleed */
-.aesara-section::before {
-	content: "";
+/* ================= HERO CONTAINER ================= */
+
+.featured-section {
+	position: relative;
+	width: 100%;
+	height: 100vh;
+	overflow: hidden;
+	background:
+		radial-gradient(
+			circle at 22% 28%,
+			rgba(168, 181, 106, 0.16),
+			transparent 24%
+		),
+		radial-gradient(
+			circle at 72% 58%,
+			rgba(142, 124, 195, 0.1),
+			transparent 32%
+		),
+		radial-gradient(
+			circle at 54% 52%,
+			rgba(255, 255, 255, 0.03),
+			transparent 45%
+		),
+		#06070a;
+
+	isolation: isolate;
+}
+
+/* ================= ATMOSPHERE LAYER ================= */
+
+.featured-atmosphere {
 	position: absolute;
 	inset: 0;
+	z-index: 0;
+	pointer-events: none;
+	mix-blend-mode: screen;
+}
+
+.featured-atmosphere-svg {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0.35;
+	filter: contrast(0.9) saturate(0.8);
+}
+
+.featured-vignette {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	width: 12%;
+	pointer-events: none;
+	background: linear-gradient(90deg, rgba(0, 0, 0, 0.5) 0%, transparent 100%);
+}
+
+.featured-vignette-left {
+	left: 0;
+}
+
+.featured-vignette-right {
+	right: 0;
+	transform: scaleX(-1);
+}
+
+.featured-draft-line {
+	fill: none;
+	stroke: rgba(255, 255, 255, 0.12);
+	stroke-width: 1;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+
+.featured-draft-line-soft {
+	opacity: 0.45;
+}
+
+/* ================= BACKGROUND LIGHTS ================= */
+
+.featured-section::before {
+	content: "";
+	position: absolute;
+	width: 900px;
+	height: 900px;
+	left: -280px;
+	top: -180px;
 	background: radial-gradient(
-		ellipse 65% 90% at 80% 25%,
-		rgba(175, 50, 12, 0.55) 0%,
+		circle,
+		rgba(168, 181, 106, 0.14),
 		transparent 65%
 	);
+	filter: blur(70px);
+	z-index: 0;
 	pointer-events: none;
 }
 
-.aesara-inner {
-	max-width: 1400px;
-	margin: 0 auto;
-	position: relative;
-	z-index: 1;
-	display: grid;
-	grid-template-columns: minmax(180px, 26%) 1fr;
+.featured-section::after {
+	content: "";
+	position: absolute;
+	width: 850px;
+	height: 850px;
+	left: 46%;
+	top: 48%;
+	transform: translate(-50%, -50%);
+	background: radial-gradient(
+		circle,
+		rgba(255, 255, 255, 0.05),
+		transparent 70%
+	);
+	filter: blur(120px);
+	z-index: 0;
+	pointer-events: none;
 }
 
-/* ── Header ── */
-.aesara-header {
+/* ================= LAYOUT STRUCTURE ================= */
+
+.featured-inner {
+	position: relative;
+	z-index: 15;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: stretch;
+}
+
+/* ================= LEFT PANEL ================= */
+
+.featured-copy {
+	position: relative;
+	z-index: 15;
+	width: 48%;
+	height: 100%;
+	padding: 120px 0 60px 92px;
 	display: flex;
 	flex-direction: column;
-	gap: 0.55rem;
-	padding: 2rem 2rem 2.5rem 2.5rem;
-	border-right: 1px solid rgba(246, 230, 222, 0.08);
-	justify-content: flex-start;
+	justify-content: center;
+	border: none;
+	border-radius: 0;
+	background: transparent;
+	backdrop-filter: none;
+	box-shadow: none;
 }
 
-.aesara-rule {
-	width: 2rem;
-	height: 1px;
-	background: #c5ec56;
-	margin-bottom: 0.15rem;
+.featured-copy::before {
+	content: "";
+	position: absolute;
+	left: 54px;
+	top: 76px;
+	width: 2px;
+	height: calc(100% - 140px);
+	background: linear-gradient(
+		to bottom,
+		rgba(168, 181, 106, 0.95),
+		rgba(168, 181, 106, 0.08)
+	);
+	box-shadow: 0 0 20px rgba(168, 181, 106, 0.45);
+	z-index: 20;
 }
 
-.aesara-eyebrow {
-	font:
-		700 0.62rem / 1 "Avenir Next",
-		sans-serif;
-	letter-spacing: 0.2em;
+.featured-copy::after {
+	content: "";
+	position: absolute;
+	bottom: -7px;
+	left: 54px;
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+	background: #e7ffaa;
+	box-shadow:
+		0 0 30px rgba(223, 248, 154, 0.9),
+		0 0 60px rgba(223, 248, 154, 0.3);
+	transform: translateX(-50%);
+}
+
+.featured-eyebrow {
+	margin: 0 0 24px;
+	color: var(--olive);
 	text-transform: uppercase;
-	color: #c5ec56;
-	margin: 0;
+	letter-spacing: 0.18em;
+	font-size: 12px;
+	font-weight: 700;
+	animation: featured-fade-up 850ms ease both;
 }
 
-.aesara-heading {
+.featured-heading {
+	position: relative;
+	margin: 0 0 0 0;
+	max-width: 10ch;
+	color: var(--text);
+	font-family: "Cormorant Garamond", Georgia, serif;
+	font-size: clamp(64px, 5.2vw, 100px);
+	line-height: 0.88;
+	font-weight: 500;
+	text-shadow: 0 0 60px rgba(255, 255, 255, 0.03);
+	animation: featured-fade-up 900ms ease both;
+}
+
+.featured-heading-line {
+	display: block;
+	clip-path: inset(0 0 100% 0);
+	transform: translateY(0.35em);
+	animation: featured-line-reveal 1.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.featured-heading-line:nth-child(1) {
+	animation-delay: 120ms;
+}
+
+.featured-heading-line:nth-child(2) {
+	animation-delay: 240ms;
+}
+
+.featured-heading-line:nth-child(3) {
+	animation-delay: 360ms;
+}
+
+.featured-heading-line span {
+	font-style: italic;
+	color: var(--olive);
+}
+
+.featured-heading-line-emphasis {
+	position: relative;
+	width: fit-content;
+	padding-bottom: 0.2rem;
+}
+
+.featured-clarity {
+	position: relative;
+	font-style: italic;
+	color: var(--olive);
+	padding-right: 6px;
+}
+
+.featured-clarity-stroke {
+	position: absolute;
+	left: -3%;
+	bottom: -14px;
+	width: 108%;
+	height: auto;
+	pointer-events: none;
+	display: block;
+	overflow: visible;
+}
+
+.featured-lede {
+	margin: 28px 0 0;
+	max-width: 480px;
+	font-size: 17px;
+	line-height: 1.65;
+	letter-spacing: -0.01em;
+	color: rgba(255, 255, 255, 0.74);
+	animation: featured-fade-up 950ms ease both;
+}
+
+.featured-scroll-cta {
+	margin-top: 36px;
+	width: fit-content;
+	padding: 0;
+	border: 0;
+	background: transparent;
+	color: #c3d886;
 	font:
-		900 clamp(1.6rem, 2.8vw, 2.5rem) / 1 "Avenir Next",
+		700 0.76rem / 1 "Avenir Next",
 		sans-serif;
-	color: #f6e6de;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.7rem;
+	cursor: pointer;
+	transition:
+		transform 220ms ease,
+		color 220ms ease;
+}
+
+.featured-scroll-cta:hover {
+	transform: translateY(2px);
+	color: #d5e29b;
+}
+
+.featured-scroll-cta-arrow {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 1.35rem;
+	height: 1.35rem;
+	border: 1px solid rgba(168, 181, 106, 0.45);
+	border-radius: 50%;
+	font-size: 0.85rem;
+	line-height: 1;
+	box-shadow: 0 0 12px rgba(168, 181, 106, 0.18);
+}
+
+/* ================= VENN DIAGRAM ================= */
+
+.featured-diagram {
+	position: absolute;
+	left: 47%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	width: 520px;
+	height: 580px;
+	z-index: 10;
+	pointer-events: none;
+}
+
+.featured-venn-svg {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+}
+
+.featured-venn-label {
+	position: absolute;
+	color: rgba(236, 231, 216, 0.9);
+	font-size: 12px;
+	line-height: 1.4;
+	width: 110px;
+	pointer-events: none;
+}
+
+.featured-venn-cap {
+	display: block;
+	font-size: 10px;
+	font-weight: 700;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+	margin-bottom: 6px;
+}
+
+.featured-venn-desc {
+	font-size: 12px;
+	font-weight: 400;
+	opacity: 0.85;
+}
+
+.featured-venn-label-writing {
+	top: 4%;
+	left: 0;
+	text-align: left;
+}
+
+.featured-venn-label-writing .featured-venn-cap {
+	color: #8a78a6;
+}
+
+.featured-venn-label-product {
+	top: 4%;
+	right: 0;
+	text-align: right;
+}
+
+.featured-venn-label-product .featured-venn-cap {
+	color: var(--olive);
+}
+
+.featured-venn-label-visual {
+	bottom: 2%;
+	left: 50%;
+	transform: translateX(-50%);
+	text-align: center;
+	width: 120px;
+}
+
+.featured-venn-label-visual .featured-venn-cap {
+	color: var(--gold);
+}
+
+/* ================= RIGHT PANEL ================= */
+
+.featured-panel {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 38vw;
+	min-width: 460px;
+	height: 100vh;
+	background: var(--paper);
+	clip-path: polygon(24% 0%, 100% 0%, 100% 100%, 0% 100%);
+	box-shadow: -40px 0 120px rgba(0, 0, 0, 0.32);
+	z-index: 12;
+	overflow: hidden;
+	border: none;
+	border-radius: 0;
+	padding: 0 60px 0 150px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 36px;
+}
+
+.featured-panel::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	opacity: 0.055;
+	background-image: radial-gradient(rgba(0, 0, 0, 0.6) 0.8px, transparent 1px);
+	background-size: 5px 5px;
+	z-index: 0;
+	pointer-events: none;
+}
+
+.featured-panel::after {
+	content: "";
+	position: absolute;
+	left: -30px;
+	top: -5%;
+	width: 120px;
+	height: 120%;
+	opacity: 0.2;
+	transform: rotate(-10deg);
+	background: repeating-linear-gradient(
+		transparent 0px,
+		transparent 11px,
+		rgba(0, 0, 0, 0.22) 13px
+	);
+	filter: blur(0.4px);
+	pointer-events: none;
+}
+
+.featured-panel-label {
+	position: relative;
+	z-index: 2;
 	margin: 0;
+	color: #738145;
+	font:
+		700 0.875rem / 1 "Avenir Next",
+		sans-serif;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	animation: featured-fade-up 850ms ease both;
+}
+
+.featured-focus-grid {
+	position: relative;
+	z-index: 2;
+	display: grid;
+	gap: 0;
+}
+
+.featured-focus-card {
+	display: grid;
+	grid-template-columns: 6px 44px 1fr;
+	gap: 20px;
+	margin-bottom: 52px;
+	padding-bottom: 0;
+	align-items: start;
+	border-bottom: none;
+	transform: translateY(0);
+	animation: featured-card-rise 900ms ease both;
+}
+
+.featured-focus-card:last-child {
+	margin-bottom: 0;
+}
+
+.featured-focus-card:nth-child(2) {
+	animation-delay: 90ms;
+}
+
+.featured-focus-card:nth-child(3) {
+	animation-delay: 180ms;
+}
+
+.featured-focus-mark {
+	width: 3px;
+	height: 80px;
+	border-radius: 2px;
+	margin-top: 4px;
+	background: var(--violet);
+}
+
+.featured-focus-card:nth-child(2) .featured-focus-mark {
+	background: var(--olive);
+}
+
+.featured-focus-card:nth-child(3) .featured-focus-mark {
+	background: var(--gold);
+}
+
+.featured-focus-icon {
+	width: 44px;
+	height: 44px;
+	color: var(--text-dark);
+	margin-top: 0;
+	flex-shrink: 0;
+}
+
+.featured-focus-card h3 {
+	margin: 0 0 0.35rem;
+	font:
+		800 1.05rem / 1.15 "Avenir Next",
+		sans-serif;
+	color: #101010;
 	letter-spacing: -0.02em;
 }
 
-.aesara-heading-sub {
-	font-weight: 300;
-	font-style: italic;
-	color: rgba(246, 230, 222, 0.65);
-}
-
-/* Tech stack list in left header column */
-.aesara-stack {
-	margin-top: 1.25rem;
-	padding-top: 1.25rem;
-	border-top: 1px solid rgba(246, 230, 222, 0.08);
-	display: grid;
-	gap: 0.6rem;
-}
-
-.aesara-stack-label {
-	font:
-		700 0.58rem / 1 "Avenir Next",
-		sans-serif;
-	letter-spacing: 0.14em;
-	text-transform: uppercase;
-	color: #c5ec56;
+.featured-focus-card p {
 	margin: 0;
-}
-
-.aesara-stack-list {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	display: flex;
-	flex-wrap: wrap;
-	gap: 0.35rem;
-}
-
-.aesara-stack-item {
 	font:
-		600 0.65rem / 1 "Avenir Next",
+		400 0.9rem / 1.55 "Avenir Next",
 		sans-serif;
-	letter-spacing: 0.06em;
-	text-transform: uppercase;
-	color: rgba(246, 230, 222, 0.6);
-	padding: 0.25rem 0.6rem;
-	border: 1px solid rgba(246, 230, 222, 0.18);
-	border-radius: 999px;
+	color: rgba(18, 18, 16, 0.68);
 }
 
-/* ── Ribbon ── */
-.aesara-ribbon {
-	background: #160303;
-	border-top: 1px solid rgba(197, 236, 86, 0.12);
-	border-bottom: 1px solid rgba(12, 13, 11, 0.3);
-	padding: 0.85rem 0;
+/* ================= RIBBON ================= */
+
+.featured-ribbon {
+	background: linear-gradient(
+		90deg,
+		rgba(4, 4, 4, 0.99) 0%,
+		rgba(10, 10, 10, 0.99) 100%
+	);
+	border-top: 1px solid rgba(255, 255, 255, 0.05);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+	padding: 0.9rem 0;
 	display: flex;
 	align-items: center;
-	gap: 2rem;
+	gap: 1.5rem;
 	overflow: hidden;
+	position: relative;
+	z-index: 1;
 }
 
-.aesara-ribbon-prefix {
+.featured-ribbon-prefix {
 	font:
 		700 0.65rem / 1 "Avenir Next",
 		sans-serif;
 	letter-spacing: 0.18em;
 	text-transform: uppercase;
-	color: rgba(246, 230, 222, 0.3);
+	color: rgba(255, 255, 255, 0.36);
 	white-space: nowrap;
-	padding-left: 2.5rem;
+	padding-left: 1.5rem;
 	flex-shrink: 0;
 }
 
-.aesara-ribbon-track-wrap {
+.featured-ribbon-track-wrap {
 	flex: 1;
 	overflow: hidden;
 	min-width: 0;
 }
 
-.aesara-ribbon-track {
+.featured-ribbon-track {
 	display: flex;
 	align-items: center;
-	gap: 2.5rem;
+	gap: 2rem;
 	will-change: transform;
 }
 
-.aesara-ribbon-item {
+.featured-ribbon-item {
 	font:
-		500 0.85rem / 1 "Avenir Next",
+		600 0.82rem / 1 "Avenir Next",
 		sans-serif;
-	letter-spacing: 0.06em;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
 	color: #c5ec56;
 	white-space: nowrap;
 	flex-shrink: 0;
+	animation: featured-ribbon-shimmer 6s linear infinite;
 }
 
-.aesara-note {
-	font:
-		400 italic 0.85rem / 1.65 "Avenir Next",
-		sans-serif;
-	color: rgba(246, 230, 222, 0.35);
-	margin: 0.4rem 0 0;
-	max-width: 48ch;
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 1600px) {
+	.featured-diagram {
+		transform: translate(-50%, -50%) scale(0.9);
+		left: 47%;
+	}
+
+	.featured-panel {
+		width: 40vw;
+	}
 }
 
-/* ── Project columns ── */
-.aesara-grid {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
+@media (max-width: 1400px) {
+	.featured-copy {
+		width: 58%;
+		padding-left: 72px;
+	}
+
+	.featured-heading {
+		font-size: clamp(58px, 4.8vw, 90px);
+	}
+
+	.featured-lede {
+		font-size: 16px;
+		max-width: 420px;
+	}
+
+	.featured-diagram {
+		transform: translate(-50%, -50%) scale(0.82);
+		left: 47%;
+	}
+
+	.featured-panel {
+		min-width: 400px;
+		padding: 0 52px 0 138px;
+	}
 }
 
-.aesara-entry {
-	display: flex;
-	flex-direction: column;
-	gap: 0.9rem;
-	padding: 2rem 2.5rem 2.5rem;
-	background: rgba(0, 0, 0, 0.18);
-	border-right: 1px solid rgba(246, 230, 222, 0.06);
-	transition: background 0.3s ease;
-}
+@media (max-width: 1200px) {
+	.featured-section {
+		height: auto;
+		min-height: 100vh;
+		overflow: visible;
+	}
 
-.aesara-entry:last-child {
-	border-right: none;
-}
+	.featured-inner {
+		flex-direction: column;
+		position: relative;
+	}
 
-.aesara-entry:hover {
-	background: rgba(0, 0, 0, 0.28);
-}
+	.featured-copy {
+		position: relative;
+		width: 100%;
+		height: auto;
+		padding: 180px 48px 120px 72px;
+	}
 
-.aesara-entry-rule {
-	width: 1.75rem;
-	height: 1px;
-	background: rgba(246, 230, 222, 0.28);
-	margin-bottom: 0.15rem;
-}
+	.featured-copy::before {
+		left: 36px;
+	}
 
-.aesara-entry-disciplines {
-	font:
-		600 0.6rem / 1 "Avenir Next",
-		sans-serif;
-	letter-spacing: 0.12em;
-	text-transform: uppercase;
-	color: rgba(246, 230, 222, 0.38);
-	margin: 0;
-}
+	.featured-heading {
+		font-size: clamp(88px, 11vw, 150px);
+		max-width: 8ch;
+	}
 
-.aesara-entry-name {
-	font:
-		700 1.15rem / 1.25 "Avenir Next",
-		sans-serif;
-	color: #f6e6de;
-	margin: 0;
-}
+	.featured-lede {
+		max-width: 600px;
+	}
 
-.aesara-entry-tenure {
-	font:
-		500 0.7rem / 1 "Avenir Next",
-		sans-serif;
-	letter-spacing: 0.04em;
-	color: rgba(246, 230, 222, 0.32);
-	margin: 0;
-}
+	.featured-diagram {
+		position: relative;
+		right: auto;
+		top: auto;
+		transform: translateX(-50%) translateY(-50%);
+		width: 560px;
+		height: 560px;
+		margin-left: 50%;
+		margin-top: -200px;
+		margin-bottom: 80px;
+		opacity: 0.72;
+		z-index: 5;
+	}
 
-/* ── Study fields ── */
-.aesara-entry-study {
-	display: flex;
-	flex-direction: column;
-	gap: 0.7rem;
-	flex: 1;
-	padding-top: 0.85rem;
-	border-top: 1px solid rgba(246, 230, 222, 0.06);
-}
+	.featured-panel {
+		position: relative;
+		width: 100%;
+		height: auto;
+		clip-path: none;
+		box-shadow: 0 -20px 80px rgba(0, 0, 0, 0.28);
+		padding: 100px 56px 80px;
+		display: block;
+		margin-top: 80px;
+		z-index: 15;
+	}
 
-.aesara-study-field h4 {
-	font:
-		700 0.58rem / 1 "Avenir Next",
-		sans-serif;
-	letter-spacing: 0.14em;
-	text-transform: uppercase;
-	color: #c5ec56;
-	margin: 0 0 0.2rem;
-}
+	.featured-panel::after {
+		display: none;
+	}
 
-.aesara-study-field p {
-	font:
-		400 0.83rem / 1.55 "Avenir Next",
-		sans-serif;
-	color: rgba(246, 230, 222, 0.55);
-	margin: 0;
-}
-
-/* ── Link — sharp corner, like the reference button ── */
-.aesara-entry-link {
-	display: inline-flex;
-	align-items: center;
-	gap: 0.5rem;
-	font:
-		700 0.65rem / 1 "Avenir Next",
-		sans-serif;
-	letter-spacing: 0.12em;
-	text-transform: uppercase;
-	color: #c5ec56;
-	text-decoration: none;
-	padding: 0.5rem 0.9rem;
-	border: 1px solid rgba(197, 236, 86, 0.35);
-	width: fit-content;
-	margin-top: 0.25rem;
-	transition: background 0.2s ease, border-color 0.2s ease;
-}
-
-.aesara-entry-link:hover {
-	background: rgba(197, 236, 86, 0.08);
-	border-color: rgba(197, 236, 86, 0.7);
-}
-
-@media (max-width: 768px) {
-	.aesara-inner {
+	.featured-focus-grid {
+		display: grid;
 		grid-template-columns: 1fr;
+		gap: 0;
 	}
 
-	.aesara-header {
-		padding: 1.5rem 1.25rem 1.5rem;
-		border-right: none;
-		border-bottom: 1px solid rgba(246, 230, 222, 0.08);
-	}
-
-	.aesara-grid {
-		grid-template-columns: 1fr;
-	}
-
-	.aesara-entry {
-		border-right: none;
-		border-bottom: 1px solid rgba(246, 230, 222, 0.06);
-	}
-
-	.aesara-entry:last-child {
-		border-bottom: none;
+	.featured-focus-card {
+		grid-template-columns: 6px 36px 1fr;
+		margin-bottom: 60px;
 	}
 }
+
+@media (max-width: 900px) {
+	.featured-section {
+		padding: 18px;
+	}
+
+	.featured-copy {
+		padding: 170px 28px 60px 52px;
+	}
+
+	.featured-heading {
+		font-size: clamp(72px, 14vw, 120px);
+		line-height: 0.88;
+		max-width: 100%;
+	}
+
+	.featured-lede {
+		font-size: 17px;
+		line-height: 1.8;
+		max-width: 100%;
+	}
+
+	.featured-scroll-cta {
+		margin-top: 38px;
+	}
+
+	.featured-diagram {
+		width: 100%;
+		height: 520px;
+		margin-left: auto;
+		margin-right: auto;
+		margin-top: -40px;
+		margin-bottom: 20px;
+		transform: translateX(0) scale(0.78);
+		opacity: 0.9;
+	}
+
+	.featured-panel {
+		margin-top: 0;
+		padding: 72px 32px 56px;
+	}
+
+	.featured-focus-card {
+		grid-template-columns: 6px 32px 1fr;
+		gap: 16px;
+		margin-bottom: 48px;
+	}
+
+	.featured-focus-mark {
+		width: 3px;
+		height: 56px;
+	}
+
+	.featured-focus-icon {
+		width: 32px;
+		height: 32px;
+	}
+}
+
+@media (max-width: 640px) {
+	.featured-section {
+		padding: 14px;
+	}
+
+	.featured-copy {
+		padding: 156px 20px 40px 34px;
+	}
+
+	.featured-copy::before {
+		left: 18px;
+		opacity: 0.6;
+	}
+
+	.featured-eyebrow {
+		font-size: 11px;
+		margin-bottom: 20px;
+	}
+
+	.featured-heading {
+		font-size: clamp(58px, 15vw, 88px);
+		letter-spacing: -0.06em;
+		line-height: 0.92;
+	}
+
+	.featured-lede {
+		margin-top: 28px;
+		font-size: 15px;
+		line-height: 1.75;
+	}
+
+	.featured-scroll-cta {
+		font-size: 12px;
+		gap: 8px;
+	}
+
+	.featured-scroll-cta-arrow {
+		width: 1.2rem;
+		height: 1.2rem;
+		font-size: 0.7rem;
+	}
+
+	.featured-diagram {
+		height: 380px;
+		transform: scale(0.56);
+		opacity: 0.72;
+	}
+
+	.featured-panel {
+		padding: 56px 22px 44px;
+	}
+
+	.featured-panel-label {
+		margin-bottom: 42px;
+		font-size: 12px;
+	}
+
+	.featured-focus-card {
+		margin-bottom: 48px;
+	}
+
+	.featured-focus-card h3 {
+		font-size: 16px;
+	}
+
+	.featured-focus-card p {
+		font-size: 14px;
+		line-height: 1.7;
+	}
+
+	.featured-ribbon-track {
+		gap: 1.4rem;
+	}
+
+	.featured-ribbon-prefix {
+		padding-left: 1rem;
+		font-size: 11px;
+	}
+}
+
+/* ================= KEYFRAME ANIMATIONS ================= */
+
+@keyframes featured-fade-up {
+	from {
+		opacity: 0;
+		transform: translateY(12px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes featured-card-rise {
+	from {
+		opacity: 0;
+		transform: translateY(18px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes featured-ribbon-shimmer {
+	0%,
+	100% {
+		filter: saturate(1) brightness(1);
+	}
+	50% {
+		filter: saturate(1.2) brightness(1.12);
+	}
+}
+
+@keyframes featured-line-reveal {
+	0% {
+		clip-path: inset(0 100% 0 0);
+		transform: translateY(0.35em);
+		filter: blur(8px);
+	}
+	100% {
+		clip-path: inset(0 0 0 0);
+		transform: translateY(0);
+		filter: blur(0);
+	}
+}
+
