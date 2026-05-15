@@ -4,6 +4,16 @@
 	padding: 0;
 }
 
+:root {
+	--bg: #06070a;
+	--paper: #f5f2ec;
+	--olive: #a8b56a;
+	--violet: #8e7cc3;
+	--gold: #c8a95b;
+	--text: #f3eee7;
+	--text-dark: #2a2a26;
+}
+
 /* body background-color removed to avoid conflict with page-specific styles */
 
 /* Optimize font loading */

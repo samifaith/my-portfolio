@@ -741,7 +741,27 @@
 	}
 
 	.proto-jump {
-		padding-bottom: 0.3rem;
+		padding: 0.4rem 1rem 0.4rem;
+		gap: 0.6rem;
+		align-items: center;
+	}
+
+	.proto-jump-controls {
+		flex-wrap: nowrap;
+		overflow-x: auto;
+		-webkit-overflow-scrolling: touch;
+		scrollbar-width: none;
+		border-radius: 12px;
+		flex: 1;
+		min-width: 0;
+	}
+
+	.proto-jump-controls::-webkit-scrollbar {
+		display: none;
+	}
+
+	.proto-jump-btn {
+		flex-shrink: 0;
 	}
 
 	.proto-right {
