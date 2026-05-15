@@ -617,7 +617,7 @@
 		position: relative;
 		width: 100%;
 		height: auto;
-		padding: 180px 48px 120px 72px;
+		padding: 80px 48px 80px 72px;
 	}
 
 	.featured-copy::before {
@@ -681,7 +681,7 @@
 	}
 
 	.featured-copy {
-		padding: 170px 28px 60px 52px;
+		padding: 72px 28px 48px 52px;
 	}
 
 	.featured-heading {
@@ -732,7 +732,7 @@
 	}
 
 	.featured-copy {
-		padding: 156px 20px 40px 34px;
+		padding: 60px 20px 36px 34px;
 	}
 
 	.featured-copy::before {
