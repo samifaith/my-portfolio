@@ -99,7 +99,7 @@ const Menu = ({ openModal }) => {
 			gsap.to(middleLine.current, { duration: 0.3, opacity: 0 });
 		} else {
 			gsap.to([topLine.current, middleLine.current, bottomLine.current], {
-				stroke: "black",
+				stroke: "#a8b56a",
 				duration: 0.3,
 			});
 			gsap.to(topLine.current, { duration: 0.3, y: 0, rotation: 0 });
@@ -380,7 +380,7 @@ const Menu = ({ openModal }) => {
 						y1="12"
 						x2="32"
 						y2="12"
-						stroke="currentColor"
+						stroke="#a8b56a"
 						strokeWidth="4"
 						strokeLinecap="round"
 					/>
@@ -390,7 +390,7 @@ const Menu = ({ openModal }) => {
 						y1="20"
 						x2="32"
 						y2="20"
-						stroke="currentColor"
+						stroke="#a8b56a"
 						strokeWidth="4"
 						strokeLinecap="round"
 					/>
@@ -400,7 +400,7 @@ const Menu = ({ openModal }) => {
 						y1="28"
 						x2="32"
 						y2="28"
-						stroke="currentColor"
+						stroke="#a8b56a"
 						strokeWidth="4"
 						strokeLinecap="round"
 					/>
