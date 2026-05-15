@@ -610,11 +610,12 @@ p {
 	background: none;
 	border: none;
 	cursor: pointer;
-	transition: all 0.3s ease;
+	color: #a8b56a;
+	transition: color 0.3s ease;
 }
 
-.menu-button:hover line {
-	stroke: #a2003b;
+.menu-button:hover {
+	color: #c3d886;
 }
 
 /* Hide hamburger on desktop */

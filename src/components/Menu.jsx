@@ -380,7 +380,7 @@ const Menu = ({ openModal }) => {
 						y1="12"
 						x2="32"
 						y2="12"
-						stroke="black"
+						stroke="currentColor"
 						strokeWidth="4"
 						strokeLinecap="round"
 					/>
@@ -390,7 +390,7 @@ const Menu = ({ openModal }) => {
 						y1="20"
 						x2="32"
 						y2="20"
-						stroke="black"
+						stroke="currentColor"
 						strokeWidth="4"
 						strokeLinecap="round"
 					/>
@@ -400,7 +400,7 @@ const Menu = ({ openModal }) => {
 						y1="28"
 						x2="32"
 						y2="28"
-						stroke="black"
+						stroke="currentColor"
 						strokeWidth="4"
 						strokeLinecap="round"
 					/>
