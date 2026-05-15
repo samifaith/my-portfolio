@@ -324,6 +324,12 @@
 	}
 }
 
+@media (max-width: 768px) {
+	.proto-jump-wrap {
+		display: none;
+	}
+}
+
 /* Filter slot inside desktop nav */
 .nav-filter-slot {
 	flex-grow: 1;
@@ -738,69 +744,6 @@
 	.proto-shell {
 		grid-template-columns: 1fr;
 		gap: 1rem;
-	}
-
-	.proto-jump-wrap {
-		margin-top: 0;
-		top: 0;
-		background: rgba(6, 7, 10, 0.94);
-		-webkit-backdrop-filter: blur(16px);
-		backdrop-filter: blur(16px);
-		border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-		padding-right: 56px;
-	}
-
-	.proto-jump {
-		padding: 0.5rem 0.75rem;
-		gap: 0.5rem;
-		align-items: center;
-	}
-
-	.proto-jump-label {
-		color: rgba(243, 238, 231, 0.45);
-	}
-
-	.proto-jump-controls {
-		flex-wrap: nowrap;
-		overflow-x: auto;
-		-webkit-overflow-scrolling: touch;
-		scrollbar-width: none;
-		border-radius: 0;
-		flex: 1;
-		min-width: 0;
-		background: transparent;
-		border: none;
-		box-shadow: none;
-		-webkit-backdrop-filter: none;
-		backdrop-filter: none;
-		padding: 0;
-	}
-
-	.proto-jump-controls::-webkit-scrollbar {
-		display: none;
-	}
-
-	.proto-jump-btn {
-		flex-shrink: 0;
-		background: rgba(255, 255, 255, 0.06);
-		border-color: rgba(255, 255, 255, 0.12);
-		color: rgba(243, 238, 231, 0.75);
-		-webkit-backdrop-filter: none;
-		backdrop-filter: none;
-	}
-
-	.proto-jump-btn:hover {
-		background: rgba(197, 236, 86, 0.14);
-		border-color: rgba(197, 236, 86, 0.45);
-		color: #c3d886;
-		box-shadow: none;
-	}
-
-	.proto-jump-btn.is-active {
-		background: rgba(197, 236, 86, 0.18);
-		border-color: rgba(197, 236, 86, 0.6);
-		color: #c3d886;
-		box-shadow: none;
 	}
 
 	.proto-right {

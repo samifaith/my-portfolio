@@ -416,6 +416,11 @@ const Menu = ({ openModal }) => {
 					<ul>
 						{renderMenuItem("HOME", "home")}
 						{renderMenuItem("EXPERTISE", "EXPERTISE")}
+						<li
+							id="mobile-filter-slot"
+							className="mobile-filter-slot"
+							onClick={(e) => e.stopPropagation()}
+						/>
 						<li>
 							<a
 								href="https://www.linkedin.com/in/samdecoteau"

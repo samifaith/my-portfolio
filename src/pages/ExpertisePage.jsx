@@ -38,6 +38,7 @@ const ExpertisePage = () => {
 	const [isAboveProtoPage, setIsAboveProtoPage] = useState(true);
 	const [topOffset, setTopOffset] = useState("0px");
 	const [navFilterSlot, setNavFilterSlot] = useState(null);
+	const [mobileFilterSlot, setMobileFilterSlot] = useState(null);
 	const sectionRefs = useRef([]);
 	const pageRef = useRef(null);
 	const featuredRef = useRef(null);
@@ -679,7 +680,12 @@ const ExpertisePage = () => {
 	useEffect(() => {
 		const slot = document.getElementById("nav-filter-slot");
 		setNavFilterSlot(slot);
-		return () => setNavFilterSlot(null);
+		const mobileSlot = document.getElementById("mobile-filter-slot");
+		setMobileFilterSlot(mobileSlot);
+		return () => {
+			setNavFilterSlot(null);
+			setMobileFilterSlot(null);
+		};
 	}, []);
 
 	const jumpFilters = useMemo(
@@ -889,12 +895,42 @@ const ExpertisePage = () => {
 		</button>
 	));
 
+	const mobileFilterButtons = ["Featured", ...jumpFilters].map((filterLabel) => (
+		<button
+			key={filterLabel}
+			type="button"
+			className={`mobile-filter-btn ${
+				filterLabel === "Featured"
+					? isAboveProtoPage
+						? "is-active"
+						: ""
+					: activeSection.label === filterLabel
+						? "is-active"
+						: ""
+			}`}
+			onClick={() => {
+				handleJumpTo(filterLabel);
+				document.getElementById("mobile-menu-overlay")?.click();
+			}}
+		>
+			{filterLabel}
+		</button>
+	));
+
 	return (
 		<>
 			{navFilterSlot &&
 				createPortal(
 					<div className="proto-jump-controls">{filterButtons}</div>,
 					navFilterSlot,
+				)}
+			{mobileFilterSlot &&
+				createPortal(
+					<div className="mobile-filter-group">
+						<p className="mobile-filter-label">Jump to</p>
+						<div className="mobile-filter-btns">{mobileFilterButtons}</div>
+					</div>,
+					mobileFilterSlot,
 				)}
 			<div className="proto-jump-wrap">
 				<section

@@ -313,13 +313,9 @@ p {
 	.menu-button {
 		display: flex;
 		position: fixed;
-		top: 0;
-		right: 0;
+		top: 12px;
+		right: 12px;
 		z-index: 300;
-		width: 56px;
-		height: 44px;
-		align-items: center;
-		justify-content: center;
 	}
 
 	.linkedin-mobile {
@@ -655,6 +651,57 @@ p {
 
 .menu-overlay li {
 	margin: 2rem 0;
+}
+
+.mobile-filter-slot {
+	margin: 0.5rem 0 1.5rem;
+}
+
+.mobile-filter-group {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.85rem;
+}
+
+.mobile-filter-label {
+	font:
+		700 0.62rem / 1 "Avenir Next",
+		sans-serif;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+	color: rgba(243, 238, 231, 0.4);
+	margin: 0;
+}
+
+.mobile-filter-btns {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 0.45rem;
+}
+
+.mobile-filter-btn {
+	border: 1px solid rgba(255, 255, 255, 0.18);
+	background: rgba(255, 255, 255, 0.06);
+	color: rgba(243, 238, 231, 0.8);
+	border-radius: 999px;
+	padding: 0.4rem 1rem;
+	font:
+		600 0.8rem / 1 "Avenir Next",
+		sans-serif;
+	cursor: pointer;
+	transition:
+		background 200ms ease,
+		border-color 200ms ease,
+		color 200ms ease;
+}
+
+.mobile-filter-btn:hover,
+.mobile-filter-btn.is-active {
+	background: rgba(197, 236, 86, 0.18);
+	border-color: rgba(197, 236, 86, 0.6);
+	color: #c3d886;
 }
 
 .letter {
