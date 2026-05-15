@@ -184,7 +184,7 @@ const Menu = ({ openModal }) => {
 		gsap.to(letters, {
 			y: -5,
 			skewY: 5,
-			css: { color: "black", textShadow: "4px 4px 0 rgba(255,255,255,0.8)" },
+			css: { color: "#c5ec56", textShadow: "0 0 24px rgba(197,236,86,0.45)" },
 			stagger: 0.05,
 			duration: 0.3,
 			ease: "power2.out",
