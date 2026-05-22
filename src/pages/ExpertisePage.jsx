@@ -14,7 +14,6 @@ import { ChevronUp } from "lucide-react";
 import { getModernImageSources } from "../utils/imageFormats";
 import ProjectCaseStudyModal from "../components/ProjectCaseStudyModal";
 import FeaturedProjects from "../components/FeaturedProjects";
-import EnterpriseWork from "../components/EnterpriseWork";
 import "../styles/ExpertisePrototype.css";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
@@ -121,12 +120,13 @@ const ExpertisePage = () => {
 			},
 			{
 				id: "discovereats",
-				title: "DiscoverEats",
+				title: "Discover Eats",
 				description:
 					"A food-origin encyclopedia for the curious foodie — exploring the stories, techniques, and cultural significance behind the dishes we love.",
 				image: "/discovereatssh.png",
 				label: "Development",
 				route: "https://discovereats.samoncanvas.com",
+				featured: true,
 				bg: "#f5e6d3",
 				tools: [
 					"React",
@@ -162,6 +162,50 @@ const ExpertisePage = () => {
 					role: "Front-end developer. Built the full interface in React with modern CSS layout and interaction design.",
 					direction:
 						"Sky-meets-horizon color language. Designed to feel effortlessly curated — like a conversation with someone who's been everywhere and knows exactly what you'd love.",
+				},
+			},
+			{
+				id: "atlas-heor",
+				title: "ATLAS HEOR Tool",
+				description:
+					"A data visualization platform for health economists at biopharmaceutical companies — built to make complex HEOR analyses clear, credible, and client-presentable.",
+				label: "Development",
+				route: "https://www.arysana.com/atlas-platform",
+				bg: "#dce5de",
+				tools: ["UX/UI", "Data Visualization", "Design Systems", "Life Sciences"],
+				visual: {
+					type: "enterprise",
+					eyebrow: "AESARA Inc. · Enterprise",
+					metrics: ["HEOR", "B2B SaaS", "Lead UX"],
+				},
+				study: {
+					purpose:
+						"Design a platform that makes dense HEOR analysis usable for biopharmaceutical teams and polished enough for client-facing strategy work.",
+					role: "Lead UX designer. Owned information architecture, interaction patterns, data visualization, and a scalable component system.",
+					direction:
+						"Clarity over complexity. The interface had to support layered stakeholder needs, rigorous data, and the kind of precision that makes a platform feel trustworthy.",
+				},
+			},
+			{
+				id: "adhd-calculator",
+				title: "ADHD Economic Impact Calculator",
+				description:
+					"A public-facing interactive tool helping healthcare stakeholders understand the economic burden of ADHD through personalized, country-level results.",
+				label: "Development",
+				route: "https://attentiononadhd.com/cost-calculator/",
+				bg: "#e7e2d7",
+				tools: ["UX/UI", "Health Economics", "Responsive Design", "Pharma"],
+				visual: {
+					type: "enterprise",
+					eyebrow: "AESARA Inc. · Public Tool",
+					metrics: ["Calculator", "Advocacy", "Global Data"],
+				},
+				study: {
+					purpose:
+						"Translate clinical and economic data into an accessible calculator for healthcare stakeholders, advocates, and executive audiences.",
+					role: "UX/UI designer. Designed the input flow, results visualization, and responsive experience from concept through launch.",
+					direction:
+						"Make hard numbers feel real. The experience needed credibility, accessibility, and data integrity without feeling like a research spreadsheet.",
 				},
 			},
 			{
@@ -437,111 +481,158 @@ const ExpertisePage = () => {
 									gsap.set(layerWrapper, {
 										zIndex: sections.length - index,
 										autoAlpha: index === 0 ? 1 : 0,
-										clipPath:
-											index === 0
-												? "inset(0px 0px 0px 0px)"
-												: "inset(100% 0px 0px 0px)",
+										clipPath: "inset(0% 0% 0% 0%)",
 									});
 								} catch (err) {
 									console.error(`Failed to set layer ${index}:`, err);
 								}
 							});
 
-							const masterTimeline = gsap.timeline({
-								scrollTrigger: {
-									trigger: pageElement,
-									start: "top top",
-									end: "bottom bottom",
-									pin: pinTargetElement,
-									scrub: TRANSITION_TIMINGS.scrub,
-									snap: {
-										snapTo: (progress) => {
-											const snapPoints = getSectionSnapPoints();
-											let nearestPoint = snapPoints[0] ?? 0;
-											let minDistance = Number.POSITIVE_INFINITY;
+							let activeLayerIndex = 0;
 
-											snapPoints.forEach((snapPoint) => {
-												const distance = Math.abs(progress - snapPoint);
-												if (distance < minDistance) {
-													minDistance = distance;
-													nearestPoint = snapPoint;
-												}
-											});
-
-											return nearestPoint;
-										},
-										delay: TRANSITION_TIMINGS.snapDelay,
-										duration: {
-											min: TRANSITION_TIMINGS.snapMinDuration,
-											max: TRANSITION_TIMINGS.snapMaxDuration,
-										},
-										ease: "power2.inOut",
-										inertia: false,
-									},
-									anticipatePin: 1,
-									invalidateOnRefresh: true,
-									fastScrollEnd: false,
-									onUpdate: (self) => {
-										const nextIndex = getNearestSectionIndex(self.progress);
-										setActiveIndex((prev) =>
-											prev === nextIndex ? prev : nextIndex,
-										);
-									},
-								},
-							});
-
-							sections.forEach((_, index) => {
-								try {
-									const currentLayer = layerWrappers[index];
-									const nextLayer = layerWrappers[index + 1];
-
-									if (!currentLayer) {
-										return;
-									}
-
-									const segmentTimeline = gsap.timeline();
-
-									if (nextLayer) {
-										segmentTimeline
-											.set(
-												nextLayer,
-												{
-													autoAlpha: 1,
-												},
-												0,
-											)
-											.to(
-												currentLayer,
-												{
-													clipPath: "inset(0px 0px 100% 0px)",
-													duration: TRANSITION_TIMINGS.layerDuration,
-													ease: "power2.inOut",
-												},
-												0,
-											)
-											.to(
-												nextLayer,
-												{
-													clipPath: "inset(0px 0px 0px 0px)",
-													duration: TRANSITION_TIMINGS.layerDuration,
-													ease: "power2.inOut",
-												},
-												0.08,
-											)
-											.set(
-												currentLayer,
-												{
-													autoAlpha: 0,
-												},
-												1.21,
-											);
-									}
-
-									masterTimeline.add(segmentTimeline);
-								} catch (err) {
-									console.error(`Failed to add segment ${index}:`, err);
+							const showLayer = (nextIndex, direction = 1, animate = true) => {
+								if (!layerWrappers[nextIndex]) {
+									return;
 								}
+
+								gsap.to(pinTargetElement, {
+									autoAlpha: 1,
+									duration: animate ? TRANSITION_TIMINGS.tintDuration * 0.5 : 0,
+									ease: "power2.out",
+									overwrite: true,
+								});
+
+								const previousLayer = layerWrappers[activeLayerIndex];
+								const nextLayer = layerWrappers[nextIndex];
+								const revealFrom =
+									direction >= 0
+										? "inset(100% 0% 0% 0%)"
+										: "inset(0% 0% 100% 0%)";
+
+								gsap.killTweensOf(layerWrappers);
+
+								layerWrappers.forEach((layerWrapper, index) => {
+									gsap.set(layerWrapper, {
+										zIndex:
+											index === nextIndex
+												? sections.length + 1
+												: sections.length - index,
+									});
+								});
+
+								if (!animate || nextIndex === activeLayerIndex) {
+									gsap.set(layerWrappers, {
+										autoAlpha: (index) => (index === nextIndex ? 1 : 0),
+										clipPath: "inset(0% 0% 0% 0%)",
+									});
+									activeLayerIndex = nextIndex;
+									return;
+								}
+
+								gsap.set(layerWrappers, {
+									autoAlpha: (index) =>
+										index === activeLayerIndex || index === nextIndex ? 1 : 0,
+									clipPath: "inset(0% 0% 0% 0%)",
+								});
+
+								gsap.set(nextLayer, {
+									clipPath: revealFrom,
+								});
+
+								gsap.to(nextLayer, {
+									clipPath: "inset(0% 0% 0% 0%)",
+									duration: TRANSITION_TIMINGS.layerDuration,
+									ease: "power2.inOut",
+									overwrite: true,
+									onComplete: () => {
+										gsap.set(layerWrappers, {
+											autoAlpha: (index) => (index === nextIndex ? 1 : 0),
+											clipPath: "inset(0% 0% 0% 0%)",
+										});
+									},
+								});
+
+								if (previousLayer && previousLayer !== nextLayer) {
+									gsap.to(previousLayer, {
+										autoAlpha: 0,
+										duration: TRANSITION_TIMINGS.layerDuration * 0.65,
+										ease: "power2.out",
+										overwrite: true,
+									});
+								}
+
+								activeLayerIndex = nextIndex;
+							};
+
+							showLayer(0, 1, false);
+
+							ScrollTrigger.create({
+								trigger: pageElement,
+								start: "top top",
+								end: "bottom bottom",
+								pin: pinTargetElement,
+								snap: {
+									snapTo: (progress) => {
+										const snapPoints = getSectionSnapPoints();
+										let nearestPoint = snapPoints[0] ?? 0;
+										let minDistance = Number.POSITIVE_INFINITY;
+
+										snapPoints.forEach((snapPoint) => {
+											const distance = Math.abs(progress - snapPoint);
+											if (distance < minDistance) {
+												minDistance = distance;
+												nearestPoint = snapPoint;
+											}
+										});
+
+										return nearestPoint;
+									},
+									delay: TRANSITION_TIMINGS.snapDelay,
+									duration: {
+										min: TRANSITION_TIMINGS.snapMinDuration,
+										max: TRANSITION_TIMINGS.snapMaxDuration,
+									},
+									ease: "power2.inOut",
+									inertia: false,
+								},
+								anticipatePin: 1,
+								invalidateOnRefresh: true,
+								fastScrollEnd: false,
 							});
+
+							sectionRefs.current
+								.slice(0, sections.length)
+								.forEach((sectionElement, index) => {
+									try {
+										if (!sectionElement) {
+											return;
+										}
+
+										ScrollTrigger.create({
+											trigger: sectionElement,
+											start: "top center",
+											end: "bottom center",
+											onEnter: () => {
+												showLayer(index, 1);
+												setActiveIndex((prev) =>
+													prev === index ? prev : index,
+												);
+											},
+											onEnterBack: () => {
+												showLayer(index, -1);
+												setActiveIndex((prev) =>
+													prev === index ? prev : index,
+												);
+											},
+										});
+									} catch (err) {
+										console.error(
+											`Failed to create section trigger ${index}:`,
+											err,
+										);
+									}
+								});
+
 						} catch (err) {
 							console.error("GSAP context creation error:", err);
 						}
@@ -736,7 +827,13 @@ const ExpertisePage = () => {
 
 	const handleJumpTo = (label) => {
 		if (label === "Featured") {
-			gsap.to(window, { scrollTo: 0, duration: 0.8, ease: "power2.inOut" });
+			const featuredIndex = sections.findIndex((section) => section.featured);
+			if (featuredIndex >= 0) {
+				sectionRefs.current[featuredIndex]?.scrollIntoView({
+					behavior: "smooth",
+					block: "start",
+				});
+			}
 			return;
 		}
 		const targetIndex = sections.findIndex(
@@ -831,6 +928,29 @@ const ExpertisePage = () => {
 		altText,
 		{ pictureClassName, imgClassName } = {},
 	) => {
+		if (item.visual?.type === "enterprise") {
+			return (
+				<div
+					className={`${imgClassName || ""} proto-enterprise-media`.trim()}
+					role="img"
+					aria-label={altText}
+				>
+					<div className="proto-enterprise-media-inner">
+						<p className="proto-enterprise-media-eyebrow">
+							{item.visual.eyebrow}
+						</p>
+						<h3>{item.title}</h3>
+						<p>{item.study?.purpose || item.description}</p>
+						<div className="proto-enterprise-media-metrics">
+							{item.visual.metrics?.map((metric) => (
+								<span key={metric}>{metric}</span>
+							))}
+						</div>
+					</div>
+				</div>
+			);
+		}
+
 		if (item.video) {
 			return (
 				<video
@@ -895,27 +1015,29 @@ const ExpertisePage = () => {
 		</button>
 	));
 
-	const mobileFilterButtons = ["Featured", ...jumpFilters].map((filterLabel) => (
-		<button
-			key={filterLabel}
-			type="button"
-			className={`mobile-filter-btn ${
-				filterLabel === "Featured"
-					? isAboveProtoPage
-						? "is-active"
-						: ""
-					: activeSection.label === filterLabel
-						? "is-active"
-						: ""
-			}`}
-			onClick={() => {
-				handleJumpTo(filterLabel);
-				document.getElementById("mobile-menu-overlay")?.click();
-			}}
-		>
-			{filterLabel}
-		</button>
-	));
+	const mobileFilterButtons = ["Featured", ...jumpFilters].map(
+		(filterLabel) => (
+			<button
+				key={filterLabel}
+				type="button"
+				className={`mobile-filter-btn ${
+					filterLabel === "Featured"
+						? isAboveProtoPage
+							? "is-active"
+							: ""
+						: activeSection.label === filterLabel
+							? "is-active"
+							: ""
+				}`}
+				onClick={() => {
+					handleJumpTo(filterLabel);
+					document.getElementById("mobile-menu-overlay")?.click();
+				}}
+			>
+				{filterLabel}
+			</button>
+		),
+	);
 
 	return (
 		<>
@@ -1032,8 +1154,6 @@ const ExpertisePage = () => {
 					</section>
 				</main>
 
-				<EnterpriseWork />
-
 				{isReturnToTopVisible && (
 					<button
 						type="button"
@@ -1042,23 +1162,22 @@ const ExpertisePage = () => {
 						aria-label="Return to top"
 					>
 						<ChevronUp className="proto-return-to-top-icon" />
-						<span>Top</span>
+						Return to top
 					</button>
 				)}
-
-				{selectedProject && (
-					<ProjectCaseStudyModal
-						project={selectedProject}
-						isOpen={isModalOpen}
-						onClose={handleCloseProjectModal}
-						onAfterClose={handleAfterProjectModalClose}
-						onPrev={() => handleNavigateModal(-1)}
-						onNext={() => handleNavigateModal(1)}
-						hasPrev={selectedIndex > 0}
-						hasNext={selectedIndex > -1 && selectedIndex < sections.length - 1}
-					/>
-				)}
 			</div>
+			{selectedProject && (
+				<ProjectCaseStudyModal
+					project={selectedProject}
+					isOpen={isModalOpen}
+					onClose={handleCloseProjectModal}
+					onAfterClose={handleAfterProjectModalClose}
+					onPrev={() => handleNavigateModal(-1)}
+					onNext={() => handleNavigateModal(1)}
+					hasPrev={selectedIndex > 0}
+					hasNext={selectedIndex > -1 && selectedIndex < sections.length - 1}
+				/>
+			)}
 		</>
 	);
 };
