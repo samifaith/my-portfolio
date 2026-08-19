@@ -11,16 +11,13 @@ const ribbonPhrases = [
 	"web applications.",
 	"interfaces.",
 	"design systems.",
-	"API platforms.",
-	"backend services.",
-	"distributed systems.",
-	"data architectures.",
-	"automation pipelines.",
-	"infrastructure.",
-	"developer tooling.",
-	"performance systems.",
-	"scalable software.",
-	"technical foundations.",
+	"data visualizations.",
+	"interactive prototypes.",
+	"accessible experiences.",
+	"component systems.",
+	"responsive interfaces.",
+	"front-end systems.",
+	"human-centered workflows.",
 ];
 
 const WritingIcon = () => (
@@ -73,21 +70,21 @@ const VisualIcon = () => (
 
 const focusAreas = [
 	{
-		name: "Writing",
+		name: "UX Engineering",
 		description:
-			"Essays, editorial design, and the occasional long-form rabbit hole.",
+			"Turning product intent and design decisions into accessible, production-ready interactions.",
 		Icon: WritingIcon,
 	},
 	{
-		name: "Product thinking",
+		name: "Product Design",
 		description:
-			"Interfaces, workflows, and systems that have to stay useful under pressure.",
+			"Untangling workflows, information, and user needs before the interface becomes code.",
 		Icon: ProductIcon,
 	},
 	{
-		name: "Visual systems",
+		name: "Front-End Development",
 		description:
-			"Brand moments, poster studies, and layout decisions that carry personality.",
+			"Building responsive React interfaces, reusable components, and systems designed to hold up in production.",
 		Icon: VisualIcon,
 	},
 ];
@@ -315,12 +312,11 @@ const FeaturedProjects = () => {
 							</span>
 						</h2>
 						<p className="featured-lede">
-							I’m drawn to the space where storytelling, systems, and culture
-							overlap. My work usually starts with a small obsession, a question
-							I can’t leave alone, or a detail others overlook. That curiosity
-							leads to the foundation for how I design, write, and make sense of
-							the world around me. The following work is a collection of where
-							those ideas tend to wander...
+							My strongest work lives between product thinking and implementation.
+							I translate complex workflows into clear interfaces, prototype the
+							interaction, and work through the front-end details that make the
+							experience usable in production. The projects below include independent
+							work, concept work, and selected professional contributions.
 						</p>
 						<button type="button" className="featured-scroll-cta">
 							<span>Scroll to explore</span>
@@ -523,33 +519,33 @@ const FeaturedProjects = () => {
 						</svg>
 
 						<div className="featured-venn-label featured-venn-label-writing">
-							<span className="featured-venn-cap">Writing</span>
+							<span className="featured-venn-cap">UX Engineering</span>
 							<span className="featured-venn-desc">
-								Make ideas
+								Bridge design
 								<br />
-								resonate.
+								and code.
 							</span>
 						</div>
 						<div className="featured-venn-label featured-venn-label-product">
 							<span className="featured-venn-cap">Product Design</span>
 							<span className="featured-venn-desc">
-								Make things
+								Make complex
 								<br />
-								work.
+								workflows clear.
 							</span>
 						</div>
 						<div className="featured-venn-label featured-venn-label-visual">
-							<span className="featured-venn-cap">Visual Systems</span>
+							<span className="featured-venn-cap">Front-End</span>
 							<span className="featured-venn-desc">
-								Make it
+								Build for
 								<br />
-								memorable.
+								production.
 							</span>
 						</div>
 					</div>
 
 					<aside className="featured-panel" aria-label="What this page covers">
-						<p className="featured-panel-label">What I keep returning to</p>
+						<p className="featured-panel-label">Where I work best</p>
 						<div className="featured-focus-grid">
 							{focusAreas.map((area, index) => (
 								<article
