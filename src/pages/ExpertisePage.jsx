@@ -29,6 +29,13 @@ const TRANSITION_TIMINGS = {
 	snapMaxDuration: 0.5,
 };
 
+const SECTION_PRIORITY = {
+	discovereats: 0,
+	"atlas-heor": 1,
+	"adhd-calculator": 2,
+	life2life: 3,
+};
+
 const ExpertisePage = () => {
 	const [activeIndex, setActiveIndex] = useState(0);
 	const [selectedProject, setSelectedProject] = useState(null);
@@ -122,7 +129,7 @@ const ExpertisePage = () => {
 				id: "discovereats",
 				title: "Discover Eats",
 				description:
-					"A food-origin encyclopedia for the curious foodie — exploring the stories, techniques, and cultural significance behind the dishes we love.",
+					"An independently designed and built food-origin encyclopedia exploring the stories, techniques, and cultural significance behind the dishes we love.",
 				image: "/discovereatssh.png",
 				label: "Development",
 				route: "https://discovereats.samoncanvas.com",
@@ -141,7 +148,7 @@ const ExpertisePage = () => {
 				study: {
 					purpose:
 						"Build an interactive encyclopedia that celebrates food origins — making culinary history accessible and engaging for food enthusiasts.",
-					role: "Full-stack developer and designer. Conceptualized, designed, and built the entire platform using modern web technologies.",
+					role: "Independent product designer and developer. Conceptualized, designed, and built the platform end to end.",
 					direction:
 						"Food is storytelling. The experience needed to feel like opening a beautifully bound cookbook — rich with detail, intuitive navigation, and genuine curiosity.",
 				},
@@ -166,46 +173,46 @@ const ExpertisePage = () => {
 			},
 			{
 				id: "atlas-heor",
-				title: "ATLAS HEOR Tool",
+				title: "ATLAS HEOR Platform",
 				description:
-					"A data visualization platform for health economists at biopharmaceutical companies — built to make complex HEOR analyses clear, credible, and client-presentable.",
-				label: "Development",
+					"Selected UX and front-end contributions to an AESARA-owned enterprise platform used to support complex HEOR workflows.",
+				label: "Professional",
 				route: "https://www.arysana.com/atlas-platform",
 				bg: "#dce5de",
 				tools: ["UX/UI", "Data Visualization", "Design Systems", "Life Sciences"],
 				visual: {
 					type: "enterprise",
-					eyebrow: "AESARA Inc. · Enterprise",
-					metrics: ["HEOR", "B2B SaaS", "Lead UX"],
+					eyebrow: "AESARA Inc. · Selected Contribution",
+					metrics: ["HEOR", "B2B SaaS", "UX + Front-End"],
 				},
 				study: {
 					purpose:
-						"Design a platform that makes dense HEOR analysis usable for biopharmaceutical teams and polished enough for client-facing strategy work.",
-					role: "Lead UX designer. Owned information architecture, interaction patterns, data visualization, and a scalable component system.",
+						"ATLAS is an AESARA-owned enterprise platform for health economics and outcomes research teams. This entry reflects work I contributed while employed at AESARA, not ownership of the product.",
+					role: "As part of the AESARA product and engineering team, I contributed UX and front-end work across information architecture, interaction patterns, data visualization, and reusable interface patterns.",
 					direction:
-						"Clarity over complexity. The interface had to support layered stakeholder needs, rigorous data, and the kind of precision that makes a platform feel trustworthy.",
+						"The work required translating dense HEOR workflows and layered stakeholder needs into interfaces that were clear, consistent, and trustworthy within an iterative product environment.",
 				},
 			},
 			{
 				id: "adhd-calculator",
 				title: "ADHD Economic Impact Calculator",
 				description:
-					"A public-facing interactive tool helping healthcare stakeholders understand the economic burden of ADHD through personalized, country-level results.",
-				label: "Development",
+					"Selected UX/UI contributions to a client-facing calculator delivered through AESARA for healthcare stakeholders exploring the economic burden of ADHD.",
+				label: "Professional",
 				route: "https://attentiononadhd.com/cost-calculator/",
 				bg: "#e7e2d7",
 				tools: ["UX/UI", "Health Economics", "Responsive Design", "Pharma"],
 				visual: {
 					type: "enterprise",
-					eyebrow: "AESARA Inc. · Public Tool",
-					metrics: ["Calculator", "Advocacy", "Global Data"],
+					eyebrow: "AESARA Inc. · Selected Contribution",
+					metrics: ["Calculator", "Healthcare", "UX/UI"],
 				},
 				study: {
 					purpose:
-						"Translate clinical and economic data into an accessible calculator for healthcare stakeholders, advocates, and executive audiences.",
-					role: "UX/UI designer. Designed the input flow, results visualization, and responsive experience from concept through launch.",
+						"This client-facing calculator was delivered through AESARA to help healthcare stakeholders explore the economic burden of ADHD. This entry reflects my contribution as part of the AESARA team.",
+					role: "I contributed to the UX/UI design of the calculator experience, including input flows, results presentation, responsive behavior, and translating complex economic information into a more approachable interface.",
 					direction:
-						"Make hard numbers feel real. The experience needed credibility, accessibility, and data integrity without feeling like a research spreadsheet.",
+						"The interface needed to balance clarity, accessibility, credibility, and data integrity for specialist and executive audiences without feeling like a research spreadsheet.",
 				},
 			},
 			{
@@ -304,11 +311,11 @@ const ExpertisePage = () => {
 
 	const sections = useMemo(
 		() =>
-			[...baseSections].sort(
-				(leftSection, rightSection) =>
-					Number(Boolean(rightSection.featured)) -
-					Number(Boolean(leftSection.featured)),
-			),
+			[...baseSections].sort((leftSection, rightSection) => {
+				const leftPriority = SECTION_PRIORITY[leftSection.id] ?? 100;
+				const rightPriority = SECTION_PRIORITY[rightSection.id] ?? 100;
+				return leftPriority - rightPriority;
+			}),
 		[baseSections],
 	);
 
