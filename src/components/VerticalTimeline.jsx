@@ -111,9 +111,10 @@ const defaultItems = [
 		id: 7,
 		year: "2024",
 		title: "AESARA Inc.",
-		text: "In the world of Health Economics, data is usually dense and complex. At AESARA, my job was to make it fluid and intuitive. I took lead on UX product strategy for the ATLAS platform, where I wasn't just designing—I was conceptualizing each release. By creating a system of 30+ reusable components, I didn't just help the product look better; I streamlined the development process. I turned clinical data into something real, interactive, and—most importantly—usable.",
+		text: "At AESARA, I worked across UX, front-end development, and product delivery in a health economics environment where the data and workflows were often dense. I contributed to ATLAS and other client-facing tools through information architecture, interface design, data visualization, reusable components, and iterative release work as part of the broader product and engineering team.",
 		side: "left",
 		skills: [
+			"UX Engineering",
 			"Product Development",
 			"Design Systems",
 			"Data-informed UX",
@@ -135,7 +136,7 @@ const defaultItems = [
 		id: 8,
 		year: "2026",
 		title: "Johnson & Wales University · Food Studies, Media & Design",
-		text: "I don’t believe in silos. My work intersects high-level systems thinking and the stories that drive them. I’m wrapping up at Johnson & Wales, thinking about how we build community through food and media, but my roots are in the code. I’ve built enterprise tools for global consultants and scaled diversity for retail giants. I’m not just designing interfaces; I’m architecting the way people interact with their world.",
+		text: "I don’t believe in silos. My work connects systems thinking, interface design, code, storytelling, and culture. At Johnson & Wales, I’m expanding the creative and research side of that practice while continuing to build on the UX and front-end foundation I developed through professional product work.",
 		side: "right",
 		skills: [
 			"User-Centered Design",
