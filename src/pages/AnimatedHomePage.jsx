@@ -39,7 +39,7 @@ const HomePageComponent = () => {
 	const headRef = useRef(null);
 
 	const fullText =
-		"Welcome to my ever changing portfolio, shaping culture through human-centered design. I look to listen and engage with communities, developing prototypes, and iterating to bring stories to life in meaningful ways. With a strong focus on detail and purpose, I look to imagine and bring to life meaningful brands and experiences that resonate and foster genuine connections. Together, we can create something truly extraordinary.";
+		"I work across UX engineering, product design, and front-end development to turn complex ideas into clear, accessible digital experiences. My process moves from understanding people and systems to prototyping, interface design, and production code, with a focus on thoughtful interaction, reusable patterns, and experiences that feel genuinely human.";
 
 	// Check if animation has been shown this session
 	const hasAnimationPlayed = getAnimationPlayedInSession();
@@ -168,7 +168,7 @@ const HomePageComponent = () => {
 			<div className="hero-split">
 				<div className="hero-text-section">
 					<div ref={signatureRef} className="signature-section">
-						<h2 className="signature-title">THE CREATIVE DEVELOPER</h2>
+						<h2 className="signature-title">UX ENGINEER + PRODUCT DESIGNER</h2>
 						<div className="signature-words">
 							{["I", "AM"].map((word, i) => (
 								<h1 className="title brush-reveal-text" key={i}>
