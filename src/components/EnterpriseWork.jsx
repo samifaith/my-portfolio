@@ -8,49 +8,52 @@ const enterpriseProjects = [
 		tenure: "Jun 2020 – May 2024",
 		link: "https://www.arysana.com/atlas-platform",
 		linkLabel: "View ATLAS",
-		purpose:
-			"A data visualization platform for health economists at biopharmaceutical companies — built to make complex HEOR analyses and tracking accessible and client-presentable.",
-		role: "Lead UX designer. Owned strategic design: information architecture, interaction patterns, data visualization, and a scalable component system.",
-		direction:
-			"Move fast. Our team prioritized lean and agile development. Product early, receive feedback, and iterate. Valuing clarity over complexity. HEOR data is dense and teams, cross-functional — the design had to succeed in precision, consistency, and have zero ambiguity.",
+		context:
+			"ATLAS is an AESARA-owned enterprise platform for health economics and outcomes research teams. This portfolio entry reflects my contributions while working at AESARA, not ownership of the product.",
+		contribution:
+			"Contributed UX and front-end work across information architecture, interaction patterns, data visualization, and reusable interface patterns within the larger product and engineering team.",
+		approach:
+			"Worked within a lean, iterative product environment where complex HEOR workflows had to become clear, consistent, and trustworthy for cross-functional users.",
 	},
 	{
 		id: "adhd-calculator",
-		disciplines: ["UX/UI Design", "Health Economics", "Pharma"],
+		disciplines: ["UX/UI Design", "Health Economics", "Responsive Design"],
 		name: "ADHD Economic Impact Calculator",
 		link: "https://attentiononadhd.com/cost-calculator/",
 		linkLabel: "View Live",
-		purpose:
-			"A public-facing interactive tool helping healthcare stakeholders understand the economic burden of ADHD — translating clinical data into personalized impact at the country level.",
-		role: "UX/UI designer. Designed the full calculator experience: input flows, results visualization, and a responsive layout serving both clinical and executive audiences.",
-		direction:
-			"Make hard numbers feel real. The calculator needed credibility and accessibility — not a research tool, but an advocacy instrument with unimpeachable data integrity.",
+		context:
+			"A client-facing calculator delivered through AESARA to help healthcare stakeholders explore the economic burden of ADHD. This entry reflects my contribution as part of the AESARA team.",
+		contribution:
+			"Contributed to UX/UI design for the calculator experience, including input flows, results presentation, responsive behavior, and translating complex economic information into a more approachable interface.",
+		approach:
+			"Balanced clarity, accessibility, credibility, and data integrity so the experience could serve both specialist and executive audiences without reading like a research spreadsheet.",
 	},
 ];
 
 const EnterpriseWork = () => (
 	<section
 		className="enterprise-section"
-		aria-label="Enterprise work at AESARA Inc."
+		aria-label="Selected professional contributions at AESARA Inc."
 	>
 		<div className="enterprise-shell">
 			<header className="enterprise-intro">
 				<div className="enterprise-rule" aria-hidden="true" />
-				<p className="enterprise-eyebrow">AESARA Inc. · Enterprise</p>
+				<p className="enterprise-eyebrow">AESARA Inc. · Professional Work</p>
 				<h2 className="enterprise-heading">
-					Enterprise
+					Selected
 					<br />
-					<span className="enterprise-heading-sub">Work</span>
+					<span className="enterprise-heading-sub">Contributions</span>
 				</h2>
 				<p className="enterprise-note">
-					Proprietary tools I designed at AESARA Inc. — not mine, but absolutely
-					mine to be proud of.
+					The products below were owned by AESARA and its clients. I am showing
+					selected areas I contributed to while working as part of those teams.
 				</p>
 				<div className="enterprise-stack">
 					<p className="enterprise-stack-label">Why it matters</p>
 					<p className="enterprise-stack-copy">
-						The work had to handle dense data, layered stakeholder needs, and
-						the kind of rigor that makes a platform feel trustworthy.
+						This work required translating dense information, layered stakeholder
+						needs, and regulated-domain complexity into interfaces people could
+						understand and trust.
 					</p>
 				</div>
 			</header>
@@ -69,16 +72,16 @@ const EnterpriseWork = () => (
 
 						<div className="enterprise-card-study">
 							<div className="enterprise-study-field">
-								<h4>Purpose</h4>
-								<p>{project.purpose}</p>
+								<h4>Context</h4>
+								<p>{project.context}</p>
 							</div>
 							<div className="enterprise-study-field">
-								<h4>My Role</h4>
-								<p>{project.role}</p>
+								<h4>My Contribution</h4>
+								<p>{project.contribution}</p>
 							</div>
 							<div className="enterprise-study-field">
-								<h4>Direction</h4>
-								<p>{project.direction}</p>
+								<h4>Approach</h4>
+								<p>{project.approach}</p>
 							</div>
 						</div>
 
