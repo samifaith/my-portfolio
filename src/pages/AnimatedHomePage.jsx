@@ -38,7 +38,7 @@ const HomePageComponent = () => {
 	const headRef = useRef(null);
 
 	const fullText =
-		"I design it, then I build it. My work sits between UX, product design, and front-end development, turning complex workflows into clear interfaces and reusable React components. I came to product work through photography, so I notice the details people feel before they can name them: the hierarchy that's slightly off, the control nobody can find, the flow that breaks when someone's actually in a hurry. Design systems, accessibility, and thoughtful interaction are where that eye meets the build.";
+		"I bring visions to life. Sitting between product design, development, and user-centered experiences, I turn ideas and workflows into clear interfaces. First coming to product work via photography, I noticed the details that make a good photo, great: the beauty in framing, design theory, and trying again and again. Design systems, accessibility, and thoughtful interaction are at the core of what I do.";
 
 	const hasAnimationPlayed = getAnimationPlayedInSession();
 
