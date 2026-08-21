@@ -86,7 +86,7 @@ const ExpertisePage = () => {
 						"Explore the intersection of immigrant identity, generational memory, and food — told through the lens of a child who didn't know what she had until it was gone.",
 					role: "Writer and art director. Crafted the personal essay and designed the full editorial layout in Illustrator, Photoshop, and InDesign.",
 					direction:
-						"Warm, tactile typography to evoke memory. The layout breathes the way a good meal lingers — unhurried, generous, layered with meaning.",
+						"Warm, tactile typography built to evoke memory. The layout takes its time the way a good meal does — nothing rushed, nothing wasted.",
 				},
 			},
 			{
@@ -150,7 +150,7 @@ const ExpertisePage = () => {
 						"Build an interactive encyclopedia that celebrates food origins — making culinary history accessible and engaging for food enthusiasts.",
 					role: "Independent product designer and developer. Conceptualized, designed, and built the platform end to end.",
 					direction:
-						"Food is storytelling. The experience needed to feel like opening a beautifully bound cookbook — rich with detail, intuitive navigation, and genuine curiosity.",
+						"Food is storytelling, so the site had to feel like a cookbook someone's actually used — annotated, a little worn, easy to fall into for an hour when you only meant to look up one thing.",
 				},
 			},
 			{
@@ -168,15 +168,15 @@ const ExpertisePage = () => {
 						"Concept a homepage for an AI-curated travel agency — exploring how to make algorithmic curation feel personal and aspirational rather than algorithmic.",
 					role: "Front-end developer. Built the full interface in React with modern CSS layout and interaction design.",
 					direction:
-						"Sky-meets-horizon color language. Designed to feel effortlessly curated — like a conversation with someone who's been everywhere and knows exactly what you'd love.",
+						"Sky-meets-horizon color language. The hard part was making algorithmic curation feel like a recommendation from the friend who's been everywhere, not output from a system that guessed.",
 				},
 			},
 			{
 				id: "atlas-heor",
 				title: "ATLAS HEOR Platform",
 				description:
-					"Selected UX and front-end contributions to an AESARA-owned enterprise platform used to support complex HEOR workflows.",
-				label: "Professional",
+					"The challenge was mimicking complex real-world processes while keeping the data understandable. At AESARA, I contributed to UX, front-end development, data visualization, information architecture, and reusable interface systems.",
+				label: "AESARA · UX + FRONT-END",
 				route: "https://www.arysana.com/atlas-platform",
 				bg: "#dce5de",
 				tools: ["UX/UI", "Data Visualization", "Design Systems", "Life Sciences"],
@@ -197,8 +197,8 @@ const ExpertisePage = () => {
 				id: "adhd-calculator",
 				title: "ADHD Economic Impact Calculator",
 				description:
-					"Selected UX/UI contributions to a client-facing calculator delivered through AESARA for healthcare stakeholders exploring the economic burden of ADHD.",
-				label: "Professional",
+					"An interactive cost calculator that translates ADHD economic data into personalized, country-level results. At AESARA, I led the UX/UI, including input flows, responsive behavior, and results presentation.",
+				label: "AESARA · UX/UI",
 				route: "https://attentiononadhd.com/cost-calculator/",
 				bg: "#e7e2d7",
 				tools: ["UX/UI", "Health Economics", "Responsive Design", "Pharma"],
@@ -210,9 +210,9 @@ const ExpertisePage = () => {
 				study: {
 					purpose:
 						"This client-facing calculator was delivered through AESARA to help healthcare stakeholders explore the economic burden of ADHD. This entry reflects my contribution as part of the AESARA team.",
-					role: "I contributed to the UX/UI design of the calculator experience, including input flows, results presentation, responsive behavior, and translating complex economic information into a more approachable interface.",
+					role: "I led the UX/UI for the calculator experience, including input flows, results presentation, and responsive behavior.",
 					direction:
-						"The interface needed to balance clarity, accessibility, credibility, and data integrity for specialist and executive audiences without feeling like a research spreadsheet.",
+						"The experience had to work for people with varying levels of subject-matter knowledge while staying clear, credible, and easy to navigate.",
 				},
 			},
 			{
