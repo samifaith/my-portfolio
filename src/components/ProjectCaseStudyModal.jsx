@@ -13,25 +13,9 @@ const FOCUSABLE_SELECTOR =
 const PROFESSIONAL_CONTRIBUTION_OVERRIDES = {
 	"atlas-heor": {
 		label: "AESARA · Selected Professional Contribution",
-		study: {
-			purpose:
-				"ATLAS is an AESARA-owned enterprise platform for health economics and outcomes research teams. This portfolio entry reflects work I contributed while employed at AESARA, not ownership of the product.",
-			role:
-				"As part of the AESARA product and engineering team, I contributed UX and front-end work across information architecture, interaction patterns, data visualization, and reusable interface patterns.",
-			direction:
-				"The work required translating dense HEOR workflows and layered stakeholder needs into interfaces that were clear, consistent, and trustworthy while working within an iterative product environment.",
-		},
 	},
 	"adhd-calculator": {
 		label: "AESARA · Selected Professional Contribution",
-		study: {
-			purpose:
-				"This client-facing calculator was delivered through AESARA to help healthcare stakeholders explore the economic burden of ADHD. This portfolio entry reflects my contribution as part of the AESARA team.",
-			role:
-				"I contributed to the UX/UI design of the calculator experience, including input flows, results presentation, responsive behavior, and translating complex economic information into a more approachable interface.",
-			direction:
-				"The interface needed to balance clarity, accessibility, credibility, and data integrity for specialist and executive audiences without feeling like a research spreadsheet.",
-		},
 	},
 };
 
@@ -98,7 +82,7 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose, onNext,
 	const professionalOverride = project
 		? PROFESSIONAL_CONTRIBUTION_OVERRIDES[project.id]
 		: null;
-	const effectiveStudy = professionalOverride?.study || project?.study;
+	const effectiveStudy = project?.study;
 	const isProfessionalContribution = Boolean(professionalOverride);
 	const isStory = modalContent.kind === "story";
 	const isCaseStudy = modalContent.kind === "case-study";
