@@ -78,6 +78,7 @@ const ExpertisePage = () => {
 					"A personal essay on cultural identity through food — the immigrant experience of rejecting what you later grieve.",
 				image: "/writing/manger.webp",
 				label: "Writing",
+				category: "Writing",
 				route: "/expertise-archived/eat-like-child",
 				bg: "#e7ddd2",
 				tools: ["Illustrator", "Photoshop", "InDesign"],
@@ -96,6 +97,7 @@ const ExpertisePage = () => {
 					"A profile of Arielle Faria — a home chef whose story illuminates the cultural shift toward cooking as craft, identity, and inheritance.",
 				image: "/writing/OuiChef.webp",
 				label: "Writing",
+				category: "Writing",
 				route: "/expertise-archived/home-cook",
 				bg: "#e5e6d7",
 				tools: ["Photoshop"],
@@ -114,6 +116,7 @@ const ExpertisePage = () => {
 					"A fictional podcast episode exploring the origin story of Nashville Hot Chicken, connecting food history to culture and folklore.",
 				image: "/writing/revengehot.gif",
 				label: "Writing",
+				category: "Writing",
 				route: "/expertise-archived/tea-with-sami",
 				bg: "#d8dde7",
 				tools: ["Audacity", "Photoshop"],
@@ -132,6 +135,7 @@ const ExpertisePage = () => {
 					"An independently designed and built food-origin encyclopedia exploring the stories, techniques, and cultural significance behind the dishes we love.",
 				image: "/discovereatssh.png",
 				label: "Development",
+				category: "Product + Development",
 				route: "https://discovereats.samoncanvas.com",
 				featured: true,
 				bg: "#f5e6d3",
@@ -160,6 +164,7 @@ const ExpertisePage = () => {
 					"A homepage concept for a travel agency specializing in AI-cultivated travel experiences.",
 				image: "/design/SamDeCoteau_Vector.avif",
 				label: "Development",
+				category: "Product + Development",
 				route: "/expertise",
 				bg: "#d8e4d9",
 				tools: ["React", "CSS", "Vite"],
@@ -177,6 +182,7 @@ const ExpertisePage = () => {
 				description:
 					"The challenge was mimicking complex real-world processes while keeping the data understandable. At AESARA, I contributed to UX, front-end development, data visualization, information architecture, and reusable interface systems.",
 				label: "AESARA · UX + FRONT-END",
+				category: "Product + Development",
 				route: "https://www.arysana.com/atlas-platform",
 				bg: "#dce5de",
 				tools: ["UX/UI", "Data Visualization", "Design Systems", "Life Sciences"],
@@ -199,6 +205,7 @@ const ExpertisePage = () => {
 				description:
 					"An interactive cost calculator that translates ADHD economic data into personalized, country-level results. At AESARA, I led the UX/UI, including input flows, responsive behavior, and results presentation.",
 				label: "AESARA · UX/UI",
+				category: "Product + Development",
 				route: "https://attentiononadhd.com/cost-calculator/",
 				bg: "#e7e2d7",
 				tools: ["UX/UI", "Health Economics", "Responsive Design", "Pharma"],
@@ -222,6 +229,7 @@ const ExpertisePage = () => {
 					"Type study inspired by the UK punk scene of the late 70s utilizing the typeface Rowdy by Benjamin Busse.",
 				image: "/design/SD_TypePoster_ROWDY.avif",
 				label: "Design",
+				category: "Design",
 				route: "/expertise",
 				bg: "#e2e6d5",
 				tools: ["Illustrator"],
@@ -240,6 +248,7 @@ const ExpertisePage = () => {
 					"My take on a Saul Bass-inspired type poster using the typeface Lombardia by Luciano Perondi.",
 				image: "/design/SD_TypePoster_LOMBARDIA.avif",
 				label: "Design",
+				category: "Design",
 				route: "/expertise",
 				bg: "#d5e2ea",
 				tools: ["Illustrator"],
@@ -258,6 +267,7 @@ const ExpertisePage = () => {
 					"A poster encouraging voter participation, inspired by the 'We Can Do It!' Rosie the Riveter poster — reframed through Lady Liberty.",
 				image: "/design/Vote_Poster.avif",
 				label: "Design",
+				category: "Design",
 				route: "/expertise",
 				bg: "#e9ddd3",
 				tools: ["Illustrator"],
@@ -276,6 +286,7 @@ const ExpertisePage = () => {
 					"Conceptual branding and poster design for a personal brand celebrating the unconventional creative path.",
 				image: "/design/BlackUnicorn.avif",
 				label: "Design",
+				category: "Design",
 				route: "/expertise",
 				bg: "#ddd9ea",
 				tools: ["Illustrator", "Photoshop"],
@@ -294,6 +305,7 @@ const ExpertisePage = () => {
 					"A short film compiled from personal dive footage in Cabo San Lucas, Mexico — capturing what it feels like to be underwater.",
 				video: "/photography/diving.MP4",
 				label: "Media",
+				category: "Design",
 				route: "/expertise",
 				bg: "#d9e0e5",
 				tools: ["Premiere Pro"],
@@ -787,7 +799,7 @@ const ExpertisePage = () => {
 	}, []);
 
 	const jumpFilters = useMemo(
-		() => [...new Set(sections.map((section) => section.label))],
+		() => [...new Set(sections.map((section) => section.category || section.label))],
 		[sections],
 	);
 
@@ -844,7 +856,7 @@ const ExpertisePage = () => {
 			return;
 		}
 		const targetIndex = sections.findIndex(
-			(section) => section.label === label,
+			(section) => (section.category || section.label) === label,
 		);
 		if (targetIndex < 0) {
 			return;
@@ -1012,7 +1024,7 @@ const ExpertisePage = () => {
 					? isAboveProtoPage
 						? "is-active"
 						: ""
-					: activeSection.label === filterLabel
+					: (activeSection.category || activeSection.label) === filterLabel
 						? "is-active"
 						: ""
 			}`}
@@ -1032,7 +1044,7 @@ const ExpertisePage = () => {
 						? isAboveProtoPage
 							? "is-active"
 							: ""
-						: activeSection.label === filterLabel
+						: (activeSection.category || activeSection.label) === filterLabel
 							? "is-active"
 							: ""
 				}`}
