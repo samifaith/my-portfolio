@@ -38,7 +38,7 @@ const HomePageComponent = () => {
 	const headRef = useRef(null);
 
 	const fullText =
-		"I bring visions to life. Sitting between product design, development, and user-centered experiences, I turn ideas and workflows into clear interfaces. First coming to product work via photography, I noticed the details that make a good photo, great: the beauty in framing, design theory, and trying again and again. Design systems, accessibility, and thoughtful interaction are at the core of what I do.";
+		"I’m drawn to the space where storytelling, systems, and culture overlap. My work usually starts with a small obsession, a question I can’t leave alone, or a detail others overlook. That curiosity becomes the foundation for how I design, write, and make sense of the world around me.";
 
 	const hasAnimationPlayed = getAnimationPlayedInSession();
 
