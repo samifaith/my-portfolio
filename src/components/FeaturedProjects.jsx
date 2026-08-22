@@ -11,16 +11,13 @@ const ribbonPhrases = [
 	"web applications.",
 	"interfaces.",
 	"design systems.",
-	"API platforms.",
-	"backend services.",
-	"distributed systems.",
-	"data architectures.",
-	"automation pipelines.",
-	"infrastructure.",
-	"developer tooling.",
-	"performance systems.",
-	"scalable software.",
-	"technical foundations.",
+	"data visualization.",
+	"responsive experiences.",
+	"prototypes.",
+	"component systems.",
+	"product workflows.",
+	"front-end experiences.",
+	"interaction patterns.",
 ];
 
 const WritingIcon = () => (
@@ -185,7 +182,7 @@ const FeaturedProjects = () => {
 						</p>
 					</div>
 
-					<div className="featured-venn" ref={diagramRef} aria-label="Writing, product thinking, and visual systems overlap">
+					<div className="featured-venn" ref={diagramRef} role="img" aria-label="Writing, product thinking, and visual systems overlap">
 						<div className="featured-venn-circle featured-venn-writing"><span>Writing</span></div>
 						<div className="featured-venn-circle featured-venn-product"><span>Product<br />thinking</span></div>
 						<div className="featured-venn-circle featured-venn-visual"><span>Visual<br />systems</span></div>
