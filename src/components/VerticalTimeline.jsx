@@ -111,7 +111,7 @@ const defaultItems = [
 		id: 7,
 		year: "2024",
 		title: "AESARA Inc.",
-		text: "At AESARA, I worked across UX, front-end development, and product strategy in a field where the data was complex. On ATLAS, I helped shape releases through information architecture, interaction design, data visualization, and reusable UI patterns. I also built and contributed to a system of 30+ reusable components, making the product more consistent and reducing repeat work for engineering. The goal was simple: make complex health economics data easier to use.",
+		text: "In pharma, data has real-world impact. At AESARA, I streamlined the information architecture, created interface systems, and helped structure the UI library for ATLAS, their health economics platform. I also built a reusable component library that improved consistency across the product and reduced repeat development work.",
 		side: "left",
 		skills: [
 			"UX Engineering",
@@ -222,8 +222,6 @@ export default function VerticalTimeline({
 							}
 
 							if (opposite) {
-								// If card is on right, skills are on left (slide from left = negative x)
-								// If card is on left, skills are on right (slide from right = positive x)
 								gsap.fromTo(
 									opposite,
 									{
@@ -303,7 +301,6 @@ export default function VerticalTimeline({
 				</a>
 			</div>
 			<div className="timeline-container">
-				{/* The center vertical line */}
 				<div className="timeline-line" style={{ backgroundColor: accent }} />
 
 				{displayItems.map((item, i) => {
@@ -320,7 +317,6 @@ export default function VerticalTimeline({
 								<span>{item.year}</span>
 							</div>
 
-							{/* Main description box */}
 							<article
 								className="timeline-card"
 								ref={(el) => (cardsRef.current[i] = el)}
@@ -330,7 +326,6 @@ export default function VerticalTimeline({
 								<p className="timeline-text">{item.text}</p>
 							</article>
 
-							{/* Skills or images on opposite side */}
 							{(item.skills || item.techTools || item.images) && (
 								<div
 									className={`timeline-opposite ${oppositeSide}`}
