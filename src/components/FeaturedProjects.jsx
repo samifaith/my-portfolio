@@ -181,7 +181,7 @@ const FeaturedProjects = () => {
 							</span>
 						</h2>
 						<p className="featured-lede">
-							I’m drawn to the space where storytelling, systems, and culture overlap. My work usually starts with a small obsession, a question I can’t leave alone, or a detail others overlook. That curiosity leads to the foundation for how I design, write, and make sense of the world around me. The following work is a collection of where those ideas tend to go.
+							I bring visions to life. Working across product design, development, and user-centered experiences, I turn ideas and complex workflows into clear interfaces. I first came to product work through photography, where I learned how much framing, design theory, and iteration can change an experience. Today, that same attention to detail shows up in how I approach design systems, accessibility, and thoughtful interaction. The following work is a collection of where those ideas tend to go.
 						</p>
 					</div>
 
