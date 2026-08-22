@@ -75,7 +75,7 @@ const ExpertisePage = () => {
 				id: "eat-like-child",
 				title: "Eat Like a Child",
 				description:
-					"A personal essay on cultural identity through food — the immigrant experience of rejecting what you later grieve.",
+					"A personal essay about cultural identity through food — the immigrant experience of rejecting what you later grieve.",
 				image: "/writing/manger.webp",
 				label: "Writing",
 				category: "Writing",
@@ -94,7 +94,7 @@ const ExpertisePage = () => {
 				id: "home-cook",
 				title: "The Rise of the Home Cook",
 				description:
-					"A profile of Arielle Faria — a home chef whose story illuminates the cultural shift toward cooking as craft, identity, and inheritance.",
+					"An exposé with Arielle Faria — a home chef whose story illuminates the cultural shift toward cooking as craft, identity, and inheritance.",
 				image: "/writing/OuiChef.webp",
 				label: "Writing",
 				category: "Writing",
@@ -132,7 +132,7 @@ const ExpertisePage = () => {
 				id: "discovereats",
 				title: "Discover Eats",
 				description:
-					"An independently designed and built food-origin encyclopedia exploring the stories, techniques, and cultural significance behind the dishes we love.",
+					"A personal project, designed and built as a food-origin encyclopedia exploring the stories, techniques, and cultural significance behind the dishes we love.",
 				image: "/discovereatssh.png",
 				label: "Development",
 				category: "Product + Development",
@@ -161,7 +161,7 @@ const ExpertisePage = () => {
 				id: "life2life",
 				title: "Life 2 Life Travel Agency | Web Interface",
 				description:
-					"A homepage concept for a travel agency specializing in AI-cultivated travel experiences.",
+					"A concept travel agency specializing in AI-cultivated travel experiences.",
 				image: "/design/SamDeCoteau_Vector.avif",
 				label: "Development",
 				category: "Product + Development",
