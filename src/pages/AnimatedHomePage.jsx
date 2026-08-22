@@ -10,7 +10,6 @@ import headshotImage from "../illustratedheadshot.webp";
 
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
 
-// Configure ScrollTrigger for smooth scrolling
 ScrollTrigger.config({
 	autoRefreshEvents: "visibilitychange,DOMContentLoaded,load,resize",
 	ignoreMobileResize: true,
@@ -39,9 +38,8 @@ const HomePageComponent = () => {
 	const headRef = useRef(null);
 
 	const fullText =
-		"Welcome to my ever changing portfolio, shaping culture through human-centered design. I look to listen and engage with communities, developing prototypes, and iterating to bring stories to life in meaningful ways. With a strong focus on detail and purpose, I look to imagine and bring to life meaningful brands and experiences that resonate and foster genuine connections. Together, we can create something truly extraordinary.";
+		"I’m drawn to the space where storytelling, systems, and culture overlap. My work usually starts with a small obsession, a question I can’t leave alone, or a detail others overlook. That curiosity becomes the foundation for how I design, write, and make sense of the world around me.";
 
-	// Check if animation has been shown this session
 	const hasAnimationPlayed = getAnimationPlayedInSession();
 
 	const [typedText, setTypedText] = useState(
@@ -49,11 +47,9 @@ const HomePageComponent = () => {
 	);
 	const [isTypingComplete, setIsTypingComplete] = useState(hasAnimationPlayed);
 
-	// Animate headshot immediately on mount (or show instantly if animation already played)
 	useEffect(() => {
 		try {
 			if (hasAnimationPlayed) {
-				// Show instantly if animation has already played
 				gsap.set(headRef.current, { opacity: 1, scale: 1 });
 			} else {
 				gsap.fromTo(
@@ -74,7 +70,6 @@ const HomePageComponent = () => {
 			}
 		} catch (err) {
 			console.error("Failed to animate headshot:", err);
-			// Ensure headshot is visible even if animation fails
 			try {
 				if (headRef.current) {
 					headRef.current.style.opacity = "1";
@@ -85,9 +80,7 @@ const HomePageComponent = () => {
 		}
 	}, [hasAnimationPlayed]);
 
-	// Optimized typing effect using requestAnimationFrame (skip if already played)
 	useEffect(() => {
-		// Skip animation if it has already played before
 		if (hasAnimationPlayed) {
 			return;
 		}
@@ -95,7 +88,7 @@ const HomePageComponent = () => {
 		let currentIndex = 0;
 		let rafId = null;
 		let lastTime = 0;
-		const typingSpeed = 3; // ~1.2 seconds total for full paragraph
+		const typingSpeed = 3;
 
 		const typeNextChar = (timestamp) => {
 			try {
@@ -109,8 +102,6 @@ const HomePageComponent = () => {
 						lastTime = timestamp;
 					} else {
 						setIsTypingComplete(true);
-
-						// Mark animation as played for this session
 						setAnimationPlayedInSession();
 						return;
 					}
@@ -131,7 +122,6 @@ const HomePageComponent = () => {
 		};
 	}, [hasAnimationPlayed, fullText]);
 
-	// Show signature immediately on load (and still keep a subtle first-load reveal).
 	useEffect(() => {
 		try {
 			if (hasAnimationPlayed) {
@@ -152,7 +142,6 @@ const HomePageComponent = () => {
 			);
 		} catch (err) {
 			console.error("Failed to set signature visibility:", err);
-			// Ensure signature is visible on error
 			try {
 				if (signatureRef.current) {
 					signatureRef.current.style.opacity = "1";
@@ -168,7 +157,7 @@ const HomePageComponent = () => {
 			<div className="hero-split">
 				<div className="hero-text-section">
 					<div ref={signatureRef} className="signature-section">
-						<h2 className="signature-title">THE CREATIVE DEVELOPER</h2>
+						<h2 className="signature-title">UX ENGINEER + PRODUCT DESIGNER</h2>
 						<div className="signature-words">
 							{["I", "AM"].map((word, i) => (
 								<h1 className="title brush-reveal-text" key={i}>
@@ -179,14 +168,12 @@ const HomePageComponent = () => {
 						<Letter />
 					</div>
 					<div className="intro-paragraph-wrapper">
-						{/* Invisible full text reserves the correct height at all times */}
 						<p
 							className="intro-paragraph intro-paragraph--spacer"
 							aria-hidden="true"
 						>
 							{fullText}
 						</p>
-						{/* Visible typed text overlays the spacer */}
 						<p className="intro-paragraph intro-paragraph--visible">
 							{typedText}
 							{!isTypingComplete && <span className="typing-cursor">|</span>}
@@ -198,9 +185,7 @@ const HomePageComponent = () => {
 					<div
 						ref={headRef}
 						className="head"
-						style={{
-							backgroundImage: `url(${headshotImage})`,
-						}}
+						style={{ backgroundImage: `url(${headshotImage})` }}
 						role="img"
 						aria-label="Headshot of Sam DeCoteau"
 					/>
@@ -213,7 +198,6 @@ const HomePageComponent = () => {
 };
 
 const AnimatedHomePage = () => {
-	// Refresh ScrollTrigger on mount to ensure smooth scrolling
 	useEffect(() => {
 		ScrollTrigger.refresh();
 	}, []);
@@ -222,7 +206,6 @@ const AnimatedHomePage = () => {
 		<div>
 			<HomePageComponent />
 			<VerticalTimeline />
-			{/* <TechSkills /> */}
 			<MadeByMeHand />
 		</div>
 	);

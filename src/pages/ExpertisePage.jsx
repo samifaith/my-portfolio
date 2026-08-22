@@ -29,6 +29,13 @@ const TRANSITION_TIMINGS = {
 	snapMaxDuration: 0.5,
 };
 
+const SECTION_PRIORITY = {
+	discovereats: 0,
+	"atlas-heor": 1,
+	"adhd-calculator": 2,
+	life2life: 3,
+};
+
 const ExpertisePage = () => {
 	const [activeIndex, setActiveIndex] = useState(0);
 	const [selectedProject, setSelectedProject] = useState(null);
@@ -71,6 +78,7 @@ const ExpertisePage = () => {
 					"A personal essay on cultural identity through food — the immigrant experience of rejecting what you later grieve.",
 				image: "/writing/manger.webp",
 				label: "Writing",
+				category: "Writing",
 				route: "/expertise-archived/eat-like-child",
 				bg: "#e7ddd2",
 				tools: ["Illustrator", "Photoshop", "InDesign"],
@@ -79,7 +87,7 @@ const ExpertisePage = () => {
 						"Explore the intersection of immigrant identity, generational memory, and food — told through the lens of a child who didn't know what she had until it was gone.",
 					role: "Writer and art director. Crafted the personal essay and designed the full editorial layout in Illustrator, Photoshop, and InDesign.",
 					direction:
-						"Warm, tactile typography to evoke memory. The layout breathes the way a good meal lingers — unhurried, generous, layered with meaning.",
+						"Warm, tactile typography built to evoke memory. The layout takes its time the way a good meal does — nothing rushed, nothing wasted.",
 				},
 			},
 			{
@@ -89,6 +97,7 @@ const ExpertisePage = () => {
 					"A profile of Arielle Faria — a home chef whose story illuminates the cultural shift toward cooking as craft, identity, and inheritance.",
 				image: "/writing/OuiChef.webp",
 				label: "Writing",
+				category: "Writing",
 				route: "/expertise-archived/home-cook",
 				bg: "#e5e6d7",
 				tools: ["Photoshop"],
@@ -107,6 +116,7 @@ const ExpertisePage = () => {
 					"A fictional podcast episode exploring the origin story of Nashville Hot Chicken, connecting food history to culture and folklore.",
 				image: "/writing/revengehot.gif",
 				label: "Writing",
+				category: "Writing",
 				route: "/expertise-archived/tea-with-sami",
 				bg: "#d8dde7",
 				tools: ["Audacity", "Photoshop"],
@@ -122,9 +132,10 @@ const ExpertisePage = () => {
 				id: "discovereats",
 				title: "Discover Eats",
 				description:
-					"A food-origin encyclopedia for the curious foodie — exploring the stories, techniques, and cultural significance behind the dishes we love.",
+					"An independently designed and built food-origin encyclopedia exploring the stories, techniques, and cultural significance behind the dishes we love.",
 				image: "/discovereatssh.png",
 				label: "Development",
+				category: "Product + Development",
 				route: "https://discovereats.samoncanvas.com",
 				featured: true,
 				bg: "#f5e6d3",
@@ -141,9 +152,9 @@ const ExpertisePage = () => {
 				study: {
 					purpose:
 						"Build an interactive encyclopedia that celebrates food origins — making culinary history accessible and engaging for food enthusiasts.",
-					role: "Full-stack developer and designer. Conceptualized, designed, and built the entire platform using modern web technologies.",
+					role: "Independent product designer and developer. Conceptualized, designed, and built the platform end to end.",
 					direction:
-						"Food is storytelling. The experience needed to feel like opening a beautifully bound cookbook — rich with detail, intuitive navigation, and genuine curiosity.",
+						"Food is storytelling, so the site had to feel like a cookbook someone's actually used — annotated, a little worn, easy to fall into for an hour when you only meant to look up one thing.",
 				},
 			},
 			{
@@ -153,6 +164,7 @@ const ExpertisePage = () => {
 					"A homepage concept for a travel agency specializing in AI-cultivated travel experiences.",
 				image: "/design/SamDeCoteau_Vector.avif",
 				label: "Development",
+				category: "Product + Development",
 				route: "/expertise",
 				bg: "#d8e4d9",
 				tools: ["React", "CSS", "Vite"],
@@ -161,51 +173,53 @@ const ExpertisePage = () => {
 						"Concept a homepage for an AI-curated travel agency — exploring how to make algorithmic curation feel personal and aspirational rather than algorithmic.",
 					role: "Front-end developer. Built the full interface in React with modern CSS layout and interaction design.",
 					direction:
-						"Sky-meets-horizon color language. Designed to feel effortlessly curated — like a conversation with someone who's been everywhere and knows exactly what you'd love.",
+						"Sky-meets-horizon color language. The hard part was making algorithmic curation feel like a recommendation from the friend who's been everywhere, not output from a system that guessed.",
 				},
 			},
 			{
 				id: "atlas-heor",
-				title: "ATLAS HEOR Tool",
+				title: "ATLAS HEOR Platform",
 				description:
-					"A data visualization platform for health economists at biopharmaceutical companies — built to make complex HEOR analyses clear, credible, and client-presentable.",
-				label: "Development",
+					"The challenge was mimicking complex real-world processes while keeping the data understandable. At AESARA, I contributed to UX, front-end development, data visualization, information architecture, and reusable interface systems.",
+				label: "AESARA · UX + FRONT-END",
+				category: "Product + Development",
 				route: "https://www.arysana.com/atlas-platform",
 				bg: "#dce5de",
 				tools: ["UX/UI", "Data Visualization", "Design Systems", "Life Sciences"],
 				visual: {
 					type: "enterprise",
-					eyebrow: "AESARA Inc. · Enterprise",
-					metrics: ["HEOR", "B2B SaaS", "Lead UX"],
+					eyebrow: "AESARA Inc. · Selected Contribution",
+					metrics: ["HEOR", "B2B SaaS", "UX + Front-End"],
 				},
 				study: {
 					purpose:
-						"Design a platform that makes dense HEOR analysis usable for biopharmaceutical teams and polished enough for client-facing strategy work.",
-					role: "Lead UX designer. Owned information architecture, interaction patterns, data visualization, and a scalable component system.",
+						"ATLAS is an AESARA-owned enterprise platform for health economics and outcomes research teams. This entry reflects work I contributed while employed at AESARA, not ownership of the product.",
+					role: "As part of the AESARA product and engineering team, I contributed UX and front-end work across information architecture, interaction patterns, data visualization, and reusable interface patterns.",
 					direction:
-						"Clarity over complexity. The interface had to support layered stakeholder needs, rigorous data, and the kind of precision that makes a platform feel trustworthy.",
+						"The work required translating dense HEOR workflows and layered stakeholder needs into interfaces that were clear, consistent, and trustworthy within an iterative product environment.",
 				},
 			},
 			{
 				id: "adhd-calculator",
 				title: "ADHD Economic Impact Calculator",
 				description:
-					"A public-facing interactive tool helping healthcare stakeholders understand the economic burden of ADHD through personalized, country-level results.",
-				label: "Development",
+					"An interactive cost calculator that translates ADHD economic data into personalized, country-level results. At AESARA, I led the UX/UI, including input flows, responsive behavior, and results presentation.",
+				label: "AESARA · UX/UI",
+				category: "Product + Development",
 				route: "https://attentiononadhd.com/cost-calculator/",
 				bg: "#e7e2d7",
 				tools: ["UX/UI", "Health Economics", "Responsive Design", "Pharma"],
 				visual: {
 					type: "enterprise",
-					eyebrow: "AESARA Inc. · Public Tool",
-					metrics: ["Calculator", "Advocacy", "Global Data"],
+					eyebrow: "AESARA Inc. · Selected Contribution",
+					metrics: ["Calculator", "Healthcare", "UX/UI"],
 				},
 				study: {
 					purpose:
-						"Translate clinical and economic data into an accessible calculator for healthcare stakeholders, advocates, and executive audiences.",
-					role: "UX/UI designer. Designed the input flow, results visualization, and responsive experience from concept through launch.",
+						"This client-facing calculator was delivered through AESARA to help healthcare stakeholders explore the economic burden of ADHD. This entry reflects my contribution as part of the AESARA team.",
+					role: "I led the UX/UI for the calculator experience, including input flows, results presentation, and responsive behavior.",
 					direction:
-						"Make hard numbers feel real. The experience needed credibility, accessibility, and data integrity without feeling like a research spreadsheet.",
+						"The experience had to work for people with varying levels of subject-matter knowledge while staying clear, credible, and easy to navigate.",
 				},
 			},
 			{
@@ -215,6 +229,7 @@ const ExpertisePage = () => {
 					"Type study inspired by the UK punk scene of the late 70s utilizing the typeface Rowdy by Benjamin Busse.",
 				image: "/design/SD_TypePoster_ROWDY.avif",
 				label: "Design",
+				category: "Design",
 				route: "/expertise",
 				bg: "#e2e6d5",
 				tools: ["Illustrator"],
@@ -233,6 +248,7 @@ const ExpertisePage = () => {
 					"My take on a Saul Bass-inspired type poster using the typeface Lombardia by Luciano Perondi.",
 				image: "/design/SD_TypePoster_LOMBARDIA.avif",
 				label: "Design",
+				category: "Design",
 				route: "/expertise",
 				bg: "#d5e2ea",
 				tools: ["Illustrator"],
@@ -251,6 +267,7 @@ const ExpertisePage = () => {
 					"A poster encouraging voter participation, inspired by the 'We Can Do It!' Rosie the Riveter poster — reframed through Lady Liberty.",
 				image: "/design/Vote_Poster.avif",
 				label: "Design",
+				category: "Design",
 				route: "/expertise",
 				bg: "#e9ddd3",
 				tools: ["Illustrator"],
@@ -269,6 +286,7 @@ const ExpertisePage = () => {
 					"Conceptual branding and poster design for a personal brand celebrating the unconventional creative path.",
 				image: "/design/BlackUnicorn.avif",
 				label: "Design",
+				category: "Design",
 				route: "/expertise",
 				bg: "#ddd9ea",
 				tools: ["Illustrator", "Photoshop"],
@@ -287,6 +305,7 @@ const ExpertisePage = () => {
 					"A short film compiled from personal dive footage in Cabo San Lucas, Mexico — capturing what it feels like to be underwater.",
 				video: "/photography/diving.MP4",
 				label: "Media",
+				category: "Media",
 				route: "/expertise",
 				bg: "#d9e0e5",
 				tools: ["Premiere Pro"],
@@ -304,11 +323,11 @@ const ExpertisePage = () => {
 
 	const sections = useMemo(
 		() =>
-			[...baseSections].sort(
-				(leftSection, rightSection) =>
-					Number(Boolean(rightSection.featured)) -
-					Number(Boolean(leftSection.featured)),
-			),
+			[...baseSections].sort((leftSection, rightSection) => {
+				const leftPriority = SECTION_PRIORITY[leftSection.id] ?? 100;
+				const rightPriority = SECTION_PRIORITY[rightSection.id] ?? 100;
+				return leftPriority - rightPriority;
+			}),
 		[baseSections],
 	);
 
@@ -780,7 +799,7 @@ const ExpertisePage = () => {
 	}, []);
 
 	const jumpFilters = useMemo(
-		() => [...new Set(sections.map((section) => section.label))],
+		() => [...new Set(sections.map((section) => section.category || section.label))],
 		[sections],
 	);
 
@@ -837,7 +856,7 @@ const ExpertisePage = () => {
 			return;
 		}
 		const targetIndex = sections.findIndex(
-			(section) => section.label === label,
+			(section) => (section.category || section.label) === label,
 		);
 		if (targetIndex < 0) {
 			return;
@@ -1005,7 +1024,7 @@ const ExpertisePage = () => {
 					? isAboveProtoPage
 						? "is-active"
 						: ""
-					: activeSection.label === filterLabel
+					: (activeSection.category || activeSection.label) === filterLabel
 						? "is-active"
 						: ""
 			}`}
@@ -1025,7 +1044,7 @@ const ExpertisePage = () => {
 						? isAboveProtoPage
 							? "is-active"
 							: ""
-						: activeSection.label === filterLabel
+						: (activeSection.category || activeSection.label) === filterLabel
 							? "is-active"
 							: ""
 				}`}

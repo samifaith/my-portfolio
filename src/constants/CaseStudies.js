@@ -1,5 +1,7 @@
 const caseStudies = {
 	wanderlust: {
+		projectType: "concept",
+		ownershipLabel: "Concept project · Collaborative team",
 		theme: {
 			coral: "#E8634A",
 			coralLight: "#FFF0ED",
@@ -14,7 +16,7 @@ const caseStudies = {
 		},
 		subtitle: "UX / UI Concept Project",
 		overview:
-			"Travel app concept for faster, preference-based trip discovery on budget.",
+			"Travel app concept exploring faster, preference-based trip discovery while keeping budget constraints visible.",
 		meta: [
 			{ label: "Role", value: "Lead UX Designer" },
 			{ label: "Duration", value: "8 Weeks" },
@@ -23,46 +25,46 @@ const caseStudies = {
 		],
 		highlights: [
 			"Researched pain points across fragmented travel tools and translated findings into a focused product direction.",
-			"Designed a swipe-first discovery flow to reduce decision fatigue and speed up itinerary planning.",
-			"Validated interaction patterns through iterative usability testing and refinements.",
+			"Designed a swipe-first discovery flow intended to reduce decision fatigue and make destination comparison faster.",
+			"Tested interaction patterns, identified points of confusion, and iterated on the flow based on usability feedback.",
 		],
 		solutionCards: [
 			{
 				title: "Swipe to Match",
 				description:
-					"Quiz-tailored trip cards; swipe right to save, left to skip.",
+					"Quiz-tailored trip cards use a familiar save-or-skip interaction to narrow destination options.",
 			},
 			{
 				title: "Local Discovery",
-				description: "Neighborhood guides from locals surface hidden gems.",
+				description: "Neighborhood guides surface locally informed places and experiences.",
 			},
 			{
 				title: "Budget Tracker",
-				description: "Live spend tracking keeps budgets clear during trips.",
+				description: "Visible spend feedback keeps budget context close to planning decisions.",
 			},
 		],
 		process: [
 			{
 				title: "Research",
-				description: "Interviews, surveys, and competitor review.",
+				description: "Interviews, surveys, and competitor review to identify planning friction.",
 			},
 			{
 				title: "Synthesize",
-				description: "Affinity maps, personas, and journey maps.",
+				description: "Affinity mapping, personas, and journey mapping to organize recurring needs.",
 			},
 			{
 				title: "Ideate",
-				description: "Wireframes for a card-based matching flow.",
+				description: "Wireframes and interaction concepts for a card-based matching flow.",
 			},
 			{
 				title: "Test & Iterate",
-				description: "Usability rounds to improve clarity and flow.",
+				description: "Usability rounds used to identify unclear interactions and refine the experience.",
 			},
 		],
 		outcomes: [
-			"Reduced cognitive load during destination discovery.",
-			"Improved clarity of budgeting decisions with simple real-time feedback.",
-			"Created a scalable visual system for future feature expansion.",
+			"Usability feedback informed refinements to destination discovery and interaction clarity.",
+			"Budget information was brought into the planning flow instead of treated as a separate task.",
+			"The concept established a reusable visual and interaction foundation for future features.",
 		],
 	},
 };

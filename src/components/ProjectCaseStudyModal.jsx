@@ -10,6 +10,15 @@ import "../styles/ProjectCaseStudyModal.css";
 const FOCUSABLE_SELECTOR =
 	'a[href], area[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"]), [contenteditable="true"]';
 
+const PROFESSIONAL_CONTRIBUTION_OVERRIDES = {
+	"atlas-heor": {
+		label: "AESARA · Selected Professional Contribution",
+	},
+	"adhd-calculator": {
+		label: "AESARA · Selected Professional Contribution",
+	},
+};
+
 const splitParagraphs = (content) =>
 	content
 		? content
@@ -36,18 +45,18 @@ const resolveModalContent = (project) => {
 	return { kind: "project" };
 };
 
-const StudyFields = ({ study, tools }) => (
+const StudyFields = ({ study, tools, contributionMode = false }) => (
 	<>
 		<div className="case-study-field">
-			<h3>Purpose</h3>
+			<h3>{contributionMode ? "Context" : "Purpose"}</h3>
 			<p>{study.purpose}</p>
 		</div>
 		<div className="case-study-field">
-			<h3>My Role</h3>
+			<h3>{contributionMode ? "My Contribution" : "My Role"}</h3>
 			<p>{study.role}</p>
 		</div>
 		<div className="case-study-field">
-			<h3>Direction</h3>
+			<h3>{contributionMode ? "Approach" : "Direction"}</h3>
 			<p>{study.direction}</p>
 		</div>
 		{tools && tools.length > 0 && (
@@ -70,6 +79,11 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose, onNext,
 	const previousOverflowRef = useRef(null);
 	const previousFocusRef = useRef(null);
 	const modalContent = useMemo(() => resolveModalContent(project), [project]);
+	const professionalOverride = project
+		? PROFESSIONAL_CONTRIBUTION_OVERRIDES[project.id]
+		: null;
+	const effectiveStudy = project?.study;
+	const isProfessionalContribution = Boolean(professionalOverride);
 	const isStory = modalContent.kind === "story";
 	const isCaseStudy = modalContent.kind === "case-study";
 	const isProjectModal = !isStory && !isCaseStudy;
@@ -491,6 +505,11 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose, onNext,
 						<header className="case-study-header">
 							<div className="case-study-label-group">
 								<span className="case-study-label">{project.label}</span>
+								{professionalOverride?.label && (
+									<span className="case-study-label case-study-label--soft">
+										{professionalOverride.label}
+									</span>
+								)}
 								{isStory && story?.subtitle && (
 									<span className="case-study-label case-study-label--soft">
 										{story.subtitle}
@@ -533,9 +552,13 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose, onNext,
 										</CardMedia>
 									</div>
 								)}
-								{project.study && (
+								{effectiveStudy && (
 									<div className="case-study-details">
-										<StudyFields study={project.study} tools={project.tools} />
+										<StudyFields
+											study={effectiveStudy}
+											tools={project.tools}
+											contributionMode={isProfessionalContribution}
+										/>
 									</div>
 								)}
 								<div className="case-study-story-prose">
@@ -548,9 +571,13 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose, onNext,
 
 						{isCaseStudy && caseStudy && (
 							<>
-								{project.study && (
+								{effectiveStudy && (
 									<div className="case-study-details">
-										<StudyFields study={project.study} tools={project.tools} />
+										<StudyFields
+											study={effectiveStudy}
+											tools={project.tools}
+											contributionMode={isProfessionalContribution}
+										/>
 									</div>
 								)}
 								<WanderlustCaseStudyContent caseStudy={caseStudy} />
@@ -559,8 +586,12 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose, onNext,
 
 						{isProjectModal && (
 							<div className="case-study-details">
-								{project.study ? (
-									<StudyFields study={project.study} tools={project.tools} />
+								{effectiveStudy ? (
+									<StudyFields
+										study={effectiveStudy}
+										tools={project.tools}
+										contributionMode={isProfessionalContribution}
+									/>
 								) : (
 									<>
 										<p>{project.description}</p>

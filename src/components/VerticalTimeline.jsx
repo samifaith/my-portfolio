@@ -10,7 +10,7 @@ const defaultItems = [
 		id: 1,
 		year: "2009",
 		title: "Graduated from Boston Latin Academy",
-		text: "Where the creativity started. Balancing the school paper with competitive track was my first lesson in hitting deadlines and participating with a team under pressure. I’ve been running with that same hustle ever since.",
+		text: "Where it started. I ran the school paper and competitive track in the same season, which meant deadlines I couldn't miss and teammates who noticed if I did. First real lesson in carrying my share. I've been running on that same fuel since.",
 		side: "left",
 		skills: [
 			"Team Leadership",
@@ -25,7 +25,7 @@ const defaultItems = [
 		id: 2,
 		year: "2010",
 		title: "Center for Digital Imaging Arts at Boston University",
-		text: "I couldn't draw but I knew what looked good--I had a good 'eye'. This was a deep dive into the technical side of the lens. I learned the science of composition and how to handle a studio.",
+		text: "I couldn't draw to save my life, but I knew what looked right. CDIA taught me why. Composition, color, how light behaves when you stop fighting it and start planning around it. Turns out 'good eye' is a skill you can actually learn the mechanics of.",
 		side: "right",
 		skills: [
 			"Photography & Composition",
@@ -39,7 +39,7 @@ const defaultItems = [
 		id: 3,
 		year: "2018",
 		title: "DeCoteau Photography",
-		text: "Long before I was writing code, I was a photographer. My years in photography and handling its operations taught me two things: how to see what others miss, and how to stay calm when the stakes are high. Whether I was photographing a wedding or designing photobook layouts, I was learning how to define my voice, creating the moment where a service becomes an experience.",
+		text: "Long before I was writing code, I was a photographer running my own business. Weddings teach you two things fast: how to see what everyone else in the room is missing, and how to stay calm when there's no second take. Between shoots I was designing photobooks, building the brand, chasing invoices. That's where I learned the difference between delivering a service and giving someone an experience they'll talk about for years.",
 		side: "left",
 		skills: [
 			"Client Discovery",
@@ -61,7 +61,7 @@ const defaultItems = [
 		id: 4,
 		year: "2017",
 		title: "Sandpiper Rentals · Martha's Vineyard",
-		text: "A masterclass in dynamic operations. I managed the logistics for 600+ properties and a 12-person team. I didn’t just follow processes—I built the engine, slashing first-response times from 24 hours to 1. This was where I learned to drive change, manage demanding stakeholders, and move with purpose when the pressure was on.",
+		text: "600+ properties, a 12-person team, and an island that doubles in population every summer. I stopped inheriting the process and rebuilt it — first-response time went from 24 hours to 1. It's also where I got fluent in demanding stakeholders, which is a polite way of describing a homeowner calling about a broken hot tub on the Fourth of July.",
 		side: "right",
 		skills: [
 			"Customer Experience",
@@ -76,7 +76,7 @@ const defaultItems = [
 		id: 5,
 		year: "2018",
 		title: "Wayfair · Campus Recruitment",
-		text: "Wayfair was where I learned that the most important product you ever build is the team itself. As a recruiter and co-leader of the WayBlack ERG, I was introduced to engineers driving change, inspiring me to take that same leap. Our recruitment efforts managed to move the needle on diversity from 7% to 30% because we stopped looking at checkboxes and started looking at human potential. I bring that same lens to my work today: if it isn't inclusive, it isn't finished.",
+		text: "Wayfair is where I figured out that the most important thing you'll ever build is the team. I recruited engineers and co-led the WayBlack ERG, and watching those engineers ship things made me want to stop hiring builders and become one. Our recruiting moved diversity from 7% to 30% — not because we found a better checkbox, but because we stopped treating potential like it only comes from four schools. If it isn't inclusive, it isn't finished.",
 		side: "left",
 		skills: [
 			"Talent Sourcing",
@@ -91,7 +91,7 @@ const defaultItems = [
 		id: 6,
 		year: "2020",
 		title: "Resilient Coders",
-		text: "This was my deep dive into the 'how.' I believe a designer who understands the code makes for a better collaborator. At Resilient Coders, I grounded my creative skills in technical development, shipping full-stack applications, aiming for near-perfect Lighthouse scores. It taught me the art of lean code, delegation and collaboration, and ultimately to create human-centered products that deliver.",
+		text: "The part where I stopped handing off mockups and started shipping the thing myself. Full-stack JavaScript, React, Node, Mongo, chasing Lighthouse scores like they were a personal grudge. I learned to write code lean enough that someone else could read it at 2am, and to hand off work without hovering. Mostly it's where 'human-centered' stopped being a phrase I said in interviews and became something I could actually build.",
 		side: "right",
 		skills: ["Responsive Design", "Agile Practices"],
 		techTools: [
@@ -111,9 +111,10 @@ const defaultItems = [
 		id: 7,
 		year: "2024",
 		title: "AESARA Inc.",
-		text: "In the world of Health Economics, data is usually dense and complex. At AESARA, my job was to make it fluid and intuitive. I took lead on UX product strategy for the ATLAS platform, where I wasn't just designing—I was conceptualizing each release. By creating a system of 30+ reusable components, I didn't just help the product look better; I streamlined the development process. I turned clinical data into something real, interactive, and—most importantly—usable.",
+		text: "In pharma, data has real-world impact. At AESARA, I streamlined the information architecture, created interface systems, and helped structure the UI library for ATLAS, their health economics platform. I also built a reusable component library that improved consistency across the product and reduced repeat development work.",
 		side: "left",
 		skills: [
+			"UX Engineering",
 			"Product Development",
 			"Design Systems",
 			"Data-informed UX",
@@ -135,7 +136,7 @@ const defaultItems = [
 		id: 8,
 		year: "2026",
 		title: "Johnson & Wales University · Food Studies, Media & Design",
-		text: "I don’t believe in silos. My work intersects high-level systems thinking and the stories that drive them. I’m wrapping up at Johnson & Wales, thinking about how we build community through food and media, but my roots are in the code. I’ve built enterprise tools for global consultants and scaled diversity for retail giants. I’m not just designing interfaces; I’m architecting the way people interact with their world.",
+		text: "I don't work in silos and I've stopped apologizing for it. I'm finishing at Johnson & Wales, studying how food and media build community — which sounds like a detour from code until you notice both are systems for getting people to care about something. My roots are still in the build. Enterprise tools for global health economists, diversity hiring at retail scale, interfaces people use whether or not they ever think about who made them.",
 		side: "right",
 		skills: [
 			"User-Centered Design",
@@ -221,8 +222,6 @@ export default function VerticalTimeline({
 							}
 
 							if (opposite) {
-								// If card is on right, skills are on left (slide from left = negative x)
-								// If card is on left, skills are on right (slide from right = positive x)
 								gsap.fromTo(
 									opposite,
 									{
@@ -302,7 +301,6 @@ export default function VerticalTimeline({
 				</a>
 			</div>
 			<div className="timeline-container">
-				{/* The center vertical line */}
 				<div className="timeline-line" style={{ backgroundColor: accent }} />
 
 				{displayItems.map((item, i) => {
@@ -319,7 +317,6 @@ export default function VerticalTimeline({
 								<span>{item.year}</span>
 							</div>
 
-							{/* Main description box */}
 							<article
 								className="timeline-card"
 								ref={(el) => (cardsRef.current[i] = el)}
@@ -329,7 +326,6 @@ export default function VerticalTimeline({
 								<p className="timeline-text">{item.text}</p>
 							</article>
 
-							{/* Skills or images on opposite side */}
 							{(item.skills || item.techTools || item.images) && (
 								<div
 									className={`timeline-opposite ${oppositeSide}`}
