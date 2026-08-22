@@ -305,7 +305,7 @@ const ExpertisePage = () => {
 					"A short film compiled from personal dive footage in Cabo San Lucas, Mexico — capturing what it feels like to be underwater.",
 				video: "/photography/diving.MP4",
 				label: "Media",
-				category: "Design",
+				category: "Media",
 				route: "/expertise",
 				bg: "#d9e0e5",
 				tools: ["Premiere Pro"],
