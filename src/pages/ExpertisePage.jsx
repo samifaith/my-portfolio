@@ -84,7 +84,7 @@ const ExpertisePage = () => {
 				tools: ["Illustrator", "Photoshop", "InDesign"],
 				study: {
 					purpose:
-						"Explore the intersection of immigrant identity, generational memory, and food — told through the lens of a child who didn't know what she had until it was gone.",
+						"Use food and memory as a lens for examining how immigrant identity changes across generations.",
 					role: "Writer and art director. Crafted the personal essay and designed the full editorial layout in Illustrator, Photoshop, and InDesign.",
 					direction:
 						"Warm, tactile typography built to evoke memory. The layout takes its time the way a good meal does — nothing rushed, nothing wasted.",
@@ -103,8 +103,8 @@ const ExpertisePage = () => {
 				tools: ["Photoshop"],
 				study: {
 					purpose:
-						"Profile Arielle Faria and use her story to explore what food culture means in the age of the home cook — from PBS cooking shows to kitchen witchcraft.",
-					role: "Writer and editorial designer. Conducted the interview, wrote the feature, and designed the print spread for Oui Chef magazine.",
+						"Use one home cook’s story to connect personal cooking practices to broader shifts in how people learn, share, and build identity around food.",
+					role: "Writer and editorial designer. Conducted the interview, wrote the feature, and designed the print spread for the fictional Oui Chef magazine.",
 					direction:
 						"Editorial restraint with warmth. Let the story carry the weight — clean hierarchy, honest photography, type that guides without imposing.",
 				},
@@ -122,7 +122,7 @@ const ExpertisePage = () => {
 				tools: ["Audacity", "Photoshop"],
 				study: {
 					purpose:
-						"Create a fictional podcast episode that connects food history to culture and folklore — part of a larger series on the stories behind what we eat.",
+						"Build a fictional food-history podcast format that could extend into a larger series about the stories behind what we eat.",
 					role: "Writer, audio producer, and cover artist. Scripted and recorded the episode; designed cover art in Photoshop.",
 					direction:
 						"The cover needed to feel like a guilty pleasure — bold, irreverent, impossible to ignore. Saturated reds and smoky darks to match the heat of the subject.",
@@ -151,10 +151,10 @@ const ExpertisePage = () => {
 				],
 				study: {
 					purpose:
-						"Build an interactive encyclopedia that celebrates food origins — making culinary history accessible and engaging for food enthusiasts.",
+						"Create a browsable experience that makes food history approachable without flattening the cultural context behind each dish.",
 					role: "Independent product designer and developer. Conceptualized, designed, and built the platform end to end.",
 					direction:
-						"Food is storytelling, so the site had to feel like a cookbook someone's actually used — annotated, a little worn, easy to fall into for an hour when you only meant to look up one thing.",
+						"Food is storytelling. The experience needed to feel like opening a beautifully bound cookbook — rich with detail, intuitive navigation, and genuine curiosity.",
 				},
 			},
 			{
@@ -170,10 +170,10 @@ const ExpertisePage = () => {
 				tools: ["React", "CSS", "Vite"],
 				study: {
 					purpose:
-						"Concept a homepage for an AI-curated travel agency — exploring how to make algorithmic curation feel personal and aspirational rather than algorithmic.",
+						"Explore how AI-driven recommendations could feel personal and aspirational without making the interface feel automated or impersonal.",
 					role: "Front-end developer. Built the full interface in React with modern CSS layout and interaction design.",
 					direction:
-						"Sky-meets-horizon color language. The hard part was making algorithmic curation feel like a recommendation from the friend who's been everywhere, not output from a system that guessed.",
+						"Sky-meets-horizon color language. Designed to feel effortlessly curated — like a conversation with someone who's been everywhere and knows exactly what you'd love.",
 				},
 			},
 			{
@@ -193,7 +193,7 @@ const ExpertisePage = () => {
 				},
 				study: {
 					purpose:
-						"ATLAS is an AESARA-owned enterprise platform for health economics and outcomes research teams. This entry reflects work I contributed while employed at AESARA, not ownership of the product.",
+						"ATLAS is AESARA’s enterprise health economics platform, built to support complex HEOR workflows for biopharma teams.",
 					role: "As part of the AESARA product and engineering team, I contributed UX and front-end work across information architecture, interaction patterns, data visualization, and reusable interface patterns.",
 					direction:
 						"The work required translating dense HEOR workflows and layered stakeholder needs into interfaces that were clear, consistent, and trustworthy within an iterative product environment.",
@@ -216,7 +216,7 @@ const ExpertisePage = () => {
 				},
 				study: {
 					purpose:
-						"This client-facing calculator was delivered through AESARA to help healthcare stakeholders explore the economic burden of ADHD. This entry reflects my contribution as part of the AESARA team.",
+						"Delivered through AESARA, the calculator turned health-economic research into an accessible client-facing experience for healthcare stakeholders.",
 					role: "I led the UX/UI for the calculator experience, including input flows, results presentation, and responsive behavior.",
 					direction:
 						"The experience had to work for people with varying levels of subject-matter knowledge while staying clear, credible, and easy to navigate.",
@@ -235,7 +235,7 @@ const ExpertisePage = () => {
 				tools: ["Illustrator"],
 				study: {
 					purpose:
-						"A typographic study channeling the visual energy of UK punk — using Rowdy by Benjamin Busse as the vessel for controlled chaos.",
+						"Explore how typography, scale, and composition could recreate punk’s visual tension without losing structure.",
 					role: "Designer and art director. Concept and full execution in Illustrator.",
 					direction:
 						"Tension within structure. Punk broke rules by knowing them — so the layout follows a strict grid it then deliberately fractures. Compressed type, raw edges, confrontational scale.",
@@ -254,7 +254,7 @@ const ExpertisePage = () => {
 				tools: ["Illustrator"],
 				study: {
 					purpose:
-						"A tribute to the visual grammar of Saul Bass — exploring reduction, shape, and cinematic composition through the typeface Lombardia by Luciano Perondi.",
+						"Study how reduction, shape, and typographic composition can communicate a cinematic idea with minimal elements.",
 					role: "Designer. Concept and execution in Illustrator.",
 					direction:
 						"Less to say more. Bass condensed entire narratives into a single gesture. The driving question: what is the minimum needed to communicate maximum impact?",
@@ -273,7 +273,7 @@ const ExpertisePage = () => {
 				tools: ["Illustrator"],
 				study: {
 					purpose:
-						"A poster encouraging civic participation — remixing the iconography of 'We Can Do It!' through the lens of Lady Liberty, making urgency feel both timeless and immediate.",
+						"Use familiar American visual language to make a civic message immediately recognizable and emotionally direct.",
 					role: "Designer and illustrator. First serious vector illustration work; built entirely in Illustrator.",
 					direction:
 						"Familiar form, fresh urgency. Leverage recognition to lower the barrier — make something people feel before they think about it.",
@@ -292,7 +292,7 @@ const ExpertisePage = () => {
 				tools: ["Illustrator", "Photoshop"],
 				study: {
 					purpose:
-						"Conceptual brand identity for those who don't fit the mold, don't want to, and have made that their superpower.",
+						"Develop a visual identity around individuality, creative independence, and the tension between visibility and difference.",
 					role: "Brand strategist, designer, illustrator. Developed the full visual identity: wordmark, poster system, and design language.",
 					direction:
 						"Darkness and iridescence in equal measure. The palette moves from deep black through electric violet — power, mystery, and a quiet refusal to be ordinary.",
@@ -311,7 +311,7 @@ const ExpertisePage = () => {
 				tools: ["Premiere Pro"],
 				study: {
 					purpose:
-						"Capture and edit personal footage from a scuba diving trip in Cabo San Lucas — creating a short film that communicates the disorienting calm of being underwater.",
+						"Translate the sensory experience of diving into a short film centered on pace, movement, and atmosphere.",
 					role: "Cinematographer and editor. Shot on GoPro; assembled, color-graded, and paced in Premiere Pro.",
 					direction:
 						"Let the ocean do the talking. The edit follows the rhythm of the water — unhurried, punctuated by sudden color and movement. No narration. No music that fights the footage.",
