@@ -48,6 +48,15 @@ const DiscoverEatsCaseStudyContent = ({ caseStudy }) => (
 			another.
 		</p>
 
+		<a
+			className="discovereats-case-study-link"
+			href={caseStudy.liveUrl}
+			target="_blank"
+			rel="noreferrer"
+		>
+			View the live application
+		</a>
+
 		<dl className="discovereats-case-study-meta">
 			{projectDetails.map(([label, value]) => (
 				<div key={label}>
