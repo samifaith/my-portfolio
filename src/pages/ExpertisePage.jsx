@@ -130,13 +130,14 @@ const ExpertisePage = () => {
 			},
 			{
 				id: "discovereats",
-				title: "Discover Eats",
+				title: "DiscoverEats",
 				description:
 					"An independently designed and built food-origin encyclopedia exploring the stories, techniques, and cultural significance behind the dishes we love.",
 				image: "/discovereatssh.png",
 				label: "Development",
 				category: "Product + Development",
 				route: "https://discovereats.samoncanvas.com",
+				caseStudy: true,
 				featured: true,
 				bg: "#f5e6d3",
 				tools: [
@@ -935,6 +936,11 @@ const ExpertisePage = () => {
 	);
 
 	const handleProjectPrimaryAction = (item) => {
+		if (item.caseStudy) {
+			handleOpenProjectModal(item);
+			return;
+		}
+
 		if (item.route && item.route.startsWith("http")) {
 			window.open(item.route, "_blank", "noopener,noreferrer");
 			return;
