@@ -4,6 +4,7 @@ import { CardMedia, Card, CardContent, Typography } from "@mui/material";
 import stories from "../constants/WritingPieces";
 import caseStudies from "../constants/CaseStudies";
 import WanderlustCaseStudyContent from "./WanderlustCaseStudyContent";
+import DiscoverEatsCaseStudyContent from "./DiscoverEatsCaseStudyContent";
 import { getModernImageSources } from "../utils/imageFormats";
 import "../styles/ProjectCaseStudyModal.css";
 
@@ -580,7 +581,11 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose, onNext,
 										/>
 									</div>
 								)}
-								<WanderlustCaseStudyContent caseStudy={caseStudy} />
+								{caseStudy.contentType === "discovereats" ? (
+									<DiscoverEatsCaseStudyContent caseStudy={caseStudy} />
+								) : (
+									<WanderlustCaseStudyContent caseStudy={caseStudy} />
+								)}
 							</>
 						)}
 
