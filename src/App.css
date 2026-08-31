@@ -179,6 +179,9 @@ p {
 
 .signature-section .signature-words {
 	display: flex;
+	margin: 0;
+	font-size: inherit;
+	font-weight: inherit;
 	gap: 1rem;
 	justify-content: flex-start;
 	align-items: baseline;
@@ -425,6 +428,10 @@ p {
 	}
 
 	.desktop-menu-link {
+		appearance: none;
+		background: none;
+		border: 0;
+		padding: 0;
 		font-family: "Impact", sans-serif;
 		font-size: 1.02rem;
 		color: #ffffff;
@@ -709,7 +716,12 @@ p {
 }
 
 .menu-item {
+	appearance: none;
+	background: none;
+	border: 0;
+	padding: 0;
 	display: inline-block;
+	font-family: inherit;
 	text-decoration: none;
 	color: #fff;
 	font-size: 1.4rem;
