@@ -38,7 +38,7 @@ const HomePageComponent = () => {
 	const headRef = useRef(null);
 
 	const fullText =
-		"I’m drawn to the space where storytelling, systems, and culture overlap. My work usually starts with a small obsession, a question I can’t leave alone, or a detail others overlook. That curiosity becomes the foundation for how I design, write, and make sense of the world around me.";
+		"I’m drawn to the space where storytelling, systems, and culture overlap. My work starts with a small obsession, a question I can’t leave alone, or a detail others don't question. That curiosity becomes the foundation for how I design, write, and make sense of the world around me.";
 
 	const hasAnimationPlayed = getAnimationPlayedInSession();
 

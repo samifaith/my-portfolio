@@ -84,10 +84,8 @@ const ExpertisePage = () => {
 				tools: ["Illustrator", "Photoshop", "InDesign"],
 				study: {
 					purpose:
-						"Explore the intersection of immigrant identity, generational memory, and food — told through the lens of a child who didn't know what she had until it was gone.",
+						"Explore the intersection of immigrant identity, generational memory, and food.",
 					role: "Writer and art director. Crafted the personal essay and designed the full editorial layout in Illustrator, Photoshop, and InDesign.",
-					direction:
-						"Warm, tactile typography built to evoke memory. The layout takes its time the way a good meal does — nothing rushed, nothing wasted.",
 				},
 			},
 			{
@@ -103,17 +101,15 @@ const ExpertisePage = () => {
 				tools: ["Photoshop"],
 				study: {
 					purpose:
-						"Profile Arielle Faria and use her story to explore what food culture means in the age of the home cook — from PBS cooking shows to kitchen witchcraft.",
-					role: "Writer and editorial designer. Conducted the interview, wrote the feature, and designed the print spread for Oui Chef magazine.",
-					direction:
-						"Editorial restraint with warmth. Let the story carry the weight — clean hierarchy, honest photography, type that guides without imposing.",
+						"Profile Arielle Faria and explore what food culture means in the age of the home cook — from PBS cooking shows to kitchen magic.",
+					role: "Writer and editorial designer. Conducted the interview, wrote the feature, and designed the print spread for fictional 'Oui Chef' magazine.",
 				},
 			},
 			{
 				id: "tea-with-sami",
 				title: "Tea with Sami",
 				description:
-					"A fictional podcast episode exploring the origin story of Nashville Hot Chicken, connecting food history to culture and folklore.",
+					"A fictional podcast episode exploring the origin story of Nashville Hot Chicken, connecting food history to folklore.",
 				image: "/writing/revengehot.gif",
 				label: "Writing",
 				category: "Writing",
@@ -122,17 +118,15 @@ const ExpertisePage = () => {
 				tools: ["Audacity", "Photoshop"],
 				study: {
 					purpose:
-						"Create a fictional podcast episode that connects food history to culture and folklore — part of a larger series on the stories behind what we eat.",
+						"Create a podcast series — part of a larger look at the stories behind what we eat.",
 					role: "Writer, audio producer, and cover artist. Scripted and recorded the episode; designed cover art in Photoshop.",
-					direction:
-						"The cover needed to feel like a guilty pleasure — bold, irreverent, impossible to ignore. Saturated reds and smoky darks to match the heat of the subject.",
 				},
 			},
 			{
 				id: "discovereats",
 				title: "Discover Eats",
 				description:
-					"An independently designed and built food-origin encyclopedia exploring the stories, techniques, and cultural significance behind the dishes we love.",
+					"A digitally designed and developed food-origin encyclopedia exploring the stories, techniques, and cultural significance behind the dishes we love.",
 				image: "/discovereatssh.png",
 				label: "Development",
 				category: "Product + Development",
@@ -145,47 +139,51 @@ const ExpertisePage = () => {
 					"MUI",
 					"Claude AI",
 					"Figma",
+					"Webflow",
 					"Lighthouse",
 					"D3",
 					"ThreeJS",
 				],
 				study: {
 					purpose:
-						"Build an interactive encyclopedia that celebrates food origins — making culinary history accessible and engaging for food enthusiasts.",
+						"Build an interactive encyclopedia that reflects food origins — making culinary history accessible and engaging for food enthusiasts.",
 					role: "Independent product designer and developer. Conceptualized, designed, and built the platform end to end.",
 					direction:
-						"Food is storytelling, so the site had to feel like a cookbook someone's actually used — annotated, a little worn, easy to fall into for an hour when you only meant to look up one thing.",
+						"Food is physical storytelling, so the site had to feel like a world map - annotated, a little worn, easy to fall into for an hour when you only meant to look up one thing.",
 				},
 			},
 			{
 				id: "life2life",
 				title: "Life 2 Life Travel Agency | Web Interface",
 				description:
-					"A homepage concept for a travel agency specializing in AI-cultivated travel experiences.",
+					"A concept for a travel agency specializing in AI-cultivated travel experiences.",
 				image: "/design/SamDeCoteau_Vector.avif",
 				label: "Development",
 				category: "Product + Development",
 				route: "/expertise",
 				bg: "#d8e4d9",
-				tools: ["React", "CSS", "Vite"],
+				tools: ["Angular", "CSS", "Vite"],
 				study: {
 					purpose:
 						"Concept a homepage for an AI-curated travel agency — exploring how to make algorithmic curation feel personal and aspirational rather than algorithmic.",
-					role: "Front-end developer. Built the full interface in React with modern CSS layout and interaction design.",
-					direction:
-						"Sky-meets-horizon color language. The hard part was making algorithmic curation feel like a recommendation from the friend who's been everywhere, not output from a system that guessed.",
+					role: "Front-end work. Built the full interface in Angular with a modern CSS layout and interaction design.",
 				},
 			},
 			{
 				id: "atlas-heor",
 				title: "ATLAS HEOR Platform",
 				description:
-					"The challenge was mimicking complex real-world processes while keeping the data understandable. At AESARA, I contributed to UX, front-end development, data visualization, information architecture, and reusable interface systems.",
+					"The challenge was mimicking complex real-world processes while keeping the data understandable.",
 				label: "AESARA · UX + FRONT-END",
 				category: "Product + Development",
 				route: "https://www.arysana.com/atlas-platform",
 				bg: "#dce5de",
-				tools: ["UX/UI", "Data Visualization", "Design Systems", "Life Sciences"],
+				tools: [
+					"UX/UI",
+					"Data Visualization",
+					"Design Systems",
+					"Life Sciences",
+				],
 				visual: {
 					type: "enterprise",
 					eyebrow: "AESARA Inc. · Selected Contribution",
@@ -194,7 +192,7 @@ const ExpertisePage = () => {
 				study: {
 					purpose:
 						"ATLAS is an AESARA-owned enterprise platform for health economics and outcomes research teams. This entry reflects work I contributed while employed at AESARA, not ownership of the product.",
-					role: "As part of the AESARA product and engineering team, I contributed UX and front-end work across information architecture, interaction patterns, data visualization, and reusable interface patterns.",
+					role: "As part of the AESARA product and engineering team, I contributed UX strategy and front-end work across information architecture, data visualization, and reusable interface systems.",
 					direction:
 						"The work required translating dense HEOR workflows and layered stakeholder needs into interfaces that were clear, consistent, and trustworthy within an iterative product environment.",
 				},
@@ -238,7 +236,7 @@ const ExpertisePage = () => {
 						"A typographic study channeling the visual energy of UK punk — using Rowdy by Benjamin Busse as the vessel for controlled chaos.",
 					role: "Designer and art director. Concept and full execution in Illustrator.",
 					direction:
-						"Tension within structure. Punk broke rules by knowing them — so the layout follows a strict grid it then deliberately fractures. Compressed type, raw edges, confrontational scale.",
+						"Tension within structure. Punk broke rules, so the layout follows a grid it then deliberately fractures. Compressed type, raw edges, confrontational scale.",
 				},
 			},
 			{
@@ -254,17 +252,15 @@ const ExpertisePage = () => {
 				tools: ["Illustrator"],
 				study: {
 					purpose:
-						"A tribute to the visual grammar of Saul Bass — exploring reduction, shape, and cinematic composition through the typeface Lombardia by Luciano Perondi.",
+						"A tribute to the visual design aesthetic of Saul Bass — exploring reduction, shape, and cinematic composition through the typeface Lombardia by Luciano Perondi.",
 					role: "Designer. Concept and execution in Illustrator.",
-					direction:
-						"Less to say more. Bass condensed entire narratives into a single gesture. The driving question: what is the minimum needed to communicate maximum impact?",
 				},
 			},
 			{
 				id: "vote",
 				title: "Lady Liberty Says to Vote",
 				description:
-					"A poster encouraging voter participation, inspired by the 'We Can Do It!' Rosie the Riveter poster — reframed through Lady Liberty.",
+					"A poster encouraging voter participation, inspired by the 'We Can Do It!' Rosie the Riveter poster, reframed through Lady Liberty.",
 				image: "/design/Vote_Poster.avif",
 				label: "Design",
 				category: "Design",
@@ -273,7 +269,7 @@ const ExpertisePage = () => {
 				tools: ["Illustrator"],
 				study: {
 					purpose:
-						"A poster encouraging civic participation — remixing the iconography of 'We Can Do It!' through the lens of Lady Liberty, making urgency feel both timeless and immediate.",
+						"A poster encouraging civic participation. I remixed the iconography of 'We Can Do It!' through the lens of Lady Liberty, making urgency feel both timeless and immediate.",
 					role: "Designer and illustrator. First serious vector illustration work; built entirely in Illustrator.",
 					direction:
 						"Familiar form, fresh urgency. Leverage recognition to lower the barrier — make something people feel before they think about it.",
@@ -283,7 +279,7 @@ const ExpertisePage = () => {
 				id: "black-unicorn",
 				title: "Black Unicorn",
 				description:
-					"Conceptual branding and poster design for a personal brand celebrating the unconventional creative path.",
+					"Conceptual branding and poster design for a personal brand celebrating the unconventional path.",
 				image: "/design/BlackUnicorn.avif",
 				label: "Design",
 				category: "Design",
@@ -292,10 +288,8 @@ const ExpertisePage = () => {
 				tools: ["Illustrator", "Photoshop"],
 				study: {
 					purpose:
-						"Conceptual brand identity for those who don't fit the mold, don't want to, and have made that their superpower.",
+						"Conceptual brand identity for those who don't fit the mold.",
 					role: "Brand strategist, designer, illustrator. Developed the full visual identity: wordmark, poster system, and design language.",
-					direction:
-						"Darkness and iridescence in equal measure. The palette moves from deep black through electric violet — power, mystery, and a quiet refusal to be ordinary.",
 				},
 			},
 			{
@@ -313,8 +307,6 @@ const ExpertisePage = () => {
 					purpose:
 						"Capture and edit personal footage from a scuba diving trip in Cabo San Lucas — creating a short film that communicates the disorienting calm of being underwater.",
 					role: "Cinematographer and editor. Shot on GoPro; assembled, color-graded, and paced in Premiere Pro.",
-					direction:
-						"Let the ocean do the talking. The edit follows the rhythm of the water — unhurried, punctuated by sudden color and movement. No narration. No music that fights the footage.",
 				},
 			},
 		],
@@ -651,7 +643,6 @@ const ExpertisePage = () => {
 										);
 									}
 								});
-
 						} catch (err) {
 							console.error("GSAP context creation error:", err);
 						}
@@ -799,7 +790,9 @@ const ExpertisePage = () => {
 	}, []);
 
 	const jumpFilters = useMemo(
-		() => [...new Set(sections.map((section) => section.category || section.label))],
+		() => [
+			...new Set(sections.map((section) => section.category || section.label)),
+		],
 		[sections],
 	);
 

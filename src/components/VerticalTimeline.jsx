@@ -10,7 +10,7 @@ const defaultItems = [
 		id: 1,
 		year: "2009",
 		title: "Graduated from Boston Latin Academy",
-		text: "Where it started. I ran the school paper and competitive track in the same season, which meant deadlines I couldn't miss and teammates who noticed if I did. First real lesson in carrying my share. I've been running on that same fuel since.",
+		text: "Where it started. I participated on the school paper and did competitive track, which meant deadlines I couldn't miss and teammates who noticed if I did. First real lesson in carrying my share.",
 		side: "left",
 		skills: [
 			"Team Leadership",
@@ -25,7 +25,7 @@ const defaultItems = [
 		id: 2,
 		year: "2010",
 		title: "Center for Digital Imaging Arts at Boston University",
-		text: "I couldn't draw to save my life, but I knew what looked right. CDIA taught me why. Composition, color, how light behaves when you stop fighting it and start planning around it. Turns out 'good eye' is a skill you can actually learn the mechanics of.",
+		text: "I couldn't draw to save my life, but I had an eye for composition. CDIA taught me why. Composition, color, how light behaves. Turns out a 'good eye' is a skill you can actually learn the mechanics of.",
 		side: "right",
 		skills: [
 			"Photography & Composition",
@@ -61,7 +61,7 @@ const defaultItems = [
 		id: 4,
 		year: "2017",
 		title: "Sandpiper Rentals · Martha's Vineyard",
-		text: "600+ properties, a 12-person team, and an island that doubles in population every summer. I stopped inheriting the process and rebuilt it — first-response time went from 24 hours to 1. It's also where I got fluent in demanding stakeholders, which is a polite way of describing a homeowner calling about a broken hot tub on the Fourth of July.",
+		text: "600+ properties, a 12-person team, and an island that seems to double in population every summer. I was tasked with rebuilding our internal processes leading to first-response times going from 24 hours to only 1. It's also where I got fluent in managing stakeholders, not taking feedback too personally, and developing interpersonal relationships I have to this day",
 		side: "right",
 		skills: [
 			"Customer Experience",
@@ -76,7 +76,7 @@ const defaultItems = [
 		id: 5,
 		year: "2018",
 		title: "Wayfair · Campus Recruitment",
-		text: "Wayfair is where I figured out that the most important thing you'll ever build is the team. I recruited engineers and co-led the WayBlack ERG, and watching those engineers ship things made me want to stop hiring builders and become one. Our recruiting moved diversity from 7% to 30% — not because we found a better checkbox, but because we stopped treating potential like it only comes from four schools. If it isn't inclusive, it isn't finished.",
+		text: "Wayfair is where I figured out that the most important thing you'll ever build is the team. I recruited engineers and co-led the WayBlack employee resource group. During my time there, I helped to increase the company's diversity and inclusion initiatives, leading to a more diverse hiring pool and process. Our recruiting moved diversity from 7% to 30% of the candidate pipeline, and I helped to create a more inclusive interview process that reduced bias and improved candidate experience. During that time, watching the engineers ship new products made me want to stop hiring builders and become one.",
 		side: "left",
 		skills: [
 			"Talent Sourcing",
@@ -91,9 +91,9 @@ const defaultItems = [
 		id: 6,
 		year: "2020",
 		title: "Resilient Coders",
-		text: "The part where I stopped handing off mockups and started shipping the thing myself. Full-stack JavaScript, React, Node, Mongo, chasing Lighthouse scores like they were a personal grudge. I learned to write code lean enough that someone else could read it at 2am, and to hand off work without hovering. Mostly it's where 'human-centered' stopped being a phrase I said in interviews and became something I could actually build.",
+		text: "I was a part of the Resilient Coders program, where I learned to build and maintain full-stack web applications. I learned to write code lean, and to hand off work with clear documentation. Mostly it's where 'human-centered' stopped being a phrase I said in interviews and became something I could actually build.",
 		side: "right",
-		skills: ["Responsive Design", "Agile Practices"],
+		skills: ["Responsive Design", "Agile Practices", "Full-Stack Development"],
 		techTools: [
 			"JavaScript",
 			"React",
@@ -105,6 +105,10 @@ const defaultItems = [
 			"Git",
 			"GitHub",
 			"MongoDB",
+			"Postman",
+			"Figma",
+			"Adobe Creative Suite",
+			"Lighthouse",
 		],
 	},
 	{
@@ -136,7 +140,7 @@ const defaultItems = [
 		id: 8,
 		year: "2026",
 		title: "Johnson & Wales University · Food Studies, Media & Design",
-		text: "I don't work in silos and I've stopped apologizing for it. I'm finishing at Johnson & Wales, studying how food and media build community — which sounds like a detour from code until you notice both are systems for getting people to care about something. My roots are still in the build. Enterprise tools for global health economists, diversity hiring at retail scale, interfaces people use whether or not they ever think about who made them.",
+		text: "I'm finishing up at Johnson & Wales, studying how design and media build community. My roots are still in the build. Enterprise tools for global health economists, diversity hiring at retail scale, interfaces people use whether or not they ever think about who made them.",
 		side: "right",
 		skills: [
 			"User-Centered Design",
