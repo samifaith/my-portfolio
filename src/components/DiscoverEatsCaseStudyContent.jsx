@@ -278,7 +278,7 @@ const DiscoverEatsCaseStudyContent = ({ caseStudy }) => (
 			className="discovereats-case-study-link"
 			href={caseStudy.liveUrl}
 			target="_blank"
-			rel="noreferrer"
+			rel="noopener noreferrer"
 		>
 			View the live application
 		</a>
