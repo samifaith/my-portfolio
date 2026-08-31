@@ -163,7 +163,7 @@ const FeaturedProjects = () => {
 				<div className="featured-inner">
 					<div className="featured-copy">
 						<p className="featured-eyebrow">Selected work</p>
-						<h2 className="featured-heading">
+						<h1 className="featured-heading">
 							<span className="featured-heading-line">I turn</span>
 							<span className="featured-heading-line">complexity</span>
 							<span className="featured-heading-line featured-heading-line-emphasis">
@@ -176,7 +176,7 @@ const FeaturedProjects = () => {
 									</svg>
 								</span>
 							</span>
-						</h2>
+						</h1>
 						<p className="featured-lede">
 							I bring visions to life. Working across product design, development, and user-centered experiences, I turn ideas and complex workflows into clear interfaces. I first came to product work through photography, where I learned how much framing, design theory, and iteration can change an experience. Today, that same attention to detail shows up in how I approach design systems, accessibility, and thoughtful interaction. The following work is a collection of where those ideas tend to go.
 						</p>

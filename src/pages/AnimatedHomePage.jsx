@@ -158,13 +158,17 @@ const HomePageComponent = () => {
 				<div className="hero-text-section">
 					<div ref={signatureRef} className="signature-section">
 						<h2 className="signature-title">UX ENGINEER + PRODUCT DESIGNER</h2>
-						<div className="signature-words">
+						<h1 className="signature-words" aria-label="I am">
 							{["I", "AM"].map((word, i) => (
-								<h1 className="title brush-reveal-text" key={i}>
+								<span
+									className="title brush-reveal-text"
+									key={i}
+									aria-hidden="true"
+								>
 									{word}
-								</h1>
+								</span>
 							))}
-						</div>
+						</h1>
 						<Letter />
 					</div>
 					<div className="intro-paragraph-wrapper">

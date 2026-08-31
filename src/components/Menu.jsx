@@ -231,29 +231,32 @@ const Menu = ({ openModal }) => {
 
 	const renderMenuItem = (text, sectionTitle) => (
 		<li key={sectionTitle}>
-			<span
+			<button
+				type="button"
 				className="menu-item"
+				aria-label={text}
 				onClick={() => handleMenuItemClick(sectionTitle)}
 				onMouseEnter={handleMouseEnterLetters}
 				onMouseLeave={handleMouseLeaveLetters}
 			>
 				{text.split("").map((char, index) => (
-					<h4 key={index} className="letter">
+					<span key={index} className="letter" aria-hidden="true">
 						{char}
-					</h4>
+					</span>
 				))}
-			</span>
+			</button>
 		</li>
 	);
 
 	const renderDesktopMenuItem = (text, sectionTitle) => (
 		<li key={sectionTitle} className="desktop-menu-item">
-			<span
+			<button
+				type="button"
 				className="desktop-menu-link"
 				onClick={() => handleMenuItemClick(sectionTitle)}
 			>
 				{text}
-			</span>
+			</button>
 		</li>
 	);
 

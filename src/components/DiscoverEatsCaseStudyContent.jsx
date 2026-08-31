@@ -44,7 +44,7 @@ const Section = ({ title, children }) => (
 const DiscoverEatsCaseStudyContent = ({ caseStudy }) => (
 	<article className="discovereats-case-study">
 		<p className="discovereats-case-study-thesis">
-			DiscoverEats approaches food as proof that cultures have always shaped one
+			DiscoverEats approaches food as evidence that cultures have always shaped one
 			another.
 		</p>
 
