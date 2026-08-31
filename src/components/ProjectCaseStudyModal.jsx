@@ -614,6 +614,17 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose, onNext,
 										)}
 									</>
 								)}
+								{isProfessionalContribution &&
+									project.route?.startsWith("http") && (
+										<a
+											className="discovereats-case-study-link"
+											href={project.route}
+											target="_blank"
+											rel="noopener noreferrer"
+										>
+											View the public product page
+										</a>
+									)}
 							</div>
 						)}
 					</div>
