@@ -126,7 +126,7 @@ const ExpertisePage = () => {
 				id: "discovereats",
 				title: "DiscoverEats",
 				description:
-					"A digitally designed and developed food-origin encyclopedia exploring the stories, techniques, and cultural significance behind the dishes we love.",
+					"A food-origin platform I designed and built to show how migration, adaptation, and cultural exchange shape the dishes we know.",
 				image: "/discovereatssh.png",
 				label: "Development",
 				category: "Product + Development",
@@ -134,17 +134,7 @@ const ExpertisePage = () => {
 				caseStudy: true,
 				featured: true,
 				bg: "#f5e6d3",
-				tools: [
-					"React",
-					"GSAP",
-					"MUI",
-					"Claude AI",
-					"Figma",
-					"Webflow",
-					"Lighthouse",
-					"D3",
-					"ThreeJS",
-				],
+				tools: ["React", "D3", "GSAP", "TopoJSON", "Vite", "Sass"],
 				study: {
 					purpose:
 						"Build an interactive encyclopedia that reflects food origins — making culinary history accessible and engaging for food enthusiasts.",
@@ -178,6 +168,7 @@ const ExpertisePage = () => {
 				label: "AESARA · UX + FRONT-END",
 				category: "Product + Development",
 				route: "https://www.arysana.com/atlas-platform",
+				caseStudy: true,
 				bg: "#dce5de",
 				tools: [
 					"UX/UI",
@@ -206,6 +197,7 @@ const ExpertisePage = () => {
 				label: "AESARA · UX/UI",
 				category: "Product + Development",
 				route: "https://attentiononadhd.com/cost-calculator/",
+				caseStudy: true,
 				bg: "#e7e2d7",
 				tools: ["UX/UI", "Health Economics", "Responsive Design", "Pharma"],
 				visual: {
