@@ -1,4 +1,22 @@
 const caseStudies = {
+	discovereats: {
+		projectType: "proof-of-concept",
+		contentType: "discovereats",
+		theme: {
+			coral: "#9B453D",
+			warm: "#F5E6D3",
+		},
+		subtitle: "Independent Capstone · Product + Development",
+		overview:
+			"An interactive food-origin encyclopedia exploring how dishes begin, adapt, and intertwine across cultures.",
+		meta: [
+			{ label: "Completed", value: "May 2026" },
+			{ label: "Role", value: "Product designer + front-end developer" },
+			{ label: "Team", value: "Independent capstone" },
+			{ label: "Scope", value: "1 dish · 7 locations · 4 routes" },
+		],
+		liveUrl: "https://discovereats.samoncanvas.com",
+	},
 	wanderlust: {
 		projectType: "concept",
 		ownershipLabel: "Concept project · Collaborative team",
