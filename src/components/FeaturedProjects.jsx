@@ -182,11 +182,222 @@ const FeaturedProjects = () => {
 						</p>
 					</div>
 
-					<div className="featured-venn" ref={diagramRef} role="img" aria-label="Writing, product thinking, and visual systems overlap">
-						<div className="featured-venn-circle featured-venn-writing"><span>Writing</span></div>
-						<div className="featured-venn-circle featured-venn-product"><span>Product<br />thinking</span></div>
-						<div className="featured-venn-circle featured-venn-visual"><span>Visual<br />systems</span></div>
-						<div className="featured-venn-center">Made<br />by Sam</div>
+					<div className="featured-diagram" ref={diagramRef} role="img" aria-label="Writing, product design, and visual systems overlap">
+						<svg
+							className="featured-venn-svg"
+							viewBox="0 0 600 650"
+							xmlns="http://www.w3.org/2000/svg"
+						>
+							<defs>
+								<filter
+									id="fvn-grain-purple"
+									x="-20%"
+									y="-20%"
+									width="140%"
+									height="140%"
+								>
+									<feTurbulence
+										type="fractalNoise"
+										baseFrequency="0.7"
+										numOctaves="2"
+										seed="2"
+									/>
+									<feColorMatrix values="0 0 0 0 0.54  0 0 0 0 0.47  0 0 0 0 0.65  0 0 0 0.7 0" />
+									<feComposite in2="SourceGraphic" operator="in" />
+									<feMerge>
+										<feMergeNode in="SourceGraphic" />
+										<feMergeNode />
+									</feMerge>
+								</filter>
+								<filter
+									id="fvn-grain-green"
+									x="-20%"
+									y="-20%"
+									width="140%"
+									height="140%"
+								>
+									<feTurbulence
+										type="fractalNoise"
+										baseFrequency="0.75"
+										numOctaves="2"
+										seed="5"
+									/>
+									<feColorMatrix values="0 0 0 0 0.56  0 0 0 0 0.62  0 0 0 0 0.36  0 0 0 0.7 0" />
+									<feComposite in2="SourceGraphic" operator="in" />
+									<feMerge>
+										<feMergeNode in="SourceGraphic" />
+										<feMergeNode />
+									</feMerge>
+								</filter>
+								<filter
+									id="fvn-grain-yellow"
+									x="-20%"
+									y="-20%"
+									width="140%"
+									height="140%"
+								>
+									<feTurbulence
+										type="fractalNoise"
+										baseFrequency="0.7"
+										numOctaves="2"
+										seed="9"
+									/>
+									<feColorMatrix values="0 0 0 0 0.78  0 0 0 0 0.59  0 0 0 0 0.21  0 0 0 0.7 0" />
+									<feComposite in2="SourceGraphic" operator="in" />
+									<feMerge>
+										<feMergeNode in="SourceGraphic" />
+										<feMergeNode />
+									</feMerge>
+								</filter>
+								<radialGradient id="fvn-purple" cx="50%" cy="50%" r="55%">
+									<stop offset="0%" stopColor="#9d8bba" stopOpacity="0.7" />
+									<stop offset="65%" stopColor="#7d6ba0" stopOpacity="0.65" />
+									<stop offset="100%" stopColor="#5e4f80" stopOpacity="0.4" />
+								</radialGradient>
+								<radialGradient id="fvn-green" cx="50%" cy="50%" r="55%">
+									<stop offset="0%" stopColor="#a3b572" stopOpacity="0.65" />
+									<stop offset="65%" stopColor="#7d8c52" stopOpacity="0.65" />
+									<stop offset="100%" stopColor="#5a6638" stopOpacity="0.4" />
+								</radialGradient>
+								<radialGradient id="fvn-yellow" cx="50%" cy="50%" r="55%">
+									<stop offset="0%" stopColor="#e5b65a" stopOpacity="0.7" />
+									<stop offset="65%" stopColor="#c69533" stopOpacity="0.65" />
+									<stop offset="100%" stopColor="#8a661f" stopOpacity="0.4" />
+								</radialGradient>
+							</defs>
+
+							<circle
+								cx="300"
+								cy="300"
+								r="240"
+								fill="none"
+								stroke="rgba(236,231,216,0.18)"
+								strokeWidth="1"
+								strokeDasharray="2 6"
+							/>
+
+							<g style={{ mixBlendMode: "screen" }}>
+								<circle
+									className="featured-venn-writing"
+									cx="220"
+									cy="220"
+									r="155"
+									fill="url(#fvn-purple)"
+									filter="url(#fvn-grain-purple)"
+								/>
+								<circle
+									className="featured-venn-product"
+									cx="380"
+									cy="220"
+									r="155"
+									fill="url(#fvn-green)"
+									filter="url(#fvn-grain-green)"
+								/>
+								<circle
+									className="featured-venn-visual"
+									cx="300"
+									cy="355"
+									r="155"
+									fill="url(#fvn-yellow)"
+									filter="url(#fvn-grain-yellow)"
+								/>
+							</g>
+
+							<g fill="none" opacity="0.4">
+								<circle
+									cx="220"
+									cy="220"
+									r="155"
+									stroke="#9d8bba"
+									strokeWidth="0.6"
+								/>
+								<circle
+									cx="380"
+									cy="220"
+									r="155"
+									stroke="#a3b572"
+									strokeWidth="0.6"
+								/>
+								<circle
+									cx="300"
+									cy="355"
+									r="155"
+									stroke="#e5b65a"
+									strokeWidth="0.6"
+								/>
+							</g>
+
+							<g stroke="rgba(236,231,216,0.55)" strokeWidth="1" fill="none">
+								<line x1="90" y1="80" x2="190" y2="185" />
+								<circle
+									cx="90"
+									cy="80"
+									r="3"
+									fill="none"
+									stroke="rgba(236,231,216,0.7)"
+								/>
+								<circle cx="190" cy="185" r="3" fill="rgba(236,231,216,0.85)" />
+
+								<line x1="510" y1="80" x2="410" y2="185" />
+								<circle
+									cx="510"
+									cy="80"
+									r="3"
+									fill="none"
+									stroke="rgba(236,231,216,0.7)"
+								/>
+								<circle cx="410" cy="185" r="3" fill="rgba(236,231,216,0.85)" />
+
+								<line x1="300" y1="530" x2="300" y2="395" />
+								<circle
+									cx="300"
+									cy="530"
+									r="3"
+									fill="none"
+									stroke="rgba(236,231,216,0.7)"
+								/>
+								<circle cx="300" cy="395" r="3" fill="rgba(236,231,216,0.85)" />
+
+								<line x1="190" y1="185" x2="300" y2="295" />
+								<line x1="410" y1="185" x2="300" y2="295" />
+								<line x1="300" y1="395" x2="300" y2="295" />
+							</g>
+
+							<circle cx="300" cy="295" r="7" fill="#ece7d8" />
+							<circle
+								cx="300"
+								cy="295"
+								r="11"
+								fill="none"
+								stroke="rgba(236,231,216,0.25)"
+								strokeWidth="1"
+							/>
+						</svg>
+
+						<div className="featured-venn-label featured-venn-label-writing">
+							<span className="featured-venn-cap">Writing</span>
+							<span className="featured-venn-desc">
+								Make ideas
+								<br />
+								resonate.
+							</span>
+						</div>
+						<div className="featured-venn-label featured-venn-label-product">
+							<span className="featured-venn-cap">Product Design</span>
+							<span className="featured-venn-desc">
+								Make things
+								<br />
+								work.
+							</span>
+						</div>
+						<div className="featured-venn-label featured-venn-label-visual">
+							<span className="featured-venn-cap">Visual Systems</span>
+							<span className="featured-venn-desc">
+								Make it
+								<br />
+								memorable.
+							</span>
+						</div>
 					</div>
 				</div>
 
