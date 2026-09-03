@@ -858,7 +858,7 @@
 	height: auto;
 	aspect-ratio: 520 / 580;
 	align-self: center;
-	margin: 0 clamp(2rem, 4vw, 5rem) 0 auto;
+	margin: 0 auto 0 -1.5rem;
 	transform: none;
 }
 
@@ -867,7 +867,8 @@
 		left: auto;
 		width: clamp(24rem, 33vw, 29rem);
 		flex-basis: clamp(24rem, 33vw, 29rem);
-		margin-right: clamp(1rem, 2vw, 2.5rem);
+		margin-left: -1rem;
+		margin-right: auto;
 		transform: none;
 	}
 }
