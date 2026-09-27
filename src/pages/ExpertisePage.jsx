@@ -84,8 +84,9 @@ const ExpertisePage = () => {
 				bg: "#fff3d3",
 				tools: ["Figma", "Swift", "React Native", "TypeScript", "PostgreSQL", "Azure"],
 				visual: {
-					type: "pocketplay",
-					eyebrow: "Games are better together.",
+					type: "enterprise",
+					variant: "pocketplay",
+					eyebrow: "Independent product · In development",
 					metrics: ["Apple Messages", "Game UX", "Product Engineering"],
 				},
 				study: {
@@ -964,24 +965,10 @@ const ExpertisePage = () => {
 		altText,
 		{ pictureClassName, imgClassName } = {},
 	) => {
-		if (item.visual?.type === "pocketplay") {
-			return (
-				<div className={`${imgClassName || ""} proto-pocketplay-media`.trim()} role="img" aria-label={altText}>
-					<div className="proto-pocketplay-media-inner">
-						<p className="proto-pocketplay-eyebrow">{item.visual.eyebrow}</p>
-						<strong>Pocket<span>Play</span></strong>
-						<p>Pick a game. Send a turn. Keep the conversation going.</p>
-						<div className="proto-pocketplay-tags">
-							{item.visual.metrics.map((metric) => <span key={metric}>{metric}</span>)}
-						</div>
-					</div>
-				</div>
-			);
-		}
 		if (item.visual?.type === "enterprise") {
 			return (
 				<div
-					className={`${imgClassName || ""} proto-enterprise-media`.trim()}
+					className={`${imgClassName || ""} proto-enterprise-media ${item.visual.variant === "pocketplay" ? "proto-enterprise-media--pocketplay" : ""}`.trim()}
 					role="img"
 					aria-label={altText}
 				>
