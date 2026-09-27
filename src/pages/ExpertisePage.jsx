@@ -77,7 +77,7 @@ const ExpertisePage = () => {
 				title: "PocketPlay",
 				description:
 					"A turn-based game collection built for Apple Messages, from the first invite to the rematch.",
-				label: "Independent Product · In Development",
+				label: "Product + Development",
 				category: "Product + Development",
 				caseStudy: true,
 				featured: true,
@@ -91,7 +91,7 @@ const ExpertisePage = () => {
 				},
 				study: {
 					purpose:
-						"Make it easy for two people to start and continue a game inside their existing Messages conversation.",
+						"PocketPlay brings quick, turn-based games into Apple Messages so friends can start, resume, and rematch in one conversation.",
 					role:
 						"Independent product owner, UX designer, and front-end engineer. I set the product direction, designed the shared game experience, and work across native UI, game flows, and implementation reviews.",
 					direction:
