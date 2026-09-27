@@ -30,10 +30,11 @@ const TRANSITION_TIMINGS = {
 };
 
 const SECTION_PRIORITY = {
-	discovereats: 0,
-	"atlas-heor": 1,
-	"adhd-calculator": 2,
-	life2life: 3,
+	pocketplay: 0,
+	discovereats: 1,
+	"atlas-heor": 2,
+	"adhd-calculator": 3,
+	life2life: 4,
 };
 
 const ExpertisePage = () => {
@@ -71,6 +72,31 @@ const ExpertisePage = () => {
 
 	const baseSections = useMemo(
 		() => [
+			{
+				id: "pocketplay",
+				title: "PocketPlay",
+				description:
+					"A turn-based game collection built for Apple Messages, from the first invite to the rematch.",
+				label: "Independent Product · In Development",
+				category: "Product + Development",
+				caseStudy: true,
+				featured: true,
+				bg: "#fff3d3",
+				tools: ["Figma", "Swift", "React Native", "TypeScript", "PostgreSQL", "Azure"],
+				visual: {
+					type: "pocketplay",
+					eyebrow: "Games are better together.",
+					metrics: ["Apple Messages", "Game UX", "Product Engineering"],
+				},
+				study: {
+					purpose:
+						"Make it easy for two people to start and continue a game inside their existing Messages conversation.",
+					role:
+						"Independent product owner, UX designer, and front-end engineer. I set the product direction, designed the shared game experience, and work across native UI, game flows, and implementation reviews.",
+					direction:
+						"Keep turns fast and legible in the small Messages canvas, preserve progress when players leave and return, and make sending a move an explicit part of the experience.",
+				},
+			},
 			{
 				id: "eat-like-child",
 				title: "Eat Like a Child",
@@ -938,6 +964,20 @@ const ExpertisePage = () => {
 		altText,
 		{ pictureClassName, imgClassName } = {},
 	) => {
+		if (item.visual?.type === "pocketplay") {
+			return (
+				<div className={`${imgClassName || ""} proto-pocketplay-media`.trim()} role="img" aria-label={altText}>
+					<div className="proto-pocketplay-media-inner">
+						<p className="proto-pocketplay-eyebrow">{item.visual.eyebrow}</p>
+						<strong>Pocket<span>Play</span></strong>
+						<p>Pick a game. Send a turn. Keep the conversation going.</p>
+						<div className="proto-pocketplay-tags">
+							{item.visual.metrics.map((metric) => <span key={metric}>{metric}</span>)}
+						</div>
+					</div>
+				</div>
+			);
+		}
 		if (item.visual?.type === "enterprise") {
 			return (
 				<div

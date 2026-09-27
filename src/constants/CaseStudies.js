@@ -1,4 +1,17 @@
 const caseStudies = {
+	pocketplay: {
+		projectType: "in-development",
+		contentType: "pocketplay",
+		theme: { coral: "#3B1235", warm: "#FFF3D3" },
+		subtitle: "Independent product · UX + engineering",
+		overview:
+			"A collection of small, turn-based games designed to begin, continue, and end inside Apple Messages.",
+		meta: [
+			{ label: "Status", value: "In development · prelaunch" },
+			{ label: "Role", value: "Product owner, UX designer + front-end engineer" },
+			{ label: "Platform", value: "Apple Messages" },
+		],
+	},
 	discovereats: {
 		projectType: "proof-of-concept",
 		contentType: "discovereats",
