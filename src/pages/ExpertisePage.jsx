@@ -77,20 +77,21 @@ const ExpertisePage = () => {
 				title: "PocketPlay",
 				description:
 					"A turn-based game collection built for Apple Messages, from the first invite to the rematch.",
-				label: "Independent Product · In Development",
+				label: "Product + Development",
 				category: "Product + Development",
 				caseStudy: true,
 				featured: true,
 				bg: "#fff3d3",
 				tools: ["Figma", "Swift", "React Native", "TypeScript", "PostgreSQL", "Azure"],
 				visual: {
-					type: "pocketplay",
-					eyebrow: "Games are better together.",
+					type: "enterprise",
+					variant: "pocketplay",
+					eyebrow: "Independent product · In development",
 					metrics: ["Apple Messages", "Game UX", "Product Engineering"],
 				},
 				study: {
 					purpose:
-						"Make it easy for two people to start and continue a game inside their existing Messages conversation.",
+						"PocketPlay brings quick, turn-based games into Apple Messages so friends can start, resume, and rematch in one conversation.",
 					role:
 						"Independent product owner, UX designer, and front-end engineer. I set the product direction, designed the shared game experience, and work across native UI, game flows, and implementation reviews.",
 					direction:
@@ -964,24 +965,10 @@ const ExpertisePage = () => {
 		altText,
 		{ pictureClassName, imgClassName } = {},
 	) => {
-		if (item.visual?.type === "pocketplay") {
-			return (
-				<div className={`${imgClassName || ""} proto-pocketplay-media`.trim()} role="img" aria-label={altText}>
-					<div className="proto-pocketplay-media-inner">
-						<p className="proto-pocketplay-eyebrow">{item.visual.eyebrow}</p>
-						<strong>Pocket<span>Play</span></strong>
-						<p>Pick a game. Send a turn. Keep the conversation going.</p>
-						<div className="proto-pocketplay-tags">
-							{item.visual.metrics.map((metric) => <span key={metric}>{metric}</span>)}
-						</div>
-					</div>
-				</div>
-			);
-		}
 		if (item.visual?.type === "enterprise") {
 			return (
 				<div
-					className={`${imgClassName || ""} proto-enterprise-media`.trim()}
+					className={`${imgClassName || ""} proto-enterprise-media ${item.visual.variant === "pocketplay" ? "proto-enterprise-media--pocketplay" : ""}`.trim()}
 					role="img"
 					aria-label={altText}
 				>
