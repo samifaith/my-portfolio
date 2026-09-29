@@ -31,10 +31,11 @@ const TRANSITION_TIMINGS = {
 
 const SECTION_PRIORITY = {
 	pocketplay: 0,
-	discovereats: 1,
-	"atlas-heor": 2,
-	"adhd-calculator": 3,
-	life2life: 4,
+	"career-canvas": 1,
+	discovereats: 2,
+	"atlas-heor": 3,
+	"adhd-calculator": 4,
+	life2life: 5,
 };
 
 const ExpertisePage = () => {
@@ -72,6 +73,31 @@ const ExpertisePage = () => {
 
 	const baseSections = useMemo(
 		() => [
+			{
+				id: "career-canvas",
+				title: "Career Canvas",
+				description:
+					"An AI-assisted career workspace built to distinguish real professional fit from surface-level keyword matching.",
+				label: "AI Product + Development",
+				category: "Product + Development",
+				caseStudy: true,
+				featured: true,
+				bg: "#e7e1ef",
+				tools: ["Base44", "AI Workflows", "Product Design", "Scoring Systems", "UX"],
+				visual: {
+					type: "enterprise",
+					eyebrow: "Independent product · V1",
+					metrics: ["Career Intelligence", "AI Calibration", "Trust + UX"],
+				},
+				study: {
+					purpose:
+						"Build a job search system that evaluates whether a role actually fits a person's experience, constraints, and direction instead of relying on keyword similarity.",
+					role:
+						"Independent product designer and AI workflow builder. I shaped the product model, scoring behavior, assistant context, application workflow, and ongoing calibration.",
+					direction:
+						"Treat recommendations as evidence-backed decisions. Separate capability from fit, expose uncertainty, and make incorrect high-confidence matches easy to identify and correct.",
+				},
+			},
 			{
 				id: "pocketplay",
 				title: "PocketPlay",
