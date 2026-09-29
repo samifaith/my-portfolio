@@ -6,6 +6,7 @@ import caseStudies from "../constants/CaseStudies";
 import WanderlustCaseStudyContent from "./WanderlustCaseStudyContent";
 import DiscoverEatsCaseStudyContent from "./DiscoverEatsCaseStudyContent";
 import PocketPlayCaseStudyContent from "./PocketPlayCaseStudyContent";
+import CareerCanvasCaseStudyContent from "./CareerCanvasCaseStudyContent";
 import { getModernImageSources } from "../utils/imageFormats";
 import "../styles/ProjectCaseStudyModal.css";
 
@@ -584,6 +585,8 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose, onNext,
 								)}
 								{caseStudy.contentType === "pocketplay" ? (
 									<PocketPlayCaseStudyContent />
+								) : caseStudy.contentType === "career-canvas" ? (
+									<CareerCanvasCaseStudyContent />
 								) : caseStudy.contentType === "discovereats" ? (
 									<DiscoverEatsCaseStudyContent caseStudy={caseStudy} />
 								) : (
