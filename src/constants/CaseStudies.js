@@ -1,5 +1,5 @@
 const caseStudies = {
-	career-canvas: {
+	"career-canvas": {
 		projectType: "ai-product",
 		contentType: "career-canvas",
 		theme: { coral: "#5C4F78", warm: "#ECE7D8" },
