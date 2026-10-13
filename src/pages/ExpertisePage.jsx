@@ -30,8 +30,8 @@ const TRANSITION_TIMINGS = {
 };
 
 const SECTION_PRIORITY = {
-	pocketplay: 0,
-	discovereats: 1,
+	discovereats: 0,
+	pocketplay: 1,
 	"atlas-heor": 2,
 	"adhd-calculator": 3,
 	life2life: 4,
@@ -335,7 +335,7 @@ const ExpertisePage = () => {
 
 	const sections = useMemo(
 		() =>
-			[...baseSections].sort((leftSection, rightSection) => {
+			baseSections.filter((section) => section.id !== "pocketplay").sort((leftSection, rightSection) => {
 				const leftPriority = SECTION_PRIORITY[leftSection.id] ?? 100;
 				const rightPriority = SECTION_PRIORITY[rightSection.id] ?? 100;
 				return leftPriority - rightPriority;
