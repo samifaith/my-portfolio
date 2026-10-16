@@ -61,6 +61,30 @@ const StudyFields = ({ study, tools, contributionMode = false }) => (
 			<h3>{contributionMode ? "Approach" : "Direction"}</h3>
 			<p>{study.direction}</p>
 		</div>
+		{study.systemEvidence?.length > 0 && (
+			<div className="case-study-field">
+				<h3>System Evidence</h3>
+				<ul className="case-study-evidence-list">
+					{study.systemEvidence.map((item) => <li key={item}>{item}</li>)}
+				</ul>
+			</div>
+		)}
+		{study.consultingSignals?.length > 0 && (
+			<div className="case-study-field">
+				<h3>Consulting Signals</h3>
+				<ul className="case-study-evidence-list">
+					{study.consultingSignals.map((item) => <li key={item}>{item}</li>)}
+				</ul>
+			</div>
+		)}
+		{study.accessibilityEvidence?.length > 0 && (
+			<div className="case-study-field">
+				<h3>Accessibility</h3>
+				<ul className="case-study-evidence-list">
+					{study.accessibilityEvidence.map((item) => <li key={item}>{item}</li>)}
+				</ul>
+			</div>
+		)}
 		{tools && tools.length > 0 && (
 			<div className="case-study-field">
 				<h3>Tools</h3>
