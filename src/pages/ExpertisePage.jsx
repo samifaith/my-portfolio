@@ -191,29 +191,41 @@ const ExpertisePage = () => {
 				id: "atlas-heor",
 				title: "ATLAS HEOR Platform",
 				description:
-					"The challenge was mimicking complex real-world processes while keeping the data understandable.",
-				label: "AESARA · UX + FRONT-END",
+					"Enterprise design engineering for dense HEOR workflows, reusable interface systems, and data-heavy product experiences.",
+				label: "AESARA · DESIGN ENGINEERING",
 				category: "Product + Development",
 				route: "https://www.arysana.com/atlas-platform",
 				caseStudy: true,
 				bg: "#dce5de",
 				tools: [
-					"UX/UI",
-					"Data Visualization",
+					"React",
+					"TypeScript",
 					"Design Systems",
-					"Life Sciences",
+					"Data Visualization",
+					"UX Engineering",
 				],
 				visual: {
 					type: "enterprise",
 					eyebrow: "AESARA Inc. · Selected Contribution",
-					metrics: ["HEOR", "B2B SaaS", "UX + Front-End"],
+					metrics: ["HEOR", "B2B SaaS", "Design Engineering"],
 				},
 				study: {
 					purpose:
 						"ATLAS is an AESARA-owned enterprise platform for health economics and outcomes research teams. This entry reflects work I contributed while employed at AESARA, not ownership of the product.",
-					role: "As part of the AESARA product and engineering team, I contributed UX strategy and front-end work across information architecture, data visualization, and reusable interface systems.",
+					role: "As part of the AESARA product and engineering team, I worked across UX strategy and front-end implementation, including information architecture, data visualization, and reusable interface systems.",
 					direction:
-						"The work required translating dense HEOR workflows and layered stakeholder needs into interfaces that were clear, consistent, and trustworthy within an iterative product environment.",
+						"The work required translating dense HEOR workflows and layered stakeholder needs into interfaces that were clear, consistent, and maintainable inside an evolving enterprise product.",
+					systemEvidence: [
+						"Structured reusable interface and component patterns instead of treating each workflow as a one-off screen.",
+						"Helped shape the UI library so recurring interaction and visual decisions could be shared across the product.",
+						"Worked on information architecture and data visualization for workflows where clarity and consistency affected how complex evidence was understood.",
+						"Reduced repeated implementation work by moving recurring UI decisions into reusable patterns.",
+					],
+					consultingSignals: [
+						"Translated domain-heavy stakeholder requirements into implementable interface structures.",
+						"Worked between product, design, and engineering rather than treating design and implementation as separate handoffs.",
+						"Balanced enterprise consistency with the needs of distinct HEOR workflows in an iterative product environment.",
+					],
 				},
 			},
 			{
