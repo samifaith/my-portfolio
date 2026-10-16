@@ -26,8 +26,12 @@ const App = () => {
 	return (
 		<Router>
 			<div className="App">
+				<a className="skip-link" href="#main-content">
+					Skip to main content
+				</a>
 				<Menu />
-				<Suspense fallback={null}>
+				<main id="main-content">
+					<Suspense fallback={null}>
 					<Routes>
 						<Route path="/" element={<AnimatedHomePage />} />
 						<Route path="/expertise" element={<ExpertisePage />} />
@@ -56,7 +60,8 @@ const App = () => {
 							element={<WanderlustCaseStudy />}
 						/>
 					</Routes>
-				</Suspense>
+					</Suspense>
+				</main>
 			</div>
 		</Router>
 	);
