@@ -506,6 +506,95 @@
 	color: rgba(18, 18, 16, 0.68);
 }
 
+
+/* ================= CONSULTING APPROACH ================= */
+
+.featured-approach {
+	position: relative;
+	z-index: 2;
+	display: grid;
+	grid-template-columns: minmax(16rem, 0.8fr) minmax(0, 1.2fr);
+	gap: clamp(2rem, 5vw, 5rem);
+	padding: clamp(3rem, 6vw, 5rem);
+	background: rgba(255, 255, 255, 0.035);
+	border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.featured-approach-copy {
+	max-width: 34rem;
+}
+
+.featured-approach-copy h2 {
+	margin: 0 0 1rem;
+	text-align: left;
+	font: 700 clamp(1.75rem, 3vw, 3rem) / 1.05 "Avenir Next", sans-serif;
+	letter-spacing: -0.04em;
+	color: #f3eee7;
+}
+
+.featured-approach-copy > p:last-child {
+	margin: 0;
+	max-width: 34rem;
+	font: 500 1rem / 1.7 "Avenir Next", sans-serif;
+	color: rgba(243, 238, 231, 0.72);
+}
+
+.featured-approach-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: grid;
+	gap: 0;
+}
+
+.featured-approach-item {
+	display: grid;
+	grid-template-columns: 3rem 1fr;
+	gap: 1rem;
+	padding: 1.15rem 0;
+	border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.featured-approach-item:last-child {
+	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.featured-approach-step {
+	font: 700 0.72rem / 1 "Avenir Next", sans-serif;
+	letter-spacing: 0.1em;
+	color: #c5ec56;
+	padding-top: 0.25rem;
+}
+
+.featured-approach-item h3 {
+	margin: 0 0 0.35rem;
+	font: 700 1.05rem / 1.2 "Avenir Next", sans-serif;
+	color: #f3eee7;
+}
+
+.featured-approach-item p {
+	margin: 0;
+	font: 500 0.92rem / 1.6 "Avenir Next", sans-serif;
+	color: rgba(243, 238, 231, 0.66);
+}
+
+@media (max-width: 900px) {
+	.featured-approach {
+		grid-template-columns: 1fr;
+		padding: 3rem 2rem;
+	}
+}
+
+@media (max-width: 640px) {
+	.featured-approach {
+		padding: 2.5rem 1.25rem;
+	}
+
+	.featured-approach-item {
+		grid-template-columns: 2.25rem 1fr;
+	}
+}
+
 /* ================= RIBBON ================= */
 
 .featured-ribbon {
