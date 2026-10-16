@@ -6,18 +6,18 @@ import "../styles/FeaturedProjects.css";
 gsap.registerPlugin(ScrollTrigger);
 
 const ribbonPhrases = [
-	"products.",
-	"platforms.",
-	"web applications.",
-	"interfaces.",
+	"front-end architecture.",
 	"design systems.",
-	"data visualization.",
-	"responsive experiences.",
-	"prototypes.",
+	"accessibility.",
 	"component systems.",
-	"product workflows.",
-	"front-end experiences.",
-	"interaction patterns.",
+	"technical strategy.",
+	"complex workflows.",
+	"data visualization.",
+	"responsive systems.",
+	"interaction architecture.",
+	"product engineering.",
+	"implementation guidance.",
+	"developer experience.",
 ];
 
 const WritingIcon = () => (
@@ -46,19 +46,19 @@ const VisualIcon = () => (
 
 const focusAreas = [
 	{
-		name: "Writing",
-		description: "Essays, editorial design, and the occasional long-form rabbit hole.",
-		Icon: WritingIcon,
-	},
-	{
-		name: "Product thinking",
-		description: "Interfaces, workflows, and systems that have to stay useful under pressure.",
+		name: "Architecture",
+		description: "I map complex workflows, define interface boundaries, and make front-end decisions that can scale beyond one feature.",
 		Icon: ProductIcon,
 	},
 	{
-		name: "Visual systems",
-		description: "Brand moments, poster studies, and layout decisions that carry personality.",
+		name: "Design systems",
+		description: "I turn repeated interface decisions into reusable components, tokens, patterns, and guidance teams can build with.",
 		Icon: VisualIcon,
+	},
+	{
+		name: "Accessibility",
+		description: "I treat keyboard behavior, focus, motion, semantics, and responsive use as part of the system, not a final QA pass.",
+		Icon: WritingIcon,
 	},
 ];
 
@@ -162,7 +162,7 @@ const FeaturedProjects = () => {
 
 				<div className="featured-inner">
 					<div className="featured-copy">
-						<p className="featured-eyebrow">Selected work</p>
+						<p className="featured-eyebrow">Technical practice</p>
 						<h1 className="featured-heading">
 							<span className="featured-heading-line">I turn</span>
 							<span className="featured-heading-line">complexity</span>
@@ -178,11 +178,11 @@ const FeaturedProjects = () => {
 							</span>
 						</h1>
 						<p className="featured-lede">
-							I bring visions to life. Working across product design, development, and user-centered experiences, I turn ideas and complex workflows into clear interfaces. I first came to product work through photography, where I learned how much framing, design theory, and iteration can change an experience. Today, that same attention to detail shows up in how I approach design systems, accessibility, and thoughtful interaction. The following work is a collection of where those ideas tend to go.
+							I work where product decisions become technical systems. I audit complex workflows, define scalable front-end patterns, build the critical pieces, and help teams leave with clearer architecture than they started with. My design background keeps those systems grounded in accessibility, interaction quality, and the people using them.
 						</p>
 					</div>
 
-					<div className="featured-diagram" ref={diagramRef} role="img" aria-label="Writing, product design, and visual systems overlap">
+					<div className="featured-diagram" ref={diagramRef} role="img" aria-label="Front-end architecture, design systems, and accessibility overlap in design engineering">
 						<svg
 							className="featured-venn-svg"
 							viewBox="0 0 600 650"
@@ -375,27 +375,27 @@ const FeaturedProjects = () => {
 						</svg>
 
 						<div className="featured-venn-label featured-venn-label-writing">
-							<span className="featured-venn-cap">Writing</span>
+							<span className="featured-venn-cap">Architecture</span>
 							<span className="featured-venn-desc">
-								Make ideas
+								Make systems
 								<br />
-								resonate.
+								scale.
 							</span>
 						</div>
 						<div className="featured-venn-label featured-venn-label-product">
-							<span className="featured-venn-cap">Product Design</span>
+							<span className="featured-venn-cap">Design Systems</span>
 							<span className="featured-venn-desc">
-								Make things
+								Make patterns
 								<br />
-								work.
+								reusable.
 							</span>
 						</div>
 						<div className="featured-venn-label featured-venn-label-visual">
-							<span className="featured-venn-cap">Visual Systems</span>
+							<span className="featured-venn-cap">Accessibility</span>
 							<span className="featured-venn-desc">
-								Make it
+								Make access
 								<br />
-								memorable.
+								structural.
 							</span>
 						</div>
 					</div>
