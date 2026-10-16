@@ -62,6 +62,34 @@ const focusAreas = [
 	},
 ];
 
+const consultingApproach = [
+	{
+		step: "01",
+		name: "Audit",
+		description: "Map the workflow, constraints, component debt, accessibility risks, and places where the current system fights the team.",
+	},
+	{
+		step: "02",
+		name: "Architect",
+		description: "Define the front-end boundaries, reusable patterns, state responsibilities, and tradeoffs before complexity gets baked in.",
+	},
+	{
+		step: "03",
+		name: "Build",
+		description: "Implement the critical paths and shared primitives closely enough to prove the architecture in production-quality code.",
+	},
+	{
+		step: "04",
+		name: "Validate",
+		description: "Check behavior across keyboard, motion, responsive states, failure paths, performance, and the real workflow.",
+	},
+	{
+		step: "05",
+		name: "Enable",
+		description: "Leave behind components, documentation, decisions, and patterns the next person can extend without starting over.",
+	},
+];
+
 const FeaturedProjects = () => {
 	const heroRef = useRef(null);
 	const diagramRef = useRef(null);
@@ -408,6 +436,27 @@ const FeaturedProjects = () => {
 							<p>{description}</p>
 						</article>
 					))}
+				</div>
+
+				<div className="featured-approach" aria-labelledby="featured-approach-title">
+					<div className="featured-approach-copy">
+						<p className="featured-eyebrow">How I work</p>
+						<h2 id="featured-approach-title">Audit → Architect → Build → Validate → Enable</h2>
+						<p>
+							Consulting is not just delivering a screen. I want the product and the team to be clearer after I leave than when I arrived.
+						</p>
+					</div>
+					<ol className="featured-approach-list">
+						{consultingApproach.map((item) => (
+							<li key={item.step} className="featured-approach-item">
+								<span className="featured-approach-step">{item.step}</span>
+								<div>
+									<h3>{item.name}</h3>
+									<p>{item.description}</p>
+								</div>
+							</li>
+						))}
+					</ol>
 				</div>
 			</section>
 
