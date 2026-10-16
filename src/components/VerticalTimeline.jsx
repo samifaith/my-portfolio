@@ -113,9 +113,9 @@ const defaultItems = [
 	},
 	{
 		id: 7,
-		year: "2024",
-		title: "AESARA Inc.",
-		text: "In pharma, data has real-world impact. At AESARA, I streamlined the information architecture, created interface systems, and helped structure the UI library for ATLAS, their health economics platform. I also built a reusable component library that improved consistency across the product and reduced repeat development work.",
+		year: "2020–2024",
+		title: "AESARA Inc. · UX Engineering + Front-End",
+		text: "I joined AESARA as a contractor in 2020 and later moved into a full-time role. Across ATLAS and client-facing health-economics tools, I worked between product, design, and engineering to simplify dense workflows, shape information architecture, build reusable interface patterns, and improve consistency across the front end.",
 		side: "left",
 		skills: [
 			"UX Engineering",
@@ -138,9 +138,9 @@ const defaultItems = [
 	},
 	{
 		id: 8,
-		year: "2026",
-		title: "Johnson & Wales University · Food Studies, Media & Design",
-		text: "I'm finishing up at Johnson & Wales, studying how design and media build community. My roots are still in the build. Enterprise tools for global health economists, diversity hiring at retail scale, interfaces people use whether or not they ever think about who made them.",
+		year: "2027",
+		title: "Johnson & Wales University · Food, Media & Design",
+		text: "Expected graduation June 2027. My coursework in design, media, writing, and culture adds another lens to the technical work I already do: how systems communicate, whose needs they prioritize, and how information becomes understandable.",
 		side: "right",
 		skills: [
 			"User-Centered Design",
@@ -272,7 +272,7 @@ export default function VerticalTimeline({
 	return (
 		<section className="timeline-section" ref={containerRef}>
 			<div className="timeline-header">
-				<h2 className="timeline-heading">My Journey</h2>
+				<h2 className="timeline-heading">Professional Journey</h2>
 				<a
 					href="/Resume_DeCoteauSam2026.pdf"
 					download="Resume_DeCoteauSam2026.pdf"
