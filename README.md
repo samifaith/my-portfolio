@@ -1,10 +1,10 @@
 # Sam DeCoteau — Portfolio
 
-A scroll-driven, animation-heavy portfolio showcasing work across writing, product design, development, and visual systems. Built with React + Vite and custom CSS — no UI framework dependencies on the portfolio core.
+A portfolio for Sam DeCoteau's technical consulting and design engineering practice, focused on front-end architecture, design systems, accessibility, complex product interfaces, and selected creative work. Built with React + Vite and custom CSS.
 
 ## Features
 
-- **Full-screen hero** — GSAP pointer-parallax venn diagram with scroll-scale effect and animated ribbon ticker
+- **Technical practice overview** — Architecture, design systems, and accessibility framing with a GSAP-driven systems diagram
 - **Scroll-pinned project viewer** — GSAP ScrollTrigger pin with scrubbed clip-path layer transitions and snap-to-section
 - **Enterprise work section** — Dedicated AESARA Inc. case studies extracted as a standalone component
 - **Case study modals** — Full-screen project detail overlays with prev/next navigation
