@@ -362,6 +362,33 @@ p {
 	position: relative;
 }
 
+.skip-link {
+	position: fixed;
+	top: 0.75rem;
+	left: 0.75rem;
+	z-index: 500;
+	padding: 0.75rem 1rem;
+	border-radius: 0.5rem;
+	background: #ffffff;
+	color: #111111;
+	font: 700 0.95rem / 1 "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+	text-decoration: none;
+	transform: translateY(-180%);
+	transition: transform 160ms ease;
+}
+
+.skip-link:focus {
+	transform: translateY(0);
+	outline: 3px solid #c5ec56;
+	outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.skip-link {
+		transition: none;
+	}
+}
+
 /* Desktop Navigation */
 .desktop-nav {
 	display: none;
