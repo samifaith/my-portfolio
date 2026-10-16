@@ -34,6 +34,54 @@ const role = [
 	"Performance and deployment",
 ];
 
+const architectureFlow = [
+	"Content template",
+	"Runtime story model",
+	"React experience state",
+	"D3 geography",
+	"GSAP interaction",
+];
+
+const architectureDecisions = [
+	{
+		title: "Explicit story model",
+		decision:
+			"Normalize dish, origin, and movement data once instead of letting components depend on global singleton content.",
+		impact:
+			"New food stories can load at runtime without rebuilding the core interface.",
+	},
+	{
+		title: "Local atlas asset",
+		decision:
+			"Bundle the world atlas with the application instead of fetching geography from a public CDN at runtime.",
+		impact:
+			"The globe no longer depends on an external network service to render.",
+	},
+	{
+		title: "Clear rendering responsibilities",
+		decision:
+			"React owns experience state, D3 owns geographic rendering, and GSAP owns motion and focus transitions.",
+		impact:
+			"Each layer has a clearer responsibility and is easier to reason about independently.",
+	},
+	{
+		title: "URL-addressable stories",
+		decision:
+			"Resolve the active food story from a query parameter and build the runtime model from that identifier.",
+		impact:
+			"Individual stories can be linked directly while sharing the same application shell.",
+	},
+];
+
+const accessibilityEvidence = [
+	"Keyboard-accessible origin interactions",
+	"Visible focus treatment",
+	"Skip navigation to the globe",
+	"Reduced-motion handling in both React and globe animation logic",
+	"Dialog semantics for onboarding",
+	"ARIA state for interactive controls",
+];
+
 const Section = ({ title, children }) => (
 	<section className="discovereats-case-study-section">
 		<h2>{title}</h2>
@@ -48,14 +96,24 @@ const DiscoverEatsCaseStudyContent = ({ caseStudy }) => (
 			another.
 		</p>
 
-		<a
-			className="discovereats-case-study-link"
-			href={caseStudy.liveUrl}
-			target="_blank"
-			rel="noreferrer"
-		>
-			View the live application
-		</a>
+		<div className="discovereats-case-study-links">
+			<a
+				className="discovereats-case-study-link"
+				href={caseStudy.liveUrl}
+				target="_blank"
+				rel="noreferrer"
+			>
+				View the live application
+			</a>
+			<a
+				className="discovereats-case-study-link discovereats-case-study-link--secondary"
+				href="https://github.com/samifaith/capstone26"
+				target="_blank"
+				rel="noreferrer"
+			>
+				View source
+			</a>
+		</div>
 
 		<dl className="discovereats-case-study-meta">
 			{projectDetails.map(([label, value]) => (
@@ -223,19 +281,57 @@ const DiscoverEatsCaseStudyContent = ({ caseStudy }) => (
 			</p>
 		</Section>
 
-		<Section title="Accessibility and Performance">
+		<Section title="Architecture">
 			<p>
-				The experience includes keyboard-accessible origin navigation, visible focus
-				states, reduced-motion support, responsive layouts, and descriptive image
-				text.
+				The first version was shaped around one story. As the concept matured, direct
+				imports from singleton content modules became a constraint. I moved the
+				experience toward an explicit runtime story model with clearer domain
+				boundaries.
 			</p>
+			<div className="discovereats-architecture-flow" aria-label="DiscoverEats front-end architecture flow">
+				{architectureFlow.map((item, index) => (
+					<div className="discovereats-architecture-node" key={item}>
+						<span>{item}</span>
+						{index < architectureFlow.length - 1 && (
+							<span className="discovereats-architecture-arrow" aria-hidden="true">→</span>
+						)}
+					</div>
+				))}
+			</div>
+			<div className="discovereats-decision-grid">
+				{architectureDecisions.map((item) => (
+					<article className="discovereats-decision-card" key={item.title}>
+						<h3>{item.title}</h3>
+						<p><strong>Decision:</strong> {item.decision}</p>
+						<p><strong>Impact:</strong> {item.impact}</p>
+					</article>
+				))}
+			</div>
+			<p>
+				I documented the story-model and local-atlas decision as an architecture
+				decision record, including the tradeoffs and next steps instead of treating
+				the implementation as self-explanatory.
+			</p>
+		</Section>
+
+		<Section title="Accessibility and Reliability">
+			<p>
+				Accessibility is implemented as interaction behavior, not only visual
+				styling. The current experience includes:
+			</p>
+			<ul>
+				{accessibilityEvidence.map((item) => <li key={item}>{item}</li>)}
+			</ul>
 			<p>
 				The world atlas is bundled locally instead of depending on a runtime CDN.
-				This keeps the globe available if an outside service fails.
+				Failed atlas loads are not cached as permanent empty data, and the app has an
+				error boundary for runtime failures.
 			</p>
 			<p>
-				Theme, onboarding, and feedback preferences are stored locally without
-				requiring an account or collecting unnecessary personal information.
+				The architecture record also identifies a real remaining gap: automated
+				regression tests around the story-model and query-parameter path still need
+				to be added. I prefer showing that boundary explicitly rather than implying
+				the project has validation it does not yet have.
 			</p>
 		</Section>
 
@@ -274,14 +370,24 @@ const DiscoverEatsCaseStudyContent = ({ caseStudy }) => (
 			</p>
 		</Section>
 
-		<a
-			className="discovereats-case-study-link"
-			href={caseStudy.liveUrl}
-			target="_blank"
-			rel="noopener noreferrer"
-		>
-			View the live application
-		</a>
+		<div className="discovereats-case-study-links">
+			<a
+				className="discovereats-case-study-link"
+				href={caseStudy.liveUrl}
+				target="_blank"
+				rel="noopener noreferrer"
+			>
+				View the live application
+			</a>
+			<a
+				className="discovereats-case-study-link discovereats-case-study-link--secondary"
+				href="https://github.com/samifaith/capstone26"
+				target="_blank"
+				rel="noopener noreferrer"
+			>
+				View source
+			</a>
+		</div>
 	</article>
 );
 
