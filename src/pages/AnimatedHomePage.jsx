@@ -38,7 +38,7 @@ const HomePageComponent = () => {
 	const headRef = useRef(null);
 
 	const fullText =
-		"I’m drawn to the space where storytelling, systems, and culture overlap. My work starts with a small obsession, a question I can’t leave alone, or a detail others don't question. That curiosity becomes the foundation for how I design, write, and make sense of the world around me.";
+		"I help teams turn complex product requirements into scalable, accessible front-end systems. My work sits across architecture, design systems, and hands-on implementation, with the goal of making complicated products clearer for both the people who use them and the teams who build them.";
 
 	const hasAnimationPlayed = getAnimationPlayedInSession();
 
@@ -157,7 +157,7 @@ const HomePageComponent = () => {
 			<div className="hero-split">
 				<div className="hero-text-section">
 					<div ref={signatureRef} className="signature-section">
-						<h2 className="signature-title">UX ENGINEER + PRODUCT DESIGNER</h2>
+						<h2 className="signature-title">TECHNICAL CONSULTANT + DESIGN ENGINEER</h2>
 						<h1 className="signature-words" aria-label="I am">
 							{["I", "AM"].map((word, i) => (
 								<span
