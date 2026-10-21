@@ -1,168 +1,179 @@
 import { useState } from "react";
 
+const LIGHT_TOKENS = {
+	"--de-bg": "#E4DCC2",
+	"--de-surface": "#EAE4CB",
+	"--de-surface-alt": "#DDD3B5",
+	"--de-border": "rgba(31,26,18,0.20)",
+	"--de-border-strong": "rgba(31,26,18,0.50)",
+	"--de-border-inner": "rgba(31,26,18,0.10)",
+	"--de-text": "#1F1A12",
+	"--de-text-muted": "rgba(31,26,18,0.66)",
+	"--de-text-faint": "rgba(31,26,18,0.42)",
+	"--de-accent": "#3F5C3D",
+	"--de-accent-warm": "#b93803",
+	"--de-accent-soft": "rgba(63,92,61,0.12)",
+};
+
+const DARK_TOKENS = {
+	"--de-bg": "#0E1E3A",
+	"--de-surface": "#142849",
+	"--de-surface-alt": "#1B3157",
+	"--de-border": "rgba(237,227,210,0.18)",
+	"--de-border-strong": "rgba(237,227,210,0.45)",
+	"--de-border-inner": "rgba(237,227,210,0.10)",
+	"--de-text": "#EDE3D2",
+	"--de-text-muted": "rgba(237,227,210,0.62)",
+	"--de-text-faint": "rgba(237,227,210,0.40)",
+	"--de-accent": "#C9A961",
+	"--de-accent-warm": "#E0C176",
+	"--de-accent-soft": "rgba(201,169,97,0.14)",
+};
+
 const origins = [
 	{
 		id: "west-africa",
-		index: "01",
+		num: "01",
 		name: "West Africa",
 		region: "Senegambia & Gold Coast",
 		year: "Pre-1600s",
 		role: "Foundational Foodways",
-		color: "#B95A36",
-		point: [31, 53],
-		ingredients: ["Seasoning", "Frying knowledge", "Adaptation"],
-		journey:
-			"West African food traditions traveled with enslaved people across the Atlantic, carrying seasoning, frying, cultivation, and adaptation knowledge.",
-		source: "West African Food Traditions in Virginia Foodways",
+		color: "#9B3A1A",
+		detail:
+			"West African food traditions traveled with enslaved people across the Atlantic. Their knowledge of seasoning, frying, cultivation, and adapting ingredients became part of the foodways created throughout the American South.",
+		ingredient: "Seasoning · Frying knowledge · Adaptation",
+		source: "West African Food Traditions in Virginia Foodways · Lisa R. Shiflett",
 		recipe: "Senegambian Palm Oil Fried Chicken",
 	},
 	{
 		id: "american-south",
-		index: "02",
+		num: "02",
 		name: "American South",
 		region: "Virginia & Carolina Coast",
 		year: "1700s",
 		role: "Cultural Creation",
-		color: "#C18A4D",
-		point: [19, 43],
-		ingredients: ["Seasoning", "Cast iron", "Regional adaptation"],
-		journey:
-			"African American cooks combined West African culinary knowledge with ingredients and techniques available in the American South.",
+		color: "#7A4A1E",
+		detail:
+			"Southern fried chicken developed through the knowledge and labor of African American cooks. They combined West African culinary traditions with ingredients and techniques encountered in the American South.",
+		ingredient: "Seasoning · Cast iron · Regional adaptation",
 		source: "Soul Food · Adrian Miller",
 		recipe: "Southern Buttermilk Fried Chicken",
 	},
 	{
+		id: "scotland",
+		num: "03",
+		name: "Scotland",
+		region: "Isle of Skye & Britain",
+		year: "1700s",
+		role: "European Thread",
+		color: "#4A5568",
+		detail:
+			"Eighteenth-century records show fried chicken circulating within British cooking. Scotland belongs in the story as one European thread, not as the single birthplace of Southern fried chicken.",
+		ingredient: "Rendered fat · Batter · British cookery",
+		source: "The Journal of a Tour to the Hebrides · James Boswell",
+		recipe: null,
+	},
+	{
 		id: "japan",
-		index: "03",
+		num: "04",
 		name: "Japan",
 		region: "Oita Prefecture",
 		year: "1920s",
 		role: "Regional Evolution",
-		color: "#6A9BB5",
-		point: [82, 42],
-		ingredients: ["Soy", "Ginger", "Starch", "Tempura batter"],
-		journey:
-			"Oita developed regional fried-chicken traditions including karaage and toriten, adapting a familiar technique into something distinctly local.",
-		source: "Japan Ministry of Agriculture, Forestry and Fisheries",
+		color: "#1A5276",
+		detail:
+			"Oita developed its own regional fried-chicken traditions. Usa City is associated with Japanese karaage, while Beppu is known for toriten.",
+		ingredient: "Soy · Ginger · Starch · Tempura batter",
+		source: "Tori-Ten · Japan Ministry of Agriculture, Forestry and Fisheries",
 		recipe: "Karaage (唐揚げ)",
-	},
-	{
-		id: "korea",
-		index: "04",
-		name: "Korea",
-		region: "Seoul & Daegu",
-		year: "1950s–70s",
-		role: "Postwar Exchange & Innovation",
-		color: "#A84D49",
-		point: [78, 38],
-		ingredients: ["Starch coating", "Gochujang", "Double fry"],
-		journey:
-			"Modern Korean fried chicken grew through postwar exchange and Korean reinvention, including lighter coatings, double frying, and sauces.",
-		source: "Tasting the Forgotten War · Nicolyn Woodcock",
-		recipe: "Yangnyeom Chicken (양념치킨)",
 	},
 ];
 
-const tabs = ["journey", "sources", "recipes"];
-
-const MiniGlobe = ({ activeId, onSelect }) => (
-	<div className="de-demo-globe" aria-label="Simplified synchronized origin map">
-		<svg viewBox="0 0 100 100" role="img" aria-label="Origin nodes on a simplified globe">
-			<circle cx="50" cy="50" r="39" className="de-demo-globe-sea" />
-			<ellipse cx="50" cy="50" rx="31" ry="39" className="de-demo-graticule" />
-			<ellipse cx="50" cy="50" rx="39" ry="18" className="de-demo-graticule" />
-			<path d="M16 51 C33 43 37 58 54 49 S77 39 87 47" className="de-demo-route" />
-			{origins.map((origin) => (
-				<g
-					key={origin.id}
-					role="button"
-					tabIndex="0"
-					aria-label={`Select ${origin.name}`}
-					onClick={() => onSelect(origin.id)}
-					onKeyDown={(event) => {
-						if (event.key === "Enter" || event.key === " ") {
-							event.preventDefault();
-							onSelect(origin.id);
-						}
-					}}
-					className="de-demo-node"
-				>
-					<circle
-						cx={origin.point[0]}
-						cy={origin.point[1]}
-						r={activeId === origin.id ? 4.2 : 2.8}
-						fill={origin.color}
-						className={activeId === origin.id ? "is-active" : ""}
-					/>
-					{activeId === origin.id && (
-						<circle
-							cx={origin.point[0]}
-							cy={origin.point[1]}
-							r="7"
-							className="de-demo-node-ring"
-						/>
-					)}
-				</g>
-			))}
-		</svg>
-		<p>Origin selection is shared between geographic and written navigation.</p>
-	</div>
-);
-
-const OriginIndexDemo = ({ activeId, onSelect }) => (
-	<div className="de-demo-origin-list" aria-label="Origins index">
-		<div className="de-demo-list-heading">
-			<span>Origins, Indexed</span>
-			<span>04</span>
+const ExactSidebarDemo = ({ activeId, setActiveId }) => (
+	<div className="de-live-sidebar">
+		<div className="de-live-sidebar-issue">
+			<span>Origins</span>
+			<span>Est. MMXXV</span>
 		</div>
-		{origins.map((origin) => {
-			const active = origin.id === activeId;
-			return (
-				<button
-					type="button"
-					key={origin.id}
-					className={`de-demo-origin-row ${active ? "is-active" : ""}`}
-					style={{ "--origin-color": origin.color }}
-					onClick={() => onSelect(origin.id)}
-					aria-pressed={active}
-				>
-					<span className="de-demo-origin-num">{origin.index}</span>
-					<span className="de-demo-origin-copy">
-						<strong>{origin.name}</strong>
-						<small>{origin.role}</small>
-					</span>
-					<span className="de-demo-origin-year">{origin.year}</span>
-				</button>
-			);
-		})}
+
+		<div className="de-live-sidebar-dish">
+			<div className="de-live-sidebar-eyebrow">A Global Origin Story</div>
+			<div className="de-live-sidebar-title">Fried Chicken</div>
+			<div className="de-live-sidebar-category">Technique · Culture · Migration</div>
+		</div>
+
+		<div className="de-live-sidebar-description">
+			Fried chicken is a broad global category shaped by regional variation in spice
+			blends, fats, coatings, sauces, and the people who carried those techniques.
+		</div>
+
+		<div className="de-live-sidebar-quote">
+			“Every bite carries a history most people have never been taught.”
+		</div>
+
+		<div className="de-live-list-header">
+			<span>Origins, Indexed</span>
+			<span>07</span>
+		</div>
+
+		<div className="de-live-origin-rows">
+			{origins.map((origin) => {
+				const active = origin.id === activeId;
+				return (
+					<button
+						type="button"
+						key={origin.id}
+						className={`de-live-origin-row ${active ? "is-active" : ""}`}
+						style={{ "--origin-color": origin.color }}
+						onClick={() => setActiveId(origin.id)}
+						aria-pressed={active}
+					>
+						<span className="de-live-origin-num">{origin.num}</span>
+						<span className="de-live-origin-body">
+							<span className="de-live-origin-name">{origin.name}</span>
+							<span className="de-live-origin-role">{origin.role}</span>
+						</span>
+						<span className="de-live-origin-year">{origin.year}</span>
+					</button>
+				);
+			})}
+		</div>
+
+		<div className="de-live-movement-legend">
+			<div>Movement Routes</div>
+			<div className="de-live-legend-row">
+				<svg width="34" height="10" aria-hidden="true">
+					<line x1="0" y1="5" x2="24" y2="5" stroke="var(--de-accent-warm)" strokeWidth="1.4" strokeDasharray="4 3" opacity="0.65" />
+					<polygon points="23,2 32,5 23,8" fill="var(--de-accent-warm)" opacity="0.65" />
+				</svg>
+				<span>Technique migration</span>
+			</div>
+			<p>Hover labeled nodes for stories. Hover dashed routes for movement.</p>
+		</div>
 	</div>
 );
 
-const DetailPanelDemo = ({ origin }) => {
+const ExactDetailDemo = ({ origin }) => {
 	const [activeTab, setActiveTab] = useState("journey");
-
-	const moveTab = (event, tab) => {
-		const index = tabs.indexOf(tab);
-		if (event.key === "ArrowRight") {
-			event.preventDefault();
-			setActiveTab(tabs[(index + 1) % tabs.length]);
-		}
-		if (event.key === "ArrowLeft") {
-			event.preventDefault();
-			setActiveTab(tabs[(index - 1 + tabs.length) % tabs.length]);
-		}
-	};
+	const tabs = ["journey", "sources", "recipes"];
 
 	return (
-		<div className="de-demo-detail" style={{ "--origin-color": origin.color }}>
-			<div className="de-demo-detail-kicker">
-				<span className="de-demo-detail-dot" />
-				{origin.role}
+		<div className="de-live-detail">
+			<div className="de-live-detail-header">
+				<div className="de-live-role-badge">
+					<span style={{ background: origin.color, boxShadow: `0 0 10px ${origin.color}` }} />
+					{origin.role}
+				</div>
+				<h3>{origin.name}</h3>
+				<div className="de-live-location">
+					<span>{origin.region}</span>
+					<span>·</span>
+					<span>{origin.year}</span>
+				</div>
+				<div className="de-live-coords">14.50°N · 14.40°W</div>
 			</div>
-			<h3>{origin.name}</h3>
-			<p className="de-demo-detail-meta">{origin.region} · {origin.year}</p>
 
-			<div className="de-demo-tabs" role="tablist" aria-label="Origin details demo">
+			<div className="de-live-tabs" role="tablist" aria-label="Origin details">
 				{tabs.map((tab) => (
 					<button
 						type="button"
@@ -172,36 +183,92 @@ const DetailPanelDemo = ({ origin }) => {
 						tabIndex={activeTab === tab ? 0 : -1}
 						className={activeTab === tab ? "is-active" : ""}
 						onClick={() => setActiveTab(tab)}
-						onKeyDown={(event) => moveTab(event, tab)}
+						onKeyDown={(event) => {
+							const i = tabs.indexOf(tab);
+							if (event.key === "ArrowRight") {
+								event.preventDefault();
+								setActiveTab(tabs[(i + 1) % tabs.length]);
+							}
+							if (event.key === "ArrowLeft") {
+								event.preventDefault();
+								setActiveTab(tabs[(i - 1 + tabs.length) % tabs.length]);
+							}
+						}}
 					>
-						{tab === "journey" ? "Journey" : tab === "sources" ? "Sources" : "Recipes"}
+						{tab === "journey" ? "Journey (1)" : tab === "sources" ? "Sources (3+)" : "Recipes"}
 					</button>
 				))}
 			</div>
 
-			<div className="de-demo-tab-panel" role="tabpanel">
+			<div className="de-live-detail-content" role="tabpanel">
 				{activeTab === "journey" && (
-					<>
-						<p>{origin.journey}</p>
-						<div className="de-demo-ingredient-list">
-							{origin.ingredients.map((ingredient) => (
-								<span key={ingredient}>{ingredient}</span>
+					<div className="de-live-story-section">
+						<div className="de-live-movement-card" style={{ borderLeftColor: origin.color }}>
+							<div className="de-live-movement-card-head">
+								<span>Originated here</span>
+								<span>1619–1700s</span>
+							</div>
+							<div className="de-live-route-box">
+								<span className="de-live-route-dot" style={{ background: origin.color }} />
+								<strong>{origin.name}</strong>
+								<svg width="30" height="8" aria-hidden="true">
+									<line x1="0" y1="4" x2="20" y2="4" stroke="var(--de-accent-warm)" strokeWidth="1.4" strokeDasharray="3 2" opacity="0.75" />
+									<polygon points="20,1 28,4 20,7" fill="var(--de-accent-warm)" opacity="0.75" />
+								</svg>
+								<span className="de-live-route-dot" style={{ background: "#7A4A1E" }} />
+								<strong>American South</strong>
+							</div>
+							<p>Knowledge, technique, and adaptation moved with people and changed under new conditions.</p>
+						</div>
+
+						<div className="de-live-divider" />
+						<div className="de-live-section-title">Story</div>
+						<blockquote>{origin.detail}</blockquote>
+						<div className="de-live-divider" />
+						<div className="de-live-section-title">Signature Ingredients</div>
+						<div className="de-live-ingredient-tags">
+							{origin.ingredient.split(" · ").map((item) => (
+								<span key={item} style={{ "--ingredient-color": origin.color }}>{item}</span>
 							))}
 						</div>
-					</>
-				)}
-				{activeTab === "sources" && (
-					<div className="de-demo-source">
-						<span>Documented source</span>
-						<strong>{origin.source}</strong>
-						<small>Sources stay attached to the location they support.</small>
 					</div>
 				)}
+
+				{activeTab === "sources" && (
+					<div className="de-live-source-card">
+						<div className="de-live-section-title">Documented sources</div>
+						<strong>{origin.source}</strong>
+						<p>Sources stay attached to the origin they support.</p>
+					</div>
+				)}
+
 				{activeTab === "recipes" && (
-					<div className="de-demo-recipe">
-						<span>{origin.region}</span>
-						<strong>{origin.recipe}</strong>
-						<small>Recipe data uses the same origin object as history and sources.</small>
+					<div className="de-live-recipe-card" style={{ "--recipe-origin-color": origin.color }}>
+						<div className="de-live-recipe-head">
+							<span className="de-live-recipe-dot" />
+							<span>{origin.region}</span>
+							<span>{origin.year}</span>
+						</div>
+						<div className="de-live-recipe-title">
+							{origin.recipe || origin.name}
+						</div>
+						{origin.recipe ? (
+							<>
+								<div className="de-live-recipe-meta">Serves 4 · Prep 24 hrs · Cook 30 min</div>
+								<div className="de-live-section-title">Ingredients</div>
+								<div className="de-live-ingredient-tags">
+									<span>Chicken</span><span>Seasoning</span><span>Oil</span>
+								</div>
+								<div className="de-live-section-title">Method</div>
+								<ol>
+									<li>Marinate and season.</li>
+									<li>Fry in batches until cooked through.</li>
+									<li>Finish at higher heat for a crisp crust.</li>
+								</ol>
+							</>
+						) : (
+							<p className="de-live-recipe-null">Recipe documentation coming soon.</p>
+						)}
 					</div>
 				)}
 			</div>
@@ -211,50 +278,52 @@ const DetailPanelDemo = ({ origin }) => {
 
 const DiscoverEatsComponentDemos = () => {
 	const [activeId, setActiveId] = useState(origins[0].id);
-	const activeOrigin = origins.find((origin) => origin.id === activeId) || origins[0];
+	const [dark, setDark] = useState(false);
+	const origin = origins.find((item) => item.id === activeId) || origins[0];
 
 	return (
-		<div className="de-component-demos">
-			<div className="de-component-demo-intro">
-				<span>Selected interface primitives</span>
-				<p>
-					I separated navigation, geographic focus, and detail content so each
-					part could evolve independently while sharing the same selected-origin state.
-				</p>
+		<div className="de-live-demo-wrap" style={dark ? DARK_TOKENS : LIGHT_TOKENS}>
+			<div className="de-live-demo-topline">
+				<div>
+					<span>Extracted from the live interface</span>
+					<strong>Reusable DiscoverEats primitives</strong>
+				</div>
+				<button type="button" onClick={() => setDark((value) => !value)}>
+					{dark ? "Light" : "Dark"} theme
+				</button>
 			</div>
 
-			<div className="de-demo-card">
-				<div className="de-demo-card-label">
-					<span>01</span>
-					<div>
-						<strong>Origin index + geographic focus</strong>
-						<small>Shared state · keyboard selectable · synchronized feedback</small>
+			<div className="de-live-demo-grid">
+				<div className="de-live-demo-frame">
+					<div className="de-live-demo-label">
+						<span>01</span>
+						<div>
+							<strong>FoodOriginSidebar</strong>
+							<small>Exact proportions, typography, row behavior, and theme tokens</small>
+						</div>
+					</div>
+					<div className="de-live-component-stage de-live-component-stage--sidebar">
+						<ExactSidebarDemo activeId={activeId} setActiveId={setActiveId} />
 					</div>
 				</div>
-				<div className="de-demo-sync-layout">
-					<OriginIndexDemo activeId={activeId} onSelect={setActiveId} />
-					<MiniGlobe activeId={activeId} onSelect={setActiveId} />
-				</div>
-			</div>
 
-			<div className="de-demo-card">
-				<div className="de-demo-card-label">
-					<span>02</span>
-					<div>
-						<strong>Origin detail panel</strong>
-						<small>One identity · three content modes · arrow-key tab navigation</small>
+				<div className="de-live-demo-frame">
+					<div className="de-live-demo-label">
+						<span>02</span>
+						<div>
+							<strong>FoodOriginDetailPanel</strong>
+							<small>Journey, Sources, and Recipes using the live tab treatment</small>
+						</div>
+					</div>
+					<div className="de-live-component-stage de-live-component-stage--detail">
+						<ExactDetailDemo key={origin.id} origin={origin} />
 					</div>
 				</div>
-				<DetailPanelDemo key={activeOrigin.id} origin={activeOrigin} />
 			</div>
 
-			<div className="de-demo-system-note">
-				<span>Underneath both demos</span>
-				<code>food → origins[] → movements[] → sources[] → recipe</code>
-				<p>
-					The content model is separate from the interface, so a new dish can use the
-					same navigation, globe, detail, source, and recipe primitives.
-				</p>
+			<div className="de-live-system-line">
+				<span>Shared selected-origin state</span>
+				<code>FoodOriginSidebar ↔ FoodOriginDetailPanel</code>
 			</div>
 		</div>
 	);
