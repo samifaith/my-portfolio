@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { geoOrthographic, geoPath, geoGraticule10, geoInterpolate } from "d3-geo";
+import { geoOrthographic, geoPath, geoGraticule10, geoInterpolate, geoDistance } from "d3-geo";
 import { getFoodTemplate } from "./discovereats/contentTemplate";
 import "./DiscoverEatsInteractionStudies.css";
 
@@ -52,9 +52,8 @@ export default function DiscoverEatsInteractionStudies() {
             {ORIGINS.map(origin=>{
               const point=projection(origin.coords);
               if(!point)return null;
-              const visible=projection.invert(point);
-              const delta=Math.abs(visible[0]-origin.coords[0])+Math.abs(visible[1]-origin.coords[1]);
-              if(delta>1)return null;
+              const center=[-rotation[0],-rotation[1]];
+              if(geoDistance(center,origin.coords)>Math.PI/2)return null;
               return <circle key={origin.id} cx={point[0]} cy={point[1]} r={selectedId===origin.id?7:4.5} fill={origin.color||"#3f5c3d"} stroke="#fff6e5" strokeWidth="2"/>;
             })}
           </svg>
