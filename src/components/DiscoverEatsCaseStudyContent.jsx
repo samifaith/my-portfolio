@@ -1,3 +1,4 @@
+import DiscoverEatsInteractionStudies from "./DiscoverEatsInteractionStudies";
 const projectDetails = [
 	["Completed", "May 2026"],
 	["Role", "Product designer and front-end developer"],
@@ -172,6 +173,8 @@ const DiscoverEatsCaseStudyContent = ({ caseStudy }) => (
 				history.
 			</p>
 		</Section>
+
+		<DiscoverEatsInteractionStudies />
 
 		<Section title="The Geography">
 			<p>
