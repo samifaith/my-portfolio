@@ -1,3 +1,5 @@
+import DiscoverEatsComponentDemos from "./DiscoverEatsComponentDemos";
+
 const projectDetails = [
 	["Completed", "May 2026"],
 	["Role", "Product designer and front-end developer"],
@@ -221,6 +223,15 @@ const DiscoverEatsCaseStudyContent = ({ caseStudy }) => (
 				A new dish can be added without rebuilding the main experience. Individual
 				stories can also be loaded through URL parameters.
 			</p>
+		</Section>
+
+		<Section title="Selected Interface Primitives">
+			<p>
+				The full experience is composed from smaller pieces rather than one
+				monolithic screen. These isolated demos show how the origin index,
+				geographic focus, and detail panel share state while remaining reusable.
+			</p>
+			<DiscoverEatsComponentDemos />
 		</Section>
 
 		<Section title="Accessibility and Performance">
