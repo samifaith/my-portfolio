@@ -1170,11 +1170,17 @@
 		grid-template-columns: 1fr;
 	}
 
-	.de-demo-sync-layout {
+	.de-live-demo-grid {
 		grid-template-columns: 1fr;
 	}
 
-	.de-demo-globe {
-		min-height: 210px;
+	.de-live-demo-topline {
+		align-items: flex-start;
+		flex-direction: column;
+	}
+
+	.de-live-component-stage {
+		justify-content: flex-start;
+		min-height: 480px;
 	}
 }
