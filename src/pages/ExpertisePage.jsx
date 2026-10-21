@@ -31,7 +31,7 @@ const TRANSITION_TIMINGS = {
 
 const SECTION_PRIORITY = {
 	pocketplay: 0,
-	"career-canvas": 1,
+	codeswxtch: 1,
 	discovereats: 2,
 	"atlas-heor": 3,
 	"adhd-calculator": 4,
@@ -74,8 +74,8 @@ const ExpertisePage = () => {
 	const baseSections = useMemo(
 		() => [
 			{
-				id: "career-canvas",
-				title: "Career Canvas",
+				id: "codeswxtch",
+				title: "CodeSwxtch",
 				description:
 					"An AI-assisted career workspace built to distinguish real professional fit from surface-level keyword matching.",
 				label: "AI Product + Development",
