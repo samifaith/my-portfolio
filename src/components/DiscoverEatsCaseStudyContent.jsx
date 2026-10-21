@@ -173,6 +173,27 @@ const DiscoverEatsCaseStudyContent = ({ caseStudy }) => (
 			</p>
 		</Section>
 
+		<Section title="Interaction studies">
+			<p>
+				Explore the working experience directly. Rotate the globe, select an origin
+				from the indexed list, and switch between Journey, Sources, and Recipes.
+				The demo uses the actual DiscoverEats application rather than a recreated animation.
+			</p>
+			<div className="discovereats-interaction-demo" style={{ margin: "1.5rem 0", border: "1px solid currentColor", borderRadius: "12px", overflow: "hidden" }}>
+				<div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem", justifyContent: "space-between", alignItems: "center", padding: "0.9rem 1rem" }}>
+					<strong>Live interaction · Geographic storytelling</strong>
+					<a href={caseStudy.liveUrl} target="_blank" rel="noopener noreferrer">Open full experience ↗</a>
+				</div>
+				<iframe
+					title="Interactive DiscoverEats globe and food origin stories"
+					src={caseStudy.liveUrl}
+					loading="lazy"
+					style={{ display: "block", width: "100%", height: "min(72vh, 680px)", minHeight: "420px", border: 0, background: "#e4dcc2" }}
+				/>
+			</div>
+			<p><strong>Try it:</strong> Drag the globe, select a location, hover a movement route, then inspect the detail tabs. If your browser restricts embedded content, use the full-experience link.</p>
+		</Section>
+
 		<Section title="The Geography">
 			<p>
 				The globe became the center of the experience, with interwoven routes
