@@ -430,12 +430,12 @@
 }
 
 .de-live-component-stage--sidebar .de-live-sidebar {
-	width: 320px;
+	width: min(100%, 320px);
 	min-height: 100%;
 }
 
 .de-live-component-stage--detail .de-live-detail {
-	width: 380px;
+	width: min(100%, 380px);
 	min-height: 100%;
 }
 
@@ -1180,7 +1180,193 @@
 	}
 
 	.de-live-component-stage {
-		justify-content: flex-start;
-		min-height: 480px;
+		justify-content: center;
+		min-height: 0;
+		overflow: hidden;
+	}
+
+	.de-live-component-stage--sidebar .de-live-sidebar,
+	.de-live-component-stage--detail .de-live-detail {
+		width: 100%;
+		max-width: none;
+	}
+
+	.de-live-system-line code {
+		white-space: normal;
+		overflow-wrap: anywhere;
+	}
+}
+
+@media (max-width: 560px) {
+	.de-live-demo-wrap {
+		gap: 0.85rem;
+	}
+
+	.de-live-demo-topline,
+	.de-live-system-line {
+		padding: 0.8rem;
+	}
+
+	.de-live-demo-label {
+		gap: 0.5rem;
+	}
+
+	.de-live-sidebar-issue,
+	.de-live-sidebar-dish,
+	.de-live-sidebar-description,
+	.de-live-list-header,
+	.de-live-detail-header,
+	.de-live-detail-content {
+		padding-left: 18px;
+		padding-right: 18px;
+	}
+
+	.de-live-sidebar-quote {
+		padding-left: 34px;
+		padding-right: 18px;
+	}
+
+	.de-live-sidebar-quote::before {
+		left: 18px;
+	}
+
+	.de-live-movement-legend {
+		margin-left: 18px;
+		margin-right: 18px;
+	}
+
+	.de-live-origin-row {
+		grid-template-columns: 22px minmax(0, 1fr) auto;
+		column-gap: 8px;
+		padding: 10px 18px;
+	}
+
+	.de-live-origin-row:hover {
+		padding-left: 22px;
+	}
+
+	.de-live-origin-row.is-active {
+		padding-left: 26px;
+	}
+
+	.de-live-origin-name {
+		font-size: 15px;
+	}
+
+	.de-live-origin-role {
+		font-size: 8px;
+		letter-spacing: 1px;
+	}
+
+	.de-live-origin-year {
+		font-size: 10px;
+	}
+
+	.de-live-sidebar-title {
+		font-size: 31px;
+	}
+
+	.de-live-tabs {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		padding: 0 18px;
+	}
+
+	.de-live-tabs button {
+		min-width: 0;
+		margin-right: 0;
+		padding: 12px 4px;
+		font-size: 8.5px;
+		letter-spacing: 1px;
+		text-align: center;
+	}
+
+	.de-live-detail h3 {
+		font-size: 32px;
+	}
+
+	.de-live-route-box {
+		flex-wrap: wrap;
+		align-items: center;
+	}
+
+	.de-live-route-box svg {
+		flex: 0 0 30px;
+	}
+
+	.de-live-ingredient-tags span {
+		font-size: 10px;
+		padding: 4px 9px;
+	}
+
+	.de-live-recipe-card {
+		padding: 15px 14px 15px 16px;
+	}
+
+	.de-live-demo-topline button {
+		width: 100%;
+	}
+}
+
+@media (max-width: 390px) {
+	.de-live-sidebar-issue,
+	.de-live-sidebar-dish,
+	.de-live-sidebar-description,
+	.de-live-list-header,
+	.de-live-detail-header,
+	.de-live-detail-content {
+		padding-left: 14px;
+		padding-right: 14px;
+	}
+
+	.de-live-sidebar-quote {
+		padding-left: 28px;
+		padding-right: 14px;
+	}
+
+	.de-live-sidebar-quote::before {
+		left: 14px;
+	}
+
+	.de-live-movement-legend {
+		margin-left: 14px;
+		margin-right: 14px;
+	}
+
+	.de-live-origin-row {
+		grid-template-columns: 18px minmax(0, 1fr);
+		padding-left: 14px;
+		padding-right: 14px;
+	}
+
+	.de-live-origin-row:hover,
+	.de-live-origin-row.is-active {
+		padding-left: 18px;
+	}
+
+	.de-live-origin-year {
+		display: none;
+	}
+
+	.de-live-sidebar-title {
+		font-size: 28px;
+	}
+
+	.de-live-sidebar-description,
+	.de-live-sidebar-quote {
+		font-size: 14px;
+	}
+
+	.de-live-tabs {
+		padding: 0 14px;
+	}
+
+	.de-live-tabs button {
+		font-size: 7.8px;
+		letter-spacing: 0.7px;
+	}
+
+	.de-live-detail h3 {
+		font-size: 28px;
 	}
 }
