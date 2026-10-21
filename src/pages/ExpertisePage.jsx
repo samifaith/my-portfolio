@@ -30,9 +30,9 @@ const TRANSITION_TIMINGS = {
 };
 
 const SECTION_PRIORITY = {
-	pocketplay: 0,
+	discovereats: 0,
 	codeswxtch: 1,
-	discovereats: 2,
+	pocketplay: 2,
 	"atlas-heor": 3,
 	"adhd-calculator": 4,
 	life2life: 5,
