@@ -1,7 +1,7 @@
 const caseStudies = {
-	"career-canvas": {
+	codeswxtch: {
 		projectType: "ai-product",
-		contentType: "career-canvas",
+		contentType: "codeswxtch",
 		theme: { coral: "#5C4F78", warm: "#ECE7D8" },
 		subtitle: "Independent product · AI + career intelligence",
 		overview:
