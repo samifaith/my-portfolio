@@ -217,7 +217,7 @@ const ExpertisePage = () => {
 				id: "atlas-heor",
 				title: "ATLAS HEOR Platform",
 				description:
-					"The challenge was mimicking complex real-world processes while keeping the data understandable.",
+					"Complex health evidence takes careful framing. At AESARA, I helped turn dense workflows into clearer interfaces.",
 				label: "AESARA · UX + FRONT-END",
 				category: "Product + Development",
 				route: "https://www.arysana.com/atlas-platform",
@@ -237,9 +237,9 @@ const ExpertisePage = () => {
 				study: {
 					purpose:
 						"ATLAS is an AESARA-owned enterprise platform for health economics and outcomes research teams. This entry reflects work I contributed while employed at AESARA, not ownership of the product.",
-					role: "As part of the AESARA product and engineering team, I contributed UX strategy and front-end work across information architecture, data visualization, and reusable interface systems.",
+					role: "At AESARA, I worked across product design, data visualization, and front-end development. I helped shape the component library and reusable interaction patterns, bringing consistency to workflows with different needs.",
 					direction:
-						"The work required translating dense HEOR workflows and layered stakeholder needs into interfaces that were clear, consistent, and trustworthy within an iterative product environment.",
+						"Working across design and engineering kept those decisions connected from concept through implementation.",
 				},
 			},
 			{

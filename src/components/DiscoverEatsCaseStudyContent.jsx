@@ -46,8 +46,9 @@ const Section = ({ title, children }) => (
 const DiscoverEatsCaseStudyContent = ({ caseStudy }) => (
 	<article className="discovereats-case-study">
 		<p className="discovereats-case-study-thesis">
-			DiscoverEats approaches food as evidence that cultures have always shaped one
-			another.
+			Food is a way into a much larger story. DiscoverEats connects dishes, places,
+			and movement through an interactive globe, bringing my interests in culture,
+			storytelling, and front-end development into one experience.
 		</p>
 
 		<a
@@ -56,7 +57,7 @@ const DiscoverEatsCaseStudyContent = ({ caseStudy }) => (
 			target="_blank"
 			rel="noreferrer"
 		>
-			View the live application
+			Explore the globe
 		</a>
 
 		<dl className="discovereats-case-study-meta">
@@ -206,13 +207,12 @@ const DiscoverEatsCaseStudyContent = ({ caseStudy }) => (
 		<Section title="The Platform">
 			<p>DiscoverEats was created with React, D3, GSAP, TopoJSON, Vite, and Sass.</p>
 			<p>
-				React manages the active story, selected location, source panels, recipes,
-				and synchronized navigation.
+				React manages the experience, D3 draws the geography, and GSAP handles motion.
+				Those responsibilities give me room to refine each interaction while keeping
+				the underlying structure clear.
 			</p>
 			<p>
-				D3 renders the globe and geographic information. GSAP handles the movement
-				and focus transitions between locations. TopoJSON keeps the world map compact
-				enough to bundle with the application.
+				TopoJSON keeps the world map compact enough to bundle with the application.
 			</p>
 			<p>
 				I also separated the food content from the interface. Each story has its own
@@ -225,24 +225,22 @@ const DiscoverEatsCaseStudyContent = ({ caseStudy }) => (
 			</p>
 		</Section>
 
-		<Section title="Selected Interface Primitives">
+		<Section title="Designed to be experienced">
 			<p>
-				The full experience is composed from smaller pieces rather than one
-				monolithic screen. These isolated demos show how the origin index,
-				geographic focus, and detail panel share state while remaining reusable.
+				Choose an origin and explore its story. These component studies show how
+				navigation and content respond together.
 			</p>
 			<DiscoverEatsComponentDemos />
 		</Section>
 
 		<Section title="Accessibility and Performance">
 			<p>
-				The experience includes keyboard-accessible origin navigation, visible focus
-				states, reduced-motion support, responsive layouts, and descriptive image
-				text.
+				Keyboard navigation, visible focus, and reduced-motion support give people
+				more ways to explore. These details shape the experience alongside its visual design.
 			</p>
 			<p>
-				The world atlas is bundled locally instead of depending on a runtime CDN.
-				This keeps the globe available if an outside service fails.
+				The world atlas ships with the application, keeping the globe independent
+				of an external map service.
 			</p>
 			<p>
 				Theme, onboarding, and feedback preferences are stored locally without
@@ -291,7 +289,7 @@ const DiscoverEatsCaseStudyContent = ({ caseStudy }) => (
 			target="_blank"
 			rel="noopener noreferrer"
 		>
-			View the live application
+			Explore the globe
 		</a>
 	</article>
 );

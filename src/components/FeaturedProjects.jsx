@@ -46,18 +46,18 @@ const VisualIcon = () => (
 
 const focusAreas = [
 	{
-		name: "Writing",
-		description: "Essays, editorial design, and the occasional long-form rabbit hole.",
+		name: "Architecture",
+		description: "I give complex workflows a clear structure, with room for the product to grow.",
 		Icon: WritingIcon,
 	},
 	{
-		name: "Product thinking",
-		description: "Interfaces, workflows, and systems that have to stay useful under pressure.",
+		name: "Design systems",
+		description: "I build reusable components that carry the same care across the product.",
 		Icon: ProductIcon,
 	},
 	{
-		name: "Visual systems",
-		description: "Brand moments, poster studies, and layout decisions that carry personality.",
+		name: "Accessibility",
+		description: "I consider how people navigate, read, and interact throughout the design and build.",
 		Icon: VisualIcon,
 	},
 ];
@@ -178,11 +178,11 @@ const FeaturedProjects = () => {
 							</span>
 						</h1>
 						<p className="featured-lede">
-							I bring visions to life. Working across product design, development, and user-centered experiences, I turn ideas and complex workflows into clear interfaces. I first came to product work through photography, where I learned how much framing, design theory, and iteration can change an experience. Today, that same attention to detail shows up in how I approach design systems, accessibility, and thoughtful interaction. The following work is a collection of where those ideas tend to go.
+							My background in photography taught me to pay attention to framing, rhythm, and what draws the eye. That perspective carries into the products I design and build, from the structure of a workflow to the way an interaction unfolds.
 						</p>
 					</div>
 
-					<div className="featured-diagram" ref={diagramRef} role="img" aria-label="Writing, product design, and visual systems overlap">
+					<div className="featured-diagram" ref={diagramRef} role="img" aria-label="Architecture, design systems, and accessibility overlap">
 						<svg
 							className="featured-venn-svg"
 							viewBox="0 0 600 650"
@@ -375,27 +375,27 @@ const FeaturedProjects = () => {
 						</svg>
 
 						<div className="featured-venn-label featured-venn-label-writing">
-							<span className="featured-venn-cap">Writing</span>
+							<span className="featured-venn-cap">Architecture</span>
 							<span className="featured-venn-desc">
-								Make ideas
+								Give ideas
 								<br />
-								resonate.
+								structure.
 							</span>
 						</div>
 						<div className="featured-venn-label featured-venn-label-product">
-							<span className="featured-venn-cap">Product Design</span>
+							<span className="featured-venn-cap">Design systems</span>
 							<span className="featured-venn-desc">
-								Make things
+								Build with
 								<br />
-								work.
+								consistency.
 							</span>
 						</div>
 						<div className="featured-venn-label featured-venn-label-visual">
-							<span className="featured-venn-cap">Visual Systems</span>
+							<span className="featured-venn-cap">Accessibility</span>
 							<span className="featured-venn-desc">
-								Make it
+								Make room
 								<br />
-								memorable.
+								for people.
 							</span>
 						</div>
 					</div>
@@ -409,6 +409,9 @@ const FeaturedProjects = () => {
 						</article>
 					))}
 				</div>
+				<p className="featured-lede">
+					I work through ideas in prototypes and code, refining the details as the experience takes shape. I leave teams with components, documentation, and decisions they can build on.
+				</p>
 			</section>
 
 			<div className="featured-ribbon" aria-hidden="true">

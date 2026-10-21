@@ -38,7 +38,7 @@ const HomePageComponent = () => {
 	const headRef = useRef(null);
 
 	const fullText =
-		"I’m drawn to the space where storytelling, systems, and culture overlap. My work starts with a small obsession, a question I can’t leave alone, or a detail others don't question. That curiosity becomes the foundation for how I design, write, and make sense of the world around me.";
+		"I’m drawn to how things work, what they communicate, and the details that make them feel considered. I bring that curiosity to product design and front-end development, shaping complex ideas into accessible, expressive digital experiences.";
 
 	const hasAnimationPlayed = getAnimationPlayedInSession();
 
