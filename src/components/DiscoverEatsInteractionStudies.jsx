@@ -1,50 +1,79 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import { geoOrthographic, geoPath, geoGraticule10, geoInterpolate } from "d3-geo";
+import { getFoodTemplate } from "./discovereats/contentTemplate";
 import "./DiscoverEatsInteractionStudies.css";
 
-const ORIGINS = [
-  { id: "west-africa", name: "West Africa", role: "Technique and culinary knowledge", year: "Historical roots", color: "#3f5c3d", x: 26, y: 50, description: "Explore the traditions and knowledge carried across communities and generations." },
-  { id: "scotland", name: "Scotland", role: "European frying traditions", year: "Historical roots", color: "#b93803", x: 49, y: 29, description: "See how different cooking traditions intersected and evolved." },
-  { id: "american-south", name: "American South", role: "Adaptation and cultural exchange", year: "Later development", color: "#7a6230", x: 18, y: 41, description: "Trace how migration and adaptation shaped regional food cultures." },
-];
-const ROUTES = [{ from: 0, to: 2 }, { from: 1, to: 2 }];
+const story = getFoodTemplate("fried-chicken").sections;
+const ORIGINS = story.origins;
+const ROUTES = story.movements;
 const TABS = ["Journey", "Sources", "Recipes"];
+const WIDTH = 520, HEIGHT = 390;
 
 export default function DiscoverEatsInteractionStudies() {
-  const [selected, setSelected] = useState(0);
+  const [selectedId, setSelectedId] = useState(ORIGINS[0].id);
   const [tab, setTab] = useState("Journey");
   const [showRoutes, setShowRoutes] = useState(true);
-  const active = ORIGINS[selected];
-
+  const [rotation, setRotation] = useState([-15, -15, 0]);
+  const [dragStart, setDragStart] = useState(null);
+  const selected = ORIGINS.find(origin => origin.id === selectedId) || ORIGINS[0];
+  const projection = useMemo(() => geoOrthographic().translate([WIDTH/2, HEIGHT/2]).scale(177).rotate(rotation).clipAngle(90), [rotation]);
+  const globePath = useMemo(() => geoPath(projection), [projection]);
+  const selectOrigin = (origin) => {
+    setSelectedId(origin.id);
+    setTab("Journey");
+    setRotation([-origin.coords[0], -origin.coords[1], 0]);
+  };
+  const move = event => {
+    if (!dragStart) return;
+    const dx = event.clientX - dragStart.x, dy = event.clientY - dragStart.y;
+    setRotation([dragStart.rotation[0] + dx * .32, Math.max(-85, Math.min(85, dragStart.rotation[1] - dy * .32)), 0]);
+  };
   return (
     <section className="de-studies" aria-labelledby="de-studies-heading">
       <p className="de-studies__eyebrow">Interaction studies · DiscoverEats</p>
       <h2 id="de-studies-heading">Designed to be explored</h2>
-      <p>Try the linked selection states, movement routes, and content navigation. This lightweight study demonstrates the interaction architecture without loading a second application.</p>
+      <p>Explore real origin coordinates, movement routes, research, and recipes from the DiscoverEats content model. This is a smaller interactive component, not the complete application.</p>
       <div className="de-studies__layout">
         <div className="de-studies__map">
-          <div className="de-studies__toolbar"><strong>01 / Geographic selection</strong><label><input type="checkbox" checked={showRoutes} onChange={e => setShowRoutes(e.target.checked)} /> Show routes</label></div>
-          <svg viewBox="0 0 100 75" role="img" aria-label="Schematic geographic origin connections. Use the origin buttons below to select a location.">
-            <ellipse cx="50" cy="37.5" rx="42" ry="32" fill="#d2c8a6" stroke="#7a6230" strokeWidth=".5" />
-            <ellipse cx="50" cy="37.5" rx="25" ry="32" fill="none" stroke="#7a6230" strokeWidth=".25" opacity=".4" />
-            <path d="M8 37.5 H92 M50 5.5 V69.5" stroke="#7a6230" strokeWidth=".25" strokeDasharray="1 2" opacity=".5" />
-            {showRoutes && ROUTES.map(({from,to}) => <line key={from} x1={ORIGINS[from].x} y1={ORIGINS[from].y} x2={ORIGINS[to].x} y2={ORIGINS[to].y} stroke="#b93803" strokeWidth=".7" strokeDasharray="1.5 1.5" />)}
-            {ORIGINS.map((origin,index) => <circle key={origin.id} cx={origin.x} cy={origin.y} r={selected===index?2.6:1.7} fill={origin.color} stroke="#fff6e5" strokeWidth=".7" />)}
+          <div className="de-studies__toolbar"><strong>01 / Geographic exploration</strong><label><input type="checkbox" checked={showRoutes} onChange={event => setShowRoutes(event.target.checked)} /> Show routes</label></div>
+          <svg viewBox={`0 0 ${WIDTH} ${HEIGHT}`} role="img" aria-label="Interactive orthographic globe showing the selected origin and movement routes. Use the origin buttons to select locations."
+            onPointerDown={event => {event.currentTarget.setPointerCapture(event.pointerId);setDragStart({x:event.clientX,y:event.clientY,rotation});}}
+            onPointerMove={move} onPointerUp={()=>setDragStart(null)} onPointerCancel={()=>setDragStart(null)}
+            style={{touchAction:"pan-y",cursor:dragStart?"grabbing":"grab"}}>
+            <path d={globePath({type:"Sphere"}) || ""} fill="#d2c8a6" stroke="#7a6230" strokeWidth="1.2"/>
+            <path d={globePath(geoGraticule10()) || ""} fill="none" stroke="#7a6230" strokeWidth=".45" opacity=".65"/>
+            {showRoutes && ROUTES.map((route,index)=>{
+              const from=ORIGINS.find(o=>o.id===route.from),to=ORIGINS.find(o=>o.id===route.to);
+              if(!from||!to)return null;
+              const interpolate=geoInterpolate(from.coords,to.coords);
+              const points=Array.from({length:33},(_,i)=>interpolate(i/32));
+              return <path key={index} d={globePath({type:"LineString",coordinates:points})||""} fill="none" stroke="#b93803" strokeWidth="2" strokeDasharray="4 3"/>;
+            })}
+            {ORIGINS.map(origin=>{
+              const point=projection(origin.coords);
+              if(!point)return null;
+              const visible=projection.invert(point);
+              const delta=Math.abs(visible[0]-origin.coords[0])+Math.abs(visible[1]-origin.coords[1]);
+              if(delta>1)return null;
+              return <circle key={origin.id} cx={point[0]} cy={point[1]} r={selectedId===origin.id?7:4.5} fill={origin.color||"#3f5c3d"} stroke="#fff6e5" strokeWidth="2"/>;
+            })}
           </svg>
-          <p className="de-studies__note">Schematic interaction model, not the original D3 globe or a geographic map.</p>
+          <p className="de-studies__note">Drag to rotate. Select an origin to center it. Geographic projection uses D3 and original DiscoverEats coordinates; country outlines are omitted in this focused demo.</p>
         </div>
         <div className="de-studies__sidebar">
-          <strong>02 / Origin selection</strong>
+          <strong>02 / Synchronized origin selection</strong>
           <div className="de-studies__origins" role="group" aria-label="Choose an origin">
-            {ORIGINS.map((origin,index) => <button key={origin.id} type="button" aria-pressed={selected===index} onClick={() => {setSelected(index);setTab("Journey");}}><span>{String(index+1).padStart(2,"0")}</span><span>{origin.name}</span></button>)}
+            {ORIGINS.map((origin,index)=><button key={origin.id} type="button" aria-pressed={selectedId===origin.id} onClick={()=>selectOrigin(origin)}><span>{String(index+1).padStart(2,"0")}</span><span>{origin.name}</span></button>)}
           </div>
-          <strong>03 / Detail states</strong>
-          <h3>{active.name}</h3>
-          <p>{active.role}</p>
+          <strong>03 / Story detail states</strong>
+          <h3>{selected.name}</h3><p>{selected.role} · {selected.year}</p>
           <div className="de-studies__tabs" role="group" aria-label="Explore origin information">{TABS.map(value=><button type="button" key={value} aria-pressed={tab===value} onClick={()=>setTab(value)}>{value}</button>)}</div>
-          <div className="de-studies__detail" aria-live="polite">{tab==="Journey"?active.description:tab==="Sources"?"The full application links each origin to supporting historical sources.":"The full application connects each origin to recipes and regional adaptations."}</div>
+          <div className="de-studies__detail" aria-live="polite">
+            {tab==="Journey"?<p>{selected.detail}</p>:tab==="Sources"?<ul>{(selected.manualSources||[]).slice(0,3).map((source,index)=><li key={index}><a href={source.url} target="_blank" rel="noopener noreferrer">{source.label}</a></li>)}</ul>:selected.recipe?<div><strong>{selected.recipe.title}</strong><p>{selected.recipe.prepTime} prep · {selected.recipe.cookTime} cook</p><ul>{(selected.recipe.ingredients||[]).slice(0,4).map((item,index)=><li key={index}>{item}</li>)}</ul></div>:<p>No recipe available for this origin.</p>}
+          </div>
         </div>
       </div>
-      <p className="de-studies__note">This is an isolated interaction study using representative content. The production application contains the actual D3/GSAP globe, complete source material, and full geographic dataset.</p>
+      <p className="de-studies__note">Source: DiscoverEats original food-story model. The complete application includes country geometry, animation, richer media, and additional interactions.</p>
     </section>
   );
 }
