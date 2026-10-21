@@ -1,4 +1,4 @@
-import { useEffect, useRef, useCallback, useMemo } from "react";
+import { useEffect, useRef, useCallback, useMemo, useState } from "react";
 import { gsap } from "gsap";
 import { CardMedia, Card, CardContent, Typography } from "@mui/material";
 import stories from "../constants/WritingPieces";
@@ -11,7 +11,7 @@ import { getModernImageSources } from "../utils/imageFormats";
 import "../styles/ProjectCaseStudyModal.css";
 
 const FOCUSABLE_SELECTOR =
-	'a[href], area[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"]), [contenteditable="true"]';
+	'a[href], area[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), iframe, textarea:not([disabled]), [tabindex]:not([tabindex="-1"]), [contenteditable="true"]';
 
 const PROFESSIONAL_CONTRIBUTION_OVERRIDES = {
 	"atlas-heor": {
@@ -92,6 +92,19 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose, onNext,
 	const isProjectModal = !isStory && !isCaseStudy;
 	const story = isStory ? modalContent.story : null;
 	const caseStudy = isCaseStudy ? modalContent.caseStudy : null;
+	const hasLiveProject = Boolean(caseStudy?.liveUrl);
+	const [projectView, setProjectView] = useState("live");
+	const liveViewButtonRef = useRef(null);
+
+	useEffect(() => {
+		setProjectView("live");
+	}, [project?.id]);
+
+	const showLiveProject = () => {
+		setProjectView("live");
+		liveViewButtonRef.current?.focus();
+	};
+
 	const projectImageSources = useMemo(
 		() => (project?.image ? getModernImageSources(project.image) : null),
 		[project?.image],
@@ -294,13 +307,13 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose, onNext,
 				return;
 			}
 
-			if (e.key === "ArrowRight" && hasNext) {
+			if (!e.defaultPrevented && !e.target.closest?.("button, a, input, textarea, select, [role=tablist], [contenteditable=true]") && e.key === "ArrowRight" && hasNext) {
 				e.preventDefault();
 				onNext();
 				return;
 			}
 
-			if (e.key === "ArrowLeft" && hasPrev) {
+			if (!e.defaultPrevented && !e.target.closest?.("button, a, input, textarea, select, [role=tablist], [contenteditable=true]") && e.key === "ArrowLeft" && hasPrev) {
 				e.preventDefault();
 				onPrev();
 				return;
@@ -308,7 +321,7 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose, onNext,
 
 			if (e.key === "Tab" && contentRef.current) {
 				const focusableElements =
-					contentRef.current.querySelectorAll(FOCUSABLE_SELECTOR);
+					Array.from(contentRef.current.querySelectorAll(FOCUSABLE_SELECTOR)).filter((element) => element.getClientRects().length > 0);
 
 				if (!focusableElements.length) {
 					return;
@@ -359,13 +372,20 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose, onNext,
 			onClick={handleBackdropClick}
 			role="dialog"
 			aria-modal="true"
-			aria-labelledby={`case-study-title-${project.id}`}
+			aria-label={project.title}
 		>
 			<div
 				ref={contentRef}
-				className="case-study-backdrop case-study-backdrop--split"
+				className={`case-study-backdrop case-study-backdrop--split ${hasLiveProject ? "has-live-project" : ""}`}
 			>
 				<div className="case-study-controls">
+					{hasLiveProject && (
+						<div className="case-study-view-switch" role="group" aria-label="Project view">
+							<button type="button" ref={liveViewButtonRef} aria-pressed={projectView === "live"} onClick={() => setProjectView("live")}>Live project</button>
+							<button type="button" aria-pressed={projectView === "study"} onClick={() => setProjectView("study")}>Case study</button>
+							<a href={caseStudy.liveUrl} target="_blank" rel="noopener noreferrer">Open in new tab ↗</a>
+						</div>
+					)}
 					{hasPrev && (
 						<button
 							type="button"
@@ -404,7 +424,12 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose, onNext,
 					</button>
 				</div>
 
-				<div className="case-study-split">
+				{hasLiveProject && (
+					<div className="case-study-live-project" hidden={projectView !== "live"}>
+						<iframe src={caseStudy.liveUrl} title={`${project.title} live project`} />
+					</div>
+				)}
+				<div className="case-study-split" hidden={hasLiveProject && projectView !== "study"}>
 					<div className="case-study-split-media">
 						{isStory && story?.pdfFile && (
 							<iframe
@@ -588,7 +613,7 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose, onNext,
 								) : caseStudy.contentType === "codeswxtch" ? (
 									<CodeSwxtchCaseStudyContent />
 								) : caseStudy.contentType === "discovereats" ? (
-									<DiscoverEatsCaseStudyContent caseStudy={caseStudy} />
+									<DiscoverEatsCaseStudyContent caseStudy={caseStudy} onExplore={showLiveProject} />
 								) : (
 									<WanderlustCaseStudyContent caseStudy={caseStudy} />
 								)}

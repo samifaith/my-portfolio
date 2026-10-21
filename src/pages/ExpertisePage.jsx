@@ -361,7 +361,7 @@ const ExpertisePage = () => {
 
 	const sections = useMemo(
 		() =>
-			[...baseSections].sort((leftSection, rightSection) => {
+			baseSections.filter((section) => section.id !== "pocketplay").sort((leftSection, rightSection) => {
 				const leftPriority = SECTION_PRIORITY[leftSection.id] ?? 100;
 				const rightPriority = SECTION_PRIORITY[rightSection.id] ?? 100;
 				return leftPriority - rightPriority;

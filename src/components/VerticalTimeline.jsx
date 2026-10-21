@@ -113,7 +113,7 @@ const defaultItems = [
 	},
 	{
 		id: 7,
-		year: "2024",
+		year: "2020–2024",
 		title: "AESARA Inc.",
 		text: "In pharma, data has real-world impact. At AESARA, I streamlined the information architecture, created interface systems, and helped structure the UI library for ATLAS, their health economics platform. I also built a reusable component library that improved consistency across the product and reduced repeat development work.",
 		side: "left",
@@ -138,8 +138,8 @@ const defaultItems = [
 	},
 	{
 		id: 8,
-		year: "2026",
-		title: "Johnson & Wales University · Food Studies, Media & Design",
+		year: "2027",
+		title: "Johnson & Wales University · Food, Media & Design",
 		text: "I'm finishing up at Johnson & Wales, studying how design and media build community. My roots are still in the build. Enterprise tools for global health economists, diversity hiring at retail scale, interfaces people use whether or not they ever think about who made them.",
 		side: "right",
 		skills: [

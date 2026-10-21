@@ -1,12 +1,4 @@
-import DiscoverEatsComponentDemos from "./DiscoverEatsComponentDemos";
 
-const projectDetails = [
-	["Completed", "May 2026"],
-	["Role", "Product designer and front-end developer"],
-	["Team", "Independent capstone project"],
-	["Scope", "One dish, seven locations, four routes"],
-	["Technology", "React, D3, GSAP, TopoJSON, Vite, and Sass"],
-];
 
 const scope = [
 	"Seven cultural locations",
@@ -43,7 +35,7 @@ const Section = ({ title, children }) => (
 	</section>
 );
 
-const DiscoverEatsCaseStudyContent = ({ caseStudy }) => (
+const DiscoverEatsCaseStudyContent = ({ onExplore }) => (
 	<article className="discovereats-case-study">
 		<p className="discovereats-case-study-thesis">
 			Food is a way into a much larger story. DiscoverEats connects dishes, places,
@@ -51,23 +43,10 @@ const DiscoverEatsCaseStudyContent = ({ caseStudy }) => (
 			storytelling, and front-end development into one experience.
 		</p>
 
-		<a
-			className="discovereats-case-study-link"
-			href={caseStudy.liveUrl}
-			target="_blank"
-			rel="noreferrer"
-		>
+		<button type="button" className="discovereats-case-study-link" onClick={onExplore}>
 			Explore the globe
-		</a>
+		</button>
 
-		<dl className="discovereats-case-study-meta">
-			{projectDetails.map(([label, value]) => (
-				<div key={label}>
-					<dt>{label}</dt>
-					<dd>{value}</dd>
-				</div>
-			))}
-		</dl>
 
 		<Section title="Purpose">
 			<p>
@@ -225,13 +204,6 @@ const DiscoverEatsCaseStudyContent = ({ caseStudy }) => (
 			</p>
 		</Section>
 
-		<Section title="Designed to be experienced">
-			<p>
-				Choose an origin and explore its story. These component studies show how
-				navigation and content respond together.
-			</p>
-			<DiscoverEatsComponentDemos />
-		</Section>
 
 		<Section title="Accessibility and Performance">
 			<p>
@@ -283,14 +255,10 @@ const DiscoverEatsCaseStudyContent = ({ caseStudy }) => (
 			</p>
 		</Section>
 
-		<a
-			className="discovereats-case-study-link"
-			href={caseStudy.liveUrl}
-			target="_blank"
-			rel="noopener noreferrer"
-		>
+		<button type="button" className="discovereats-case-study-link" onClick={onExplore}>
 			Explore the globe
-		</a>
+		</button>
+		<a className="discovereats-case-study-link" href="https://github.com/samifaith/capstone26" target="_blank" rel="noopener noreferrer">View source</a>
 	</article>
 );
 
