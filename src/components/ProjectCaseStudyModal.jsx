@@ -80,7 +80,7 @@ const StudyFields = ({ study, tools, contributionMode = false }) => (
 	</>
 );
 
-const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose, onNext, onPrev, hasNext, hasPrev }) => {
+const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose, onNext, onPrev, hasNext, hasPrev, view, onViewChange, shareHref }) => {
 	const modalRef = useRef(null);
 	const contentRef = useRef(null);
 	const closeButtonRef = useRef(null);
@@ -98,11 +98,13 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose, onNext,
 	const story = isStory ? modalContent.story : null;
 	const caseStudy = isCaseStudy ? modalContent.caseStudy : null;
 	const hasLiveProject = Boolean(caseStudy?.liveUrl);
-	const [projectView, setProjectView] = useState("live");
+	const [localProjectView, setLocalProjectView] = useState("live");
+ const projectView = view ?? localProjectView;
+ const setProjectView = onViewChange ?? setLocalProjectView;
 	const liveViewButtonRef = useRef(null);
 
 	useEffect(() => {
-		setProjectView("live");
+		setLocalProjectView("live");
 	}, [project?.id]);
 
 	const showLiveProject = () => {
@@ -537,6 +539,7 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose, onNext,
 					</div>
 
 					<div className="case-study-split-text">
+                        {shareHref && <a className="case-study-permalink" href={shareHref} target="_blank" rel="noopener noreferrer">Direct link to this case study <span>(opens in a new tab)</span> ↗</a>}
 						<header className="case-study-header">
 							<div className="case-study-label-group">
 								<span className="case-study-label">{project.label}</span>

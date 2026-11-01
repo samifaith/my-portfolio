@@ -13,6 +13,8 @@ import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { ChevronUp } from "lucide-react";
 import { getModernImageSources } from "../utils/imageFormats";
 import ProjectCaseStudyModal from "../components/ProjectCaseStudyModal";
+import useProjectUrl from "../hooks/useProjectUrl";
+import ProjectSummaryContent from "../components/ProjectSummaryContent";
 import PublicProjectLink from "../components/PublicProjectLink";
 import FeaturedProjects from "../components/FeaturedProjects";
 import "../styles/ExpertisePrototype.css";
@@ -41,8 +43,6 @@ const SECTION_PRIORITY = {
 
 const ExpertisePage = () => {
 	const [activeIndex, setActiveIndex] = useState(0);
-	const [selectedProject, setSelectedProject] = useState(null);
-	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [isReturnToTopVisible, setIsReturnToTopVisible] = useState(false);
 	const [isAboveProtoPage, setIsAboveProtoPage] = useState(true);
 	const [topOffset, setTopOffset] = useState("0px");
@@ -85,11 +85,7 @@ const ExpertisePage = () => {
 				featured: true,
 				bg: "#e7e1ef",
 				tools: ["Base44", "AI Workflows", "Product Design", "Scoring Systems", "UX"],
-				visual: {
-					type: "enterprise",
-					eyebrow: "Independent product · V1",
-					metrics: ["Career Intelligence", "AI Calibration", "Trust + UX"],
-				},
+				visual: { type: "text-only" },
 				study: {
 					purpose:
 						"Build a job search system that evaluates whether a role actually fits a person's experience, constraints, and direction instead of relying on keyword similarity.",
@@ -365,6 +361,8 @@ const ExpertisePage = () => {
 			}),
 		[baseSections],
 	);
+ const { selectedProject, isModalOpen, openProject: handleOpenProjectModal, closeProject: handleCloseProjectModal, afterClose: handleAfterProjectModalClose, view: projectView, setView: setProjectView, unavailable: projectUnavailable, shareHref } = useProjectUrl(sections);
+
 
 	useEffect(() => {
 		try {
@@ -942,18 +940,7 @@ const ExpertisePage = () => {
 		window.scrollTo({ top: 0, behavior: "smooth" });
 	};
 
-	const handleOpenProjectModal = (item) => {
-		setSelectedProject(item);
-		setIsModalOpen(true);
-	};
 
-	const handleCloseProjectModal = () => {
-		setIsModalOpen(false);
-	};
-
-	const handleAfterProjectModalClose = useCallback(() => {
-		setSelectedProject(null);
-	}, []);
 
 	const selectedIndex = useMemo(
 		() => sections.findIndex((s) => s.id === selectedProject?.id),
@@ -964,10 +951,10 @@ const ExpertisePage = () => {
 		(direction) => {
 			const nextIndex = selectedIndex + direction;
 			if (nextIndex >= 0 && nextIndex < sections.length) {
-				setSelectedProject(sections[nextIndex]);
+				handleOpenProjectModal(sections[nextIndex]);
 			}
 		},
-		[sections, selectedIndex],
+		[sections, selectedIndex, handleOpenProjectModal],
 	);
 
 	const handleProjectPrimaryAction = (item) => {
@@ -1140,46 +1127,18 @@ const ExpertisePage = () => {
 					<section className="proto-left">
 						{sections.map((item, index) => (
 							<article
-								className="proto-section"
+								className={`proto-section ${item.visual?.type === "text-only" ? "proto-section--text-only" : ""}`}
 								key={item.id}
 								ref={(el) => {
 									sectionRefs.current[index] = el;
 								}}
 							>
-								<div className="proto-copy">
-									<p className="proto-label">{item.label}</p>
-									<h2>{item.title}</h2>
-									<p>{item.description}</p>
-									{item.tools && item.tools.length > 0 && (
-										<div className="proto-tool-list">
-											{item.tools.map((tool) => (
-												<span key={tool} className="proto-tool-tag">
-													{tool}
-												</span>
-											))}
-										</div>
-									)}
-									<button
-										type="button"
-										className="proto-cta"
-										onClick={() => {
-											handleProjectPrimaryAction(item);
-										}}
-									>
-										Learn More
-									</button>
-									{item.visual?.type === "public-link" && <PublicProjectLink project={item} className="proto-public-link--mobile" />}
-								</div>
-								{item.visual?.type !== "public-link" && <div className="proto-mobile-media">
-									{renderProjectMedia(item, item.title, {
-										imgClassName: "proto-mobile-media-item",
-									})}
-								</div>}
+								<ProjectSummaryContent project={item} renderMedia={renderProjectMedia} onOpen={handleProjectPrimaryAction} />
 							</article>
 						))}
 					</section>
 
-					<section ref={rightColumnRef} className="proto-right">
+					<section ref={rightColumnRef} className={`proto-right ${activeSection.visual?.type === "text-only" ? "is-text-only-active" : ""}`} aria-hidden={activeSection.visual?.type === "text-only" ? true : undefined} inert={activeSection.visual?.type === "text-only" ? true : undefined}>
 						<div
 							ref={imageStackRef}
 							className="proto-image-stack"
@@ -1194,7 +1153,7 @@ const ExpertisePage = () => {
 										layerWrapRefs.current[index] = el;
 									}}
 								>
-									{item.visual?.type === "public-link" ? (
+									{item.visual?.type === "text-only" ? null : item.visual?.type === "public-link" ? (
 										<PublicProjectLink project={item} className="proto-public-link--panel" tabIndex={index === activeIndex ? 0 : -1} />
 									) : <button
 										type="button"
@@ -1229,9 +1188,13 @@ const ExpertisePage = () => {
 					</button>
 				)}
 			</div>
+			{projectUnavailable && <p className="project-url-notice" role="status">That project is not available. Explore the selected work below.</p>}
 			{selectedProject && (
 				<ProjectCaseStudyModal
 					project={selectedProject}
+                    view={projectView}
+                    onViewChange={setProjectView}
+                    shareHref={shareHref}
 					isOpen={isModalOpen}
 					onClose={handleCloseProjectModal}
 					onAfterClose={handleAfterProjectModalClose}

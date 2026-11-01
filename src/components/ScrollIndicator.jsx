@@ -1,30 +1,33 @@
 import { useEffect, useRef } from "react";
+import useMediaQuery from "../hooks/useMediaQuery";
 import { gsap } from "gsap";
 import "../styles/ScrollIndicator.css";
 
 const ScrollIndicator = () => {
 	const arrowRef = useRef(null);
+	const reducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
 
 	useEffect(() => {
-		// Floating animation
-		gsap.to(arrowRef.current, {
+		if (reducedMotion) { gsap.set(arrowRef.current, { y: 0 }); return undefined; }
+		const tween = gsap.to(arrowRef.current, {
 			y: 10,
 			duration: 1.5,
 			ease: "power1.inOut",
 			repeat: -1,
 			yoyo: true,
 		});
-	}, []);
+		return () => tween.kill();
+	}, [reducedMotion]);
 
 	const handleClick = () => {
 		window.scrollTo({
 			top: window.innerHeight,
-			behavior: "smooth",
+			behavior: reducedMotion ? "auto" : "smooth",
 		});
 	};
 
 	return (
-		<div className="scroll-indicator" onClick={handleClick}>
+		<button type="button" className="scroll-indicator" onClick={handleClick}>
 			<div className="scroll-text">Scroll Down</div>
 			<div ref={arrowRef} className="scroll-arrow">
 				<svg
@@ -43,7 +46,7 @@ const ScrollIndicator = () => {
 					/>
 				</svg>
 			</div>
-		</div>
+		</button>
 	);
 };
 

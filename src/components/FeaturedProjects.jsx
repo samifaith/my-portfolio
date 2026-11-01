@@ -5,6 +5,9 @@ import "../styles/FeaturedProjects.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Retained for optional re-enablement; hidden at the portfolio owner’s request.
+export const SHOW_CONSULTING_APPROACH = false;
+
 const ribbonPhrases = [
   "front-end architecture",
   "design systems",
@@ -400,7 +403,7 @@ const FeaturedProjects = () => {
 						</article>
 					))}
 				</div>
-				<section className="featured-approach" aria-labelledby="approach-heading"><p className="featured-eyebrow">How I work</p><h2 id="approach-heading">Audit → Architect → Build → Validate → Enable</h2><p>I want to leave every product and team better than I found them, with the right tools and insights to build on.</p><ol><li><h3>Audit</h3><p>Understand the workflow, constraints, and where the current experience creates friction for users and the team.</p></li><li><h3>Architect</h3><p>Define front-end boundaries, reusable patterns, and state responsibilities. Make the trade-offs explicit.</p></li><li><h3>Build</h3><p>Implement the critical paths and shared components, then test how the architecture holds up in practice.</p></li><li><h3>Validate</h3><p>Check keyboard access, motion, responsive behavior, error states, and performance against the actual workflow.</p></li><li><h3>Enable</h3><p>Leave clear components, documentation, and decision records so the next person can build on the work.</p></li></ol></section>
+				{SHOW_CONSULTING_APPROACH && <section className="featured-approach" aria-labelledby="approach-heading"><p className="featured-eyebrow">How I work</p><h2 id="approach-heading">Audit → Architect → Build → Validate → Enable</h2><p>I want to leave every product and team better than I found them, with the right tools and insights to build on.</p><ol><li><h3>Audit</h3><p>Understand the workflow, constraints, and where the current experience creates friction for users and the team.</p></li><li><h3>Architect</h3><p>Define front-end boundaries, reusable patterns, and state responsibilities. Make the trade-offs explicit.</p></li><li><h3>Build</h3><p>Implement the critical paths and shared components, then test how the architecture holds up in practice.</p></li><li><h3>Validate</h3><p>Check keyboard access, motion, responsive behavior, error states, and performance against the actual workflow.</p></li><li><h3>Enable</h3><p>Leave clear components, documentation, and decision records so the next person can build on the work.</p></li></ol></section>}
 				</div>
 			</section>
 
