@@ -1,0 +1,106 @@
+{
+  "discovereats": {
+    "title": "DiscoverEats",
+    "subtitle": "Making food history explorable",
+    "meta": "Independent product design and front-end development | Working desktop-first proof of concept",
+    "sections": [
+      [
+        "The challenge",
+        "A familiar dish can carry a history that crosses many places and generations. I wanted to make those connections easier to follow without flattening them into a single origin story. The interface challenge was to help someone move between geography and context without losing their place."
+      ],
+      [
+        "My role and scope",
+        "I researched, designed, and built DiscoverEats independently. I narrowed an initial food-encyclopedia idea to one complete story about fried chicken, connecting seven cultural locations through four movement routes. That scope gave me room to develop both the experience and a structure that could support another story."
+      ],
+      [
+        "The interaction decision",
+        "I organized the journey around Origin, Path, and Plate: where an influence begins, how it moves, and what it becomes. The globe and written origin list share a selection state. Choosing a location connects the geographic view with its story, giving the user more than one way to understand the relationship."
+      ],
+      [
+        "The architecture decision",
+        "I separated story content from the interface through a runtime model. React manages experience state, D3 renders geography, and GSAP handles motion. Bundling the atlas locally removes the globe’s dependency on a public geography CDN at runtime. I documented the story-model and atlas decisions so the reasoning could travel with the code."
+      ],
+      [
+        "What the work demonstrates",
+        "The result is a deployed, desktop-first experience that connects the globe, origin navigation, cultural context, and sources. Keyboard-accessible origin controls and reduced-motion handling are part of the implementation. A complete small-screen experience and automated regression coverage for the story model remain next steps. I can demonstrate how the system works today, but I do not yet have user-study evidence that it improves comprehension."
+      ]
+    ]
+  },
+  "codeswxtch": {
+    "title": "CodeSwxtch",
+    "subtitle": "Making job recommendations worth questioning",
+    "meta": "Independent product design and AI workflow development | Base44 | V1 workspace with V2 work in progress",
+    "sections": [
+      [
+        "The challenge",
+        "A job can share the right words with a resume and still be wrong for the person reading it. I built CodeSwxtch around the gap between finding a role and deciding whether it deserves someone’s time. Experience, discipline, location, compensation, and career direction all affect that decision."
+      ],
+      [
+        "My role",
+        "I shaped the product model, fit-scoring requirements, application workflow, and the professional context available to its AI assistant, Grover. The workspace brings role discovery, saved applications, and application materials together so an evaluation can use more than a job title."
+      ],
+      [
+        "The decision that changed the direction",
+        "A misleading high-scoring recommendation made the weakness concrete: overlapping design and engineering language was being treated as evidence of professional fit. I made role family, discipline, and experience scope explicit evaluation requirements. A useful recommendation needs to explain its reasoning, especially when a confident score conflicts with the actual job."
+      ],
+      [
+        "Designing for uncertainty",
+        "Missing information should remain visible as missing information. An undisclosed salary is not a low salary, and an unclear workplace policy is not automatically onsite. I want the interface to distinguish the strength of a match from the strength of the evidence behind it. Grover’s recommendations should stay grounded in the saved profile rather than inventing experience to improve a match."
+      ],
+      [
+        "What the work demonstrates",
+        "CodeSwxtch shows how I translate a failure into product requirements and constraints for an AI-assisted workflow. Calibration is ongoing. The next proof is a repeatable before-and-after evaluation of the same role, not simply a revised score. Multi-source company-culture intelligence is part of the next iteration and should remain clearly labeled as planned."
+      ]
+    ]
+  },
+  "atlas-heor": {
+    "title": "ATLAS",
+    "subtitle": "Turning complex evidence workflows into reusable interfaces",
+    "meta": "AESARA | UX engineering and front-end contribution | Enterprise health economics and outcomes research",
+    "sections": [
+      [
+        "The challenge",
+        "Health economics and outcomes research brings dense evidence and specialized workflows into the same product. My work on ATLAS focused on making that information easier to navigate while keeping the interface consistent as the product developed."
+      ],
+      [
+        "My role at AESARA",
+        "As part of AESARA’s product and engineering team, I contributed to UX strategy and front-end implementation. My work connected information architecture, data visualization, and reusable interface patterns. I worked across product, design, and engineering to translate stakeholder requirements into the experience people used."
+      ],
+      [
+        "The systems decision",
+        "I approached recurring interface needs as shared building blocks rather than treating every workflow as an isolated screen. I built reusable components and interaction patterns, helped shape the UI library, and refined how complex evidence was organized and presented."
+      ],
+      [
+        "The tradeoff",
+        "A shared pattern still has to serve the task in front of it. I balanced consistency across the product with the demands of specialized HEOR workflows, keeping both usability and maintainability in view."
+      ],
+      [
+        "What the work demonstrates",
+        "ATLAS reflects my ability to connect enterprise requirements with design and implementation across a team. My contribution centered on reusable patterns, clearer information structures, and shared UI decisions. The experience strengthened how I work across disciplines and make product decisions practical in code."
+      ]
+    ]
+  },
+  "adhd-calculator": {
+    "title": "ADHD Economic Impact Calculator",
+    "subtitle": "Making economic information easier to explore",
+    "meta": "AESARA team contribution | UX and UI | Input flows, results presentation, and responsive behavior",
+    "sections": [
+      [
+        "The challenge",
+        "An economic calculator asks people to connect their choices with a set of results. For this ADHD calculator, the interface needed to help healthcare stakeholders explore economic information without assuming the same level of subject knowledge from every user. The current public calculator presents estimates aggregated across 12 countries, not an estimate for a specific country or individual."
+      ],
+      [
+        "My role",
+        "At AESARA, I led the UX and UI for the calculator experience, including input flows, results presentation, and responsive behavior. My contribution was the experience around the model, not ownership of the economic methodology or its clinical validation."
+      ],
+      [
+        "The design focus",
+        "I focused on the journey from entering information to reading the result. The interface had to stay clear and credible as the user moved between those steps, with a hierarchy that supported both the task and the information being presented."
+      ],
+      [
+        "What the work demonstrates",
+        "This project brought interface design and complex subject matter together. My work covered the experience of entering information, moving through the calculator, and reading its results across screen sizes. It is an example of the care I bring to how specialized information is presented and used."
+      ]
+    ]
+  }
+}

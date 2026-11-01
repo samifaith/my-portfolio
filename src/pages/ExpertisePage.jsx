@@ -181,7 +181,7 @@ const ExpertisePage = () => {
 				title: "DiscoverEats",
 				description:
 					"A food-origin platform I designed and built to show how migration, adaptation, and cultural exchange shape the dishes we know.",
-				image: "/discovereatssh.png",
+				image: "/case-studies/discovereats-dark-mode.jpg",
 				label: "Development",
 				category: "Product + Development",
 				route: "https://discovereats.samoncanvas.com",
@@ -247,7 +247,7 @@ const ExpertisePage = () => {
 				id: "adhd-calculator",
 				title: "ADHD Economic Impact Calculator",
 				description:
-					"An interactive cost calculator that translates ADHD economic data into personalized, country-level results. At AESARA, I led the UX/UI, including input flows, responsive behavior, and results presentation.",
+					"An interactive cost calculator for exploring ADHD economic estimates aggregated across 12 countries, not individual or country-specific results. At AESARA, I led the UX/UI, including input flows, responsive behavior, and results presentation.",
 				label: "AESARA · UX/UI",
 				category: "Product + Development",
 				route: "https://attentiononadhd.com/cost-calculator/",
