@@ -720,6 +720,9 @@
 }
 
 .proto-enterprise-media-inner {
+	min-width: 0;
+	overflow-wrap: anywhere;
+	grid-template-columns: minmax(0, 1fr);
 	width: min(100%, 31rem);
 	display: grid;
 	gap: 1rem;
@@ -865,6 +868,8 @@
 	}
 
 	.proto-section {
+		flex-direction: column;
+		align-items: stretch;
 		min-height: auto;
 		padding: 0;
 	}
