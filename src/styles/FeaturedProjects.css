@@ -964,7 +964,9 @@
 /* Consulting approach stays in normal flow as copy wraps on narrow screens. */
 .featured-approach { margin-top: 3rem; max-width: 76rem; }
 .featured-approach h2 { font-size: clamp(1.4rem, 2.5vw, 2rem); line-height: 1.35; overflow-wrap: anywhere; }
-.featured-approach p { line-height: 1.65; }
+.featured-approach p { color: var(--text); font: 400 1rem / 1.65 "Avenir Next", sans-serif; max-width: 68ch; }
+.featured-approach h2, .featured-approach h3 { color: var(--text); }
+.featured-approach .featured-eyebrow { color: var(--olive); font-size: .8rem; }
 .featured-approach ol { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1.5rem; padding: 0; list-style: none; margin-top: 2rem; }
-.featured-approach h3 { margin-bottom: .5rem; }
+.featured-approach h3 { margin-bottom: .5rem; font: 700 1.125rem / 1.4 "Avenir Next", sans-serif; }
 @media (max-width: 900px) { .featured-approach ol { grid-template-columns: 1fr; gap: .5rem; } }

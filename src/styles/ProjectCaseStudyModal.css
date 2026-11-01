@@ -599,3 +599,13 @@ button.discovereats-case-study-link {
 .is-text-only .case-study-split { grid-template-columns: minmax(0, 1fr); }
 .is-text-only .case-study-split-media { display: none; }
 .is-text-only .case-study-split-text { width: min(100%, 70ch); margin-inline: auto; }
+
+/* Keep newly added decision lists and subheadings legible on modal surfaces. */
+.case-study-field li, p.case-study-field,
+.discovereats-case-study-section p, .discovereats-case-study-section li {
+ color: #f6e6de;
+ font: 500 1rem / 1.7 "Avenir Next", sans-serif;
+}
+.case-study-field ul { margin: 0; padding-left: 1.25rem; }
+.case-study-field li + li { margin-top: .65rem; }
+.discovereats-case-study-section h3 { color: #f6e6de; font: 700 1.125rem / 1.4 "Avenir Next", sans-serif; margin: .5rem 0 0; }
