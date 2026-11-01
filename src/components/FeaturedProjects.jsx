@@ -6,18 +6,14 @@ import "../styles/FeaturedProjects.css";
 gsap.registerPlugin(ScrollTrigger);
 
 const ribbonPhrases = [
-	"products.",
-	"platforms.",
-	"web applications.",
-	"interfaces.",
-	"design systems.",
-	"data visualization.",
-	"responsive experiences.",
-	"prototypes.",
-	"component systems.",
-	"product workflows.",
-	"front-end experiences.",
-	"interaction patterns.",
+  "front-end architecture",
+  "design systems",
+  "accessibility",
+  "data visualization",
+  "interaction design",
+  "product engineering",
+  "technical strategy",
+  "developer experience"
 ];
 
 const WritingIcon = () => (
@@ -47,17 +43,17 @@ const VisualIcon = () => (
 const focusAreas = [
 	{
 		name: "Architecture",
-		description: "I give complex workflows a clear structure, with room for the product to grow.",
+		description: "I define clear boundaries, responsibilities, and patterns so complex products can grow without becoming harder to maintain.",
 		Icon: WritingIcon,
 	},
 	{
 		name: "Design systems",
-		description: "I build reusable components that carry the same care across the product.",
+		description: "I turn design decisions into reusable components and practical guidance that help teams build consistent experiences.",
 		Icon: ProductIcon,
 	},
 	{
 		name: "Accessibility",
-		description: "I consider how people navigate, read, and interact throughout the design and build.",
+		description: "I consider who an experience serves and where it creates barriers. Clear semantics, keyboard access, and thoughtful interaction guide how I design and build.",
 		Icon: VisualIcon,
 	},
 ];
@@ -178,11 +174,11 @@ const FeaturedProjects = () => {
 							</span>
 						</h1>
 						<p className="featured-lede">
-							My background in photography taught me to pay attention to framing, rhythm, and what draws the eye. That perspective carries into the products I design and build, from the structure of a workflow to the way an interaction unfolds.
+							These projects show how I connect technical decisions, thoughtful interaction, and accessibility to make complex information easier to use.
 						</p>
 					</div>
 
-					<div className="featured-diagram" ref={diagramRef} role="img" aria-label="Architecture, design systems, and accessibility overlap">
+					<div className="featured-diagram" ref={diagramRef} role="img" aria-label="Front-end architecture, design systems, and accessibility">
 						<svg
 							className="featured-venn-svg"
 							viewBox="0 0 600 650"
@@ -377,25 +373,19 @@ const FeaturedProjects = () => {
 						<div className="featured-venn-label featured-venn-label-writing">
 							<span className="featured-venn-cap">Architecture</span>
 							<span className="featured-venn-desc">
-								Give ideas
-								<br />
-								structure.
+								Build for<br />change.
 							</span>
 						</div>
 						<div className="featured-venn-label featured-venn-label-product">
 							<span className="featured-venn-cap">Design systems</span>
 							<span className="featured-venn-desc">
-								Build with
-								<br />
-								consistency.
+								Make patterns<br />reusable.
 							</span>
 						</div>
 						<div className="featured-venn-label featured-venn-label-visual">
 							<span className="featured-venn-cap">Accessibility</span>
 							<span className="featured-venn-desc">
-								Make room
-								<br />
-								for people.
+								Reduce barriers<br />to use.
 							</span>
 						</div>
 					</div>
@@ -410,9 +400,7 @@ const FeaturedProjects = () => {
 						</article>
 					))}
 				</div>
-				<p className="featured-lede">
-					I work through ideas in prototypes and code, refining the details as the experience takes shape. I leave teams with components, documentation, and decisions they can build on.
-				</p>
+				<section className="featured-approach" aria-labelledby="approach-heading"><p className="featured-eyebrow">How I work</p><h2 id="approach-heading">Audit → Architect → Build → Validate → Enable</h2><p>I want to leave every product and team better than I found them, with the right tools and insights to build on.</p><ol><li><h3>Audit</h3><p>Understand the workflow, constraints, and where the current experience creates friction for users and the team.</p></li><li><h3>Architect</h3><p>Define front-end boundaries, reusable patterns, and state responsibilities. Make the trade-offs explicit.</p></li><li><h3>Build</h3><p>Implement the critical paths and shared components, then test how the architecture holds up in practice.</p></li><li><h3>Validate</h3><p>Check keyboard access, motion, responsive behavior, error states, and performance against the actual workflow.</p></li><li><h3>Enable</h3><p>Leave clear components, documentation, and decision records so the next person can build on the work.</p></li></ol></section>
 				</div>
 			</section>
 

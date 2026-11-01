@@ -62,6 +62,10 @@ const StudyFields = ({ study, tools, contributionMode = false }) => (
 			<h3>{contributionMode ? "Approach" : "Direction"}</h3>
 			<p>{study.direction}</p>
 		</div>
+        {[["System decisions", study.systemDecisions], ["How I worked", study.howIWorked]].map(([heading, items]) => items?.length ? (
+            <div className="case-study-field" key={heading}><h3>{heading}</h3><ul>{items.map(item => <li key={item}>{item}</li>)}</ul></div>
+        ) : null)}
+        {study.closing && <p className="case-study-field">{study.closing}</p>}
 		{tools && tools.length > 0 && (
 			<div className="case-study-field">
 				<h3>Tools</h3>
@@ -378,7 +382,7 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose, onNext,
 		>
 			<div
 				ref={contentRef}
-				className={`case-study-backdrop case-study-backdrop--split ${hasLiveProject ? "has-live-project" : ""}`}
+				className={`case-study-backdrop case-study-backdrop--split ${hasLiveProject ? "has-live-project" : ""} ${project.visual?.type === "public-link" ? "is-text-only" : ""}`}
 			>
 				<div className="case-study-controls">
 					{hasLiveProject && (

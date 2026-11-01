@@ -594,3 +594,8 @@ button.discovereats-case-study-link {
 		padding: 2rem 1.25rem;
 	}
 }
+
+/* Professional contributions without screenshot media use one readable column. */
+.is-text-only .case-study-split { grid-template-columns: minmax(0, 1fr); }
+.is-text-only .case-study-split-media { display: none; }
+.is-text-only .case-study-split-text { width: min(100%, 70ch); margin-inline: auto; }

@@ -13,6 +13,7 @@ import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { ChevronUp } from "lucide-react";
 import { getModernImageSources } from "../utils/imageFormats";
 import ProjectCaseStudyModal from "../components/ProjectCaseStudyModal";
+import PublicProjectLink from "../components/PublicProjectLink";
 import FeaturedProjects from "../components/FeaturedProjects";
 import "../styles/ExpertisePrototype.css";
 
@@ -217,29 +218,29 @@ const ExpertisePage = () => {
 				id: "atlas-heor",
 				title: "ATLAS HEOR Platform",
 				description:
-					"Complex health evidence takes careful framing. At AESARA, I helped turn dense workflows into clearer interfaces.",
-				label: "AESARA · UX + FRONT-END",
+					"Design engineering for data-heavy health economics and outcomes research workflows, reusable interfaces, and enterprise product experiences.",
+				label: "AESARA · Design engineering",
 				category: "Product + Development",
 				route: "https://www.arysana.com/atlas-platform",
 				caseStudy: true,
 				bg: "#dce5de",
-				tools: [
-					"UX/UI",
-					"Data Visualization",
-					"Design Systems",
-					"Life Sciences",
-				],
-				visual: {
-					type: "enterprise",
-					eyebrow: "AESARA Inc. · Selected Contribution",
-					metrics: ["HEOR", "B2B SaaS", "UX + Front-End"],
-				},
+				tools: ["React", "Design Systems", "Data Visualization", "UX Engineering"],
+				visual: { type: "public-link" },
 				study: {
 					purpose:
 						"ATLAS is an AESARA-owned enterprise platform for health economics and outcomes research teams. This entry reflects work I contributed while employed at AESARA, not ownership of the product.",
-					role: "At AESARA, I worked across product design, data visualization, and front-end development. I helped shape the component library and reusable interaction patterns, bringing consistency to workflows with different needs.",
-					direction:
-						"Working across design and engineering kept those decisions connected from concept through implementation.",
+					role: "As part of AESARA’s product and engineering team, I contributed to UX strategy and front-end implementation for ATLAS. My work connected information architecture, data visualization, and reusable interface patterns to the needs of complex HEOR workflows.",
+					direction: "I translated stakeholder requirements into interfaces that were easier to navigate and maintain as the product developed.",
+                    systemDecisions: [
+                        "Built reusable components and interaction patterns that could support multiple workflows.",
+                        "Helped shape the UI library so common patterns and visual decisions could be shared across features.",
+                        "Refined information architecture and data visualization to make complex evidence easier to interpret.",
+                    ],
+                    howIWorked: [
+                        "Turned stakeholder requirements into practical interface structures and implementation decisions.",
+                        "Worked across product, design, and engineering, carrying decisions from the interface into the code.",
+                    ],
+                    closing: "I balanced consistency across the product with the specific demands of HEOR workflows, keeping usability and maintainability in view.",
 				},
 			},
 			{
@@ -253,11 +254,7 @@ const ExpertisePage = () => {
 				caseStudy: true,
 				bg: "#e7e2d7",
 				tools: ["UX/UI", "Health Economics", "Responsive Design", "Pharma"],
-				visual: {
-					type: "enterprise",
-					eyebrow: "AESARA Inc. · Selected Contribution",
-					metrics: ["Calculator", "Healthcare", "UX/UI"],
-				},
+				visual: { type: "public-link" },
 				study: {
 					purpose:
 						"This client-facing calculator was delivered through AESARA to help healthcare stakeholders explore the economic burden of ADHD. This entry reflects my contribution as part of the AESARA team.",
@@ -1171,12 +1168,13 @@ const ExpertisePage = () => {
 									>
 										Learn More
 									</button>
+									{item.visual?.type === "public-link" && <PublicProjectLink project={item} className="proto-public-link--mobile" />}
 								</div>
-								<div className="proto-mobile-media">
+								{item.visual?.type !== "public-link" && <div className="proto-mobile-media">
 									{renderProjectMedia(item, item.title, {
 										imgClassName: "proto-mobile-media-item",
 									})}
-								</div>
+								</div>}
 							</article>
 						))}
 					</section>
@@ -1196,7 +1194,9 @@ const ExpertisePage = () => {
 										layerWrapRefs.current[index] = el;
 									}}
 								>
-									<button
+									{item.visual?.type === "public-link" ? (
+										<PublicProjectLink project={item} className="proto-public-link--panel" tabIndex={index === activeIndex ? 0 : -1} />
+									) : <button
 										type="button"
 										className="proto-layer-link"
 										onClick={() => {
@@ -1210,7 +1210,7 @@ const ExpertisePage = () => {
 											pictureClassName: "proto-layer-picture",
 											imgClassName: "proto-layer",
 										})}
-									</button>
+									</button>}
 								</div>
 							))}
 						</div>
