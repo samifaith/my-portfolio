@@ -572,3 +572,25 @@ button.discovereats-case-study-link {
 .case-study-view-switch a {
 	overflow-wrap: anywhere;
 }
+
+@media (max-width: 768px) {
+	.case-study-controls {
+		position: relative;
+		inset: auto;
+		flex-shrink: 0;
+		justify-content: flex-end;
+		padding: 8px 12px;
+		background: #191b18;
+	}
+	.case-study-split {
+		grid-template-columns: minmax(0, 1fr);
+		grid-auto-rows: max-content;
+		align-content: start;
+	}
+	.case-study-split-media.has-overview { height: auto; }
+	.case-study-overview-panel {
+		height: auto;
+		justify-content: flex-start;
+		padding: 2rem 1.25rem;
+	}
+}

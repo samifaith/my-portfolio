@@ -432,7 +432,7 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose, onNext,
 					</div>
 				)}
 				<div id="case-study-reading-panel" className="case-study-split" hidden={hasLiveProject && projectView !== "study"}>
-					<div className="case-study-split-media">
+					<div className={`case-study-split-media ${isCaseStudy ? "has-overview" : ""}`}>
 						{isStory && story?.pdfFile && (
 							<iframe
 								src={`${story.pdfFile}#toolbar=0&navpanes=0&scrollbar=0&view=Fit`}
