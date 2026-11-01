@@ -987,3 +987,17 @@
 }
 
 .project-url-notice { position: fixed; bottom: 1rem; left: 1rem; right: 1rem; z-index: 100; max-width: 38rem; margin: auto; padding: 1rem; border: 1px solid #a8b56a; border-radius: .5rem; background: #171b17; color: #fff; font: 500 1rem / 1.5 sans-serif; }
+
+/* A project without genuine media gets one full-width summary, not a fake card. */
+@media (min-width: 1025px) {
+ .proto-left { grid-column: 1 / -1; grid-row: 1; }
+ .proto-right { grid-row: 1; }
+ .proto-section { width: calc(100% - (780px * var(--proto-media-scale)) - clamp(1rem, 2vw, 1.5rem)); }
+ .proto-section--text-only { width: 100%; position: relative; z-index: 2; }
+ .proto-section--text-only .proto-copy { max-width: 65ch; margin-inline: auto; }
+ .proto-right.is-text-only-active { visibility: hidden; pointer-events: none; }
+}
+@media (max-width: 1024px) {
+ .proto-mobile-media { margin-top: 0; }
+ .proto-section--text-only { display: block; }
+}
