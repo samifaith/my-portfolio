@@ -372,6 +372,8 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose, onNext,
 			onClick={handleBackdropClick}
 			role="dialog"
 			aria-modal="true"
+			aria-hidden={!isOpen}
+			inert={!isOpen}
 			aria-label={project.title}
 		>
 			<div
@@ -381,8 +383,8 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose, onNext,
 				<div className="case-study-controls">
 					{hasLiveProject && (
 						<div className="case-study-view-switch" role="group" aria-label="Project view">
-							<button type="button" ref={liveViewButtonRef} aria-pressed={projectView === "live"} onClick={() => setProjectView("live")}>Live project</button>
-							<button type="button" aria-pressed={projectView === "study"} onClick={() => setProjectView("study")}>Case study</button>
+							<button type="button" ref={liveViewButtonRef} aria-controls="case-study-live-panel" aria-pressed={projectView === "live"} onClick={() => setProjectView("live")}>Live project</button>
+							<button type="button" aria-controls="case-study-reading-panel" aria-pressed={projectView === "study"} onClick={() => setProjectView("study")}>Case study</button>
 							<a href={caseStudy.liveUrl} target="_blank" rel="noopener noreferrer">Open in new tab ↗</a>
 						</div>
 					)}
@@ -425,11 +427,11 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose, onNext,
 				</div>
 
 				{hasLiveProject && (
-					<div className="case-study-live-project" hidden={projectView !== "live"}>
+					<div id="case-study-live-panel" className="case-study-live-project" hidden={projectView !== "live"}>
 						<iframe src={caseStudy.liveUrl} title={`${project.title} live project`} />
 					</div>
 				)}
-				<div className="case-study-split" hidden={hasLiveProject && projectView !== "study"}>
+				<div id="case-study-reading-panel" className="case-study-split" hidden={hasLiveProject && projectView !== "study"}>
 					<div className="case-study-split-media">
 						{isStory && story?.pdfFile && (
 							<iframe

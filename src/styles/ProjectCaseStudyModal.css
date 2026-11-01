@@ -551,3 +551,24 @@ button.discovereats-case-study-link {
 		font-size: 0.75rem;
 	}
 }
+
+/* Keep modal controls usable by touch and keyboard at every viewport size. */
+.case-study-nav,
+.case-study-close {
+	width: 44px;
+	height: 44px;
+	flex-shrink: 0;
+	color: #f6e6de;
+}
+.case-study-controls button:focus-visible,
+.case-study-controls a:focus-visible {
+	outline: 3px solid #fff;
+	outline-offset: 2px;
+}
+.case-study-split > *,
+.case-study-view-switch {
+	min-width: 0;
+}
+.case-study-view-switch a {
+	overflow-wrap: anywhere;
+}
