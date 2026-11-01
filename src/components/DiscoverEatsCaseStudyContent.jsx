@@ -1,10 +1,4 @@
-const projectDetails = [
-	["Completed", "May 2026"],
-	["Role", "Product designer and front-end developer"],
-	["Team", "Independent capstone project"],
-	["Scope", "One dish, seven locations, four routes"],
-	["Technology", "React, D3, GSAP, TopoJSON, Vite, and Sass"],
-];
+
 
 const scope = [
 	"Seven cultural locations",
@@ -13,7 +7,7 @@ const scope = [
 	"A synchronized origin list",
 	"Historical context and sources",
 	"Regional recipes and videos",
-	"Responsive layouts",
+	"Desktop-first experience",
 	"Keyboard navigation",
 	"Reduced-motion support",
 	"A reusable food-story model",
@@ -41,30 +35,18 @@ const Section = ({ title, children }) => (
 	</section>
 );
 
-const DiscoverEatsCaseStudyContent = ({ caseStudy }) => (
+const DiscoverEatsCaseStudyContent = ({ onExplore }) => (
 	<article className="discovereats-case-study">
 		<p className="discovereats-case-study-thesis">
-			DiscoverEats approaches food as evidence that cultures have always shaped one
-			another.
+			Food is a way into a much larger story. DiscoverEats connects dishes, places,
+			and movement through an interactive globe, bringing my interests in culture,
+			storytelling, and front-end development into one experience.
 		</p>
 
-		<a
-			className="discovereats-case-study-link"
-			href={caseStudy.liveUrl}
-			target="_blank"
-			rel="noreferrer"
-		>
-			View the live application
-		</a>
+		<button type="button" className="discovereats-case-study-link" onClick={onExplore}>
+			Explore the globe
+		</button>
 
-		<dl className="discovereats-case-study-meta">
-			{projectDetails.map(([label, value]) => (
-				<div key={label}>
-					<dt>{label}</dt>
-					<dd>{value}</dd>
-				</div>
-			))}
-		</dl>
 
 		<Section title="Purpose">
 			<p>
@@ -201,43 +183,22 @@ const DiscoverEatsCaseStudyContent = ({ caseStudy }) => (
 			</p>
 		</Section>
 
-		<Section title="The Platform">
-			<p>DiscoverEats was created with React, D3, GSAP, TopoJSON, Vite, and Sass.</p>
-			<p>
-				React manages the active story, selected location, source panels, recipes,
-				and synchronized navigation.
-			</p>
-			<p>
-				D3 renders the globe and geographic information. GSAP handles the movement
-				and focus transitions between locations. TopoJSON keeps the world map compact
-				enough to bundle with the application.
-			</p>
-			<p>
-				I also separated the food content from the interface. Each story has its own
-				locations, coordinates, routes, context, sources, and recipes through a
-				reusable data model.
-			</p>
-			<p>
-				A new dish can be added without rebuilding the main experience. Individual
-				stories can also be loaded through URL parameters.
-			</p>
-		</Section>
+		<Section title="Architecture">
+<p>Fried chicken was the starting point: one familiar dish with many stories to tell. I separated the story content from the interface through a runtime model, creating a foundation for additional food stories without rebuilding the experience.</p>
+<p>Content template → Runtime story model → React experience state → D3 geography → GSAP interaction</p>
+<h3>Explicit story model</h3><p>I normalize dish, origin, and movement data before it reaches the components. This reduces reliance on shared global content and lets additional stories use the same interface.</p>
+<h3>Local atlas asset</h3><p>I bundle the world atlas with the app rather than fetch it from a public CDN at runtime. The globe’s geographic data no longer depends on that external service.</p>
+<h3>Clear rendering responsibilities</h3><p>React manages experience state, D3 renders geography, and GSAP handles motion. Keeping those responsibilities distinct makes the interactions easier to maintain.</p>
+<h3>Direct story links</h3><p>A query parameter identifies the active story and supplies its runtime model, so individual stories can share one application shell.</p>
+<p>I documented the story model and local atlas decisions in an Architecture Decision Record, including the trade-offs and remaining work. The reasoning should be visible to the next person working on the product.</p>
+</Section>
 
-		<Section title="Accessibility and Performance">
-			<p>
-				The experience includes keyboard-accessible origin navigation, visible focus
-				states, reduced-motion support, responsive layouts, and descriptive image
-				text.
-			</p>
-			<p>
-				The world atlas is bundled locally instead of depending on a runtime CDN.
-				This keeps the globe available if an outside service fails.
-			</p>
-			<p>
-				Theme, onboarding, and feedback preferences are stored locally without
-				requiring an account or collecting unnecessary personal information.
-			</p>
-		</Section>
+
+		<Section title="Accessibility and reliability">
+<p>The implementation includes keyboard-accessible origin controls, visible focus indicators, reduced-motion handling, and dialog semantics for onboarding. These are specific measures to reduce barriers, not a claim that accessibility work is finished.</p>
+<p>Geographic data is bundled locally. Failed atlas loads are not cached as empty results, and an error boundary handles runtime failures.</p>
+<p>Automated regression coverage for the story model and query-parameter path remains a next step.</p>
+</Section>
 
 		<Section title="What I Built">
 			<p>
@@ -274,14 +235,9 @@ const DiscoverEatsCaseStudyContent = ({ caseStudy }) => (
 			</p>
 		</Section>
 
-		<a
-			className="discovereats-case-study-link"
-			href={caseStudy.liveUrl}
-			target="_blank"
-			rel="noopener noreferrer"
-		>
-			View the live application
-		</a>
+		<button type="button" className="discovereats-case-study-link" onClick={onExplore}>
+			Explore the globe
+		</button>
 	</article>
 );
 

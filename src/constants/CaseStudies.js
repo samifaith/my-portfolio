@@ -1,4 +1,17 @@
 const caseStudies = {
+	codeswxtch: {
+		projectType: "ai-product",
+		contentType: "codeswxtch",
+		theme: { coral: "#5C4F78", warm: "#ECE7D8" },
+		subtitle: "Independent product · AI + career intelligence",
+		overview:
+			"An AI-assisted career workspace designed to separate real professional fit from keyword similarity.",
+		meta: [
+			{ label: "Status", value: "V1 complete · V2 in progress" },
+			{ label: "Role", value: "Product designer + AI workflow builder" },
+			{ label: "Platform", value: "Base44" },
+		],
+	},
 	pocketplay: {
 		projectType: "in-development",
 		contentType: "pocketplay",

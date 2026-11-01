@@ -6,18 +6,14 @@ import "../styles/FeaturedProjects.css";
 gsap.registerPlugin(ScrollTrigger);
 
 const ribbonPhrases = [
-	"products.",
-	"platforms.",
-	"web applications.",
-	"interfaces.",
-	"design systems.",
-	"data visualization.",
-	"responsive experiences.",
-	"prototypes.",
-	"component systems.",
-	"product workflows.",
-	"front-end experiences.",
-	"interaction patterns.",
+  "front-end architecture",
+  "design systems",
+  "accessibility",
+  "data visualization",
+  "interaction design",
+  "product engineering",
+  "technical strategy",
+  "developer experience"
 ];
 
 const WritingIcon = () => (
@@ -46,18 +42,18 @@ const VisualIcon = () => (
 
 const focusAreas = [
 	{
-		name: "Writing",
-		description: "Essays, editorial design, and the occasional long-form rabbit hole.",
+		name: "Architecture",
+		description: "I define clear boundaries, responsibilities, and patterns so complex products can grow without becoming harder to maintain.",
 		Icon: WritingIcon,
 	},
 	{
-		name: "Product thinking",
-		description: "Interfaces, workflows, and systems that have to stay useful under pressure.",
+		name: "Design systems",
+		description: "I turn design decisions into reusable components and practical guidance that help teams build consistent experiences.",
 		Icon: ProductIcon,
 	},
 	{
-		name: "Visual systems",
-		description: "Brand moments, poster studies, and layout decisions that carry personality.",
+		name: "Accessibility",
+		description: "I consider who an experience serves and where it creates barriers. Clear semantics, keyboard access, and thoughtful interaction guide how I design and build.",
 		Icon: VisualIcon,
 	},
 ];
@@ -178,11 +174,11 @@ const FeaturedProjects = () => {
 							</span>
 						</h1>
 						<p className="featured-lede">
-							I bring visions to life. Working across product design, development, and user-centered experiences, I turn ideas and complex workflows into clear interfaces. I first came to product work through photography, where I learned how much framing, design theory, and iteration can change an experience. Today, that same attention to detail shows up in how I approach design systems, accessibility, and thoughtful interaction. The following work is a collection of where those ideas tend to go.
+							These projects show how I connect technical decisions, thoughtful interaction, and accessibility to make complex information easier to use.
 						</p>
 					</div>
 
-					<div className="featured-diagram" ref={diagramRef} role="img" aria-label="Writing, product design, and visual systems overlap">
+					<div className="featured-diagram" ref={diagramRef} role="img" aria-label="Front-end architecture, design systems, and accessibility">
 						<svg
 							className="featured-venn-svg"
 							viewBox="0 0 600 650"
@@ -375,39 +371,36 @@ const FeaturedProjects = () => {
 						</svg>
 
 						<div className="featured-venn-label featured-venn-label-writing">
-							<span className="featured-venn-cap">Writing</span>
+							<span className="featured-venn-cap">Architecture</span>
 							<span className="featured-venn-desc">
-								Make ideas
-								<br />
-								resonate.
+								Build for<br />change.
 							</span>
 						</div>
 						<div className="featured-venn-label featured-venn-label-product">
-							<span className="featured-venn-cap">Product Design</span>
+							<span className="featured-venn-cap">Design systems</span>
 							<span className="featured-venn-desc">
-								Make things
-								<br />
-								work.
+								Make patterns<br />reusable.
 							</span>
 						</div>
 						<div className="featured-venn-label featured-venn-label-visual">
-							<span className="featured-venn-cap">Visual Systems</span>
+							<span className="featured-venn-cap">Accessibility</span>
 							<span className="featured-venn-desc">
-								Make it
-								<br />
-								memorable.
+								Reduce barriers<br />to use.
 							</span>
 						</div>
 					</div>
 				</div>
 
+				<div className="featured-practice-summary">
 				<div className="featured-focus-grid">
 					{focusAreas.map(({ name, description, Icon }) => (
 						<article className="featured-focus-card" key={name}>
-							<div className="featured-focus-card-top"><Icon /><span>{name}</span></div>
+							<div className="featured-focus-card-top"><Icon /><h2>{name}</h2></div>
 							<p>{description}</p>
 						</article>
 					))}
+				</div>
+				<section className="featured-approach" aria-labelledby="approach-heading"><p className="featured-eyebrow">How I work</p><h2 id="approach-heading">Audit → Architect → Build → Validate → Enable</h2><p>I want to leave every product and team better than I found them, with the right tools and insights to build on.</p><ol><li><h3>Audit</h3><p>Understand the workflow, constraints, and where the current experience creates friction for users and the team.</p></li><li><h3>Architect</h3><p>Define front-end boundaries, reusable patterns, and state responsibilities. Make the trade-offs explicit.</p></li><li><h3>Build</h3><p>Implement the critical paths and shared components, then test how the architecture holds up in practice.</p></li><li><h3>Validate</h3><p>Check keyboard access, motion, responsive behavior, error states, and performance against the actual workflow.</p></li><li><h3>Enable</h3><p>Leave clear components, documentation, and decision records so the next person can build on the work.</p></li></ol></section>
 				</div>
 			</section>
 

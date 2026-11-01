@@ -13,6 +13,7 @@ import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { ChevronUp } from "lucide-react";
 import { getModernImageSources } from "../utils/imageFormats";
 import ProjectCaseStudyModal from "../components/ProjectCaseStudyModal";
+import PublicProjectLink from "../components/PublicProjectLink";
 import FeaturedProjects from "../components/FeaturedProjects";
 import "../styles/ExpertisePrototype.css";
 
@@ -31,10 +32,11 @@ const TRANSITION_TIMINGS = {
 
 const SECTION_PRIORITY = {
 	discovereats: 0,
-	pocketplay: 1,
-	"atlas-heor": 2,
-	"adhd-calculator": 3,
-	life2life: 4,
+	codeswxtch: 1,
+	pocketplay: 2,
+	"atlas-heor": 3,
+	"adhd-calculator": 4,
+	life2life: 5,
 };
 
 const ExpertisePage = () => {
@@ -72,6 +74,31 @@ const ExpertisePage = () => {
 
 	const baseSections = useMemo(
 		() => [
+			{
+				id: "codeswxtch",
+				title: "CodeSwxtch",
+				description:
+					"An AI-assisted career workspace built to distinguish real professional fit from surface-level keyword matching.",
+				label: "AI Product + Development",
+				category: "Product + Development",
+				caseStudy: true,
+				featured: true,
+				bg: "#e7e1ef",
+				tools: ["Base44", "AI Workflows", "Product Design", "Scoring Systems", "UX"],
+				visual: {
+					type: "enterprise",
+					eyebrow: "Independent product · V1",
+					metrics: ["Career Intelligence", "AI Calibration", "Trust + UX"],
+				},
+				study: {
+					purpose:
+						"Build a job search system that evaluates whether a role actually fits a person's experience, constraints, and direction instead of relying on keyword similarity.",
+					role:
+						"Independent product designer and AI workflow builder. I shaped the product model, scoring behavior, assistant context, application workflow, and ongoing calibration.",
+					direction:
+						"Treat recommendations as evidence-backed decisions. Separate capability from fit, expose uncertainty, and make incorrect high-confidence matches easy to identify and correct.",
+				},
+			},
 			{
 				id: "pocketplay",
 				title: "PocketPlay",
@@ -191,29 +218,29 @@ const ExpertisePage = () => {
 				id: "atlas-heor",
 				title: "ATLAS HEOR Platform",
 				description:
-					"The challenge was mimicking complex real-world processes while keeping the data understandable.",
-				label: "AESARA · UX + FRONT-END",
+					"Design engineering for data-heavy health economics and outcomes research workflows, reusable interfaces, and enterprise product experiences.",
+				label: "AESARA · Design engineering",
 				category: "Product + Development",
 				route: "https://www.arysana.com/atlas-platform",
 				caseStudy: true,
 				bg: "#dce5de",
-				tools: [
-					"UX/UI",
-					"Data Visualization",
-					"Design Systems",
-					"Life Sciences",
-				],
-				visual: {
-					type: "enterprise",
-					eyebrow: "AESARA Inc. · Selected Contribution",
-					metrics: ["HEOR", "B2B SaaS", "UX + Front-End"],
-				},
+				tools: ["React", "Design Systems", "Data Visualization", "UX Engineering"],
+				visual: { type: "public-link" },
 				study: {
 					purpose:
 						"ATLAS is an AESARA-owned enterprise platform for health economics and outcomes research teams. This entry reflects work I contributed while employed at AESARA, not ownership of the product.",
-					role: "As part of the AESARA product and engineering team, I contributed UX strategy and front-end work across information architecture, data visualization, and reusable interface systems.",
-					direction:
-						"The work required translating dense HEOR workflows and layered stakeholder needs into interfaces that were clear, consistent, and trustworthy within an iterative product environment.",
+					role: "As part of AESARA’s product and engineering team, I contributed to UX strategy and front-end implementation for ATLAS. My work connected information architecture, data visualization, and reusable interface patterns to the needs of complex HEOR workflows.",
+					direction: "I translated stakeholder requirements into interfaces that were easier to navigate and maintain as the product developed.",
+                    systemDecisions: [
+                        "Built reusable components and interaction patterns that could support multiple workflows.",
+                        "Helped shape the UI library so common patterns and visual decisions could be shared across features.",
+                        "Refined information architecture and data visualization to make complex evidence easier to interpret.",
+                    ],
+                    howIWorked: [
+                        "Turned stakeholder requirements into practical interface structures and implementation decisions.",
+                        "Worked across product, design, and engineering, carrying decisions from the interface into the code.",
+                    ],
+                    closing: "I balanced consistency across the product with the specific demands of HEOR workflows, keeping usability and maintainability in view.",
 				},
 			},
 			{
@@ -227,11 +254,7 @@ const ExpertisePage = () => {
 				caseStudy: true,
 				bg: "#e7e2d7",
 				tools: ["UX/UI", "Health Economics", "Responsive Design", "Pharma"],
-				visual: {
-					type: "enterprise",
-					eyebrow: "AESARA Inc. · Selected Contribution",
-					metrics: ["Calculator", "Healthcare", "UX/UI"],
-				},
+				visual: { type: "public-link" },
 				study: {
 					purpose:
 						"This client-facing calculator was delivered through AESARA to help healthcare stakeholders explore the economic burden of ADHD. This entry reflects my contribution as part of the AESARA team.",
@@ -335,7 +358,7 @@ const ExpertisePage = () => {
 
 	const sections = useMemo(
 		() =>
-			baseSections.filter((section) => section.id !== "pocketplay").sort((leftSection, rightSection) => {
+			baseSections.filter((section) => !["pocketplay", "vote"].includes(section.id)).sort((leftSection, rightSection) => {
 				const leftPriority = SECTION_PRIORITY[leftSection.id] ?? 100;
 				const rightPriority = SECTION_PRIORITY[rightSection.id] ?? 100;
 				return leftPriority - rightPriority;
@@ -1145,12 +1168,13 @@ const ExpertisePage = () => {
 									>
 										Learn More
 									</button>
+									{item.visual?.type === "public-link" && <PublicProjectLink project={item} className="proto-public-link--mobile" />}
 								</div>
-								<div className="proto-mobile-media">
+								{item.visual?.type !== "public-link" && <div className="proto-mobile-media">
 									{renderProjectMedia(item, item.title, {
 										imgClassName: "proto-mobile-media-item",
 									})}
-								</div>
+								</div>}
 							</article>
 						))}
 					</section>
@@ -1170,7 +1194,9 @@ const ExpertisePage = () => {
 										layerWrapRefs.current[index] = el;
 									}}
 								>
-									<button
+									{item.visual?.type === "public-link" ? (
+										<PublicProjectLink project={item} className="proto-public-link--panel" tabIndex={index === activeIndex ? 0 : -1} />
+									) : <button
 										type="button"
 										className="proto-layer-link"
 										onClick={() => {
@@ -1184,7 +1210,7 @@ const ExpertisePage = () => {
 											pictureClassName: "proto-layer-picture",
 											imgClassName: "proto-layer",
 										})}
-									</button>
+									</button>}
 								</div>
 							))}
 						</div>

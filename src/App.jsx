@@ -26,7 +26,9 @@ const App = () => {
 	return (
 		<Router>
 			<div className="App">
+				<a className="skip-link" href="#main-content">Skip to main content</a>
 				<Menu />
+				<div id="main-content" tabIndex={-1}>
 				<Suspense fallback={null}>
 					<Routes>
 						<Route path="/" element={<AnimatedHomePage />} />
@@ -57,6 +59,7 @@ const App = () => {
 						/>
 					</Routes>
 				</Suspense>
+				</div>
 			</div>
 		</Router>
 	);

@@ -391,6 +391,7 @@
 }
 
 .proto-left {
+	min-width: 0;
 	display: grid;
 	grid-column: 1;
 	justify-items: stretch;
@@ -476,6 +477,7 @@
 }
 
 .proto-copy {
+	min-width: 0;
 	width: 100%;
 	padding: 2rem 0;
 }
@@ -493,6 +495,7 @@
 }
 
 .proto-copy h2 {
+	overflow-wrap: anywhere;
 	margin: 0;
 	font:
 		700 clamp(2rem, 4.8vw, 4.25rem) / 0.95 "Avenir Next",
@@ -717,6 +720,9 @@
 }
 
 .proto-enterprise-media-inner {
+	min-width: 0;
+	overflow-wrap: anywhere;
+	grid-template-columns: minmax(0, 1fr);
 	width: min(100%, 31rem);
 	display: grid;
 	gap: 1rem;
@@ -846,7 +852,7 @@
 	}
 
 	.proto-shell {
-		grid-template-columns: 1fr;
+		grid-template-columns: minmax(0, 1fr);
 		gap: 1rem;
 	}
 
@@ -862,6 +868,8 @@
 	}
 
 	.proto-section {
+		flex-direction: column;
+		align-items: stretch;
 		min-height: auto;
 		padding: 0;
 	}
@@ -940,4 +948,40 @@
 	100% {
 		transform: scaleY(1.08);
 	}
+}
+
+@media (max-width: 640px) {
+	.proto-shell { padding-inline: 1rem; }
+	.proto-section,
+	.proto-mobile-media { min-width: 0; }
+	.proto-tool-tag {
+		max-width: 100%;
+		overflow-wrap: anywhere;
+	}
+}
+
+/* Link to the real public product when no approved screenshot is available. */
+.proto-public-link {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	color: #161817;
+	font: 600 1rem / 1.5 "Avenir Next", sans-serif;
+	text-decoration: underline;
+	text-underline-offset: 0.25em;
+	overflow-wrap: anywhere;
+}
+.proto-public-link small { font-size: 0.85rem; }
+.proto-public-link:focus-visible { outline: 3px solid #993333; outline-offset: -4px; }
+.proto-public-link--panel {
+	width: 100%;
+	height: 100%;
+	justify-content: center;
+	align-items: center;
+	padding: 2rem;
+	text-align: center;
+}
+.proto-public-link--mobile { display: none; }
+@media (max-width: 1024px) {
+	.proto-public-link--mobile { display: flex; margin-top: 1rem; }
 }
