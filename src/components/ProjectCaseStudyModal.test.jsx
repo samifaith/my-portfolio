@@ -81,3 +81,21 @@ describe("modal regression checks", () => {
 		expect(container.querySelector('[role="dialog"]')).toHaveAttribute("aria-hidden", "true");
 	});
 });
+
+describe("URL-controlled modal views", () => {
+ it("opens a shared reading view and retains its frame through URL-driven view changes", () => {
+  const onViewChange = vi.fn();
+  const shareHref = "/expertise?project=discovereats&projectView=study";
+  const {rerender} = render(<ProjectCaseStudyModal {...props} view="study" onViewChange={onViewChange} shareHref={shareHref} />);
+  const frame = screen.getByTitle("DiscoverEats live project");
+  expect(frame).not.toBeVisible();
+  expect(screen.getByRole("link", {name: /Direct link to this case study/})).toHaveAttribute("href",shareHref);
+  fireEvent.click(screen.getByRole("button", {name:"Live project",exact:true}));
+  expect(onViewChange).toHaveBeenCalledWith("live");
+  rerender(<ProjectCaseStudyModal {...props} view="live" onViewChange={onViewChange} shareHref={shareHref} />);
+  expect(screen.getByTitle("DiscoverEats live project")).toBe(frame);
+  expect(frame).toBeVisible();
+  rerender(<ProjectCaseStudyModal {...props} view="study" onViewChange={onViewChange} shareHref={shareHref} />);
+  expect(screen.getByTitle("DiscoverEats live project")).toBe(frame);
+ });
+});

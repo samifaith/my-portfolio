@@ -1,4 +1,7 @@
 import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
+import useMediaQuery from "../hooks/useMediaQuery";
+import { CONTACT_HREF } from "../constants/Contact";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
@@ -33,14 +36,15 @@ const setAnimationPlayedInSession = () => {
 	}
 };
 
-const HomePageComponent = () => {
+export const HomePageComponent = () => {
+	const reducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
 	const signatureRef = useRef(null);
 	const headRef = useRef(null);
 
 	const fullText =
 		"I bring design, storytelling, and systems thinking to products that make complex information easier to use. My work connects front-end architecture, reusable design systems, and accessible interfaces, with care for the people building and using them.";
 
-	const hasAnimationPlayed = getAnimationPlayedInSession();
+	const hasAnimationPlayed = reducedMotion || getAnimationPlayedInSession();
 
 	const [typedText, setTypedText] = useState(
 		hasAnimationPlayed ? fullText : "",
@@ -78,10 +82,13 @@ const HomePageComponent = () => {
 				console.error("Failed to reset headshot on error:", resetErr);
 			}
 		}
+		return () => gsap.killTweensOf([headRef.current, signatureRef.current]);
 	}, [hasAnimationPlayed]);
 
 	useEffect(() => {
 		if (hasAnimationPlayed) {
+			setTypedText(fullText);
+			setIsTypingComplete(true);
 			return;
 		}
 
@@ -150,6 +157,7 @@ const HomePageComponent = () => {
 				console.error("Failed to reset signature on error:", resetErr);
 			}
 		}
+		return () => gsap.killTweensOf([headRef.current, signatureRef.current]);
 	}, [hasAnimationPlayed]);
 
 	return (
@@ -179,9 +187,14 @@ const HomePageComponent = () => {
 							{fullText}
 						</p>
 						<p className="intro-paragraph intro-paragraph--visible">
-							{typedText}
-							{!isTypingComplete && <span className="typing-cursor">|</span>}
+                            <span className="intro-copy-accessible">{fullText}</span>
+							<span aria-hidden="true">{reducedMotion ? fullText : typedText}</span>
+							{!isTypingComplete && !reducedMotion && <span className="typing-cursor" aria-hidden="true">|</span>}
 						</p>
+					</div>
+					<div className="hero-actions">
+						<Link to="/expertise" className="hero-action">View selected work</Link>
+						<a href={CONTACT_HREF} className="hero-action hero-action--secondary">Let’s talk</a>
 					</div>
 				</div>
 

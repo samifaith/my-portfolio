@@ -985,3 +985,5 @@
 @media (max-width: 1024px) {
 	.proto-public-link--mobile { display: flex; margin-top: 1rem; }
 }
+
+.project-url-notice { position: fixed; bottom: 1rem; left: 1rem; right: 1rem; z-index: 100; max-width: 38rem; margin: auto; padding: 1rem; border: 1px solid #a8b56a; border-radius: .5rem; background: #171b17; color: #fff; font: 500 1rem / 1.5 sans-serif; }

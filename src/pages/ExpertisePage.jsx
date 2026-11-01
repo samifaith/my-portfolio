@@ -13,6 +13,7 @@ import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { ChevronUp } from "lucide-react";
 import { getModernImageSources } from "../utils/imageFormats";
 import ProjectCaseStudyModal from "../components/ProjectCaseStudyModal";
+import useProjectUrl from "../hooks/useProjectUrl";
 import PublicProjectLink from "../components/PublicProjectLink";
 import FeaturedProjects from "../components/FeaturedProjects";
 import "../styles/ExpertisePrototype.css";
@@ -41,8 +42,6 @@ const SECTION_PRIORITY = {
 
 const ExpertisePage = () => {
 	const [activeIndex, setActiveIndex] = useState(0);
-	const [selectedProject, setSelectedProject] = useState(null);
-	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [isReturnToTopVisible, setIsReturnToTopVisible] = useState(false);
 	const [isAboveProtoPage, setIsAboveProtoPage] = useState(true);
 	const [topOffset, setTopOffset] = useState("0px");
@@ -365,6 +364,8 @@ const ExpertisePage = () => {
 			}),
 		[baseSections],
 	);
+ const { selectedProject, isModalOpen, openProject: handleOpenProjectModal, closeProject: handleCloseProjectModal, afterClose: handleAfterProjectModalClose, view: projectView, setView: setProjectView, unavailable: projectUnavailable, shareHref } = useProjectUrl(sections);
+
 
 	useEffect(() => {
 		try {
@@ -942,18 +943,7 @@ const ExpertisePage = () => {
 		window.scrollTo({ top: 0, behavior: "smooth" });
 	};
 
-	const handleOpenProjectModal = (item) => {
-		setSelectedProject(item);
-		setIsModalOpen(true);
-	};
 
-	const handleCloseProjectModal = () => {
-		setIsModalOpen(false);
-	};
-
-	const handleAfterProjectModalClose = useCallback(() => {
-		setSelectedProject(null);
-	}, []);
 
 	const selectedIndex = useMemo(
 		() => sections.findIndex((s) => s.id === selectedProject?.id),
@@ -964,10 +954,10 @@ const ExpertisePage = () => {
 		(direction) => {
 			const nextIndex = selectedIndex + direction;
 			if (nextIndex >= 0 && nextIndex < sections.length) {
-				setSelectedProject(sections[nextIndex]);
+				handleOpenProjectModal(sections[nextIndex]);
 			}
 		},
-		[sections, selectedIndex],
+		[sections, selectedIndex, handleOpenProjectModal],
 	);
 
 	const handleProjectPrimaryAction = (item) => {
@@ -1229,9 +1219,13 @@ const ExpertisePage = () => {
 					</button>
 				)}
 			</div>
+			{projectUnavailable && <p className="project-url-notice" role="status">That project is not available. Explore the selected work below.</p>}
 			{selectedProject && (
 				<ProjectCaseStudyModal
 					project={selectedProject}
+                    view={projectView}
+                    onViewChange={setProjectView}
+                    shareHref={shareHref}
 					isOpen={isModalOpen}
 					onClose={handleCloseProjectModal}
 					onAfterClose={handleAfterProjectModalClose}
