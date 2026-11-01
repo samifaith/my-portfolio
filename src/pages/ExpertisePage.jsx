@@ -14,6 +14,7 @@ import { ChevronUp } from "lucide-react";
 import { getModernImageSources } from "../utils/imageFormats";
 import ProjectCaseStudyModal from "../components/ProjectCaseStudyModal";
 import useProjectUrl from "../hooks/useProjectUrl";
+import ProjectLink from "../components/ProjectLink";
 import ProjectSummaryContent from "../components/ProjectSummaryContent";
 import PublicProjectLink from "../components/PublicProjectLink";
 import FeaturedProjects from "../components/FeaturedProjects";
@@ -1155,12 +1156,10 @@ const ExpertisePage = () => {
 								>
 									{item.visual?.type === "text-only" ? null : item.visual?.type === "public-link" ? (
 										<PublicProjectLink project={item} className="proto-public-link--panel" tabIndex={index === activeIndex ? 0 : -1} />
-									) : <button
-										type="button"
+									) : <ProjectLink
+										project={item}
 										className="proto-layer-link"
-										onClick={() => {
-											handleProjectPrimaryAction(item);
-										}}
+										onOpen={handleProjectPrimaryAction}
 										aria-label={`Learn more about ${item.title}`}
 										tabIndex={index === activeIndex ? 0 : -1}
 										disabled={index !== activeIndex}
@@ -1169,7 +1168,7 @@ const ExpertisePage = () => {
 											pictureClassName: "proto-layer-picture",
 											imgClassName: "proto-layer",
 										})}
-									</button>}
+									</ProjectLink>}
 								</div>
 							))}
 						</div>

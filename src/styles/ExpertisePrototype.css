@@ -1001,3 +1001,7 @@
  .proto-mobile-media { margin-top: 0; }
  .proto-section--text-only { display: block; }
 }
+
+/* Crawlable anchors retain the established project-action appearance. */
+a.proto-cta { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; min-height: 44px; }
+a.proto-layer-link { display: block; text-decoration: none; }

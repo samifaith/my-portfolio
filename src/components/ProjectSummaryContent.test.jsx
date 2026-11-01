@@ -19,7 +19,7 @@ describe("project summary media order",()=>{
   expect(container.querySelector(".proto-mobile-media")).toBeNull();
   expect(screen.queryByRole("img")).not.toBeInTheDocument();
   expect(screen.getAllByText("CodeSwxtch")).toHaveLength(1);
-  fireEvent.click(screen.getByRole("button",{name:"Learn More"})); expect(onOpen).toHaveBeenCalledWith(project);
+  fireEvent.click(screen.getByRole("link",{name:"Learn More"})); expect(onOpen).toHaveBeenCalledWith(project);
   expect(pageSource).toContain('item.visual?.type === "text-only" ? null');
   expect(pageSource).toContain('visual: { type: "text-only" }');
  });

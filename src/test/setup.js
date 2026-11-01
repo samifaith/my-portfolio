@@ -1,5 +1,6 @@
 import "@testing-library/jest-dom/vitest";
 
+if (typeof window !== "undefined") {
 if (!window.matchMedia) {
 	window.matchMedia = (query) => ({
 		matches: false,
@@ -20,4 +21,6 @@ Object.defineProperty(window, "scrollTo", {
 
 if (window.SVGElement && !window.SVGElement.prototype.getTotalLength) {
 	window.SVGElement.prototype.getTotalLength = () => 0;
+}
+
 }

@@ -2,6 +2,23 @@
   command = "npm run build"
   publish = "dist"
 
+# Preserve existing aliases while giving crawlers their established destinations.
+[[redirects]]
+  from = "/expertise-prototype"
+  to = "/expertise"
+  status = 301
+
+[[redirects]]
+  from = "/writing"
+  to = "/expertise-archived"
+  status = 301
+
+[[redirects]]
+  from = "/writing/:storyId"
+  to = "/expertise-archived/:storyId"
+  status = 301
+
+# Generated route HTML is served before this non-forced SPA fallback.
 [[redirects]]
   from = "/*"
   to = "/index.html"

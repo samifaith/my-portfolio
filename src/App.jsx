@@ -7,6 +7,7 @@ import {
 	useParams,
 } from "react-router-dom";
 import "./App.css";
+import RouteMetadata from "./seo/RouteMetadata";
 import Menu from "./components/Menu";
 
 const AnimatedHomePage = lazy(() => import("./pages/AnimatedHomePage"));
@@ -25,6 +26,7 @@ const LegacyWritingStoryRedirect = () => {
 const App = () => {
 	return (
 		<Router>
+			<RouteMetadata />
 			<div className="App">
 				<a className="skip-link" href="#main-content">Skip to main content</a>
 				<Menu />
