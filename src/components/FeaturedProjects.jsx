@@ -401,10 +401,11 @@ const FeaturedProjects = () => {
 					</div>
 				</div>
 
+				<div className="featured-practice-summary">
 				<div className="featured-focus-grid">
 					{focusAreas.map(({ name, description, Icon }) => (
 						<article className="featured-focus-card" key={name}>
-							<div className="featured-focus-card-top"><Icon /><span>{name}</span></div>
+							<div className="featured-focus-card-top"><Icon /><h2>{name}</h2></div>
 							<p>{description}</p>
 						</article>
 					))}
@@ -412,6 +413,7 @@ const FeaturedProjects = () => {
 				<p className="featured-lede">
 					I work through ideas in prototypes and code, refining the details as the experience takes shape. I leave teams with components, documentation, and decisions they can build on.
 				</p>
+				</div>
 			</section>
 
 			<div className="featured-ribbon" aria-hidden="true">
