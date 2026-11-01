@@ -391,6 +391,7 @@
 }
 
 .proto-left {
+	min-width: 0;
 	display: grid;
 	grid-column: 1;
 	justify-items: stretch;
@@ -476,6 +477,7 @@
 }
 
 .proto-copy {
+	min-width: 0;
 	width: 100%;
 	padding: 2rem 0;
 }
@@ -493,6 +495,7 @@
 }
 
 .proto-copy h2 {
+	overflow-wrap: anywhere;
 	margin: 0;
 	font:
 		700 clamp(2rem, 4.8vw, 4.25rem) / 0.95 "Avenir Next",
@@ -846,7 +849,7 @@
 	}
 
 	.proto-shell {
-		grid-template-columns: 1fr;
+		grid-template-columns: minmax(0, 1fr);
 		gap: 1rem;
 	}
 
@@ -939,5 +942,15 @@
 	}
 	100% {
 		transform: scaleY(1.08);
+	}
+}
+
+@media (max-width: 640px) {
+	.proto-shell { padding-inline: 1rem; }
+	.proto-section,
+	.proto-mobile-media { min-width: 0; }
+	.proto-tool-tag {
+		max-width: 100%;
+		overflow-wrap: anywhere;
 	}
 }
