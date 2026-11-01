@@ -743,6 +743,7 @@ p {
 .hero-action--secondary { background: transparent; color: #fff6f2; }
 .scroll-indicator { border: 0; background: none; font: inherit; }
 @media (prefers-reduced-motion: reduce) {
+ html { scroll-behavior: auto; }
  .hero-wrap *, .menu-overlay *, .menu-button, .desktop-nav * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
 
