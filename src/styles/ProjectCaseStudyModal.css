@@ -609,3 +609,12 @@ button.discovereats-case-study-link {
 .case-study-field ul { margin: 0; padding-left: 1.25rem; }
 .case-study-field li + li { margin-top: .65rem; }
 .discovereats-case-study-section h3 { color: #f6e6de; font: 700 1.125rem / 1.4 "Avenir Next", sans-serif; margin: .5rem 0 0; }
+
+.case-study-evidence { margin: 0; min-width: 0; }
+.case-study-evidence-images { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1rem; }
+.case-study-evidence-images a { display: block; min-width: 0; }
+.case-study-evidence img { display: block; width: 100%; height: auto; object-fit: contain; border: 1px solid rgba(255,255,255,.25); border-radius: .4rem; }
+.case-study-evidence figcaption, .case-study-narrative-meta { color: #f6e6de; font: 400 .9rem / 1.65 "Avenir Next", sans-serif; }
+.case-study-evidence figcaption { margin-top: .85rem; }
+.case-study-evidence a { color: #c5ec56; text-underline-offset: .2em; }
+.case-study-evidence a:focus-visible { outline: 3px solid #c5ec56; outline-offset: 4px; }

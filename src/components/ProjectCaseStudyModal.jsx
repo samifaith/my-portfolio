@@ -4,6 +4,7 @@ import { CardMedia, Card, CardContent, Typography } from "@mui/material";
 import stories from "../constants/WritingPieces";
 import caseStudies from "../constants/CaseStudies";
 import WanderlustCaseStudyContent from "./WanderlustCaseStudyContent";
+import CaseStudyNarrative from "./CaseStudyNarrative";
 import DiscoverEatsCaseStudyContent from "./DiscoverEatsCaseStudyContent";
 import PocketPlayCaseStudyContent from "./PocketPlayCaseStudyContent";
 import CodeSwxtchCaseStudyContent from "./CodeSwxtchCaseStudyContent";
@@ -605,7 +606,7 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose, onNext,
 
 						{isCaseStudy && caseStudy && (
 							<>
-								{effectiveStudy && (
+								{effectiveStudy && !["discovereats", "codeswxtch"].includes(project.id) && (
 									<div className="case-study-details">
 										<StudyFields
 											study={effectiveStudy}
@@ -628,7 +629,7 @@ const ProjectCaseStudyModal = ({ project, isOpen, onClose, onAfterClose, onNext,
 
 						{isProjectModal && (
 							<div className="case-study-details">
-								{effectiveStudy ? (
+								{isProfessionalContribution ? <CaseStudyNarrative projectId={project.id} /> : effectiveStudy ? (
 									<StudyFields
 										study={effectiveStudy}
 										tools={project.tools}

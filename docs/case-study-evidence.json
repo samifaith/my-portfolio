@@ -1,0 +1,35 @@
+[
+  {
+    "file": "discovereats-dark-mode.jpg",
+    "sha256": "fbb5b82ecb37a94fddb07175b8657dfacdcac5f27c19b3fe3b8b91c9f8a4f90a",
+    "dimensions": [
+      1180,
+      757
+    ],
+    "captured": "2026-11-01",
+    "source": "https://discovereats.samoncanvas.com",
+    "note": "Unmodified original public-interface screenshot. ADHD states are illustrative aggregate estimates, not outcomes or individual assessments."
+  },
+  {
+    "file": "adhd-default-state.jpg",
+    "sha256": "42f4ed42f2d48cf19d8e02a244901bd1b43c8560ed241d5751a731fbc1cc629c",
+    "dimensions": [
+      1165,
+      1072
+    ],
+    "captured": "2026-11-01",
+    "source": "https://attentiononadhd.com/cost-calculator/",
+    "note": "Unmodified original public-interface screenshot. ADHD states are illustrative aggregate estimates, not outcomes or individual assessments."
+  },
+  {
+    "file": "adhd-illustrative-50-percent.jpg",
+    "sha256": "7da823355fdc46f6bb027fc95fb9e8922edbc9735114a70fa99c88186b14b3a7",
+    "dimensions": [
+      1165,
+      1072
+    ],
+    "captured": "2026-11-01",
+    "source": "https://attentiononadhd.com/cost-calculator/",
+    "note": "Unmodified original public-interface screenshot. ADHD states are illustrative aggregate estimates, not outcomes or individual assessments."
+  }
+]

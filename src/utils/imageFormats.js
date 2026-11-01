@@ -6,7 +6,8 @@ export const getModernImageSources = (imagePath) => {
 		return null;
 	}
 
-	if (!MODERN_IMAGE_EXTENSION_PATTERN.test(imagePath)) {
+	// Evidence captures retain their original bytes; no alternate formats exist.
+	if (imagePath.startsWith("/case-studies/") || !MODERN_IMAGE_EXTENSION_PATTERN.test(imagePath)) {
 		return {
 			avif: null,
 			webp: null,
