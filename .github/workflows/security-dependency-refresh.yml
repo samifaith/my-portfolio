@@ -26,6 +26,9 @@ jobs:
       - name: Refresh Vitest and lockfile
         run: npm install --save-dev vitest@4.1.12
 
+      - name: Apply compatible audit fixes
+        run: npm audit fix
+
       - name: Verify Tinypool is gone
         run: |
           node - <<'NODE'
@@ -43,8 +46,8 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Audit critical vulnerabilities
-        run: npm audit --audit-level=critical
+      - name: Audit dependencies
+        run: npm audit
 
       - name: Commit regenerated dependency files
         run: |
