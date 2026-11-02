@@ -1,0 +1,57 @@
+name: Security dependency refresh
+
+on:
+  push:
+    branches:
+      - fix/vitest-tinypool-security
+
+permissions:
+  contents: write
+
+jobs:
+  refresh-and-verify:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v4
+
+      - name: Use Node 20.19
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.19.5'
+          cache: npm
+
+      - name: Refresh Vitest and lockfile
+        run: npm install --save-dev vitest@4.1.12
+
+      - name: Verify Tinypool is gone
+        run: |
+          node - <<'NODE'
+          const lock = require('./package-lock.json')
+          if (lock.packages && lock.packages['node_modules/tinypool']) {
+            console.error('tinypool is still present in package-lock.json')
+            process.exit(1)
+          }
+          console.log('tinypool is absent from package-lock.json')
+          NODE
+
+      - name: Run tests
+        run: npm test
+
+      - name: Build
+        run: npm run build
+
+      - name: Audit critical vulnerabilities
+        run: npm audit --audit-level=critical
+
+      - name: Commit regenerated dependency files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add package.json package-lock.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Refresh lockfile after Vitest security upgrade [skip ci]"
+            git push
+          fi
